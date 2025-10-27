@@ -138,6 +138,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "React", icon: Code },
       { name: "Next.js", icon: Code },
       { name: "TypeScript", icon: Code },
+      { name: "ShadCN UI", icon: Code },
       { name: "Tailwind CSS", icon: Wind },
     ],
   },
@@ -146,27 +147,30 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Node.js", icon: Server },
       { name: "Python", icon: Code },
-      { name: "Go", icon: Code },
-      { name: "PostgreSQL", icon: Database },
+      { name: "Drizzle", icon: Database },
+      { name: "Neon PostgreSQL", icon: Database },
       { name: "Firebase", icon: Code },
+      { name: "Clerk", icon: Code },
     ],
   },
   {
-    title: "AI/ML",
+    title: "AI Platforms & Models",
     skills: [
+      { name: "GCP Vertex AI", icon: BrainCircuit },
+      { name: "AWS Bedrock", icon: BrainCircuit },
+      { name: "Azure Foundry AI", icon: BrainCircuit },
+      { name: "Gemini, GPT, Claude", icon: Bot },
+      { name: "Llama, Qwen, etc.", icon: Bot },
+    ],
+  },
+  {
+    title: "AI Dev Tools",
+    skills: [
+      { name: "Firebase Studio AI", icon: Code },
+      { name: "Cursor AI", icon: Code },
+      { name: "Replit", icon: Code },
+      { name: "Hugging Face", icon: BrainCircuit },
       { name: "Genkit", icon: Bot },
-      { name: "TensorFlow", icon: BrainCircuit },
-      { name: "PyTorch", icon: BrainCircuit },
-      { name: "LangChain", icon: Code },
-    ],
-  },
-  {
-    title: "DevOps",
-    skills: [
-      { name: "Docker", icon: ServerCog },
-      { name: "Kubernetes", icon: ServerCog },
-      { name: "GitHub Actions", icon: GitBranch },
-      { name: "AWS", icon: ServerCog },
     ],
   },
 ];
