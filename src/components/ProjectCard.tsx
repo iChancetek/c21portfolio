@@ -1,10 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { ExternalLink, GitBranch, Bot } from 'lucide-react';
+import { ExternalLink, Bot } from 'lucide-react';
 import type { Venture } from '@/lib/types';
 import CaseStudyModal from './CaseStudyModal';
 
@@ -33,11 +32,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 Deep-Dive
             </Button>
             <div className="flex w-full sm:w-auto gap-2">
-                <Button variant="outline" asChild className="flex-1" disabled>
-                    <a href={"#"} target="_blank" rel="noopener noreferrer">
-                        <GitBranch className="mr-2 h-4 w-4" /> GitHub
-                    </a>
-                </Button>
                 <Button variant="outline" asChild className="flex-1">
                     <a href={project.href} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="mr-2 h-4 w-4" /> Demo
