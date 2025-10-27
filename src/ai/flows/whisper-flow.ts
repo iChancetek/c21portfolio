@@ -10,12 +10,12 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
-export const TranscribeAudioInputSchema = z.object({
+const TranscribeAudioInputSchema = z.object({
   audioDataUri: z.string().describe("A base64-encoded audio file as a data URI. Expected format: 'data:<mimetype>;base64,<encoded_data>'."),
 });
 export type TranscribeAudioInput = z.infer<typeof TranscribeAudioInputSchema>;
 
-export const TranscribeAudioOutputSchema = z.object({
+const TranscribeAudioOutputSchema = z.object({
   text: z.string().describe("The transcribed text from the audio."),
 });
 export type TranscribeAudioOutput = z.infer<typeof TranscribeAudioOutputSchema>;

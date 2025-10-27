@@ -10,10 +10,10 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
-export const SuggestionFlowInputSchema = z.string();
+const SuggestionFlowInputSchema = z.string();
 export type SuggestionFlowInput = z.infer<typeof SuggestionFlowInputSchema>;
 
-export const SuggestionFlowOutputSchema = z.string();
+const SuggestionFlowOutputSchema = z.string();
 export type SuggestionFlowOutput = z.infer<typeof SuggestionFlowOutputSchema>;
 
 export async function getMenuSuggestion(prompt: SuggestionFlowInput): Promise<SuggestionFlowOutput> {
