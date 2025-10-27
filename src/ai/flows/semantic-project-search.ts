@@ -15,7 +15,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'zod';
+import {z} from 'genkit';
 
 const SemanticProjectSearchInputSchema = z.object({
   query: z.string().describe('The natural language search query.'),

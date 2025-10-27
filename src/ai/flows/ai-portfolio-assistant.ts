@@ -9,7 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'zod';
+import {z} from 'genkit';
 
 const AIPortfolioAssistantInputSchema = z.object({
   query: z.string().describe('The user query about Chancellor.'),
