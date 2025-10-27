@@ -5,7 +5,7 @@ import { Code, Menu, User, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
 import { navLinks } from '@/lib/data';
 import { useState } from 'react';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 
@@ -104,6 +104,9 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+              </SheetHeader>
               <div className="p-4">
                 <Link href="/" className="mb-8 flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
                   <Code className="h-6 w-6 text-primary" />
