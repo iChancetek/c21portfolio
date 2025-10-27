@@ -43,6 +43,9 @@ const prompt = ai.definePrompt({
 
   Query: {{{query}}}
   `,
+  config: {
+    model: 'gpt-4o',
+  },
 });
 
 const semanticProjectSearchFlow = ai.defineFlow(

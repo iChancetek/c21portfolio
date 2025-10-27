@@ -75,6 +75,9 @@ const prompt = ai.definePrompt({
 
   Do not assume any information. Use the tool to get the project details. Write in a clear, concise, and engaging style.
   `,
+  config: {
+    model: 'gpt-4o',
+  },
 });
 
 const generateDeepDiveFlow = ai.defineFlow(

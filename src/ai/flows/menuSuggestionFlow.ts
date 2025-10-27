@@ -8,7 +8,6 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { openAI } from 'genkitx-openai';
 import { z } from 'zod';
 
 export const SuggestionFlowInputSchema = z.string();
@@ -25,7 +24,7 @@ const suggestionFlow = ai.defineFlow(
   },
   async (prompt) => {
     const response = await ai.generate({
-      model: openAI.model('gpt-4o'),
+      model: 'gpt-4o',
       prompt: prompt,
     });
     return response.text;

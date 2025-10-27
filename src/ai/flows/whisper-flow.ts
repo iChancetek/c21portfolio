@@ -8,7 +8,6 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { openAI } from 'genkitx-openai';
 import { z } from 'zod';
 
 export const TranscribeAudioInputSchema = z.object({
@@ -29,7 +28,7 @@ const transcribeAudioFlow = ai.defineFlow(
   },
   async (input) => {
     const { text } = await ai.transcribe({
-      model: openAI.model('whisper-1'),
+      model: 'whisper-1',
       media: {
         url: input.audioDataUri,
       },
