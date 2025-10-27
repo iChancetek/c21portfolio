@@ -86,7 +86,7 @@ export default function LoginPage() {
     <div className="container flex items-center justify-center py-24">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Admin Login</CardTitle>
+          <CardTitle>Login</CardTitle>
           <CardDescription>Enter your credentials to access the dashboard.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
