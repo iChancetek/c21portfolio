@@ -110,6 +110,7 @@ export const skillCategories: SkillCategory[] = [
 export const navLinks = [
     { name: "Projects", href: "#projects" },
     { name: "Skills", href: "#skills" },
+    { name: "Ventures", href: "#ventures" },
     { name: "Contact", href: "#contact" },
 ];
 
@@ -118,3 +119,17 @@ export const socialLinks = [
     { name: "LinkedIn", href: "#", icon: Linkedin },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
+
+export const ventures = [
+    { name: 'iSynerahealth.com', href: 'https://isynerahealth.com' },
+    { name: 'iSyneramarketing.com', href: 'https://isyneramarketing.com' },
+    { name: 'MediScribe.us', href: 'https://mediscribe.us' },
+    { name: 'MemoiQ.us', href: 'https://memoiq.us' },
+    { name: 'ModeliQ.us', href: 'https://modeliq.us' },
+    { name: 'WoundiQ.us', href: 'https://woundiq.us' },
+    { name: 'iSydney.us', href: 'https://isydney.us' },
+    { name: 'iHailey.us', href: 'https://ihailey.us' },
+    { name: 'iSkylar.us', href: 'https://iskylar.us' },
+    { name: 'Nestobanks.com', href: 'https://nestobanks.com' },
+    { name: 'ThePotluxe.com', href: 'https://thepotluxe.com' },
+];
