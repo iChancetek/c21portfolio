@@ -1,1 +1,6 @@
-// Flows will be imported for their side effects in this file.
+import { config } from 'dotenv';
+config();
+
+import '@/ai/flows/semantic-project-search.ts';
+import '@/ai/flows/ai-portfolio-assistant.ts';
+import '@/ai/flows/dynamic-case-study-generator.ts';

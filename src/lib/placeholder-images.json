@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "proj-1",
+      "description": "Abstract geometric pattern",
+      "imageUrl": "https://images.unsplash.com/photo-1562575214-da9fcf59b907?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhYnN0cmFjdCUyMHRlY2h8ZW58MHx8fHwxNzYxNDk0NjQ0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract tech"
+    },
+    {
+      "id": "proj-2",
+      "description": "Futuristic city skyline at night",
+      "imageUrl": "https://images.unsplash.com/photo-1573767291321-c0af2eaf5266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3NjE1Njg4NzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "futuristic city"
+    },
+    {
+      "id": "proj-3",
+      "description": "Close-up of a server rack with glowing lights",
+      "imageUrl": "https://images.unsplash.com/photo-1591808216268-ce0b82787efe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzZXJ2ZXIlMjByYWNrfGVufDB8fHx8MTc2MTU4Mzk3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "server rack"
+    },
+    {
+      "id": "proj-4",
+      "description": "AI brain circuit diagram",
+      "imageUrl": "https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhaSUyMGJyYWlufGVufDB8fHx8MTc2MTU0ODE2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ai brain"
+    },
+    {
+      "id": "proj-5",
+      "description": "User interface design sketch",
+      "imageUrl": "https://images.unsplash.com/photo-1761122827167-159d1d272313?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx1aSUyMHNrZXRjaHxlbnwwfHx8fDE3NjE1ODM5NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ui sketch"
+    },
+    {
+      "id": "proj-6",
+      "description": "Code on a dark screen",
+      "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkYXJrJTIwY29kZXxlbnwwfHx8fDE3NjE1NTc5NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dark code"
+    }
+  ]
 }
