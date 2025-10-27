@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { semanticProjectSearch } from '@/ai/flows/semantic-project-search';
 import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
-import { projects } from '@/lib/data';
+import type { Project } from '@/lib/types';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -45,7 +45,9 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   }
 }
 
-export async function handleSemanticSearch(query: string) {
+// This function is now problematic as it relies on a static list of projects.
+// It will need to be updated to work with Firestore data for ventures.
+export async function handleSemanticSearch(query: string, projects: Project[]) {
     if (!query) {
         return projects;
     }
@@ -61,8 +63,7 @@ export async function handleSemanticSearch(query: string) {
         const lowerCaseQuery = query.toLowerCase();
         return projects.filter(p => 
             p.title.toLowerCase().includes(lowerCaseQuery) ||
-            p.oneLiner.toLowerCase().includes(lowerCaseQuery) ||
-            p.techStack.some(t => t.toLowerCase().includes(lowerCaseQuery))
+            p.oneLiner.toLowerCase().includes(lowerCaseQuery)
         );
     }
 }
