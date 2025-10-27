@@ -18,7 +18,7 @@ export const projects: Project[] = [
     image: getPlaceholderImage('proj-1'),
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Firebase", "Genkit"],
     githubUrl: "https://github.com",
-    liveUrl: "https://example.com",
+    liveUrl: "https://isynerahealth.com",
   },
   {
     id: "project-2",
