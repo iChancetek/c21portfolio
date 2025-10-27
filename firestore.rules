@@ -1,71 +1,119 @@
 /**
- * @fileoverview Firestore Security Rules for Chancellor Minus - AI Portfolio
+ * @fileOverview Firestore Security Rules for Chancellor Minus - AI Portfolio.
  *
  * Core Philosophy:
- * This ruleset enforces a strict user-ownership model. Users can only access their own profile data and the projects they own.
+ * This ruleset enforces a strict user-ownership model for user profiles and projects,
+ * while allowing public read access to venture data. Authorization independence
+ * is achieved through data denormalization, avoiding costly `get()` calls.
  *
  * Data Structure:
- * - User profiles are stored in `/users/{userId}`.
- * - Projects are stored in `/users/{userId}/projects/{projectId}`. Each project contains a `userId` field to indicate ownership.
+ * - User profiles: /users/{userId} (owner-only access)
+ * - Projects: /users/{userId}/projects/{projectId} (owner-only access)
+ * - Ventures: /ventures/{ventureId} (public read, admin-only write - TODO)
  *
  * Key Security Decisions:
- * - Users can only read and write their own profile data.
- * - Users can only create, read, update, and delete projects they own.
- * - Listing projects is restricted to the owner.
+ * - User listing is disabled.
+ * - Projects are owned by the user whose ID is in the path.
+ * - Venture data is publicly readable. Write access to venture data is not yet implemented, but will require role-based authentication.
  *
  * Denormalization for Authorization:
- * - The `Project` entity denormalizes the `userId` to enable direct ownership checks without additional `get()` calls. This avoids complex queries and ensures efficient rule execution.
+ * - Each project document contains a `userId` field, which is used to enforce
+ *   ownership without requiring additional reads.
+ *
+ * Structural Segregation:
+ * - Private user data (profiles, projects) and public venture data are stored
+ *   in separate collections to simplify access control.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Controls access to user profile documents.
-     * @path /users/{userId}
-     * @allow (get, update, delete) User with matching UID can access their own profile.
-     * @allow (create) User with matching UID can create their profile.
-     * @deny (get, update, delete) User cannot access other user's profiles.
-     * @principle Enforces document ownership for writes and reads.
+     * @description Checks if the request is authenticated.
+     * @returns {boolean} True if the request is authenticated, false otherwise.
      */
-    match /users/{userId} {
-      function isOwner(userId) {
-        return request.auth != null && request.auth.uid == userId;
-      }
-
-      function isSignedIn() {
-        return request.auth != null;
-      }
-
-      allow get: if isOwner(userId);
-      allow list: if false;
-      allow create: if isSignedIn() && request.auth.uid == userId;
-      allow update: if isOwner(userId);
-      allow delete: if isOwner(userId);
+    function isSignedIn() {
+      return request.auth != null;
     }
 
     /**
-     * @description Controls access to project documents.
+     * @description Checks if the authenticated user is the owner of the resource.
+     * @param {string} userId The user ID to compare against the authenticated user's ID.
+     * @returns {boolean} True if the user IDs match, false otherwise.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+        /**
+     * @description Checks if the authenticated user is the existing owner of the resource.
+     *              This combines the ownership check with an existence check to prevent
+     *              operations on non-existent documents.
+     * @param {string} userId The user ID to compare against the authenticated user's ID.
+     * @returns {boolean} True if the user IDs match and the document exists, false otherwise.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * @description Rules for user profile documents.
+     * @path /users/{userId}
+     * @allow (create) User 'testuser' with id 'testuser' can create their profile.
+     * @allow (get) User 'testuser' with id 'testuser' can read their profile.
+     * @allow (update) User 'testuser' with id 'testuser' can update their profile.
+     * @allow (delete) User 'testuser' with id 'testuser' can delete their profile.
+     * @deny (create) User 'otheruser' with id 'testuser' cannot create the profile.
+     * @deny (get) User 'otheruser' with id 'testuser' cannot read the profile.
+     * @deny (update) User 'otheruser' with id 'testuser' cannot update the profile.
+     * @deny (delete) User 'otheruser' with id 'testuser' cannot delete the profile.
+     * @principle Enforces document ownership for all operations on user profiles.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false; // User listing is not allowed.
+      allow create: if isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Rules for project documents nested under user profiles.
      * @path /users/{userId}/projects/{projectId}
-     * @allow (create) User with matching UID can create projects under their profile.
-     * @allow (get, list, update, delete) User with matching UID can access and modify their own projects.
-     * @deny (create, get, list, update, delete) User cannot access other user's projects.
-     * @principle Enforces document ownership for writes and reads.
+     * @allow (create) User 'testuser' with id 'testuser' can create a project under their profile.
+     * @allow (get) User 'testuser' with id 'testuser' can read a project under their profile.
+     * @allow (update) User 'testuser' with id 'testuser' can update a project under their profile.
+     * @allow (delete) User 'testuser' with id 'testuser' can delete a project under their profile.
+     * @deny (create) User 'otheruser' with id 'testuser' cannot create a project under their profile.
+     * @deny (get) User 'otheruser' with id 'testuser' cannot read a project under their profile.
+     * @deny (update) User 'otheruser' with id 'testuser' cannot update a project under their profile.
+     * @deny (delete) User 'otheruser' with id 'testuser' cannot delete a project under their profile.
+     * @principle Enforces document ownership for all operations on project documents.
      */
     match /users/{userId}/projects/{projectId} {
-        function isOwner(userId) {
-            return request.auth != null && request.auth.uid == userId;
-        }
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(userId);
+    }
 
-        function isSignedIn() {
-            return request.auth != null;
-        }
-
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
-        allow create: if isSignedIn() && request.auth.uid == userId;
-        allow update: if isOwner(userId);
-        allow delete: if isOwner(userId);
+    /**
+     * @description Rules for venture documents.
+     * @path /ventures/{ventureId}
+     * @allow (get) Any user can read venture data.
+     * @allow (list) Any user can list venture data.
+     * @deny (create) No user can create venture data without specific authorization (TODO).
+     * @deny (update) No user can update venture data without specific authorization (TODO).
+     * @deny (delete) No user can delete venture data without specific authorization (TODO).
+     * @principle Allows public read access to venture data, but restricts write access.
+     */
+    match /ventures/{ventureId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false; // TODO: Add role-based validation for venture creation.
+      allow update: if false; // TODO: Add role-based validation for venture updates.
+      allow delete: if false; // TODO: Add role-based validation for venture deletion.
     }
   }
 }
