@@ -52,7 +52,7 @@ export default function Header() {
     }
     return (
       <Button asChild className="bg-primary-gradient">
-        <Link href="/login">Admin Login</Link>
+        <Link href="/login">Login</Link>
       </Button>
     );
   };
@@ -75,7 +75,7 @@ export default function Header() {
     }
     return (
        <Button asChild className="w-full mt-8 bg-primary-gradient">
-          <Link href="/login">Admin Login</Link>
+          <Link href="/login">Login</Link>
       </Button>
     )
   }
