@@ -89,23 +89,23 @@ export default function LoginPage() {
           <CardTitle>Admin Login</CardTitle>
           <CardDescription>Enter your credentials to access the dashboard.</CardDescription>
         </CardHeader>
-        <form onSubmit={handleLogin}>
-          <CardContent className="space-y-4">
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button variant="outline" type="button" className="w-full" onClick={handleGoogleSignIn} disabled={isGoogleLoading || isLoading}>
-              {isGoogleLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon className="mr-2 h-4 w-4" />}
-              Sign in with Google
-            </Button>
-            
-            <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                    <Separator />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
-                </div>
-            </div>
+        <CardContent className="space-y-4">
+          {error && <p className="text-sm text-destructive">{error}</p>}
+          <Button variant="outline" type="button" className="w-full" onClick={handleGoogleSignIn} disabled={isGoogleLoading || isLoading}>
+            {isGoogleLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon className="mr-2 h-4 w-4" />}
+            Sign in with Google
+          </Button>
+          
+          <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                  <Separator />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+              </div>
+          </div>
 
+          <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -129,13 +129,14 @@ export default function LoginPage() {
                 disabled={isLoading || isGoogleLoading}
               />
             </div>
-          </CardContent>
-          <CardFooter className="flex flex-col gap-4">
             <Button type="submit" className="w-full" disabled={isLoading || isGoogleLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Login with Email
             </Button>
-             <Button type="button" variant="secondary" className="w-full" onClick={handleAnonymousLogin} disabled={isLoading || isGoogleLoading}>
+          </form>
+        </CardContent>
+        <CardFooter className="flex flex-col gap-4">
+            <Button type="button" variant="secondary" className="w-full" onClick={handleAnonymousLogin} disabled={isLoading || isGoogleLoading}>
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Continue as Guest
             </Button>
@@ -145,8 +146,7 @@ export default function LoginPage() {
                 Sign up
               </Link>
             </p>
-          </CardFooter>
-        </form>
+        </CardFooter>
       </Card>
     </div>
   );
