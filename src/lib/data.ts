@@ -122,7 +122,7 @@ export const socialLinks = [
 
 export const ventures = [
     { name: 'iSynerahealth.com', href: 'https://isynerahealth.com' },
-    { name: 'iSyneramarketing.com', href: 'https://isyneramarketing.com' },
+    { name: 'isyneramarking.us', href: 'https://isyneramarking.us' },
     { name: 'MediScribe.us', href: 'https://mediscribe.us' },
     { name: 'MemoiQ.us', href: 'https://memoiq.us' },
     { name: 'ModeliQ.us', href: 'https://modeliq.us' },
