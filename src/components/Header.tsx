@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
+import { ModeToggle } from './ModeToggle';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -93,6 +94,7 @@ export default function Header() {
           ))}
         </nav>
         <div className="flex flex-1 items-center justify-end gap-2">
+            <ModeToggle />
            <div className="hidden sm:inline-flex gap-2">
             <AuthButtons />
           </div>
