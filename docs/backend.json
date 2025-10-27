@@ -90,6 +90,27 @@
         "userId",
         "title"
       ]
+    },
+    "Venture": {
+      "title": "Venture",
+      "type": "object",
+      "description": "Represents a company or product developed.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the venture."
+        },
+        "href": {
+          "type": "string",
+          "description": "URL to the venture's website.",
+          "format": "uri"
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the venture."
+        }
+      },
+      "required": ["name", "href", "description"]
     }
   },
   "auth": {
@@ -135,8 +156,22 @@
             }
           ]
         }
+      },
+      {
+        "path": "/ventures/{ventureId}",
+        "definition": {
+          "entityName": "Venture",
+          "schema": { "$ref": "#/backend/entities/Venture" },
+          "description": "Stores information about developed ventures and companies. This data is public.",
+          "params": [
+            {
+              "name": "ventureId",
+              "description": "The unique identifier for the venture."
+            }
+          ]
+        }
       }
     ],
-    "reasoning": "This Firestore data structure is designed to support the \"Chancellor Minus - AI Portfolio\" application, focusing on secure access, scalability, and maintainability. The key principle is Authorization Independence, achieved through denormalization. This eliminates the need for `get()` calls in security rules, enabling atomic operations and simplified debugging.\n\n*   **User Data:** User profiles are stored under `/users/{userId}`.  This path-based ownership ensures only the authenticated user can access their data.\n*   **Project Data:** Projects are stored as subcollections of users (`/users/{userId}/projects/{projectId}`). The `userId` field is denormalized inside each project document, enabling secure and efficient `list` operations and enforcing ownership.\n\nThis structure segregates user data and project data into separate paths with clear ownership. This avoids mixing data with different security needs in the same collection.  Authorization is simplified by relying on path-based ownership and denormalized data, making the rules more robust and easier to understand. No custom claims are used, relying instead on `request.auth.uid` for authorization. Roles must be stored in the database."
+    "reasoning": "This Firestore data structure is designed to support the \"Chancellor Minus - AI Portfolio\" application, focusing on secure access, scalability, and maintainability. The key principle is Authorization Independence, achieved through denormalization. This eliminates the need for `get()` calls in security rules, enabling atomic operations and simplified debugging.\n\n*   **User Data:** User profiles are stored under `/users/{userId}`.  This path-based ownership ensures only the authenticated user can access their data.\n*   **Project Data:** Projects are stored as subcollections of users (`/users/{userId}/projects/{projectId}`). The `userId` field is denormalized inside each project document, enabling secure and efficient `list` operations and enforcing ownership.\n*   **Venture Data:** Ventures are stored in a top-level collection `/ventures`. This data is intended to be publicly readable, but write access can be restricted to administrators.\n\nThis structure segregates user data and project data into separate paths with clear ownership. This avoids mixing data with different security needs in the same collection.  Authorization is simplified by relying on path-based ownership and denormalized data, making the rules more robust and easier to understand. No custom claims are used, relying instead on `request.auth.uid` for authorization. Roles must be stored in the database."
   }
 }

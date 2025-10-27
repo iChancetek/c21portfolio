@@ -25,6 +25,7 @@ export interface SkillCategory {
 }
 
 export interface Venture {
+    id: string;
     name: string;
     href: string;
     description: string;
