@@ -27,7 +27,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </CardContent>
         <CardFooter className="flex-col sm:flex-row gap-2">
-            <Button className="w-full bg-primary-gradient" onClick={() => setIsModalOpen(true)} disabled>
+            <Button className="w-full bg-primary-gradient" onClick={() => setIsModalOpen(true)}>
                 <Bot className="mr-2 h-4 w-4" />
                 Deep-Dive
             </Button>
