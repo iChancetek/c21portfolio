@@ -9,6 +9,8 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { ventures } from '@/lib/data';
+import type { Venture } from '@/lib/types';
 
 const GenerateDeepDiveInputSchema = z.object({
   projectId: z.string().describe('The ID of the project to generate a deep dive for.'),
@@ -20,6 +22,8 @@ const GenerateDeepDiveOutputSchema = z.object({
 });
 export type GenerateDeepDiveOutput = z.infer<typeof GenerateDeepDiveOutputSchema>;
 
+const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
+
 const getProjectDetails = ai.defineTool(
   {
     name: 'getProjectDetails',
@@ -28,25 +32,23 @@ const getProjectDetails = ai.defineTool(
       projectId: z.string().describe('The ID of the project to retrieve.'),
     }),
     outputSchema: z.object({
-      title: z.string().describe('The title of the project.'),
+      name: z.string().describe('The name of the project.'),
       description: z.string().describe('A detailed description of the project.'),
-      techStack: z.array(z.string()).describe('The tech stack used in the project.'),
-      oneLiner: z.string().describe('A one-line summary of the project'),
-      githubLink: z.string().optional().describe('Link to the github repository'),
-      liveDemoLink: z.string().optional().describe('Link to the live demo'),
+      href: z.string().describe('Link to the live demo'),
     }),
   },
   async (input) => {
-    // TODO: Implement the actual database retrieval logic here.
-    // This is a placeholder. Replace with actual data fetching.
-    console.log("Calling getProjectDetails tool");
+    console.log(`Calling getProjectDetails tool for projectId: ${input.projectId}`);
+    const project = allVentures.find(v => v.id === input.projectId);
+    
+    if (!project) {
+        throw new Error(`Project with ID ${input.projectId} not found.`);
+    }
+
     return {
-      title: `Project ${input.projectId}`,
-      description: `Detailed description of project ${input.projectId}.`,
-      techStack: ['Next.js', 'Firebase', 'Genkit'],
-      oneLiner: `A project with ID ${input.projectId}.`,
-      githubLink: 'https://github.com/example',
-      liveDemoLink: 'https://example.com',
+      name: project.name,
+      description: project.description,
+      href: project.href,
     };
   }
 );
@@ -68,12 +70,13 @@ const prompt = ai.definePrompt({
 
   Then, write a detailed technical deep-dive, covering the following aspects:
   - Project overview and goals
-  - Architecture and design choices
-  - Tech stack and why each technology was chosen
-  - Challenges faced and solutions implemented
-  - Key learnings and future improvements
+  - Key Features and Functionality
+  - Potential technical implementation details (be creative and infer a possible tech stack if not provided)
+  - Challenges that might have been faced and how they could be solved
+  - Business impact and value proposition
 
-  Do not assume any information. Use the tool to get the project details. Write in a clear, concise, and engaging style.
+  Do not assume any information not present in the tool output. Use the tool to get the project details. 
+  Write in a clear, concise, and engaging style. Format the output as clean HTML markup, using headings (h3), paragraphs (p), and lists (ul/li) for readability.
   `,
   config: {
     model: 'gpt-4o',
