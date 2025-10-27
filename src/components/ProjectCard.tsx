@@ -30,7 +30,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             />
             <div className="absolute inset-0 bg-black/20"></div>
           </div>
-          <CardTitle>{project.title}</CardTitle>
+          <CardTitle className="text-primary-gradient">{project.title}</CardTitle>
           <CardDescription>{project.oneLiner}</CardDescription>
         </CardHeader>
         <CardContent className="flex-grow">
@@ -41,7 +41,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </CardContent>
         <CardFooter className="flex-col sm:flex-row gap-2">
-            <Button className="w-full" onClick={() => setIsModalOpen(true)}>
+            <Button className="w-full bg-primary-gradient" onClick={() => setIsModalOpen(true)}>
                 <Bot className="mr-2 h-4 w-4" />
                 Deep-Dive
             </Button>

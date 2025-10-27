@@ -6,8 +6,8 @@ export default function Hero() {
       <div className="container grid lg:grid-cols-2 gap-12 py-16 md:py-24 lg:py-32">
         <div className="flex flex-col justify-center space-y-4">
           <div className="space-y-2">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">
-              Chancellor Minus
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+              <span className="text-primary-gradient">Chancellor Minus</span>
             </h1>
             <p className="max-w-[600px] text-muted-foreground md:text-xl">
               Full-stack developer with a passion for building intelligent applications. Explore my work and chat with my AI assistant to learn more.
