@@ -1,0 +1,98 @@
+/**
+ * @fileOverview Firestore Security Rules for Chancellor Minus - AI Portfolio
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model. Users can only access their own profile data and the projects they own.
+ *
+ * Data Structure:
+ * - User profiles are stored in `/users/{userId}`.
+ * - Projects are stored as subcollections under each user's document: `/users/{userId}/projects/{projectId}`.
+ *
+ * Key Security Decisions:
+ * - Users can only read and write their own user document.
+ * - Users can only create, read, update, and delete projects they own.
+ * - Listing of user documents is disallowed. Only listing of a user's own projects is allowed.
+ * - Denormalization: Each project document contains a `userId` field, duplicating the user ID from the path. This is CRUCIAL for security because it allows project ownership to be validated without additional `get()` calls.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Controls access to user profile documents. Only the authenticated user can read or write their own profile.
+     * @path /users/{userId}
+     * @allow (create) - If the user is creating their own document (auth.uid == userId).
+     * @allow (get, update, delete) - If the requesting user is the owner of the document (auth.uid == userId).
+     * @deny (list) - Listing all users is not allowed.
+     * @deny (create) - If the user is attempting to create a document for a different user.
+     * @deny (update, delete) - If the user is attempting to modify or delete another user's document.
+     * @principle Enforces user-ownership for profile data.
+     */
+    match /users/{userId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      // Allow the user to create their own document.
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.id == userId;
+
+      // Allow the user to read their own document.
+      allow get: if isOwner(userId);
+
+      // Prevent listing all users.
+      allow list: if false;
+
+      // Allow the user to update their own document.
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+
+      // Allow the user to delete their own document.
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Controls access to project documents, stored as subcollections of user documents.  Only the owner (specified by the userId) of the project can create, read, update, or delete it.
+     * @path /users/{userId}/projects/{projectId}
+     * @allow (create) - If the user is creating a project under their own user ID, and the project's userId field matches their user ID.
+     * @allow (get, list, update, delete) - If the requesting user is the owner of the project (auth.uid == userId, where userId is from the path and also stored in the project document).
+     * @deny (create) - If the user is creating a project under someone else's user ID.
+     * @deny (update, delete) - If the user is attempting to modify or delete another user's project.
+     * @principle Enforces project ownership based on the userId field in the project document, using path-based authorization for the parent user document.
+     */
+    match /users/{userId}/projects/{projectId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      // Allow a user to create a new project if they are signed in and the userId matches.
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userId == userId;
+
+      // Allow a user to view a project if they are the owner.
+      allow get: if isOwner(userId);
+
+      // Allow a user to list projects if they are the owner.
+      allow list: if isOwner(userId);
+
+      // Allow a user to update a project if they are the owner and the userId remains unchanged.
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+
+      // Allow a user to delete a project if they are the owner.
+      allow delete: if isExistingOwner(userId);
+    }
+  }
+}
