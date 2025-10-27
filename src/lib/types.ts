@@ -23,3 +23,9 @@ export interface SkillCategory {
   title: string;
   skills: Skill[];
 }
+
+export interface Venture {
+    name: string;
+    href: string;
+    description: string;
+}

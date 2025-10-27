@@ -1,6 +1,7 @@
 import { ventures } from "@/lib/data";
-import { Link2 } from "lucide-react";
-import Link from "next/link";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { ExternalLink } from "lucide-react";
 
 export default function Ventures() {
     return (
@@ -12,15 +13,25 @@ export default function Ventures() {
                         A collection of companies and products I have developed.
                     </p>
                 </div>
-                <div className="max-w-4xl mx-auto">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                        {ventures.map((venture) => (
-                            <Link href={venture.href} key={venture.name} target="_blank" rel="noopener noreferrer" 
-                                className="flex items-center justify-center p-4 rounded-lg bg-card text-card-foreground transition-all duration-300 hover:bg-card/80 hover:shadow-md hover:shadow-primary/10">
-                                <span className="text-center font-medium">{venture.name}</span>
-                            </Link>
-                        ))}
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {ventures.map((venture) => (
+                        <Card key={venture.name} className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+                            <CardHeader>
+                                <CardTitle className="text-primary-gradient">{venture.name}</CardTitle>
+                            </CardHeader>
+                            <CardContent className="flex-grow">
+                                <p className="text-muted-foreground">{venture.description}</p>
+                            </CardContent>
+                            <CardFooter>
+                                <Button asChild className="w-full bg-primary-gradient">
+                                    <a href={venture.href} target="_blank" rel="noopener noreferrer">
+                                        <ExternalLink className="mr-2 h-4 w-4" />
+                                        Visit Site
+                                    </a>
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                    ))}
                 </div>
             </div>
         </section>

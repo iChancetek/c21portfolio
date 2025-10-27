@@ -1,4 +1,4 @@
-import { Project, SkillCategory } from "@/lib/types";
+import { Project, SkillCategory, Venture } from "@/lib/types";
 import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
@@ -120,17 +120,65 @@ export const socialLinks = [
     { name: "Twitter", href: "#", icon: Twitter },
 ]
 
-export const ventures = [
-    { name: 'iSynera.com', href: 'https://isynera.com' },
-    { name: 'iSynerahealth.com', href: 'https://isynerahealth.com' },
-    { name: 'isyneramarking.us', href: 'https://isyneramarking.us' },
-    { name: 'MediScribe.us', href: 'https://mediscribe.us' },
-    { name: 'MemoiQ.us', href: 'https://memoiq.us' },
-    { name: 'ModeliQ.us', href: 'https://modeliq.us' },
-    { name: 'WoundiQ.us', href: 'https://woundiq.us' },
-    { name: 'iSydney.us', href: 'https://isydney.us' },
-    { name: 'iHailey.us', href: 'https://ihailey.us' },
-    { name: 'iSkylar.us', href: 'https://iskylar.us' },
-    { name: 'Nestobanks.com', href: 'https://nestobanks.com' },
-    { name: 'ThePotluxe.com', href: 'https://thepotluxe.com' },
+export const ventures: Venture[] = [
+    { 
+        name: 'iSynera', 
+        href: 'https://isynera.com',
+        description: 'AI systems and digital transformation consultancy specializing in intelligent automation and enterprise cloud integrations.'
+    },
+    { 
+        name: 'iSynera Health', 
+        href: 'https://isynerahealth.com',
+        description: 'Healthcare automation platform focusing on smart referrals, patient intake, and digital consent capture.'
+    },
+    { 
+        name: 'iSynera Marketing', 
+        href: 'https://isyneramarking.us',
+        description: 'AI-driven marketing analytics and personalized campaign management suite.'
+    },
+    { 
+        name: 'MediScribe', 
+        href: 'https://mediscribe.us',
+        description: 'AI medical documentation assistant with live transcription, SOAP notes, and EHR integration.'
+    },
+    { 
+        name: 'MemoiQ', 
+        href: 'https://memoiq.us',
+        description: 'Personal AI memory and journaling assistant with long-term context understanding.'
+    },
+    { 
+        name: 'ModeliQ', 
+        href: 'https://modeliq.us',
+        description: 'AI model training and deployment automation for custom LLM fine-tuning and inference.'
+    },
+    { 
+        name: 'WoundiQ', 
+        href: 'https://woundiq.us',
+        description: 'AI wound care management system with image analysis, SOAP generation, and role-based nurse/admin dashboards.'
+    },
+    { 
+        name: 'iSydney', 
+        href: 'https://isydney.us',
+        description: 'Conversational AI voice companion for therapeutic and lifestyle engagement.'
+    },
+    { 
+        name: 'iHailey', 
+        href: 'https://ihailey.us',
+        description: 'AI-driven emotional support and mental wellness companion with natural voice interaction.'
+    },
+    { 
+        name: 'iSkylar', 
+        href: 'https://iskylar.us',
+        description: 'AI Voice Therapist combining generative empathy models and therapeutic dialogue systems.'
+    },
+    { 
+        name: 'Nesto Banks', 
+        href: 'https://nestobanks.com',
+        description: 'Fintech and digital banking platform enhanced with AI-based fraud detection and risk analytics.'
+    },
+    { 
+        name: 'The Potluxe', 
+        href: 'https://thepotluxe.com',
+        description: 'AI-powered luxury product marketplace and social commerce platform.'
+    },
 ];
