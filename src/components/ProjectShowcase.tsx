@@ -3,10 +3,9 @@
 import { useState, useTransition, useEffect } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { Loader2, Search } from 'lucide-react';
-import ProjectCard from './ProjectCard';
+import { Loader2, Search, ExternalLink } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import type { Venture } from '@/lib/types';
-import { handleSemanticSearch } from '@/app/actions';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection } from 'firebase/firestore';
 
@@ -94,8 +93,23 @@ export default function ProjectShowcase() {
 
         {!isLoadingProjects && displayedProjects && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayedProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+              {displayedProjects.map((venture) => (
+                  <Card key={venture.id} className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
+                      <CardHeader>
+                          <CardTitle className="text-primary-gradient">{venture.name}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex-grow">
+                          <p className="text-muted-foreground">{venture.description}</p>
+                      </CardContent>
+                      <CardFooter>
+                          <Button asChild className="w-full bg-primary-gradient">
+                              <a href={venture.href} target="_blank" rel="noopener noreferrer">
+                                  <ExternalLink className="mr-2 h-4 w-4" />
+                                  Visit Site
+                              </a>
+                          </Button>
+                      </CardFooter>
+                  </Card>
               ))}
             </div>
         )}
