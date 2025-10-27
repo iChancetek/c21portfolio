@@ -78,9 +78,6 @@ const prompt = ai.definePrompt({
   Do not assume any information not present in the tool output. Use the tool to get the project details. 
   Write in a clear, concise, and engaging style. Format the output as clean HTML markup, using headings (h3), paragraphs (p), and lists (ul/li) for readability.
   `,
-  config: {
-    model: 'gpt-4o',
-  },
 });
 
 const generateDeepDiveFlow = ai.defineFlow(
@@ -90,7 +87,11 @@ const generateDeepDiveFlow = ai.defineFlow(
     outputSchema: GenerateDeepDiveOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await prompt(input, {
+        config: {
+            model: 'gpt-4o',
+        },
+    });
     return {
       deepDive: output!.deepDive,
     };
