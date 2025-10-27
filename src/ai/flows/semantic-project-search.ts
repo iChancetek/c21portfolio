@@ -1,5 +1,3 @@
-'use server';
-
 /**
  * @fileOverview Semantic project search flow.
  *

@@ -1,4 +1,3 @@
-'use server';
 /**
  * @fileOverview An audio transcription flow using OpenAI's Whisper model.
  *

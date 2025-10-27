@@ -1,5 +1,3 @@
-'use server';
-
 /**
  * @fileOverview A chat interface providing answers to user questions about Chancellor's experience and skills using Retrieval-Augmented Generation (RAG).
  *
