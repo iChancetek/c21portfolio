@@ -1,3 +1,5 @@
+'use server';
+
 import {genkit} from 'genkit';
 import {openAI} from 'genkitx-openai';
 import {config} from 'dotenv';
