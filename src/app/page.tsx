@@ -3,6 +3,7 @@ import Contact from '@/components/Contact';
 import Hero from '@/components/Hero';
 import ProjectShowcase from '@/components/ProjectShowcase';
 import Skills from '@/components/Skills';
+import Transcriber from '@/components/Transcriber';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <WhatIDo />
       <ProjectShowcase />
       <Skills />
+      <Transcriber />
       <Contact />
     </div>
   );

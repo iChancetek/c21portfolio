@@ -11,17 +11,23 @@ import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
 const TranscribeAudioInputSchema = z.object({
-  audioDataUri: z.string().describe("A base64-encoded audio file as a data URI. Expected format: 'data:<mimetype>;base64,<encoded_data>'."),
+  audioDataUri: z
+    .string()
+    .describe(
+      "A base64-encoded audio file as a data URI. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+    ),
 });
 export type TranscribeAudioInput = z.infer<typeof TranscribeAudioInputSchema>;
 
 const TranscribeAudioOutputSchema = z.object({
-  text: z.string().describe("The transcribed text from the audio."),
+  text: z.string().describe('The transcribed text from the audio.'),
 });
 export type TranscribeAudioOutput = z.infer<typeof TranscribeAudioOutputSchema>;
 
-export async function transcribeAudio(input: TranscribeAudioInput): Promise<TranscribeAudioOutput> {
-    return transcribeAudioFlow(input);
+export async function transcribeAudio(
+  input: TranscribeAudioInput
+): Promise<TranscribeAudioOutput> {
+  return transcribeAudioFlow(input);
 }
 
 const transcribeAudioFlow = ai.defineFlow(
