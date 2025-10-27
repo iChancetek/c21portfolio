@@ -50,7 +50,7 @@ const semanticProjectSearchFlow = ai.defineFlow(
     outputSchema: SemanticProjectSearchOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await prompt(input, {config: {model: 'gpt-4o'}});
     return output!;
   }
 );

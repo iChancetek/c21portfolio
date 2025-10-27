@@ -1,5 +1,5 @@
 import {genkit} from 'genkit';
-import {openAI, gpt4o} from 'genkitx-openai';
+import {openAI} from 'genkitx-openai';
 import {config} from 'dotenv';
 config();
 
