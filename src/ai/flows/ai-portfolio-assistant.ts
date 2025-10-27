@@ -36,10 +36,10 @@ const prompt = ai.definePrompt({
   Context: Chancellor has experience in Frontend, Backend, AI/ML, and DevOps.
 
   Question: {{{query}}}
-  `, 
+  `,
   config: {
     model: 'gpt-4o',
-  }
+  },
 });
 
 const aiPortfolioAssistantFlow = ai.defineFlow(

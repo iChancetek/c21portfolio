@@ -2,9 +2,9 @@
 /**
  * @fileOverview A Genkit flow for generating menu suggestions.
  *
- * - suggestionFlow - A function that takes a prompt and returns a menu suggestion.
- * - SuggestionFlowInput - The input type for the suggestionFlow function.
- * - SuggestionFlowOutput - The return type for the suggestionFlow function.
+ * - getMenuSuggestion - A function that takes a prompt and returns a menu suggestion.
+ * - SuggestionFlowInput - The input type for the getMenuSuggestion function.
+ * - SuggestionFlowOutput - The return type for the getMenuSuggestion function.
  */
 
 import { ai } from '@/ai/genkit';
@@ -15,6 +15,10 @@ export type SuggestionFlowInput = z.infer<typeof SuggestionFlowInputSchema>;
 
 export const SuggestionFlowOutputSchema = z.string();
 export type SuggestionFlowOutput = z.infer<typeof SuggestionFlowOutputSchema>;
+
+export async function getMenuSuggestion(prompt: SuggestionFlowInput): Promise<SuggestionFlowOutput> {
+    return suggestionFlow(prompt);
+}
 
 const suggestionFlow = ai.defineFlow(
   {
@@ -30,7 +34,3 @@ const suggestionFlow = ai.defineFlow(
     return response.text;
   }
 );
-
-export async function getMenuSuggestion(prompt: SuggestionFlowInput): Promise<SuggestionFlowOutput> {
-    return suggestionFlow(prompt);
-}

@@ -20,6 +20,10 @@ export const TranscribeAudioOutputSchema = z.object({
 });
 export type TranscribeAudioOutput = z.infer<typeof TranscribeAudioOutputSchema>;
 
+export async function transcribeAudio(input: TranscribeAudioInput): Promise<TranscribeAudioOutput> {
+    return transcribeAudioFlow(input);
+}
+
 const transcribeAudioFlow = ai.defineFlow(
   {
     name: 'transcribeAudioFlow',
@@ -37,7 +41,3 @@ const transcribeAudioFlow = ai.defineFlow(
     return { text };
   }
 );
-
-export async function transcribeAudio(input: TranscribeAudioInput): Promise<TranscribeAudioOutput> {
-    return transcribeAudioFlow(input);
-}
