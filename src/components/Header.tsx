@@ -34,8 +34,8 @@ export default function Header() {
           ))}
         </nav>
         <div className="flex flex-1 items-center justify-end gap-4">
-           <Button variant="outline" size="sm" className="hidden sm:inline-flex">
-            Admin Login
+           <Button asChild className="hidden sm:inline-flex bg-primary-gradient">
+            <Link href="#">Admin Login</Link>
           </Button>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
@@ -55,8 +55,8 @@ export default function Header() {
                         <NavLink key={link.href} href={link.href}>{link.name}</NavLink>
                     ))}
                 </nav>
-                 <Button variant="outline" size="sm" className="w-full mt-8">
-                    Admin Login
+                 <Button asChild className="w-full mt-8 bg-primary-gradient">
+                    <Link href="#">Admin Login</Link>
                 </Button>
               </div>
             </SheetContent>
