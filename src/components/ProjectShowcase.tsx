@@ -5,23 +5,17 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Loader2, Search } from 'lucide-react';
 import type { Venture } from '@/lib/types';
-import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection } from 'firebase/firestore';
 import ProjectCard from './ProjectCard';
+import { ventures } from '@/lib/data';
 
+const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 export default function ProjectShowcase() {
   const [isPending, startTransition] = useTransition();
   const [searchQuery, setSearchQuery] = useState('');
   
-  const firestore = useFirestore();
-
-  const venturesCollectionRef = useMemoFirebase(() => {
-      if (!firestore) return null;
-      return collection(firestore, 'ventures');
-  }, [firestore]);
-
-  const { data: initialProjects, isLoading: isLoadingProjects } = useCollection<Venture>(venturesCollectionRef);
+  const initialProjects = allVentures;
+  const isLoadingProjects = false;
   
   const [displayedProjects, setDisplayedProjects] = useState<Venture[] | null>(null);
 
@@ -42,8 +36,6 @@ export default function ProjectShowcase() {
     }
 
     startTransition(async () => {
-      // NOTE: Semantic search is expecting project structure, not venture.
-      // This will need to be adapted if semantic search is to work on ventures.
       // For now, we'll do a simple client-side filter.
       const lowerCaseQuery = query.toLowerCase();
       const results = initialProjects.filter(p => 

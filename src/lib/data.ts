@@ -18,7 +18,7 @@ export const projects: Project[] = [
     image: getPlaceholderImage('proj-1'),
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Firebase", "Genkit"],
     githubUrl: "https://github.com",
-    liveUrl: "https://isynerahealth.com",
+    liveUrl: "https://isynera.com",
   },
   {
     id: "project-2",
@@ -66,6 +66,70 @@ export const projects: Project[] = [
     liveUrl: "https://example.com",
   },
 ];
+
+export const ventures: Omit<Venture, 'id'>[] = [
+    {
+        name: "iSynera",
+        href: "https://iSynera.com",
+        description: "AI systems and digital transformation consultancy specializing in intelligent automation and enterprise cloud integrations."
+    },
+    {
+        name: "iSynera Health",
+        href: "https://iSynerahealth.com",
+        description: "Healthcare automation platform focusing on smart referrals, patient intake, and digital consent capture."
+    },
+    {
+        name: "iSynera Marketing",
+        href: "https://isyneramarking.us",
+        description: "AI-driven marketing analytics and personalized campaign management suite."
+    },
+    {
+        name: "MediScribe",
+        href: "https://MediScribe.us",
+        description: "AI medical documentation assistant with live transcription, SOAP notes, and EHR integration."
+    },
+    {
+        name: "MemoiQ",
+        href: "https://MemoiQ.us",
+        description: "Personal AI memory and journaling assistant with long-term context understanding."
+    },
+    {
+        name: "ModeliQ",
+        href: "https://ModeliQ.us",
+        description: "AI model training and deployment automation for custom LLM fine-tuning and inference."
+    },
+    {
+        name: "WoundiQ",
+        href: "https://WoundiQ.us",
+        description: "AI wound care management system with image analysis, SOAP generation, and role-based nurse/admin dashboards."
+    },
+    {
+        name: "iSydney",
+        href: "https://iSydney.us",
+        description: "Conversational AI voice companion for therapeutic and lifestyle engagement."
+    },
+    {
+        name: "iHailey",
+        href: "https://iHailey.us",
+        description: "AI-driven emotional support and mental wellness companion with natural voice interaction."
+    },
+    {
+        name: "iSkylar",
+        href: "https://iSkylar.us",
+        description: "AI Voice Therapist combining generative empathy models and therapeutic dialogue systems."
+    },
+    {
+        name: "Nesto Banks",
+        href: "https://Nestobanks.com",
+        description: "Fintech and digital banking platform enhanced with AI-based fraud detection and risk analytics."
+    },
+    {
+        name: "The Potluxe",
+        href: "https://ThePotluxe.com",
+        description: "AI-powered luxury product marketplace and social commerce platform."
+    }
+];
+
 
 export const skillCategories: SkillCategory[] = [
   {
