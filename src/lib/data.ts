@@ -1,5 +1,5 @@
 import { Project, SkillCategory, Venture } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -129,6 +129,8 @@ export const ventures: Omit<Venture, 'id'>[] = [
         description: "AI-powered luxury product marketplace and social commerce platform."
     }
 ];
+
+export const ventureIcons = [Briefcase, HeartPulse, Search, FileText, Lightbulb, BrainCircuit, Microscope, MessagesSquare, HandHeart, Drama, Users, ShoppingCart];
 
 
 export const skillCategories: SkillCategory[] = [

@@ -1,44 +1,43 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Card } from './ui/card';
 import { Button } from './ui/button';
-import { ExternalLink, Bot } from 'lucide-react';
+import { ExternalLink, Bot, type LucideIcon } from 'lucide-react';
 import type { Venture } from '@/lib/types';
 import CaseStudyModal from './CaseStudyModal';
 
 interface ProjectCardProps {
   project: Venture;
+  Icon: LucideIcon;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, Icon }: ProjectCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
-      <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1">
-        <CardHeader>
-          <CardTitle className="text-primary-gradient">{project.name}</CardTitle>
-          <CardDescription>{project.description}</CardDescription>
-        </CardHeader>
-        <CardContent className="flex-grow">
-          <div className="flex flex-wrap gap-2">
-            {/* Ventures don't have tech stack, we can add this later */}
+      <Card className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
+        <div className="flex-grow p-6">
+          <div className="mb-4">
+            <Icon className="w-10 h-10 text-primary transition-all duration-300 group-hover:text-accent" />
           </div>
-        </CardContent>
-        <CardFooter className="flex-col sm:flex-row gap-2">
-            <Button className="w-full bg-primary-gradient" onClick={() => setIsModalOpen(true)}>
-                <Bot className="mr-2 h-4 w-4" />
-                Deep-Dive
-            </Button>
-            <div className="flex w-full sm:w-auto gap-2">
-                <Button variant="outline" asChild className="flex-1">
+          <h3 className="text-xl font-bold text-slate-50 transition-colors duration-300 group-hover:text-primary-gradient">{project.name}</h3>
+          <p className="mt-2 text-sm text-slate-400">{project.description}</p>
+        </div>
+        <div className="p-6 pt-0 mt-auto">
+            <div className="flex w-full flex-col sm:flex-row gap-2">
+                <Button className="w-full" onClick={() => setIsModalOpen(true)}>
+                    <Bot className="mr-2 h-4 w-4" />
+                    AI Deep-Dive
+                </Button>
+                <Button variant="outline" asChild className="w-full">
                     <a href={project.href} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="mr-2 h-4 w-4" /> Demo
                     </a>
                 </Button>
             </div>
-        </CardFooter>
+        </div>
       </Card>
       <CaseStudyModal 
         isOpen={isModalOpen}
