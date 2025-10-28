@@ -33,12 +33,21 @@ const nextConfig: NextConfig = {
     ],
   },
   webpack: (config, { isServer }) => {
-    if (!isServer) {
+    // Fix OpenTelemetry warnings
+    config.ignoreWarnings = [
+      ...(config.ignoreWarnings || []),
+      { module: /node_modules\/@opentelemetry\/instrumentation/ },
+    ];
+    
+    if (isServer) {
+      config.externals = [...(config.externals || [])];
+    } else {
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
       };
     }
+    
     return config;
   },
 };
