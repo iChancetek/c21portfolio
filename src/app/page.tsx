@@ -4,6 +4,7 @@ import Hero from '@/components/Hero';
 import ProjectShowcase from '@/components/ProjectShowcase';
 import Skills from '@/components/Skills';
 import Transcriber from '@/components/Transcriber';
+import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Skills />
       <Transcriber />
       <Contact />
+      <FloatingAIAssistant />
     </div>
   );
 }
