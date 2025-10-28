@@ -1,3 +1,13 @@
 {
-  "apphosting": {}
+  "apphosting": {
+    "backends": [
+      {
+        "id": "app",
+        "region": "us-central1",
+        "instanceSize": "cpu-1",
+        "source": ".",
+        "entrypoint": "next start"
+      }
+    ]
+  }
 }
