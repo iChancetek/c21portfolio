@@ -1,5 +1,5 @@
 import { Project, SkillCategory, Venture } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal, CreditCard } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -159,6 +159,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "AWS RDS", icon: Database },
       { name: "Azure Database", icon: Database },
       { name: "Google Cloud SQL", icon: Database },
+      { name: "Stripe", icon: CreditCard },
     ],
   },
   {
@@ -204,7 +205,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Cursor AI", icon: Code },
       { name: "Replit", icon: Code },
       { name: "Hugging Face", icon: BrainCircuit },
-      { name: "Genkit", icon: Bot },
+      { name_is: "Genkit", icon: Bot },
       { name: "CrewAI", icon: Users },
     ],
   },
