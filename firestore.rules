@@ -1,119 +1,79 @@
 /**
- * @fileOverview Firestore Security Rules for Chancellor Minus - AI Portfolio.
+ * @fileoverview Firestore Security Rules for Chancellor's AI Portfolio.
  *
  * Core Philosophy:
- * This ruleset enforces a strict user-ownership model for user profiles and projects,
- * while allowing public read access to venture data. Authorization independence
- * is achieved through data denormalization, avoiding costly `get()` calls.
+ * This ruleset provides public read access to projects, skills, and project skills,
+ * while restricting write access to authorized users (e.g., admins via a backend function).
+ * Contact form submissions are writeable by any authenticated user.
  *
  * Data Structure:
- * - User profiles: /users/{userId} (owner-only access)
- * - Projects: /users/{userId}/projects/{projectId} (owner-only access)
- * - Ventures: /ventures/{ventureId} (public read, admin-only write - TODO)
+ * - /projects/{projectId}: Stores project information.
+ * - /skills/{skillId}: Stores skill information.
+ * - /projectSkills/{projectSkillId}: Stores the relationships between projects and skills.
+ * - /contactFormSubmissions/{contactFormSubmissionId}: Stores contact form submissions.
  *
  * Key Security Decisions:
- * - User listing is disabled.
- * - Projects are owned by the user whose ID is in the path.
- * - Venture data is publicly readable. Write access to venture data is not yet implemented, but will require role-based authentication.
- *
- * Denormalization for Authorization:
- * - Each project document contains a `userId` field, which is used to enforce
- *   ownership without requiring additional reads.
- *
- * Structural Segregation:
- * - Private user data (profiles, projects) and public venture data are stored
- *   in separate collections to simplify access control.
+ * - Public read access is granted for projects, skills, and project skills to allow open browsing.
+ * - Listing of contact form submissions is denied to prevent unauthorized access to personal information.
+ * - Write access to projects, skills, and project skills is only granted through backend admin authentication.
+ * - Contact form submissions can be created by any authenticated user.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Checks if the request is authenticated.
-     * @returns {boolean} True if the request is authenticated, false otherwise.
+     * @description Allows public read access to projects, but restricts write access.
+     * @path /projects/{projectId}
+     * @allow (get, list): if true
+     * @deny (create, update, delete): if false
+     * @principle Public read, owner-only writes (enforced via backend).
      */
+    match /projects/{projectId} {
+      allow get, list: if true;
+      allow create, update, delete: if false; // TODO: Implement owner validation via backend.
+    }
+
+    /**
+     * @description Allows public read access to skills, but restricts write access.
+     * @path /skills/{skillId}
+     * @allow (get, list): if true
+     * @deny (create, update, delete): if false
+     * @principle Public read, owner-only writes (enforced via backend).
+     */
+    match /skills/{skillId} {
+      allow get, list: if true;
+      allow create, update, delete: if false; // TODO: Implement owner validation via backend.
+    }
+
+    /**
+     * @description Allows public read access to projectSkills, but restricts write access.
+     * @path /projectSkills/{projectSkillId}
+     * @allow (get, list): if true
+     * @deny (create, update, delete): if false
+     * @principle Public read, owner-only writes (enforced via backend).
+     */
+    match /projectSkills/{projectSkillId} {
+      allow get, list: if true;
+      allow create, update, delete: if false; // TODO: Implement owner validation via backend.
+    }
+
+    /**
+     * @description Allows any authenticated user to submit a contact form.
+     * @path /contactFormSubmissions/{contactFormSubmissionId}
+     * @allow (create): if isSignedIn()
+     * @deny (get, update, delete, list): if false
+     * @principle Authenticated users can create contact form submissions.
+     */
+    match /contactFormSubmissions/{contactFormSubmissionId} {
+      allow create: if isSignedIn();
+      allow get, update, delete: if false;
+      allow list: if false;
+    }
+
+    // Helper function to determine if a user is signed in.
     function isSignedIn() {
       return request.auth != null;
-    }
-
-    /**
-     * @description Checks if the authenticated user is the owner of the resource.
-     * @param {string} userId The user ID to compare against the authenticated user's ID.
-     * @returns {boolean} True if the user IDs match, false otherwise.
-     */
-    function isOwner(userId) {
-      return isSignedIn() && request.auth.uid == userId;
-    }
-
-        /**
-     * @description Checks if the authenticated user is the existing owner of the resource.
-     *              This combines the ownership check with an existence check to prevent
-     *              operations on non-existent documents.
-     * @param {string} userId The user ID to compare against the authenticated user's ID.
-     * @returns {boolean} True if the user IDs match and the document exists, false otherwise.
-     */
-    function isExistingOwner(userId) {
-      return isOwner(userId) && resource != null;
-    }
-
-    /**
-     * @description Rules for user profile documents.
-     * @path /users/{userId}
-     * @allow (create) User 'testuser' with id 'testuser' can create their profile.
-     * @allow (get) User 'testuser' with id 'testuser' can read their profile.
-     * @allow (update) User 'testuser' with id 'testuser' can update their profile.
-     * @allow (delete) User 'testuser' with id 'testuser' can delete their profile.
-     * @deny (create) User 'otheruser' with id 'testuser' cannot create the profile.
-     * @deny (get) User 'otheruser' with id 'testuser' cannot read the profile.
-     * @deny (update) User 'otheruser' with id 'testuser' cannot update the profile.
-     * @deny (delete) User 'otheruser' with id 'testuser' cannot delete the profile.
-     * @principle Enforces document ownership for all operations on user profiles.
-     */
-    match /users/{userId} {
-      allow get: if isOwner(userId);
-      allow list: if false; // User listing is not allowed.
-      allow create: if isOwner(userId) && request.resource.data.id == userId;
-      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
-      allow delete: if isExistingOwner(userId);
-    }
-
-    /**
-     * @description Rules for project documents nested under user profiles.
-     * @path /users/{userId}/projects/{projectId}
-     * @allow (create) User 'testuser' with id 'testuser' can create a project under their profile.
-     * @allow (get) User 'testuser' with id 'testuser' can read a project under their profile.
-     * @allow (update) User 'testuser' with id 'testuser' can update a project under their profile.
-     * @allow (delete) User 'testuser' with id 'testuser' can delete a project under their profile.
-     * @deny (create) User 'otheruser' with id 'testuser' cannot create a project under their profile.
-     * @deny (get) User 'otheruser' with id 'testuser' cannot read a project under their profile.
-     * @deny (update) User 'otheruser' with id 'testuser' cannot update a project under their profile.
-     * @deny (delete) User 'otheruser' with id 'testuser' cannot delete a project under their profile.
-     * @principle Enforces document ownership for all operations on project documents.
-     */
-    match /users/{userId}/projects/{projectId} {
-      allow get: if isOwner(userId);
-      allow list: if isOwner(userId);
-      allow create: if isOwner(userId) && request.resource.data.userId == userId;
-      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-      allow delete: if isExistingOwner(userId);
-    }
-
-    /**
-     * @description Rules for venture documents.
-     * @path /ventures/{ventureId}
-     * @allow (get) Any user can read venture data.
-     * @allow (list) Any user can list venture data.
-     * @deny (create) No user can create venture data without specific authorization (TODO).
-     * @deny (update) No user can update venture data without specific authorization (TODO).
-     * @deny (delete) No user can delete venture data without specific authorization (TODO).
-     * @principle Allows public read access to venture data, but restricts write access.
-     */
-    match /ventures/{ventureId} {
-      allow get: if true;
-      allow list: if true;
-      allow create: if false; // TODO: Add role-based validation for venture creation.
-      allow update: if false; // TODO: Add role-based validation for venture updates.
-      allow delete: if false; // TODO: Add role-based validation for venture deletion.
     }
   }
 }

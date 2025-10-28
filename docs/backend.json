@@ -1,178 +1,223 @@
 {
   "entities": {
-    "User": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "User",
-      "type": "object",
-      "description": "Represents a user of the application.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the User entity."
-        },
-        "email": {
-          "type": "string",
-          "description": "Email address of the user.",
-          "format": "email"
-        },
-        "displayName": {
-          "type": "string",
-          "description": "The display name of the user."
-        },
-        "photoURL": {
-          "type": "string",
-          "description": "URL of the user's profile photo.",
-          "format": "uri"
-        },
-        "creationTime": {
-          "type": "string",
-          "description": "Timestamp of when the user account was created.",
-          "format": "date-time"
-        },
-        "lastSignInTime": {
-          "type": "string",
-          "description": "Timestamp of the user's last sign-in.",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "id",
-        "email"
-      ]
-    },
     "Project": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Project",
       "type": "object",
-      "description": "Represents a project in the portfolio.",
+      "description": "Represents a project in Chancellor's portfolio.",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the Project entity."
         },
-        "userId": {
-          "type": "string",
-          "description": "Reference to User. (Relationship: User 1:N Project)"
-        },
         "title": {
           "type": "string",
-          "description": "The title of the project."
+          "description": "Title of the project."
         },
         "oneLiner": {
           "type": "string",
           "description": "A brief description of the project."
         },
+        "logoUrl": {
+          "type": "string",
+          "description": "URL of the project logo or image.",
+          "format": "uri"
+        },
         "techStack": {
           "type": "array",
-          "description": "An array of technologies used in the project.",
+          "description": "List of technologies used in the project.",
           "items": {
             "type": "string"
           }
         },
-        "liveDemoUrl": {
+        "deepDive": {
           "type": "string",
-          "description": "URL to the live demo of the project.",
+          "description": "Deep dive of the project. This field can hold markdown or other formatted text.",
+          "format": "string"
+        },
+        "demoUrl": {
+          "type": "string",
+          "description": "URL of the live demo of the project.",
           "format": "uri"
         },
         "githubUrl": {
           "type": "string",
-          "description": "URL to the GitHub repository of the project.",
-          "format": "uri"
-        },
-        "logoUrl": {
-          "type": "string",
-          "description": "URL to the project's logo or image.",
+          "description": "URL of the project's GitHub repository.",
           "format": "uri"
         }
       },
       "required": [
         "id",
-        "userId",
-        "title"
+        "title",
+        "oneLiner",
+        "logoUrl",
+        "techStack",
+        "deepDive",
+        "demoUrl",
+        "githubUrl"
       ]
     },
-    "Venture": {
-      "title": "Venture",
+    "Skill": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Skill",
       "type": "object",
-      "description": "Represents a company or product developed.",
+      "description": "Represents a skill or technology used by Chancellor.",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Skill entity."
+        },
         "name": {
           "type": "string",
-          "description": "The name of the venture."
+          "description": "Name of the skill or technology."
         },
-        "href": {
+        "category": {
           "type": "string",
-          "description": "URL to the venture's website.",
-          "format": "uri"
-        },
-        "description": {
-          "type": "string",
-          "description": "A brief description of the venture."
+          "description": "Category of the skill (e.g., Frontend, Backend, AI/ML, DevOps)."
         }
       },
-      "required": ["name", "href", "description"]
+      "required": [
+        "id",
+        "name",
+        "category"
+      ]
+    },
+    "ProjectSkill": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ProjectSkill",
+      "type": "object",
+      "description": "Represents the relationship between projects and skills.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ProjectSkill entity."
+        },
+        "projectId": {
+          "type": "string",
+          "description": "Reference to Project. (Relationship: Project 1:N ProjectSkill)"
+        },
+        "skillId": {
+          "type": "string",
+          "description": "Reference to Skill. (Relationship: Skill 1:N ProjectSkill)"
+        }
+      },
+      "required": [
+        "id",
+        "projectId",
+        "skillId"
+      ]
+    },
+    "ContactFormSubmission": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ContactFormSubmission",
+      "type": "object",
+      "description": "Represents a contact form submission.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ContactFormSubmission entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the submitter."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the submitter.",
+          "format": "email"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message content from the submitter."
+        },
+        "submissionDate": {
+          "type": "string",
+          "description": "Date and time the form was submitted.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "message",
+        "submissionDate"
+      ]
     }
   },
   "auth": {
     "providers": [
       "password",
-      "anonymous",
-      "google.com"
+      "anonymous"
     ]
   },
   "firestore": {
     "structure": [
       {
-        "path": "/users/{userId}",
-        "definition": {
-          "entityName": "User",
-          "schema": {
-            "$ref": "#/backend/entities/User"
-          },
-          "description": "Stores user profile information. Only the authenticated user can read/write their own document.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user, matching the Firebase Auth UID."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/projects/{projectId}",
+        "path": "/projects/{projectId}",
         "definition": {
           "entityName": "Project",
           "schema": {
             "$ref": "#/backend/entities/Project"
           },
-          "description": "Stores project data. Includes denormalized 'userId' field for authorization independence, ensuring only the project owner can access the data.",
+          "description": "Stores project data. Each document represents a single project.",
           "params": [
             {
-              "name": "userId",
-              "description": "The unique identifier of the user (project owner)."
-            },
-            {
               "name": "projectId",
-              "description": "The unique identifier for the project."
+              "description": "Unique identifier for the project."
             }
           ]
         }
       },
       {
-        "path": "/ventures/{ventureId}",
+        "path": "/skills/{skillId}",
         "definition": {
-          "entityName": "Venture",
-          "schema": { "$ref": "#/backend/entities/Venture" },
-          "description": "Stores information about developed ventures and companies. This data is public.",
+          "entityName": "Skill",
+          "schema": {
+            "$ref": "#/backend/entities/Skill"
+          },
+          "description": "Stores skill data. Each document represents a single skill.",
           "params": [
             {
-              "name": "ventureId",
-              "description": "The unique identifier for the venture."
+              "name": "skillId",
+              "description": "Unique identifier for the skill."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/projectSkills/{projectSkillId}",
+        "definition": {
+          "entityName": "ProjectSkill",
+          "schema": {
+            "$ref": "#/backend/entities/ProjectSkill"
+          },
+          "description": "Stores the relationships between projects and skills.",
+          "params": [
+            {
+              "name": "projectSkillId",
+              "description": "Unique identifier for the projectSkill."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/contactFormSubmissions/{contactFormSubmissionId}",
+        "definition": {
+          "entityName": "ContactFormSubmission",
+          "schema": {
+            "$ref": "#/backend/entities/ContactFormSubmission"
+          },
+          "description": "Stores contact form submissions.",
+          "params": [
+            {
+              "name": "contactFormSubmissionId",
+              "description": "Unique identifier for the contactFormSubmission."
             }
           ]
         }
       }
     ],
-    "reasoning": "This Firestore data structure is designed to support the \"Chancellor Minus - AI Portfolio\" application, focusing on secure access, scalability, and maintainability. The key principle is Authorization Independence, achieved through denormalization. This eliminates the need for `get()` calls in security rules, enabling atomic operations and simplified debugging.\n\n*   **User Data:** User profiles are stored under `/users/{userId}`.  This path-based ownership ensures only the authenticated user can access their data.\n*   **Project Data:** Projects are stored as subcollections of users (`/users/{userId}/projects/{projectId}`). The `userId` field is denormalized inside each project document, enabling secure and efficient `list` operations and enforcing ownership.\n*   **Venture Data:** Ventures are stored in a top-level collection `/ventures`. This data is intended to be publicly readable, but write access can be restricted to administrators.\n\nThis structure segregates user data and project data into separate paths with clear ownership. This avoids mixing data with different security needs in the same collection.  Authorization is simplified by relying on path-based ownership and denormalized data, making the rules more robust and easier to understand. No custom claims are used, relying instead on `request.auth.uid` for authorization. Roles must be stored in the database."
+    "reasoning": "The Firestore structure is designed to securely store and manage data for Chancellor's AI Portfolio application. It emphasizes authorization independence and simplifies security rules using denormalization and structural segregation. \n\nProjects and Skills are stored in root-level collections for easy querying. ProjectSkill documents link Projects and Skills. ContactFormSubmissions are stored in a dedicated collection. No user-specific data is stored, eliminating the need for user-based subcollections and complex authorization rules.\n\nAuthorization Independence:\nSince there are no collaborative entities that depend on parent documents, this design inherently provides Authorization Independence. There is no reliance on `get()` calls to parent documents in security rules. The Admin Panel (using Clerk) will be authorized to manage content through other means (e.g., a backend function that verifies Clerk user roles).\n\nQAPs (Rules are not Filters):\nThe structure supports secure list operations because collections are homogeneous and follow the principle of Structural Segregation. Rules can be applied at the collection level without needing to filter based on document content."
   }
 }
