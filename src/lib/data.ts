@@ -154,6 +154,11 @@ export const skillCategories: SkillCategory[] = [
       { name: "Firebase", icon: Code },
       { name: "Supabase", icon: Database },
       { name: "Clerk", icon: Code },
+      { name: "MongoDB", icon: Database },
+      { name: "DynamoDB", icon: Database },
+      { name: "AWS RDS", icon: Database },
+      { name: "Azure Database", icon: Database },
+      { name: "Google Cloud SQL", icon: Database },
     ],
   },
   {
