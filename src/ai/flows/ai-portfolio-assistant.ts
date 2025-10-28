@@ -6,11 +6,13 @@
  * - AIPortfolioAssistantOutput - The return type for the aiPortfolioAssistant function.
  */
 
+'use server';
+
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const AIPortfolioAssistantInputSchema = z.object({
-  query: z.string().describe('The user query about Chancellor.'),
+  query: z.string().describe("The user's question about Chancellor's skills and experience."),
 });
 export type AIPortfolioAssistantInput = z.infer<typeof AIPortfolioAssistantInputSchema>;
 
@@ -27,11 +29,13 @@ const prompt = ai.definePrompt({
   name: 'aiPortfolioAssistantPrompt',
   input: {schema: AIPortfolioAssistantInputSchema},
   output: {schema: AIPortfolioAssistantOutputSchema},
-  prompt: `You are a helpful AI assistant providing information about Chancellor's experience and skills.
+  model: 'gpt-4o',
+  system: `You are a helpful and friendly AI assistant for a software engineer named Chancellor. 
+           Your goal is to answer questions about his skills, projects, and experience based on the context provided.
+           Keep your answers concise and professional.`,
+  prompt: `Use the following context to answer the user's question.
 
-  Use the following context to answer the user's question:
-
-  Context: Chancellor has experience in Frontend, Backend, AI/ML, and DevOps.
+  Context: Chancellor has extensive experience in Frontend (React, Next.js, TypeScript), Backend (Node.js, Python), AI/ML (Genkit, LangChain, Vertex AI), and DevOps (AWS, GCP, Docker, Kubernetes).
 
   Question: {{{query}}}
   `,
@@ -44,7 +48,7 @@ const aiPortfolioAssistantFlow = ai.defineFlow(
     outputSchema: AIPortfolioAssistantOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input, {config: {model: 'gpt-4o'}});
+    const {output} = await prompt(input);
     return output!;
   }
 );

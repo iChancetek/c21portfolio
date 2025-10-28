@@ -6,6 +6,8 @@
  * - GenerateDeepDiveOutput - The return type for the generateDeepDive function.
  */
 
+'use server';
+
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import { ventures } from '@/lib/data';
@@ -60,6 +62,7 @@ const prompt = ai.definePrompt({
   name: 'generateDeepDivePrompt',
   input: {schema: GenerateDeepDiveInputSchema},
   output: {schema: GenerateDeepDiveOutputSchema},
+  model: 'gpt-4o',
   tools: [getProjectDetails],
   prompt: `You are an expert technical writer, specializing in creating deep-dive case studies of software projects.
 
@@ -86,7 +89,7 @@ const generateDeepDiveFlow = ai.defineFlow(
     outputSchema: GenerateDeepDiveOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input, {config: {model: 'gpt-4o'}});
+    const {output} = await prompt(input);
     return {
       deepDive: output!.deepDive,
     };
