@@ -115,6 +115,7 @@ export async function getAIAssistantResponse(query: string) {
         return response.answer;
     } catch (error: any) {
         console.error("AI assistant failed:", error);
+        // Return the actual error message to the client for debugging.
         const errorMessage = error.message || "An unknown error occurred.";
         return `I'm sorry, but I'm having trouble connecting to my brain right now. Error: ${errorMessage}`;
     }

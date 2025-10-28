@@ -29,7 +29,6 @@ const prompt = ai.definePrompt({
   name: 'aiPortfolioAssistantPrompt',
   input: {schema: AIPortfolioAssistantInputSchema},
   output: {schema: AIPortfolioAssistantOutputSchema},
-  model: 'openai/gpt-4o',
   system: `You are a helpful and friendly AI assistant for a software engineer named Chancellor. 
            Your goal is to answer questions about his skills, projects, and experience based on the context provided.
            Keep your answers concise and professional.`,
@@ -48,7 +47,7 @@ const aiPortfolioAssistantFlow = ai.defineFlow(
     outputSchema: AIPortfolioAssistantOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await prompt(input, {config: {model: 'openai/gpt-4o'}});
     return output!;
   }
 );

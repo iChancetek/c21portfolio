@@ -62,7 +62,6 @@ const prompt = ai.definePrompt({
   name: 'generateDeepDivePrompt',
   input: {schema: GenerateDeepDiveInputSchema},
   output: {schema: GenerateDeepDiveOutputSchema},
-  model: 'openai/gpt-4o',
   tools: [getProjectDetails],
   prompt: `You are an expert technical writer, specializing in creating deep-dive case studies of software projects.
 
@@ -89,7 +88,7 @@ const generateDeepDiveFlow = ai.defineFlow(
     outputSchema: GenerateDeepDiveOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await prompt(input, {config: {model: 'openai/gpt-4o'}});
     return {
       deepDive: output!.deepDive,
     };
