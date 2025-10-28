@@ -57,8 +57,6 @@ const sendEmail = ai.defineTool(
     const resend = new Resend(process.env.RESEND_API_KEY);
     console.log('Sending email notification...');
     try {
-        /*
-        // TODO: Replace with your actual email sending logic using Resend.
         const { data, error } = await resend.emails.send({
             from: 'onboarding@resend.dev', // TODO: Replace with your "from" address.
             to: 'cm@chancellorminus.com',
@@ -75,8 +73,6 @@ const sendEmail = ai.defineTool(
         }
 
         console.log('Email sent successfully:', data);
-        */
-       console.log("Mock email sent. Integrate with a service like Resend to send actual emails.");
        return { success: true };
     } catch (e) {
       console.error('Failed to send email:', e);
