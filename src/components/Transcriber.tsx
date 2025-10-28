@@ -75,7 +75,7 @@ export default function Transcriber() {
 
   return (
     <section id="transcribe" className="py-16 md:py-24 lg:py-32 bg-background">
-      <div className="container flex justify-center">
+      <div className="flex justify-center">
         <Card className="w-full max-w-xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold flex items-center justify-center gap-2">
