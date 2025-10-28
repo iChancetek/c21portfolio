@@ -5,7 +5,6 @@ import { semanticProjectSearch } from '@/ai/flows/semantic-project-search';
 import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import type { Project } from '@/lib/types';
-import { initializeServerApp } from '@/firebase/server-config';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -25,34 +24,22 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Please correct the errors below.',
       success: false,
+      data: null,
     };
   }
 
-  try {
-    const { firestore } = initializeServerApp();
-    const submission = {
-      ...validatedFields.data,
-      submissionDate: new Date().toISOString(),
-    };
-    await firestore.collection('contactFormSubmissions').add(submission);
-
-    // TODO: Re-enable email sending when an email service is configured.
-    // For now, we'll log that it's disabled.
-    console.log('Email sending is temporarily disabled. Submission was not emailed.');
-
-    return {
-      message: "Thank you for your message! I'll get back to you soon.",
-      success: true,
-      errors: {},
-    };
-  } catch (e) {
-    console.error('Failed to handle contact form:', e);
-    return {
-      message: 'Could not save submission to database. Please try again later.',
-      success: false,
-      errors: {},
-    };
-  }
+  // The server action is now only responsible for validation.
+  // The actual database submission will be handled on the client.
+  // We return the validated data to the client so it can be submitted.
+  return {
+    message: "Thank you for your message! I'll get back to you soon.",
+    success: true,
+    errors: {},
+    data: {
+        ...validatedFields.data,
+        submissionDate: new Date().toISOString(),
+    }
+  };
 }
 
 // This function is now problematic as it relies on a static list of projects.

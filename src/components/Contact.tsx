@@ -1,8 +1,7 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useEffect, useRef } from 'react';
 import { useFormStatus } from 'react-dom';
-import { useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
@@ -11,6 +10,8 @@ import { Label } from './ui/label';
 import { Loader2, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { submitContactForm } from '@/app/actions';
+import { useFirestore, addDocumentNonBlocking } from '@/firebase';
+import { collection } from 'firebase/firestore';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -23,28 +24,35 @@ function SubmitButton() {
 }
 
 export default function Contact() {
-  const initialState = { message: '', errors: {}, success: false };
+  const initialState = { message: '', errors: {}, success: false, data: null };
   const [state, dispatch] = useActionState(submitContactForm, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
+  const firestore = useFirestore();
 
   useEffect(() => {
-    if (state.message) {
-      if (state.success) {
-        toast({
-          title: 'Success!',
-          description: state.message,
-        });
-        formRef.current?.reset();
-      } else {
-        toast({
-          title: 'Error',
-          description: state.message,
-          variant: 'destructive',
-        });
+    if (state.success && state.data) {
+      toast({
+        title: 'Success!',
+        description: state.message,
+      });
+
+      // Submit to Firestore on the client
+      if (firestore) {
+        const submissionsCollection = collection(firestore, 'contactFormSubmissions');
+        addDocumentNonBlocking(submissionsCollection, state.data);
       }
+      
+      formRef.current?.reset();
+      
+    } else if (!state.success && state.message) {
+      toast({
+        title: 'Error',
+        description: state.message,
+        variant: 'destructive',
+      });
     }
-  }, [state, toast]);
+  }, [state, toast, firestore]);
 
   return (
     <section id="contact" className="py-16 md:py-24 lg:py-32 relative bg-background overflow-hidden">
