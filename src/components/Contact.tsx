@@ -38,14 +38,13 @@ export default function Contact() {
         description: state.message,
       });
 
-      // Submit to Firestore on the client
       if (firestore) {
         const submissionsCollection = collection(firestore, 'contactFormSubmissions');
         addDocumentNonBlocking(submissionsCollection, state.data);
       }
       
       formRef.current?.reset();
-      submissionHandled.current = true; // Mark as handled
+      submissionHandled.current = true;
       
     } else if (!state.success && state.message) {
       toast({
@@ -53,9 +52,6 @@ export default function Contact() {
         description: state.message,
         variant: 'destructive',
       });
-    } else if (!state.success && state.message === '') {
-        // Reset the handled flag when the form is reset or ready for a new submission
-        submissionHandled.current = false;
     }
   }, [state, toast, firestore]);
 
