@@ -21,15 +21,20 @@ export type ContactFormInput = z.infer<typeof ContactFormInputSchema>;
 
 // Function to save the contact form submission to Firestore.
 async function saveToDb(input: ContactFormInput) {
-    const { firestore } = initializeServerApp();
-    console.log('Saving contact form submission to Firestore...');
-    const submission = {
-      ...input,
-      submissionDate: new Date().toISOString(),
-    };
-    const docRef = await firestore.collection('contactFormSubmissions').add(submission);
-    console.log(`Submission saved with ID: ${docRef.id}`);
-    return { docId: docRef.id };
+    try {
+        const { firestore } = initializeServerApp();
+        console.log('Saving contact form submission to Firestore...');
+        const submission = {
+          ...input,
+          submissionDate: new Date().toISOString(),
+        };
+        const docRef = await firestore.collection('contactFormSubmissions').add(submission);
+        console.log(`Submission saved with ID: ${docRef.id}`);
+        return { success: true, docId: docRef.id };
+    } catch (error) {
+        console.error('Error in saveToDb:', error);
+        return { success: false, error: 'Could not save submission to database.' };
+    }
 }
 
 // Function to send an email notification.
@@ -40,19 +45,23 @@ async function sendEmail(input: ContactFormInput) {
 
 // Main exported function to be called from the server action.
 export async function handleContactForm(input: ContactFormInput) {
-  try {
-    const [dbResult, emailResult] = await Promise.all([
-      saveToDb(input),
-      sendEmail(input),
-    ]);
+    // We run saveToDb first. If it fails, we return the error immediately.
+    const dbResult = await saveToDb(input);
+    if (!dbResult.success) {
+      return { success: false, error: dbResult.error };
+    }
 
+    // Then we attempt to send the email.
+    const emailResult = await sendEmail(input);
+     if (!emailResult.success) {
+      // Even if email fails, we can consider the main operation a success
+      // since the data is in the DB. We can log this for later debugging.
+      console.warn('Database save succeeded, but email sending failed.');
+    }
+
+    // Return a success status with the database document ID.
     return {
+      success: true,
       dbId: dbResult.docId,
-      emailSuccess: emailResult.success,
     };
-  } catch (error) {
-    console.error('Error in handleContactForm:', error);
-    // Re-throw the error to be caught by the server action's catch block
-    throw new Error('Failed to process contact form submission.');
-  }
 }

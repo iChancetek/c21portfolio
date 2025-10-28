@@ -29,8 +29,16 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   }
 
   try {
-    await handleContactForm(validatedFields.data);
+    const result = await handleContactForm(validatedFields.data);
     
+    if (!result.success) {
+        return {
+            message: result.error || 'An unexpected error occurred. Please try again.',
+            success: false,
+            errors: {},
+        }
+    }
+
     return {
       message: "Thank you for your message! I'll get back to you soon.",
       success: true,
@@ -39,7 +47,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   } catch (e) {
     console.error('Failed to handle contact form:', e);
     return {
-      message: 'An unexpected error occurred. Please try again.',
+      message: 'A critical unexpected error occurred. Please try again later.',
       success: false,
       errors: {},
     };
