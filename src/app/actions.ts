@@ -5,6 +5,7 @@ import { semanticProjectSearch } from '@/ai/flows/semantic-project-search';
 import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import type { Project } from '@/lib/types';
+import { Resend } from 'resend';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -28,15 +29,42 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     };
   }
 
-  // The server action is now only responsible for validation.
-  // The actual database submission will be handled on the client.
-  // We return the validated data to the client so it can be submitted.
+  const { name, email, message } = validatedFields.data;
+  
+  if (process.env.RESEND_API_KEY) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      try {
+        await resend.emails.send({
+          from: 'onboarding@resend.dev',
+          to: 'cm@chancellorminus.com',
+          subject: `New Contact Form Submission from ${name}`,
+          html: `<p>You received a new message from your portfolio contact form.</p>
+                 <p><strong>Name:</strong> ${name}</p>
+                 <p><strong>Email:</strong> ${email}</p>
+                 <p><strong>Message:</strong></p>
+                 <p>${message}</p>`,
+        });
+      } catch (error) {
+          console.error("Resend failed:", error);
+          // Decide if you want to block form submission if email fails.
+          // For now, we will allow it and just log the error.
+      }
+  } else {
+      console.warn("RESEND_API_KEY is not set. Skipping email notification.");
+  }
+
+
+  // The server action is now only responsible for validation and email sending.
+  // The database submission is handled on the client.
+  // We return the validated data to the client so it can be submitted to Firestore.
   return {
     message: "Thank you for your message! I'll get back to you soon.",
     success: true,
     errors: {},
     data: {
-        ...validatedFields.data,
+        name,
+        email,
+        message,
         submissionDate: new Date().toISOString(),
     }
   };
