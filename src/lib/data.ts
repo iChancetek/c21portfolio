@@ -1,5 +1,5 @@
 import { Project, SkillCategory, Venture } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -152,6 +152,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Drizzle", icon: Database },
       { name: "Neon PostgreSQL", icon: Database },
       { name: "Firebase", icon: Code },
+      { name: "Supabase", icon: Database },
       { name: "Clerk", icon: Code },
     ],
   },
@@ -160,9 +161,31 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "GCP Vertex AI", icon: BrainCircuit },
       { name: "AWS Bedrock", icon: BrainCircuit },
-      { name: "Azure Foundry AI", icon: BrainCircuit },
+      { name: "Azure AI Foundry", icon: BrainCircuit },
       { name: "Gemini, GPT, Claude", icon: Bot },
-      { name: "Llama, Qwen, etc.", icon: Bot },
+      { name: "Meta LLaMA", icon: Bot },
+      { name: "DeepSeek", icon: Bot },
+    ],
+  },
+  {
+    title: "AI Agent Engineering",
+    skills: [
+      { name: "AI Agentic Agents", icon: Bot },
+      { name: "Voice AI Agents", icon: MicVocal },
+      { name: "RAG AI Chatbots", icon: MessagesSquare },
+      { name: "Embedding Strategies", icon: Code },
+      { name: "Fine-tuning", icon: BrainCircuit },
+      { name: "A/B testing", icon: TestTube },
+    ],
+  },
+    {
+    title: "Cloud & DevOps",
+    skills: [
+      { name: "AWS Cloud Engineer", icon: CloudCog },
+      { name: "Azure Cloud Engineering", icon: CloudCog },
+      { name: "GCP Cloud Engineer", icon: CloudCog },
+      { name: "DevOps", icon: ServerCog },
+      { name: "MLOps", icon: ServerCog },
     ],
   },
   {
@@ -173,8 +196,36 @@ export const skillCategories: SkillCategory[] = [
       { name: "Replit", icon: Code },
       { name: "Hugging Face", icon: BrainCircuit },
       { name: "Genkit", icon: Bot },
+      { name: "CrewAI", icon: Users },
     ],
   },
+  {
+    title: "AI Tools & Platforms",
+    skills: [
+      { name: "LangChain", icon: GitBranch },
+      { name: "LangGraph", icon: GitBranch },
+      { name: "LangSmith", icon: GitBranch },
+      { name: "Langflow", icon: GitBranch },
+      { name: "Pinecone", icon: Database },
+      { name: "ChromaDB", icon: Database },
+      { name: "OpenAI Agents SDK", icon: Bot },
+      { name: "ElevenLabs", icon: MicVocal },
+      { name: "Twilio", icon: MessagesSquare },
+      { name: "Retell AI", icon: Bot },
+      { name: "VAPI", icon: MicVocal },
+    ],
+  },
+  {
+    title: "Workflow Automation",
+    skills: [
+        { name: "Workflow Automation", icon: Workflow },
+        { name: "Zapier", icon: Workflow },
+        { name: "Make.com", icon: Workflow },
+        { name: "N8N", icon: Workflow },
+        { name: "Airtable", icon: Database },
+        { name: "Flowise AI", icon: Workflow },
+    ]
+  }
 ];
 
 export const navLinks = [
