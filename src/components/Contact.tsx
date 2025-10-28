@@ -29,9 +29,10 @@ export default function Contact() {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const firestore = useFirestore();
+  const submissionHandled = useRef(false);
 
   useEffect(() => {
-    if (state.success && state.data) {
+    if (state.success && state.data && !submissionHandled.current) {
       toast({
         title: 'Success!',
         description: state.message,
@@ -44,6 +45,7 @@ export default function Contact() {
       }
       
       formRef.current?.reset();
+      submissionHandled.current = true; // Mark as handled
       
     } else if (!state.success && state.message) {
       toast({
@@ -51,6 +53,9 @@ export default function Contact() {
         description: state.message,
         variant: 'destructive',
       });
+    } else if (!state.success && state.message === '') {
+        // Reset the handled flag when the form is reset or ready for a new submission
+        submissionHandled.current = false;
     }
   }, [state, toast, firestore]);
 
