@@ -20,17 +20,8 @@ const ContactFormInputSchema = z.object({
 });
 export type ContactFormInput = z.infer<typeof ContactFormInputSchema>;
 
-// Tool to save the contact form submission to Firestore.
-const saveToDb = ai.defineTool(
-  {
-    name: 'saveToDb',
-    description: 'Save the contact form submission to the database.',
-    inputSchema: ContactFormInputSchema,
-    outputSchema: z.object({
-      docId: z.string().describe('The ID of the saved document.'),
-    }),
-  },
-  async (input) => {
+// Function to save the contact form submission to Firestore.
+async function saveToDb(input: ContactFormInput) {
     // Initialize Firebase Admin SDK for server-side operations.
     const { firestore } = initializeServerApp();
     console.log('Saving contact form submission to Firestore...');
@@ -41,18 +32,10 @@ const saveToDb = ai.defineTool(
     const docRef = await firestore.collection('contactFormSubmissions').add(submission);
     console.log(`Submission saved with ID: ${docRef.id}`);
     return { docId: docRef.id };
-  }
-);
+}
 
-// Tool to send an email notification.
-const sendEmail = ai.defineTool(
-  {
-    name: 'sendEmail',
-    description: 'Send an email notification about the new contact form submission.',
-    inputSchema: ContactFormInputSchema,
-    outputSchema: z.object({ success: z.boolean() }),
-  },
-  async (input) => {
+// Function to send an email notification.
+async function sendEmail(input: ContactFormInput) {
     // Temporarily disabled until RESEND_API_KEY is configured.
     console.log('Email sending is temporarily disabled. Submission was not emailed.');
     return { success: true };
@@ -85,8 +68,7 @@ const sendEmail = ai.defineTool(
       return { success: false };
     }
     */
-  }
-);
+}
 
 // The main flow that orchestrates saving to DB and sending an email.
 const handleContactFormFlow = ai.defineFlow(
