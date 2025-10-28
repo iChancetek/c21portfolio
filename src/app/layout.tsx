@@ -33,7 +33,9 @@ export default function RootLayout({
         >
           <FirebaseClientProvider>
             <Header />
-            <main className="flex-1">{children}</main>
+            <div className="flex-1">
+              <main>{children}</main>
+            </div>
             <Footer />
             <Toaster />
           </FirebaseClientProvider>

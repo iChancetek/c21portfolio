@@ -1,10 +1,23 @@
 {
-  "apphosting": {
-    "studio": {
-      "site": "studio",
-      "source": {
-        "localSource": "."
+  "apphosting": [
+    {
+      "studio": {
+        "site": "studio",
+        "source": {
+          "localSource": "."
+        }
       }
+    },
+    {
+      "backendId": "backend",
+      "rootDir": "/",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "functions"
+      ]
     }
-  }
+  ]
 }
