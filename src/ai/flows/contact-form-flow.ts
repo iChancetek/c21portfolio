@@ -8,7 +8,6 @@
 
 'use server';
 
-import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 import { initializeServerApp } from '@/firebase/server-config';
 import { Resend } from 'resend';
@@ -22,7 +21,6 @@ export type ContactFormInput = z.infer<typeof ContactFormInputSchema>;
 
 // Function to save the contact form submission to Firestore.
 async function saveToDb(input: ContactFormInput) {
-    // Initialize Firebase Admin SDK for server-side operations.
     const { firestore } = initializeServerApp();
     console.log('Saving contact form submission to Firestore...');
     const submission = {
@@ -36,65 +34,25 @@ async function saveToDb(input: ContactFormInput) {
 
 // Function to send an email notification.
 async function sendEmail(input: ContactFormInput) {
-    // Temporarily disabled until RESEND_API_KEY is configured.
     console.log('Email sending is temporarily disabled. Submission was not emailed.');
     return { success: true };
-    
-    /*
-    // TODO: Re-enable this when RESEND_API_KEY is set.
-    // Initialize Resend for sending emails.
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    console.log('Sending email notification...');
-    try {
-        const { data, error } = await resend.emails.send({
-            from: 'onboarding@resend.dev', // TODO: Replace with your "from" address.
-            to: 'cm@chancellorminus.com',
-            subject: `New Contact Form Submission from ${input.name}`,
-            html: `<p><strong>Name:</strong> ${input.name}</p>
-                   <p><strong>Email:</strong> ${input.email}</p>
-                   <p><strong>Message:</strong></p>
-                   <p>${input.message}</p>`,
-        });
-
-        if (error) {
-            console.error('Error sending email:', error);
-            return { success: false };
-        }
-
-        console.log('Email sent successfully:', data);
-       return { success: true };
-    } catch (e) {
-      console.error('Failed to send email:', e);
-      return { success: false };
-    }
-    */
 }
 
-// The main flow that orchestrates saving to DB and sending an email.
-const handleContactFormFlow = ai.defineFlow(
-  {
-    name: 'handleContactFormFlow',
-    inputSchema: ContactFormInputSchema,
-    outputSchema: z.object({
-      dbId: z.string(),
-      emailSuccess: z.boolean(),
-    }),
-  },
-  async (input) => {
-    // Run both tasks in parallel.
+// Main exported function to be called from the server action.
+export async function handleContactForm(input: ContactFormInput) {
+  try {
     const [dbResult, emailResult] = await Promise.all([
       saveToDb(input),
       sendEmail(input),
     ]);
-    
+
     return {
       dbId: dbResult.docId,
       emailSuccess: emailResult.success,
     };
+  } catch (error) {
+    console.error('Error in handleContactForm:', error);
+    // Re-throw the error to be caught by the server action's catch block
+    throw new Error('Failed to process contact form submission.');
   }
-);
-
-// Exported function to be called from the server action.
-export async function handleContactForm(input: ContactFormInput) {
-  return handleContactFormFlow(input);
 }
