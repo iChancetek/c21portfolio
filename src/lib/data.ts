@@ -186,6 +186,9 @@ export const skillCategories: SkillCategory[] = [
       { name: "GCP Cloud Engineer", icon: CloudCog },
       { name: "DevOps", icon: ServerCog },
       { name: "MLOps", icon: ServerCog },
+      { name: "Kubernetes", icon: ServerCog },
+      { name: "Terraform", icon: ServerCog },
+      { name: "Docker", icon: ServerCog },
     ],
   },
   {
