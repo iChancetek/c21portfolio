@@ -173,6 +173,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "AI Agentic Agents", icon: Bot },
       { name: "Voice AI Agents", icon: MicVocal },
       { name: "RAG AI Chatbots", icon: MessagesSquare },
+      { name: "RAG AI Assistants", icon: MessagesSquare },
       { name: "Embedding Strategies", icon: Code },
       { name: "Fine-tuning", icon: BrainCircuit },
       { name: "A/B testing", icon: TestTube },
