@@ -53,6 +53,12 @@ const sendEmail = ai.defineTool(
     outputSchema: z.object({ success: z.boolean() }),
   },
   async (input) => {
+    // Temporarily disabled until RESEND_API_KEY is configured.
+    console.log('Email sending is temporarily disabled. Submission was not emailed.');
+    return { success: true };
+    
+    /*
+    // TODO: Re-enable this when RESEND_API_KEY is set.
     // Initialize Resend for sending emails.
     const resend = new Resend(process.env.RESEND_API_KEY);
     console.log('Sending email notification...');
@@ -78,6 +84,7 @@ const sendEmail = ai.defineTool(
       console.error('Failed to send email:', e);
       return { success: false };
     }
+    */
   }
 );
 
