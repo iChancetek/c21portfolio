@@ -36,7 +36,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       try {
         const { data, error } = await resend.emails.send({
           from: 'Portfolio <noreply@yourdomain.com>',
-          to: 'cm@chancellorminus.com',
+          to: ['cm@chancellorminus.com'],
           subject: `New Contact Form Submission from ${name}`,
           html: `<p>You received a new message from your portfolio contact form.</p>
                  <p><strong>Name:</strong> ${name}</p>
@@ -49,16 +49,17 @@ export async function submitContactForm(prevState: any, formData: FormData) {
             console.error("Resend API Error:", error);
             return {
                 errors: {},
-                message: "Could not send email. Please try again later.",
+                message: `Could not send email. Error: ${error.message}`,
                 success: false,
                 data: null,
             }
         }
-      } catch (error) {
+      } catch (exception) {
+          const error = exception as Error;
           console.error("Resend failed:", error);
           return {
             errors: {},
-            message: "An unexpected error occurred while sending the email.",
+            message: `Could not send email. Error: ${error.message}`,
             success: false,
             data: null,
           }
