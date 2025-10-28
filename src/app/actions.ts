@@ -113,9 +113,10 @@ export async function getAIAssistantResponse(query: string) {
     try {
         const response = await aiPortfolioAssistant({ query });
         return response.answer;
-    } catch (error) {
+    } catch (error: any) {
         console.error("AI assistant failed:", error);
-        return "I'm sorry, but I'm having trouble connecting to my brain right now. Please try again later.";
+        const errorMessage = error.message || "An unknown error occurred.";
+        return `I'm sorry, but I'm having trouble connecting to my brain right now. Error: ${errorMessage}`;
     }
 }
 
@@ -123,8 +124,9 @@ export async function generateProjectDeepDive(projectId: string) {
     try {
         const response = await generateDeepDive({ projectId });
         return response.deepDive;
-    } catch (error) {
+    } catch (error: any) {
         console.error("Deep dive generation failed:", error);
-        return "I'm sorry, but I was unable to generate a deep-dive for this project. Please try again later.";
+         const errorMessage = error.message || "An unknown error occurred.";
+        return `I'm sorry, but I was unable to generate a deep-dive for this project. Error: ${errorMessage}`;
     }
 }

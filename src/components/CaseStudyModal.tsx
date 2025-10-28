@@ -16,13 +16,19 @@ interface CaseStudyModalProps {
 export default function CaseStudyModal({ isOpen, onOpenChange, projectId, projectTitle }: CaseStudyModalProps) {
   const [deepDive, setDeepDive] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (isOpen && !deepDive) {
       setIsLoading(true);
+      setError('');
       generateProjectDeepDive(projectId)
         .then((content) => {
-          setDeepDive(content);
+          if (content.startsWith("I'm sorry")) {
+            setError(content);
+          } else {
+            setDeepDive(content);
+          }
         })
         .finally(() => {
           setIsLoading(false);
@@ -48,6 +54,8 @@ export default function CaseStudyModal({ isOpen, onOpenChange, projectId, projec
                     <p>Generating deep-dive...</p>
                 </div>
                 </div>
+            ) : error ? (
+              <div className="text-destructive p-4">{error}</div>
             ) : (
                 <div 
                     className="prose prose-invert prose-sm sm:prose-base max-w-none" 

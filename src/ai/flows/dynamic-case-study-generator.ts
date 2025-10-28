@@ -62,7 +62,7 @@ const prompt = ai.definePrompt({
   name: 'generateDeepDivePrompt',
   input: {schema: GenerateDeepDiveInputSchema},
   output: {schema: GenerateDeepDiveOutputSchema},
-  model: 'gpt-4o',
+  model: 'openai/gpt-4o',
   tools: [getProjectDetails],
   prompt: `You are an expert technical writer, specializing in creating deep-dive case studies of software projects.
 
