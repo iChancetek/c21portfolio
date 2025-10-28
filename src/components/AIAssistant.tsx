@@ -52,7 +52,7 @@ export default function AIAssistant() {
   };
 
   return (
-    <Card className="w-full max-w-md shadow-2xl shadow-primary/10">
+    <Card className="w-full max-w-md shadow-2xl shadow-primary/10 md:rounded-xl rounded-t-xl rounded-b-none">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Bot className="text-primary" />
@@ -60,7 +60,7 @@ export default function AIAssistant() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[300px] w-full pr-4" ref={scrollAreaRef}>
+        <ScrollArea className="h-[40vh] md:h-[300px] w-full pr-4" ref={scrollAreaRef}>
           <div className="space-y-4">
             {messages.map((message, index) => (
               <div
