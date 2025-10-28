@@ -5,6 +5,7 @@ import { semanticProjectSearch } from '@/ai/flows/semantic-project-search';
 import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import type { Project } from '@/lib/types';
+import { handleContactForm } from '@/ai/flows/contact-form-flow';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -28,8 +29,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   }
 
   try {
-    // Here you would integrate with a service like Resend or Formspree
-    console.log('Form data submitted:', validatedFields.data);
+    await handleContactForm(validatedFields.data);
     
     return {
       message: "Thank you for your message! I'll get back to you soon.",
@@ -37,6 +37,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       errors: {},
     };
   } catch (e) {
+    console.error('Failed to handle contact form:', e);
     return {
       message: 'An unexpected error occurred. Please try again.',
       success: false,
