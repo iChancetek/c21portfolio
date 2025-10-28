@@ -202,19 +202,13 @@
         }
       },
       {
-        "path": "/contactFormSubmissions/{contactFormSubmissionId}",
+        "path": "/contactFormSubmissions",
         "definition": {
           "entityName": "ContactFormSubmission",
           "schema": {
             "$ref": "#/backend/entities/ContactFormSubmission"
           },
-          "description": "Stores contact form submissions.",
-          "params": [
-            {
-              "name": "contactFormSubmissionId",
-              "description": "Unique identifier for the contactFormSubmission."
-            }
-          ]
+          "description": "Stores contact form submissions."
         }
       }
     ],
