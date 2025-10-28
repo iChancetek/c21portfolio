@@ -34,7 +34,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   if (process.env.RESEND_API_KEY) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       try {
-        await resend.emails.send({
+        const { error } = await resend.emails.send({
           from: 'onboarding@resend.dev',
           to: 'cm@chancellorminus.com',
           subject: `New Contact Form Submission from ${name}`,
@@ -44,10 +44,24 @@ export async function submitContactForm(prevState: any, formData: FormData) {
                  <p><strong>Message:</strong></p>
                  <p>${message}</p>`,
         });
+
+        if (error) {
+            console.error("Resend API Error:", error);
+            return {
+                errors: {},
+                message: "Could not send email. Please try again later.",
+                success: false,
+                data: null,
+            }
+        }
       } catch (error) {
           console.error("Resend failed:", error);
-          // Decide if you want to block form submission if email fails.
-          // For now, we will allow it and just log the error.
+          return {
+            errors: {},
+            message: "An unexpected error occurred while sending the email.",
+            success: false,
+            data: null,
+          }
       }
   } else {
       console.warn("RESEND_API_KEY is not set. Skipping email notification.");
