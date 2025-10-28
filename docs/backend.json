@@ -152,66 +152,29 @@
     ]
   },
   "firestore": {
-    "structure": [
-      {
-        "path": "/projects/{projectId}",
-        "definition": {
-          "entityName": "Project",
-          "schema": {
-            "$ref": "#/backend/entities/Project"
-          },
-          "description": "Stores project data. Each document represents a single project.",
-          "params": [
-            {
-              "name": "projectId",
-              "description": "Unique identifier for the project."
-            }
-          ]
-        }
+    "/projects/{projectId}": {
+      "schema": {
+        "$ref": "#/entities/Project"
       },
-      {
-        "path": "/skills/{skillId}",
-        "definition": {
-          "entityName": "Skill",
-          "schema": {
-            "$ref": "#/backend/entities/Skill"
-          },
-          "description": "Stores skill data. Each document represents a single skill.",
-          "params": [
-            {
-              "name": "skillId",
-              "description": "Unique identifier for the skill."
-            }
-          ]
-        }
+      "description": "Stores project data. Each document represents a single project."
+    },
+    "/skills/{skillId}": {
+      "schema": {
+        "$ref": "#/entities/Skill"
       },
-      {
-        "path": "/projectSkills/{projectSkillId}",
-        "definition": {
-          "entityName": "ProjectSkill",
-          "schema": {
-            "$ref": "#/backend/entities/ProjectSkill"
-          },
-          "description": "Stores the relationships between projects and skills.",
-          "params": [
-            {
-              "name": "projectSkillId",
-              "description": "Unique identifier for the projectSkill."
-            }
-          ]
-        }
+      "description": "Stores skill data. Each document represents a single skill."
+    },
+    "/projectSkills/{projectSkillId}": {
+      "schema": {
+        "$ref": "#/entities/ProjectSkill"
       },
-      {
-        "path": "/contactFormSubmissions",
-        "definition": {
-          "entityName": "ContactFormSubmission",
-          "schema": {
-            "$ref": "#/backend/entities/ContactFormSubmission"
-          },
-          "description": "Stores contact form submissions."
-        }
-      }
-    ],
-    "reasoning": "The Firestore structure is designed to securely store and manage data for Chancellor's AI Portfolio application. It emphasizes authorization independence and simplifies security rules using denormalization and structural segregation. \n\nProjects and Skills are stored in root-level collections for easy querying. ProjectSkill documents link Projects and Skills. ContactFormSubmissions are stored in a dedicated collection. No user-specific data is stored, eliminating the need for user-based subcollections and complex authorization rules.\n\nAuthorization Independence:\nSince there are no collaborative entities that depend on parent documents, this design inherently provides Authorization Independence. There is no reliance on `get()` calls to parent documents in security rules. The Admin Panel (using Clerk) will be authorized to manage content through other means (e.g., a backend function that verifies Clerk user roles).\n\nQAPs (Rules are not Filters):\nThe structure supports secure list operations because collections are homogeneous and follow the principle of Structural Segregation. Rules can be applied at the collection level without needing to filter based on document content."
+      "description": "Stores the relationships between projects and skills."
+    },
+    "/contactFormSubmissions": {
+      "schema": {
+        "$ref": "#/entities/ContactFormSubmission"
+      },
+      "description": "Stores contact form submissions."
+    }
   }
 }
