@@ -6,7 +6,7 @@
         "region": "us-central1",
         "instanceSize": "cpu-1",
         "source": ".",
-        "entrypoint": "next start"
+        "entrypoint": "nextjs"
       }
     ]
   }
