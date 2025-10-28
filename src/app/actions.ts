@@ -5,7 +5,7 @@ import { semanticProjectSearch } from '@/ai/flows/semantic-project-search';
 import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import type { Project } from '@/lib/types';
-import { handleContactForm } from '@/ai/flows/contact-form-flow';
+import { initializeServerApp } from '@/firebase/server-config';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -29,15 +29,16 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   }
 
   try {
-    const result = await handleContactForm(validatedFields.data);
-    
-    if (!result.success) {
-        return {
-            message: result.error || 'An unexpected error occurred. Please try again.',
-            success: false,
-            errors: {},
-        }
-    }
+    const { firestore } = initializeServerApp();
+    const submission = {
+      ...validatedFields.data,
+      submissionDate: new Date().toISOString(),
+    };
+    await firestore.collection('contactFormSubmissions').add(submission);
+
+    // TODO: Re-enable email sending when an email service is configured.
+    // For now, we'll log that it's disabled.
+    console.log('Email sending is temporarily disabled. Submission was not emailed.');
 
     return {
       message: "Thank you for your message! I'll get back to you soon.",
@@ -47,7 +48,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   } catch (e) {
     console.error('Failed to handle contact form:', e);
     return {
-      message: 'A critical unexpected error occurred. Please try again later.',
+      message: 'Could not save submission to database. Please try again later.',
       success: false,
       errors: {},
     };
