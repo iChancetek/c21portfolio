@@ -1,3 +1,4 @@
+
 'use server';
 
 import { z } from 'zod';
@@ -31,11 +32,11 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
   const { name, email, message } = validatedFields.data;
   
-  if (process.env.RESEND_API_KEY) {
+  if (process.env.RESEND_API_KEY && process.env.RESEND_DOMAIN) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       try {
         const { data, error } = await resend.emails.send({
-          from: 'Portfolio <noreply@yourdomain.com>',
+          from: `Portfolio <noreply@${process.env.RESEND_DOMAIN}>`,
           to: ['cm@chancellorminus.com'],
           subject: `New Contact Form Submission from ${name}`,
           html: `<p>You received a new message from your portfolio contact form.</p>
@@ -65,7 +66,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
           }
       }
   } else {
-      console.warn("RESEND_API_KEY is not set. Skipping email notification.");
+      console.warn("RESEND_API_KEY or RESEND_DOMAIN is not set. Skipping email notification.");
   }
 
 
