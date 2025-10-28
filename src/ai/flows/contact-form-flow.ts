@@ -13,11 +13,6 @@ import { z } from 'zod';
 import { initializeServerApp } from '@/firebase/server-config';
 import { Resend } from 'resend';
 
-// Initialize Firebase Admin SDK for server-side operations.
-const { firestore } = initializeServerApp();
-// Initialize Resend for sending emails.
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const ContactFormInputSchema = z.object({
   name: z.string().describe('The name of the person submitting the form.'),
   email: z.string().email().describe('The email address of the person.'),
@@ -36,6 +31,8 @@ const saveToDb = ai.defineTool(
     }),
   },
   async (input) => {
+    // Initialize Firebase Admin SDK for server-side operations.
+    const { firestore } = initializeServerApp();
     console.log('Saving contact form submission to Firestore...');
     const submission = {
       ...input,
@@ -56,6 +53,8 @@ const sendEmail = ai.defineTool(
     outputSchema: z.object({ success: z.boolean() }),
   },
   async (input) => {
+    // Initialize Resend for sending emails.
+    const resend = new Resend(process.env.RESEND_API_KEY);
     console.log('Sending email notification...');
     try {
         /*
