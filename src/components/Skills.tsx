@@ -20,8 +20,8 @@ export default function Skills() {
                             </CardHeader>
                             <CardContent>
                                 <ul className="space-y-3">
-                                    {category.skills.map((skill) => (
-                                        <li key={skill.name} className="flex items-center gap-3 text-slate-400">
+                                    {category.skills.map((skill, index) => (
+                                        <li key={`${category.title}-${skill.name}-${index}`} className="flex items-center gap-3 text-slate-400">
                                             <skill.icon className="w-5 h-5 text-primary/80 transition-colors duration-300 group-hover:text-accent" />
                                             <span>{skill.name}</span>
                                         </li>
