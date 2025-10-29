@@ -38,6 +38,9 @@ const prompt = ai.definePrompt({
 
   Question: {{{query}}}
   `,
+  config: {
+    model: 'openai/gpt-4o',
+  }
 });
 
 const aiPortfolioAssistantFlow = ai.defineFlow(
@@ -47,7 +50,7 @@ const aiPortfolioAssistantFlow = ai.defineFlow(
     outputSchema: AIPortfolioAssistantOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input, {config: {model: 'openai/gpt-4o'}});
+    const {output} = await prompt(input);
     return output!;
   }
 );
