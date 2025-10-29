@@ -2,65 +2,50 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { Loader2, Mic, FileAudio } from 'lucide-react';
+import { Loader2, Wand2, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Textarea } from './ui/textarea';
 
 export default function Transcriber() {
-  const [file, setFile] = useState<File | null>(null);
-  const [text, setText] = useState('');
+  const [inputText, setInputText] = useState('');
+  const [outputText, setOutputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
-
-  const handleTranscribe = async () => {
-    if (!file) {
+  const handleEnhance = async () => {
+    if (!inputText.trim()) {
       toast({
         title: 'Error',
-        description: 'Please select an audio file first.',
+        description: 'Please enter some text to enhance.',
         variant: 'destructive',
       });
       return;
     }
 
     setIsLoading(true);
-    setText('');
+    setOutputText('');
 
     try {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = async (event) => {
-        const audioDataUri = event.target?.result as string;
+      const response = await fetch('/api/transcribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: inputText }),
+      });
 
-        const response = await fetch('/api/transcribe', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ audioDataUri }),
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Transcription failed');
-        }
-
-        const result = await response.json();
-        setText(result.text);
-        toast({
-          title: 'Success',
-          description: 'Audio transcribed successfully.',
-        });
-      };
-      reader.onerror = (error) => {
-        throw new Error('Failed to read the file.');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Enhancement failed');
       }
+
+      const result = await response.json();
+      setOutputText(result.enhancedText);
+      toast({
+        title: 'Success',
+        description: 'Text enhanced successfully.',
+      });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
       toast({
@@ -79,40 +64,40 @@ export default function Transcriber() {
         <Card className="w-full max-w-xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold flex items-center justify-center gap-2">
-              <Mic className="w-8 h-8 text-primary" /> Audio Transcriber
+              <Wand2 className="w-8 h-8 text-primary" /> Text Enhancer
             </CardTitle>
-            <CardDescription>Upload an audio file and get the transcription using Whisper.</CardDescription>
+            <CardDescription>Enter some text below and let AI improve it.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-                <Input
-                id="audio-file"
-                type="file"
-                accept="audio/*"
-                onChange={handleFileChange}
+              <Textarea
+                id="text-input"
+                placeholder="Enter text to enhance..."
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
                 disabled={isLoading}
-                />
-                 {file && <p className="text-sm text-muted-foreground pt-2">Selected file: {file.name}</p>}
+                className="min-h-[120px]"
+              />
             </div>
             
-            <Button onClick={handleTranscribe} disabled={isLoading || !file} className="w-full bg-primary-gradient">
+            <Button onClick={handleEnhance} disabled={isLoading || !inputText.trim()} className="w-full bg-primary-gradient">
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Transcribing...
+                  Enhancing...
                 </>
               ) : (
                 <>
-                  <FileAudio className="mr-2 h-4 w-4" />
-                  Transcribe Audio
+                  <FileText className="mr-2 h-4 w-4" />
+                  Enhance Text
                 </>
               )}
             </Button>
             
-            {text && (
+            {outputText && (
               <div className="mt-6 p-4 bg-secondary rounded-lg border">
-                <h3 className="font-semibold mb-2">Transcription Result:</h3>
-                <p className="text-muted-foreground">{text}</p>
+                <h3 className="font-semibold mb-2">Enhanced Text:</h3>
+                <p className="text-muted-foreground">{outputText}</p>
               </div>
             )}
           </CardContent>

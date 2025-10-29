@@ -1,48 +1,46 @@
 /**
- * @fileOverview An audio transcription flow using OpenAI's Whisper model.
+ * @fileOverview A text enhancement flow using an AI model.
  *
- * - transcribeAudio - A function that handles the audio transcription process.
- * - TranscribeAudioInput - The input type for the transcribeAudio function.
- * - TranscribeAudioOutput - The return type for the transcribeAudio function.
+ * - enhanceText - A function that enhances a given text string.
+ * - EnhanceTextInput - The input type for the enhanceText function.
+ * - EnhanceTextOutput - The return type for the enhanceText function.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
-const TranscribeAudioInputSchema = z.object({
-  audioDataUri: z
+const EnhanceTextInputSchema = z.object({
+  text: z
     .string()
     .describe(
-      "A base64-encoded audio file as a data URI. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+      "The text to be enhanced."
     ),
 });
-export type TranscribeAudioInput = z.infer<typeof TranscribeAudioInputSchema>;
+export type EnhanceTextInput = z.infer<typeof EnhanceTextInputSchema>;
 
-const TranscribeAudioOutputSchema = z.object({
-  text: z.string().describe('The transcribed text from the audio.'),
+const EnhanceTextOutputSchema = z.object({
+  enhancedText: z.string().describe('The enhanced text from the model.'),
 });
-export type TranscribeAudioOutput = z.infer<typeof TranscribeAudioOutputSchema>;
+export type EnhanceTextOutput = z.infer<typeof EnhanceTextOutputSchema>;
 
-export async function transcribeAudio(
-  input: TranscribeAudioInput
-): Promise<TranscribeAudioOutput> {
-  return transcribeAudioFlow(input);
+export async function enhanceText(
+  input: EnhanceTextInput
+): Promise<EnhanceTextOutput> {
+  return textEnhancementFlow(input);
 }
 
-const transcribeAudioFlow = ai.defineFlow(
+const textEnhancementFlow = ai.defineFlow(
   {
-    name: 'transcribeAudioFlow',
-    inputSchema: TranscribeAudioInputSchema,
-    outputSchema: TranscribeAudioOutputSchema,
+    name: 'textEnhancementFlow',
+    inputSchema: EnhanceTextInputSchema,
+    outputSchema: EnhanceTextOutputSchema,
   },
   async (input) => {
-    const { text } = await ai.transcribe({
-      model: 'whisper-1',
-      media: {
-        url: input.audioDataUri,
-      },
+    const enhanceResponse = await ai.generate({
+      model: 'openai/gpt-4o',
+      prompt: `Enhance the following text to be more clear, concise, and professional: ${input.text}`,
     });
 
-    return { text };
+    return { enhancedText: enhanceResponse.text };
   }
 );
