@@ -11,6 +11,7 @@
  * @interface SemanticProjectSearchInput - The input type for the semanticProjectSearch function.
  * @interface SemanticProjectSearchOutput - The return type for the semanticProjectSearch function.
  */
+'use server';
 
 import {ai} from '@/ai/genkit';
 import {z} from 'zod';
@@ -36,7 +37,6 @@ const prompt = ai.definePrompt({
   name: 'semanticProjectSearchPrompt',
   input: {schema: SemanticProjectSearchInputSchema},
   output: {schema: SemanticProjectSearchOutputSchema},
-  model: 'openai/gpt-4o',
   prompt: `You are a search assistant that helps users find projects based on their natural language query. 
   Return a ranked list of project IDs and a brief reason why each project matches the query.
 
@@ -51,7 +51,7 @@ const semanticProjectSearchFlow = ai.defineFlow(
     outputSchema: SemanticProjectSearchOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    const {output} = await prompt(input, {config: {model: 'openai/gpt-4o'}});
     return output!;
   }
 );

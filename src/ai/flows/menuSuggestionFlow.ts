@@ -6,6 +6,8 @@
  * - SuggestionFlowOutput - The return type for the getMenuSuggestion function.
  */
 
+'use server';
+
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
@@ -27,7 +29,7 @@ const suggestionFlow = ai.defineFlow(
   },
   async (prompt) => {
     const response = await ai.generate({
-      model: 'gpt-4o',
+      model: 'openai/gpt-4o',
       prompt: prompt,
     });
     return response.text;
