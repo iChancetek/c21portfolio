@@ -7,7 +7,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 
 const SuggestionFlowInputSchema = z.string();
 export type SuggestionFlowInput = z.infer<typeof SuggestionFlowInputSchema>;
