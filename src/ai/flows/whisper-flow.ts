@@ -6,6 +6,8 @@
  * - EnhanceTextOutput - The return type for the enhanceText function.
  */
 
+'use server';
+
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 
@@ -37,7 +39,6 @@ const textEnhancementFlow = ai.defineFlow(
   },
   async (input) => {
     const enhanceResponse = await ai.generate({
-      model: 'openai/gpt-4o',
       prompt: `Enhance the following text to be more clear, concise, and professional: ${input.text}`,
     });
 

@@ -38,9 +38,6 @@ const prompt = ai.definePrompt({
 
   Question: {{{query}}}
   `,
-  config: {
-    model: 'openai/gpt-4o',
-  }
 });
 
 const aiPortfolioAssistantFlow = ai.defineFlow(

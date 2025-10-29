@@ -14,4 +14,5 @@ if (apiKey) {
 
 export const ai = genkit({
   plugins: plugins,
+  model: 'openai/gpt-4o',
 });

@@ -29,7 +29,6 @@ const suggestionFlow = ai.defineFlow(
   },
   async (prompt) => {
     const response = await ai.generate({
-      model: 'openai/gpt-4o',
       prompt: prompt,
     });
     return response.text;

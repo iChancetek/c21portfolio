@@ -88,7 +88,7 @@ const generateDeepDiveFlow = ai.defineFlow(
     outputSchema: GenerateDeepDiveOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input, {config: {model: 'openai/gpt-4o'}});
+    const {output} = await prompt(input);
     return {
       deepDive: output!.deepDive,
     };
