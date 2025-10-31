@@ -18,7 +18,7 @@ export const projects: Project[] = [
     image: getPlaceholderImage('proj-1'),
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Firebase", "Genkit"],
     githubUrl: "https://github.com",
-    liveUrl: "https://isynera.com",
+    liveUrl: "https://ichancetek.com",
   },
   {
     id: "project-2",
@@ -69,18 +69,18 @@ export const projects: Project[] = [
 
 export const ventures: Omit<Venture, 'id'>[] = [
     {
-        name: "iSynera",
-        href: "https://iSynera.com",
+        name: "iChanceTEK",
+        href: "https://iChanceTEK.com",
         description: "AI systems and digital transformation consultancy specializing in intelligent automation and enterprise cloud integrations."
     },
     {
-        name: "iSynera Health",
-        href: "https://iSynerahealth.com",
+        name: "iChanceTEK Health",
+        href: "https://iChanceTEKhealth.com",
         description: "Healthcare automation platform focusing on smart referrals, patient intake, and digital consent capture."
     },
     {
-        name: "iSynera Marketing",
-        href: "https://isyneramarking.us",
+        name: "iChanceTEK Marketing",
+        href: "https://ichancetekmarking.us",
         description: "AI-driven marketing analytics and personalized campaign management suite."
     },
     {
