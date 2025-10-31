@@ -75,7 +75,7 @@ export const ventures: Omit<Venture, 'id'>[] = [
     },
     {
         name: "ChanceTEK Health",
-        href: "https://ChanceTEKhealth.com",
+        href: "https://chancetekhealth.us",
         description: "Healthcare automation platform focusing on smart referrals, patient intake, and digital consent capture."
     },
     {
