@@ -18,6 +18,17 @@
         "firebase-debug.*.log",
         "functions"
       ]
+    },
+    {
+      "backendId": "chancellor",
+      "rootDir": "/",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "functions"
+      ]
     }
   ]
 }
