@@ -74,8 +74,8 @@ export const ventures: Omit<Venture, 'id'>[] = [
         description: "AI systems and digital transformation consultancy specializing in intelligent automation and enterprise cloud integrations."
     },
     {
-        name: "iChanceTEK Health",
-        href: "https://iChanceTEKhealth.com",
+        name: "ChanceTEK Health",
+        href: "https://ChanceTEKhealth.com",
         description: "Healthcare automation platform focusing on smart referrals, patient intake, and digital consent capture."
     },
     {
