@@ -79,8 +79,8 @@ export const ventures: Omit<Venture, 'id'>[] = [
         description: "Healthcare automation platform focusing on smart referrals, patient intake, and digital consent capture."
     },
     {
-        name: "iChanceTEK Marketing",
-        href: "https://ichancetekmarking.us",
+        name: "iQMarketing",
+        href: "https://iQMarketing.us",
         description: "AI-driven marketing analytics and personalized campaign management suite."
     },
     {
@@ -205,7 +205,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Cursor AI", icon: Code },
       { name: "Replit", icon: Code },
       { name: "Hugging Face", icon: BrainCircuit },
-      { name_is: "Genkit", icon: Bot },
+      { name: "Genkit", icon: Bot },
       { name: "CrewAI", icon: Users },
     ],
   },
