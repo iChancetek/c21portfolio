@@ -1,5 +1,5 @@
 import { Project, SkillCategory, Venture } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal, CreditCard } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTube2, Cloud, Puzzle, Filter } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -145,95 +145,79 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Backend",
+    title: "Backend & APIs",
     skills: [
       { name: "Node.js", icon: Server },
       { name: "Python", icon: Code },
-      { name: "Drizzle", icon: Database },
-      { name: "Neon PostgreSQL", icon: Database },
+      { name: "APIs / REST APIs", icon: Puzzle },
       { name: "Firebase", icon: Code },
       { name: "Supabase", icon: Database },
-      { name: "Clerk", icon: Code },
-      { name: "MongoDB", icon: Database },
-      { name: "DynamoDB", icon: Database },
-      { name: "AWS RDS", icon: Database },
-      { name: "Azure Database", icon: Database },
-      { name: "Google Cloud SQL", icon: Database },
+      { name: "MySQL", icon: Database },
+      { name: "PostgreSQL", icon: Database },
       { name: "Stripe", icon: CreditCard },
+      { name: "Resend / SendGrid", icon: Mail },
     ],
   },
   {
     title: "AI Platforms & Models",
     skills: [
       { name: "GCP Vertex AI", icon: BrainCircuit },
-      { name: "AWS Bedrock", icon: BrainCircuit },
-      { name: "Azure AI Foundry", icon: BrainCircuit },
+      { name: "AWS Bedrock / SageMaker", icon: BrainCircuit },
+      { name: "Azure Machine Learning", icon: BrainCircuit },
       { name: "Gemini, GPT, Claude", icon: Bot },
-      { name: "Meta LLaMA", icon: Bot },
-      { name: "DeepSeek", icon: Bot },
+      { name: "Hugging Face Models", icon: Bot },
     ],
   },
   {
     title: "AI Agent Engineering",
     skills: [
-      { name: "AI Agentic Agents", icon: Bot },
-      { name: "Voice AI Agents", icon: MicVocal },
-      { name: "RAG AI Chatbots", icon: MessagesSquare },
-      { name: "RAG AI Assistants", icon: MessagesSquare },
-      { name: "Embedding Strategies", icon: Code },
+      { name: "Prompt Engineering", icon: Lightbulb },
+      { name: "Agentic Workflows", icon: Bot },
+      { name: "RAG / AI Chatbots", icon: MessagesSquare },
       { name: "Fine-tuning", icon: BrainCircuit },
-      { name: "A/B testing", icon: TestTube },
+      { name: "A/B Testing", icon: TestTube },
+      { name: "Voice AI Agents", icon: MicVocal },
     ],
   },
-    {
+  {
     title: "Cloud & DevOps",
     skills: [
-      { name: "AWS Cloud Engineer", icon: CloudCog },
-      { name: "Azure Cloud Engineering", icon: CloudCog },
-      { name: "GCP Cloud Engineer", icon: CloudCog },
-      { name: "DevOps", icon: ServerCog },
-      { name: "MLOps", icon: ServerCog },
-      { name: "Kubernetes", icon: ServerCog },
-      { name: "Terraform", icon: ServerCog },
-      { name: "Docker", icon: ServerCog },
+        { name: "AWS, GCP, Azure", icon: CloudCog },
+        { name: "Docker / Docker Hub", icon: ServerCog },
+        { name: "GitHub Actions", icon: GitBranch },
+        { name: "Jenkins / Azure DevOps", icon: ServerCog },
+        { name: "Vercel", icon: Cloud },
+        { name: "MLOps / DevOps", icon: ServerCog },
+    ],
+  },
+   {
+    title: "Data Engineering",
+    skills: [
+      { name: "ETL / ELT", icon: Filter },
+      { name: "AWS Glue", icon: ServerCog },
+      { name: "AWS Redshift", icon: Database },
+      { name: "AWS Kinesis", icon: Workflow },
+      { name: "Azure Data Engineering", icon: CloudCog },
     ],
   },
   {
     title: "AI Dev Tools",
     skills: [
       { name: "Firebase Studio AI", icon: Code },
-      { name: "Cursor AI", icon: Code },
-      { name: "Replit", icon: Code },
-      { name: "Hugging Face", icon: BrainCircuit },
-      { name: "Genkit", icon: Bot },
-      { name: "CrewAI", icon: Users },
-    ],
-  },
-  {
-    title: "AI Tools & Platforms",
-    skills: [
-      { name: "LangChain", icon: GitBranch },
-      { name: "LangGraph", icon: GitBranch },
-      { name: "LangSmith", icon: GitBranch },
-      { name: "Langflow", icon: GitBranch },
-      { name: "Pinecone", icon: Database },
-      { name: "ChromaDB", icon: Database },
-      { name: "OpenAI Agents SDK", icon: Bot },
-      { name: "ElevenLabs", icon: MicVocal },
-      { name: "Twilio", icon: MessagesSquare },
-      { name: "Retell AI", icon: Bot },
-      { name: "VAPI", icon: MicVocal },
+      { name: "Vibe Coding", icon: Code },
+      { name: "Genkit / CrewAI", icon: Users },
+      { name: "LangChain / LangGraph", icon: GitBranch },
+      { name: "Postman / Insomnia", icon: TestTube2 },
+      { name: "Loveable", icon: HeartPulse },
     ],
   },
   {
     title: "Workflow Automation",
     skills: [
         { name: "Workflow Automation", icon: Workflow },
-        { name: "Zapier", icon: Workflow },
-        { name: "Make.com", icon: Workflow },
-        { name: "N8N", icon: Workflow },
+        { name: "Zapier / Make.com", icon: Workflow },
+        { name: "N8N / Flowise AI", icon: Workflow },
         { name: "Airtable", icon: Database },
-        { name: "Flowise AI", icon: Workflow },
     ]
   }
 ];
