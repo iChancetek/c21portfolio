@@ -1,5 +1,5 @@
 import { Project, SkillCategory, Venture } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTube2, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart, Architecture } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -185,7 +185,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "AWS Glue / Kinesis", icon: Workflow },
       { name: "AWS Redshift", icon: Database },
       { name: "Azure DataBricks / Spark", icon: Sparkles },
-      { name: "Azure Data Engineering", icon: CloudCog },
+      { name: "Azure Data Factory / Synapse / DataLake", icon: CloudCog },
     ],
   },
   {
@@ -193,13 +193,14 @@ export const skillCategories: SkillCategory[] = [
     skills: [
         { name: "Pandas & Numpy", icon: Database },
         { name: "Seaborn & Matplotlib", icon: BarChart },
-        { name: "Scikit-learn", icon: TestTube2 },
+        { name: "Scikit-learn", icon: TestTubeDiagonal },
     ]
   },
   {
     title: "Cloud & DevOps",
     skills: [
         { name: "AWS, GCP, Azure", icon: CloudCog },
+        { name: "System Design", icon: Architecture },
         { name: "Docker / Docker Hub", icon: ServerCog },
         { name: "GitHub Actions / GitLab", icon: GitBranch },
         { name: "Jenkins / Azure DevOps", icon: ServerCog },
@@ -215,7 +216,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Cursor AI / Replit", icon: Monitor },
       { name: "Genkit / CrewAI", icon: Users },
       { name: "LangChain / LangGraph", icon: GitBranch },
-      { name: "Postman / Insomnia", icon: TestTube2 },
+      { name: "Postman / Insomnia", icon: TestTubeDiagonal },
       { name: "Loveable", icon: HeartPulse },
     ],
   },
