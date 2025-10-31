@@ -1,5 +1,5 @@
 import { Project, SkillCategory, Venture } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTube2, Cloud, Puzzle, Filter } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTube2, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -140,7 +140,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "React", icon: Code },
       { name: "Next.js", icon: Code },
       { name: "TypeScript", icon: Code },
-      { name: "ShadCN UI", icon: Code },
+      { name: "ShadCN UI", icon: SlidersHorizontal },
       { name: "Tailwind CSS", icon: Wind },
     ],
   },
@@ -148,12 +148,11 @@ export const skillCategories: SkillCategory[] = [
     title: "Backend & APIs",
     skills: [
       { name: "Node.js", icon: Server },
-      { name: "Python", icon: Code },
+      { name: "Python (Flask, FastAPI, Django)", icon: Code },
       { name: "APIs / REST APIs", icon: Puzzle },
       { name: "Firebase", icon: Code },
       { name: "Supabase", icon: Database },
-      { name: "MySQL", icon: Database },
-      { name: "PostgreSQL", icon: Database },
+      { name: "MySQL / PostgreSQL", icon: Database },
       { name: "Stripe", icon: CreditCard },
       { name: "Resend / SendGrid", icon: Mail },
     ],
@@ -174,7 +173,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Prompt Engineering", icon: Lightbulb },
       { name: "Agentic Workflows", icon: Bot },
       { name: "RAG / AI Chatbots", icon: MessagesSquare },
-      { name: "Fine-tuning", icon: BrainCircuit },
+      { name: "Fine-tuning", icon: SlidersHorizontal },
       { name: "A/B Testing", icon: TestTube },
       { name: "Voice AI Agents", icon: MicVocal },
     ],
@@ -194,9 +193,9 @@ export const skillCategories: SkillCategory[] = [
     title: "Data Engineering",
     skills: [
       { name: "ETL / ELT", icon: Filter },
-      { name: "AWS Glue", icon: ServerCog },
+      { name: "AWS Glue / Kinesis", icon: Workflow },
       { name: "AWS Redshift", icon: Database },
-      { name: "AWS Kinesis", icon: Workflow },
+      { name: "Azure DataBricks / Spark", icon: Sparkles },
       { name: "Azure Data Engineering", icon: CloudCog },
     ],
   },
@@ -205,6 +204,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Firebase Studio AI", icon: Code },
       { name: "Vibe Coding", icon: Code },
+      { name: "Cursor AI / Replit", icon: Monitor },
       { name: "Genkit / CrewAI", icon: Users },
       { name: "LangChain / LangGraph", icon: GitBranch },
       { name: "Postman / Insomnia", icon: TestTube2 },
@@ -212,12 +212,12 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Workflow Automation",
+    title: "Microsoft Enterprise",
     skills: [
-        { name: "Workflow Automation", icon: Workflow },
-        { name: "Zapier / Make.com", icon: Workflow },
-        { name: "N8N / Flowise AI", icon: Workflow },
-        { name: "Airtable", icon: Database },
+      { name: "Microsoft 365", icon: Globe },
+      { name: "Teams / SharePoint / Exchange", icon: Share2 },
+      { name: "AutoPilot / InTune", icon: Building },
+      { name: "Workflow Automation (Power Automate)", icon: Workflow },
     ]
   }
 ];
