@@ -1,5 +1,5 @@
 import { Project, SkillCategory, Venture } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTube2, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, TestTube, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTube2, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -178,17 +178,6 @@ export const skillCategories: SkillCategory[] = [
       { name: "Voice AI Agents", icon: MicVocal },
     ],
   },
-  {
-    title: "Cloud & DevOps",
-    skills: [
-        { name: "AWS, GCP, Azure", icon: CloudCog },
-        { name: "Docker / Docker Hub", icon: ServerCog },
-        { name: "GitHub Actions", icon: GitBranch },
-        { name: "Jenkins / Azure DevOps", icon: ServerCog },
-        { name: "Vercel", icon: Cloud },
-        { name: "MLOps / DevOps", icon: ServerCog },
-    ],
-  },
    {
     title: "Data Engineering",
     skills: [
@@ -197,6 +186,25 @@ export const skillCategories: SkillCategory[] = [
       { name: "AWS Redshift", icon: Database },
       { name: "Azure DataBricks / Spark", icon: Sparkles },
       { name: "Azure Data Engineering", icon: CloudCog },
+    ],
+  },
+  {
+    title: "Data Science & ML",
+    skills: [
+        { name: "Pandas & Numpy", icon: Database },
+        { name: "Seaborn & Matplotlib", icon: BarChart },
+        { name: "Scikit-learn", icon: TestTube2 },
+    ]
+  },
+  {
+    title: "Cloud & DevOps",
+    skills: [
+        { name: "AWS, GCP, Azure", icon: CloudCog },
+        { name: "Docker / Docker Hub", icon: ServerCog },
+        { name: "GitHub Actions / GitLab", icon: GitBranch },
+        { name: "Jenkins / Azure DevOps", icon: ServerCog },
+        { name: "Vercel", icon: Cloud },
+        { name: "MLOps / DevOps", icon: ServerCog },
     ],
   },
   {
