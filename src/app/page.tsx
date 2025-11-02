@@ -1,27 +1,45 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Loader2, Wand2 } from 'lucide-react';
 import { getMenuSuggestion } from '@/ai/flows/menuSuggestionFlow';
+import { handleSemanticSearch } from '@/app/actions';
+import ProjectShowcase from '@/components/ProjectShowcase';
+import type { Venture } from '@/lib/types';
+import WhatIDo from '@/components/WhatIDo';
+import Skills from '@/components/Skills';
+import Transcriber from '@/components/Transcriber';
+import Contact from '@/components/Contact';
+import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
-  const [isPending, startTransition] = useTransition();
+  const [isSuggesting, startSuggestionTransition] = useTransition();
+  const [isSearching, startSearchTransition] = useTransition();
   const [aiSuggestion, setAiSuggestion] = useState('e.g., "AI in healthcare"');
-  const router = useRouter();
+  const [projects, setProjects] = useState<Venture[] | null>(null);
+  const [searchedQuery, setSearchedQuery] = useState<string>('');
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!query.trim()) return;
-    router.push(`/projects?q=${encodeURIComponent(query)}`);
+    if (!query.trim()) {
+      setProjects(null);
+      setSearchedQuery('');
+      return;
+    };
+    
+    setSearchedQuery(query);
+    startSearchTransition(async () => {
+      const results = await handleSemanticSearch(query);
+      setProjects(results);
+    });
   };
 
   const handleSuggestion = () => {
-    startTransition(async () => {
+    startSuggestionTransition(async () => {
       const suggestion = await getMenuSuggestion("Suggest a creative project search query for a portfolio, like 'AI in healthcare' or 'decentralized finance apps'.");
       setAiSuggestion(suggestion);
     });
@@ -51,18 +69,35 @@ export default function LandingPage() {
             placeholder={aiSuggestion}
             className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
           />
-          <Button type="submit" size="lg" className="bg-primary-gradient h-12">
-            <Wand2 className="mr-2 h-5 w-5" />
+          <Button type="submit" size="lg" className="bg-primary-gradient h-12" disabled={isSearching}>
+            {isSearching ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
             AI Search
           </Button>
         </form>
         
-        <Button variant="link" onClick={handleSuggestion} disabled={isPending}>
-          {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
+        <Button variant="link" onClick={handleSuggestion} disabled={isSuggesting}>
+          {isSuggesting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
           Get another suggestion
         </Button>
-
       </motion.div>
+
+      {isSearching && (
+        <div className="mt-16 text-center">
+          <Loader2 className="mx-auto h-12 w-12 animate-spin text-primary" />
+          <p className="mt-4 text-muted-foreground">Searching for projects...</p>
+        </div>
+      )}
+
+      {!isSearching && projects && (
+         <div className="w-full mt-8">
+            <ProjectShowcase projects={projects} searchQuery={searchedQuery} />
+            <Skills />
+            <WhatIDo />
+            <Transcriber />
+            <Contact />
+            <FloatingAIAssistant />
+         </div>
+      )}
     </div>
   );
 }
