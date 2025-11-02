@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect, useTransition } from 'react';
@@ -10,10 +9,12 @@ import ProjectShowcase from '@/components/ProjectShowcase';
 import Skills from '@/components/Skills';
 import Transcriber from '@/components/Transcriber';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
-import AISearch from '@/components/AISearch';
 import type { Venture } from '@/lib/types';
 import { ventures } from '@/lib/data';
 import { handleSemanticSearch } from '@/app/actions';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Loader2, Wand2 } from 'lucide-react';
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
@@ -21,6 +22,7 @@ export default function Home() {
   const [projects, setProjects] = useState<Venture[]>(allVentures);
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
+  const [currentQuery, setCurrentQuery] = useState(initialQuery);
   const [isPending, startTransition] = useTransition();
 
   const onSearch = (query: string) => {
@@ -29,13 +31,17 @@ export default function Home() {
         setProjects(searchResults);
     });
   }
+  
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSearch(currentQuery);
+  }
 
-  // This effect will run when the page loads with a query parameter.
   useEffect(() => {
     if (initialQuery) {
       onSearch(initialQuery);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialQuery]);
 
   return (
@@ -43,9 +49,26 @@ export default function Home() {
       <Hero />
       <WhatIDo />
       <div className="max-w-xl mx-auto my-12 w-full">
-         <AISearch onSearch={onSearch} initialQuery={initialQuery} isSearching={isPending} />
+         <form onSubmit={handleSearchSubmit} className="w-full flex gap-2 items-center">
+            <Input
+              type="text"
+              name="query"
+              placeholder="e.g., 'Healthcare automation' or 'list all'"
+              className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
+              value={currentQuery}
+              onChange={(e) => setCurrentQuery(e.target.value)}
+            />
+            <Button type="submit" size="lg" disabled={isPending}>
+              {isPending ? (
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              ) : (
+                <Wand2 className="mr-2 h-5 w-5" />
+              )}
+              AI Search
+            </Button>
+          </form>
       </div>
-      <ProjectShowcase projects={projects} searchQuery={initialQuery} />
+      <ProjectShowcase projects={projects} searchQuery={currentQuery} />
       <Skills />
       <Transcriber />
       <Contact />
