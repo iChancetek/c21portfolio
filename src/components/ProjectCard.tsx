@@ -39,12 +39,14 @@ export default function ProjectCard({ project, Icon }: ProjectCardProps) {
             </div>
         </div>
       </Card>
-      <CaseStudyModal 
-        isOpen={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        projectId={project.id}
-        projectTitle={project.name}
-      />
+      {isModalOpen && (
+        <CaseStudyModal 
+            isOpen={isModalOpen}
+            onOpenChange={setIsModalOpen}
+            projectId={project.id}
+            projectTitle={project.name}
+        />
+      )}
     </>
   );
 }
