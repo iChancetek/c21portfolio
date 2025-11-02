@@ -1,89 +1,68 @@
 'use client';
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Loader2, Wand2 } from 'lucide-react';
+import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Loader2, Wand2 } from 'lucide-react';
+import { getMenuSuggestion } from '@/ai/flows/menuSuggestionFlow';
 
-export default function SearchPage() {
+export default function LandingPage() {
   const [query, setQuery] = useState('');
-  const [answer, setAnswer] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [aiSuggestion, setAiSuggestion] = useState('e.g., "AI in healthcare"');
+  const router = useRouter();
 
-  const handleSearch = async (e: React.FormEvent) => {
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!query.trim()) return;
+    router.push(`/projects?q=${encodeURIComponent(query)}`);
+  };
 
-    setLoading(true);
-    setAnswer(null);
-
-    try {
-      const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-      const data = await res.json();
-      setAnswer(data.answer);
-    } catch (err) {
-      console.error(err);
-      setAnswer('Sorry, something went wrong. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+  const handleSuggestion = () => {
+    startTransition(async () => {
+      const suggestion = await getMenuSuggestion("Suggest a creative project search query for a portfolio, like 'AI in healthcare' or 'decentralized finance apps'.");
+      setAiSuggestion(suggestion);
+    });
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-8">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] text-center">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-        className="w-full"
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-4xl"
       >
-        {!answer && !loading && (
-            <div className='text-center mb-8'>
-                <h1 className="text-3xl font-semibold mb-6 text-primary-gradient">iSkylar Search</h1>
-            </div>
-        )}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6">
+          <span className="text-primary-gradient">The Future of Development, Today</span>
+        </h1>
+        <p className="max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground mb-10">
+          I build intelligent, enterprise-grade AI solutions that drive business value. Explore my work or ask my AI assistant about my experience.
+        </p>
 
-        <form onSubmit={handleSearch} className="w-full max-w-2xl mx-auto flex gap-2 items-center mb-6">
+        <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2 mb-4">
           <Input
             type="text"
+            name="query"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ask iSkylar anything..."
+            placeholder={aiSuggestion}
             className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
-            disabled={loading}
           />
-          <Button type="submit" size="lg" disabled={loading} className="bg-primary-gradient h-12">
-            {loading ? (
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-            ) : (
-              <Wand2 className="mr-2 h-5 w-5" />
-            )}
-            {loading ? 'Thinking...' : 'Search'}
+          <Button type="submit" size="lg" className="bg-primary-gradient h-12">
+            <Wand2 className="mr-2 h-5 w-5" />
+            AI Search
           </Button>
         </form>
-      </motion.div>
+        
+        <Button variant="link" onClick={handleSuggestion} disabled={isPending}>
+          {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
+          Get another suggestion
+        </Button>
 
-      <section className="mt-8 w-full max-w-3xl text-foreground">
-        {loading && (
-          <div className="flex items-center justify-center h-full">
-            <div className="flex flex-col items-center gap-2 text-muted-foreground">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              <p>Generating answer...</p>
-            </div>
-          </div>
-        )}
-        {answer && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="bg-card/50 border border-border/50 rounded-xl shadow p-6 text-lg leading-relaxed"
-          >
-            {answer}
-          </motion.div>
-        )}
-      </section>
-    </main>
+      </motion.div>
+    </div>
   );
 }
