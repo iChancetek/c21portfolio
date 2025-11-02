@@ -31,21 +31,19 @@ export default function AISearch({ onSearch }: AISearchProps) {
       params.delete('q');
     }
     
-    // If we're on the landing page, navigate to home with the query
-    if (!onSearch) {
+    // If onSearch prop is provided (i.e., we are on /home), update state locally.
+    if (onSearch) {
+        startTransition(async () => {
+          setIsSearching(true);
+          window.history.replaceState(null, '', `?${params.toString()}`);
+          const searchResults = await handleSemanticSearch(query);
+          onSearch(searchResults);
+          setIsSearching(false);
+        });
+    } else {
+        // If onSearch is not provided (i.e., we are on the landing page), navigate.
         router.push(`/home?${params.toString()}`);
-        return;
     }
-
-    startTransition(async () => {
-      setIsSearching(true);
-      window.history.replaceState(null, '', `?${params.toString()}`);
-      const searchResults = await handleSemanticSearch(query);
-      if(onSearch) {
-        onSearch(searchResults);
-      }
-      setIsSearching(false);
-    });
   };
 
   return (
