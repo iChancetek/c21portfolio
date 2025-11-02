@@ -14,12 +14,11 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { techTopics } from '@/ai/flows/tech-expert-flow';
-import type { TechInsightInput } from '@/ai/flows/tech-expert-flow';
 import { generateTechInsight } from '@/app/actions';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { generateGreeting } from '@/ai/flows/tts-flow';
 
-type Topic = TechInsightInput['topic'];
+type Topic = (typeof techTopics)[number];
 
 export default function DashboardPage() {
   const { user, isUserLoading } = useUser();
