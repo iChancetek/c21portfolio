@@ -10,14 +10,6 @@ import { handleSemanticSearch } from '@/app/actions';
 import ProjectShowcase from '@/components/ProjectShowcase';
 import type { Venture } from '@/lib/types';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
-import WhatIDo from '@/components/WhatIDo';
-import Skills from '@/components/Skills';
-import Transcriber from '@/components/Transcriber';
-import Contact from '@/components/Contact';
-import { useUser } from '@/firebase';
-import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Rocket } from 'lucide-react';
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
@@ -26,7 +18,6 @@ export default function LandingPage() {
   const [aiSuggestion, setAiSuggestion] = useState('e.g., "AI in healthcare"');
   const [projects, setProjects] = useState<Venture[] | null>(null);
   const [searchedQuery, setSearchedQuery] = useState<string>('');
-  const { user } = useUser();
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -123,39 +114,6 @@ export default function LandingPage() {
           <ProjectShowcase projects={projects} searchQuery={searchedQuery} />
         </div>
       )}
-
-      {!projects && (
-        <>
-          <div className="w-full mt-16">
-            {!user && (
-                 <Card className="bg-secondary border-primary/20">
-                    <CardHeader className="flex flex-row items-center gap-4">
-                        <Rocket className="w-8 h-8 text-primary" />
-                        <CardTitle>Unlock the GenAI Dashboard!</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-muted-foreground mb-4 text-left">
-                            Create a free account or sign in to access an exclusive dashboard with AI-powered insights and the latest trends in GenAI, Data Science, MLOps, and more.
-                        </p>
-                        <div className="flex gap-4">
-                            <Button asChild className="bg-primary-gradient">
-                                <Link href="/signup">Create Account</Link>
-                            </Button>
-                             <Button asChild variant="outline">
-                                <Link href="/login">Sign In</Link>
-                            </Button>
-                        </div>
-                    </CardContent>
-                </Card>
-            )}
-            </div>
-            <WhatIDo />
-            <Skills />
-            <Transcriber />
-            <Contact />
-        </>
-      )}
-
 
       <FloatingAIAssistant />
     </div>
