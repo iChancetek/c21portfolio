@@ -17,7 +17,6 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M12.48 10.92v3.28h7.84c-.24 1.84-.85 3.18-1.73 4.1-1.05 1.05-2.36 1.67-4.06 1.67-3.4 0-6.17-2.83-6.17-6.23s2.77-6.23 6.17-6.23c1.6 0 2.86.66 3.79 1.48l2.84-2.76C18.6 1.9 15.82 0 12.48 0 5.6 0 0 5.6 0 12.48s5.6 12.48 12.48 12.48c7.2 0 12.04-4.76 12.04-12.24 0-.76-.07-1.5-.18-2.22H12.48z"
-      fill="currentColor"
     />
   </svg>
 );
@@ -96,8 +95,8 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           {error && <p className="text-sm text-center text-destructive">{error}</p>}
-          <Button variant="outline" type="button" className="w-full h-12 text-base border-white/20 hover:bg-white/5 hover:text-white" onClick={handleGoogleSignIn} disabled={anyLoading}>
-            {isGoogleLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <GoogleIcon className="mr-2 h-5 w-5" />}
+          <Button variant="outline" type="button" className="w-full h-12 text-base bg-white text-gray-800 border-gray-300 hover:bg-gray-50 hover:text-gray-900" onClick={handleGoogleSignIn} disabled={anyLoading}>
+            {isGoogleLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <GoogleIcon className="mr-2 h-5 w-5 text-[#4285F4]" />}
             Sign in with Google
           </Button>
           
