@@ -13,13 +13,12 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { techTopics } from '@/ai/flows/tech-expert-flow';
+import { techTopics, type TechInsightInput } from '@/ai/flows/tech-expert-flow';
 import { generateTechInsight } from '@/app/actions';
-import type { z } from 'zod';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { generateGreeting } from '@/ai/flows/tts-flow';
 
-type Topic = z.infer<typeof techTopics>[number];
+type Topic = TechInsightInput['topic'];
 
 export default function DashboardPage() {
   const { user, isUserLoading } = useUser();
