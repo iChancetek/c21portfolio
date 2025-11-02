@@ -246,6 +246,7 @@ export const skillCategories: SkillCategory[] = [
 ];
 
 export const navLinks = [
+    { name: "Affirmations", href: "/affirmations" },
     { name: "Skills", href: "/projects#skills" },
     { name: "Contact", href: "/projects#contact" },
 ];
@@ -273,6 +274,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
