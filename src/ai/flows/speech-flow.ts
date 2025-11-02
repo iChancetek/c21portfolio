@@ -13,7 +13,7 @@ import { z } from 'zod';
 import wav from 'wav';
 import { googleAI } from 'genkitx-openai';
 
-export const SpeechInputSchema = z.object({
+const SpeechInputSchema = z.object({
   text: z.string().describe('The text to convert to speech.'),
 });
 export type SpeechInput = z.infer<typeof SpeechInputSchema>;
