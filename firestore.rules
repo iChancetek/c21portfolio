@@ -17,8 +17,13 @@ service cloud.firestore {
     match /userStatus/{userId} {
       // Any authenticated user can update their own status document
       allow write: if request.auth != null && request.auth.uid == userId;
-      // Only admins can read the status of all users
-      allow read: if request.auth != null;
+      // Any authenticated user can read an individual user's status
+      allow get: if request.auth != null;
+    }
+
+    // Allow any authenticated user to list the userStatus collection
+    match /userStatus {
+        allow list: if request.auth != null;
     }
     
     // Default: require authentication for all collections
