@@ -3,21 +3,11 @@
 
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Wand2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function LandingPage() {
   const router = useRouter();
-
-  const handleSearch = (formData: FormData) => {
-    const query = formData.get('query') as string;
-    if (query) {
-      router.push(`/home?q=${encodeURIComponent(query)}`);
-    } else {
-      router.push('/home');
-    }
-  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -37,7 +27,7 @@ export default function LandingPage() {
                   </span>
                 </h1>
                 <p className="max-w-[800px] text-muted-foreground md:text-xl">
-                  I build intelligent, AI-powered applications that redefine what's possible. From concept to code, let's create something extraordinary. Use the AI-powered search below to discover my work.
+                  I build intelligent, AI-powered applications that redefine what's possible. From concept to code, let's create something extraordinary.
                 </p>
               </motion.div>
               <motion.div
@@ -46,18 +36,9 @@ export default function LandingPage() {
                 transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
                 className="w-full max-w-2xl"
               >
-                <form action={handleSearch} className="w-full flex gap-2 items-center">
-                    <Input
-                        type="text"
-                        name="query"
-                        placeholder="e.g., 'Healthcare automation' or 'list all'"
-                        className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
-                    />
-                    <Button type="submit" size="lg">
-                        <Wand2 className="mr-2 h-5 w-5" />
-                        AI Search
-                    </Button>
-                </form>
+                <Button size="lg" onClick={() => router.push('/home')}>
+                    View My Work <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
               </motion.div>
             </div>
           </div>
