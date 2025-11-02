@@ -143,6 +143,38 @@
         "message",
         "submissionDate"
       ]
+    },
+    "UserStatus": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserStatus",
+      "type": "object",
+      "description": "Represents a user's online status and presence.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["online", "offline"],
+          "description": "The user's current presence status."
+        },
+        "lastSeen": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The ISO 8601 timestamp of when the user was last active."
+        },
+        "email": {
+            "type": "string",
+            "description": "The user's email address for display purposes."
+        },
+        "displayName": {
+            "type": "string",
+            "description": "The user's display name."
+        },
+        "photoURL": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the user's profile picture."
+        }
+      },
+      "required": ["status", "lastSeen"]
     }
   },
   "auth": {
@@ -176,6 +208,12 @@
         "$ref": "#/entities/ContactFormSubmission"
       },
       "description": "Stores contact form submissions."
+    },
+    "/userStatus/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserStatus"
+      },
+      "description": "Stores real-time user presence information."
     }
   }
 }

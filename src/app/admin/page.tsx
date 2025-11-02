@@ -8,6 +8,7 @@ import { Loader2, Shield } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AuditLogs from '@/components/AuditLogs';
+import ActiveUsers from '@/components/ActiveUsers';
 
 function AdminDashboardPage() {
   const { isAdmin, isLoading } = useAdmin();
@@ -53,17 +54,7 @@ function AdminDashboardPage() {
             <TabsTrigger value="reports">Reporting</TabsTrigger>
         </TabsList>
         <TabsContent value="users">
-            <Card>
-            <CardHeader>
-                <CardTitle>Real-Time User Activity</CardTitle>
-                <CardDescription>
-                View users currently active on the site. (Coming Soon)
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-                 <p className="text-muted-foreground">Implementation for user activity is pending.</p>
-            </CardContent>
-            </Card>
+            <ActiveUsers />
         </TabsContent>
         <TabsContent value="logs">
             <AuditLogs />

@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { UserPresenceProvider } from '@/hooks/UserPresenceProvider';
 
 export const metadata: Metadata = {
   title: 'Chancellor Minus | AI Engineer & Full-Stack Developer Portfolio',
@@ -32,10 +33,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <FirebaseClientProvider>
-            <Header />
-            <main className="flex-1 container">{children}</main>
-            <Footer />
-            <Toaster />
+            <UserPresenceProvider>
+              <Header />
+              <main className="flex-1 container">{children}</main>
+              <Footer />
+              <Toaster />
+            </UserPresenceProvider>
           </FirebaseClientProvider>
         </ThemeProvider>
       </body>
