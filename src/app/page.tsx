@@ -8,23 +8,33 @@ import { Button } from '@/components/ui/button';
 import { Loader2, Wand2, RefreshCw } from 'lucide-react';
 import { getMenuSuggestion } from '@/ai/flows/menuSuggestionFlow';
 import { handleSemanticSearch } from '@/app/actions';
+import ProjectShowcase from '@/components/ProjectShowcase';
+import { ventures } from '@/lib/data';
+import type { Venture } from '@/lib/types';
+
+const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [projects, setProjects] = useState<Venture[]>(allVentures);
   const [isSuggesting, startSuggestionTransition] = useTransition();
   const [isSearching, startSearchTransition] = useTransition();
   const [aiSuggestion, setAiSuggestion] = useState('e.g., "AI in healthcare"');
   
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!query.trim()) {
+    const newQuery = query.trim();
+    if (!newQuery) {
+      setProjects(allVentures);
+      setSearchQuery('');
       return;
     }
+    
+    setSearchQuery(newQuery);
     startSearchTransition(async () => {
-      // The search action can be performed, but the results are not displayed on this page.
-      // You might want to navigate to a results page or handle this differently.
-      await handleSemanticSearch(query);
-      console.log(`Searched for: ${query}`);
+      const results = await handleSemanticSearch(newQuery);
+      setProjects(results);
     });
   };
 
@@ -39,6 +49,8 @@ export default function LandingPage() {
 
   const handleReset = () => {
     setQuery('');
+    setProjects(allVentures);
+    setSearchQuery('');
   };
 
   return (
@@ -93,6 +105,9 @@ export default function LandingPage() {
           Get another suggestion
         </Button>
       </motion.div>
+      <div className="w-full mt-16">
+        <ProjectShowcase projects={projects} searchQuery={searchQuery} />
+      </div>
     </div>
   );
 }
