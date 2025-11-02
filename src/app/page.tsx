@@ -91,12 +91,17 @@ export default function LandingPage() {
       {!isSearching && projects && (
          <div className="w-full mt-8">
             <ProjectShowcase projects={projects} searchQuery={searchedQuery} />
+         </div>
+      )}
+
+      {!projects && (
+        <div className="w-full mt-8">
             <Skills />
             <WhatIDo />
             <Transcriber />
             <Contact />
             <FloatingAIAssistant />
-         </div>
+        </div>
       )}
     </div>
   );
