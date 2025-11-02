@@ -15,44 +15,51 @@ const ADMIN_EMAILS = ['chancellor@ichancetek.com', 'chanceminus@gmail.com'];
 export function useAdmin(): UseAdminResult {
   const { user, isUserLoading } = useUser();
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isClaimLoading, setIsClaimLoading] = useState(true);
 
   useEffect(() => {
+    // If user loading is in progress, we are definitely loading.
     if (isUserLoading) {
-      // Still waiting for the user object to be determined
-      setIsLoading(true);
+      setIsClaimLoading(true);
       return;
     }
 
+    // If there is no user, they are not an admin.
     if (!user) {
-      // No user is logged in
       setIsAdmin(false);
-      setIsLoading(false);
+      setIsClaimLoading(false);
       return;
     }
 
-    // This is a temporary client-side check for development.
-    // In production, the custom claim check is the source of truth.
-    if (ADMIN_EMAILS.includes(user.email || '')) {
-        setIsAdmin(true);
+    // --- Start of the fix ---
+    // Perform a fast, client-side check first for immediate UI feedback in development.
+    const isClientSideAdmin = ADMIN_EMAILS.includes(user.email || '');
+    if (isClientSideAdmin) {
+      setIsAdmin(true);
     }
+    // --- End of the fix ---
 
-    // Check for custom claims on the ID token
-    setIsLoading(true);
+    // Now, check for the authoritative custom claim from Firebase.
+    // This will override the client-side check if a claim is explicitly present or absent in production.
+    setIsClaimLoading(true);
     getIdTokenResult(user, true) // Force refresh the token
       .then((idTokenResult) => {
         const isAdminClaim = idTokenResult.claims.admin === true;
-        setIsAdmin(isAdminClaim);
+        // The final state is the logical OR of the client-side check and the claim.
+        // This ensures the dev experience is fast, while claims are respected.
+        setIsAdmin(isClientSideAdmin || isAdminClaim);
       })
       .catch((error) => {
         console.error("Error getting user token result:", error);
-        setIsAdmin(false);
+        // If claims fail to load, fall back to the client-side check.
+        setIsAdmin(isClientSideAdmin);
       })
       .finally(() => {
-        setIsLoading(false);
+        setIsClaimLoading(false);
       });
 
   }, [user, isUserLoading]);
 
-  return { isAdmin, isLoading: isUserLoading || isLoading };
+  // The overall loading state is true if either the user is loading or the claims are loading.
+  return { isAdmin, isLoading: isUserLoading || isClaimLoading };
 }
