@@ -1,5 +1,6 @@
 
 
+
 'use client';
 
 import type { Venture } from '@/lib/types';
@@ -23,6 +24,11 @@ export default function ProjectShowcase({ projects, searchQuery }: ProjectShowca
            {!searchQuery && (
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               A showcase of AI-driven companies and products I've built.
+            </p>
+           )}
+           {searchQuery && (
+             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              Showing results for: <span className="text-foreground font-semibold">"{searchQuery}"</span>
             </p>
            )}
         </div>

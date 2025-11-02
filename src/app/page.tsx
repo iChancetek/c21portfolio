@@ -2,22 +2,12 @@
 'use client';
 
 import { useState, useEffect, useTransition } from 'react';
-import WhatIDo from '@/components/WhatIDo';
-import Contact from '@/components/Contact';
-import ProjectShowcase from '@/components/ProjectShowcase';
-import Skills from '@/components/Skills';
-import Transcriber from '@/components/Transcriber';
-import FloatingAIAssistant from '@/components/FloatingAIAssistant';
-import type { Venture } from '@/lib/types';
-import { ventures } from '@/lib/data';
-import { handleSemanticSearch } from '@/app/actions';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Loader2, Wand2, Sparkles } from 'lucide-react';
 import { getMenuSuggestion } from '@/ai/flows/menuSuggestionFlow';
-import { motion } from 'framer-motion';
-
-const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 const SearchSuggestion = ({
   text,
@@ -39,11 +29,10 @@ const SearchSuggestion = ({
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
-  const [projects, setProjects] = useState<Venture[]>(allVentures);
   const [isPending, startTransition] = useTransition();
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isGeneratingSuggestions, setIsGeneratingSuggestions] = useState(true);
-  const [hasSearched, setHasSearched] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchSuggestions = async () => {
@@ -65,20 +54,13 @@ export default function LandingPage() {
   }, []);
 
   const onSearch = (searchQuery: string) => {
-    setQuery(searchQuery);
-    if (!searchQuery.trim()) {
-        setProjects(allVentures);
-        setHasSearched(false);
-        return;
-    }
-    startTransition(async () => {
-        const searchResults = await handleSemanticSearch(searchQuery);
-        setProjects(searchResults);
-        setHasSearched(true);
+    startTransition(() => {
+        router.push(`/projects?q=${encodeURIComponent(searchQuery)}`);
     });
   };
 
   const handleSuggestionClick = (suggestion: string) => {
+    setQuery(suggestion);
     onSearch(suggestion);
   };
 
@@ -149,13 +131,6 @@ export default function LandingPage() {
                 </div>
             </motion.div>
         </div>
-      
-      <WhatIDo />
-      <ProjectShowcase projects={projects} searchQuery={hasSearched ? query : undefined} />
-      <Skills />
-      <Transcriber />
-      <Contact />
-      <FloatingAIAssistant />
     </div>
   );
 }

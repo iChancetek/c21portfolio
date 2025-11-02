@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Code, Menu, User, LogOut } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase } from 'lucide-react';
 import { Button } from './ui/button';
 import { navLinks } from '@/lib/data';
 import { useState } from 'react';
@@ -21,15 +21,16 @@ export default function Header() {
     }
   };
 
-  const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  const NavLink = ({ href, children, isProjectLink = false }: { href: string; children: React.ReactNode; isProjectLink?: boolean }) => (
     <Link
       href={href}
-      className="text-muted-foreground transition-colors hover:text-foreground"
+      className={`transition-colors hover:text-foreground ${isProjectLink ? 'font-semibold text-foreground' : 'text-muted-foreground'}`}
       onClick={() => setIsMenuOpen(false)}
     >
       {children}
     </Link>
   );
+  
 
   const AuthButtons = () => {
     if (isUserLoading) {
@@ -89,6 +90,12 @@ export default function Header() {
           <span className="font-bold text-primary-gradient">Chancellor Minus</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
+          <NavLink href="/projects" isProjectLink>
+            <div className="flex items-center gap-2">
+              <Briefcase className="h-4 w-4" />
+              Projects
+            </div>
+          </NavLink>
           {navLinks.map((link) => (
             <NavLink key={link.href} href={link.href}>{link.name}</NavLink>
           ))}
@@ -115,6 +122,7 @@ export default function Header() {
                   <span className="font-bold">Chancellor Minus</span>
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
+                    <NavLink href="/projects" isProjectLink>Projects</NavLink>
                     {navLinks.map((link) => (
                         <NavLink key={link.href} href={link.href}>{link.name}</NavLink>
                     ))}
