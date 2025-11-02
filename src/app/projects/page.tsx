@@ -49,28 +49,6 @@ function ProjectsPageContent() {
 
   return (
     <div className="flex flex-col">
-      <div className="container py-8">
-        <form onSubmit={handleSearchSubmit} className="w-full max-w-3xl mx-auto flex gap-2 items-center mb-12">
-            <Input
-                type="text"
-                name="query"
-                placeholder="e.g., 'Healthcare automation' or 'list all'"
-                className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                disabled={isPending}
-            />
-            <Button type="submit" size="lg" disabled={isPending} className="bg-primary-gradient">
-                {isPending ? (
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                ) : (
-                <Wand2 className="mr-2 h-5 w-5" />
-                )}
-                AI Search
-            </Button>
-        </form>
-      </div>
-
       <WhatIDo />
       <ProjectShowcase projects={projects} searchQuery={query} />
       <Skills />
