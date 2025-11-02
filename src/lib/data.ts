@@ -233,9 +233,9 @@ export const skillCategories: SkillCategory[] = [
 ];
 
 export const navLinks = [
-    { name: "Projects", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-    { name: "Contact", href: "#contact" },
+    { name: "Projects", href: "/home#projects" },
+    { name: "Skills", href: "/home#skills" },
+    { name: "Contact", href: "/home#contact" },
 ];
 
 export const socialLinks = [
@@ -261,5 +261,6 @@ export const socialLinks = [
     
 
     
+
 
 
