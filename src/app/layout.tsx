@@ -8,7 +8,7 @@ import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
-  title: 'Chancellor Minus - AI Portfolio',
+  title: 'Chancellor Minus | AI Engineer & Full-Stack Developer Portfolio',
   description: 'A full stack AI-powered portfolio showcasing the projects and skills of Chancellor Minus.',
 };
 

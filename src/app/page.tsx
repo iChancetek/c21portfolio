@@ -67,7 +67,7 @@ export default function LandingPage() {
         className="w-full max-w-4xl"
       >
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6">
-          <span className="text-primary-gradient">The Future of Development, Today</span>
+          <span className="text-primary-gradient">The Future of Development — Today</span>
         </h1>
         <p className="max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground mb-10">
           I build intelligent, enterprise-grade AI solutions that drive business value. Explore my
@@ -81,7 +81,7 @@ export default function LandingPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={aiSuggestion}
-            className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
+            className="bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
           />
           <Button type="submit" size="lg" className="bg-primary-gradient h-12" disabled={isSearching}>
             {isSearching ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
