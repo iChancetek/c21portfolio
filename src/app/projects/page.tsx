@@ -1,6 +1,5 @@
 'use client';
 
-import WhatIDo from '@/components/WhatIDo';
 import Contact from '@/components/Contact';
 import Skills from '@/components/Skills';
 import Transcriber from '@/components/Transcriber';
@@ -15,7 +14,6 @@ const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`
 function ProjectsPageContent() {
   return (
     <div className="flex flex-col">
-      <WhatIDo />
       <ProjectShowcase projects={allVentures} />
       <Skills />
       <Transcriber />
