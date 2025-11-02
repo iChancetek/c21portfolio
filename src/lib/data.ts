@@ -245,6 +245,27 @@ export const skillCategories: SkillCategory[] = [
   }
 ];
 
+export const techTopics = [
+  'GenAI',
+  'Data Science',
+  'Data Engineering',
+  'DevOps',
+  'MLOps',
+  'BioTech',
+  'Neural Networks',
+  'Deep Learning',
+  'LLMs',
+  'OpenAI',
+  'Claude',
+  'Meta Llama',
+  'Deepseek',
+  'Hugging Face',
+  'AWS',
+  'Azure',
+  'GCP',
+  'Machine Learning',
+] as const;
+
 export const navLinks = [
     { name: "Skills", href: "/projects#skills" },
     { name: "Contact", href: "/projects#contact" },
@@ -274,6 +295,7 @@ export const socialLinks = [
     
 
     
+
 
 
 

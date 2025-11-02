@@ -10,27 +10,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
-
-export const techTopics = [
-  'GenAI',
-  'Data Science',
-  'Data Engineering',
-  'DevOps',
-  'MLOps',
-  'BioTech',
-  'Neural Networks',
-  'Deep Learning',
-  'LLMs',
-  'OpenAI',
-  'Claude',
-  'Meta Llama',
-  'Deepseek',
-  'Hugging Face',
-  'AWS',
-  'Azure',
-  'GCP',
-  'Machine Learning',
-] as const;
+import { techTopics } from '@/lib/data';
 
 const TechInsightInputSchema = z.object({
   topic: z.enum(techTopics),
