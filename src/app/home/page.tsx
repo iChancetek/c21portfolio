@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect, useTransition, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import WhatIDo from '@/components/WhatIDo';
 import Contact from '@/components/Contact';
@@ -18,7 +19,7 @@ import { Loader2, Wand2 } from 'lucide-react';
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
-export default function Home() {
+function HomePageContent() {
   const [projects, setProjects] = useState<Venture[]>(allVentures);
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
@@ -75,4 +76,12 @@ export default function Home() {
       <FloatingAIAssistant />
     </div>
   );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomePageContent />
+    </Suspense>
+  )
 }
