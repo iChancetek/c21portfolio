@@ -1,13 +1,24 @@
-
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Wand2 } from 'lucide-react';
 
 export default function LandingPage() {
   const router = useRouter();
+  const [query, setQuery] = useState('');
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      router.push(`/home?q=${encodeURIComponent(query)}`);
+    } else {
+      router.push('/home');
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -36,9 +47,23 @@ export default function LandingPage() {
                 transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
                 className="w-full max-w-2xl"
               >
-                <Button size="lg" onClick={() => router.push('/home')}>
-                    View My Work <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                <form 
+                  onSubmit={handleSearch}
+                  className="w-full flex gap-2 items-center"
+                >
+                  <Input
+                    type="text"
+                    name="query"
+                    placeholder="e.g., 'Healthcare automation' or 'list all'"
+                    className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                  />
+                  <Button type="submit" size="lg">
+                    <Wand2 className="mr-2 h-5 w-5" />
+                    AI Search
+                  </Button>
+                </form>
               </motion.div>
             </div>
           </div>
