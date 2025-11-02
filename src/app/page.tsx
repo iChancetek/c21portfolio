@@ -33,7 +33,7 @@ export default function LandingPage() {
                 className="w-full max-w-2xl pt-6"
               >
                 <Button asChild size="lg" className="bg-primary-gradient">
-                    <Link href="/home">View My Work</Link>
+                    <Link href="/home#projects">View My Work</Link>
                 </Button>
               </motion.div>
             </div>
