@@ -4,9 +4,12 @@
 import { z } from 'zod';
 import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
-import type { Project } from '@/lib/types';
+import type { Project, Venture } from '@/lib/types';
 import { Resend } from 'resend';
 import { ventures } from '@/lib/data';
+import { handleSemanticSearch as semanticSearch } from '@/ai/flows/semantic-project-search';
+
+const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -106,5 +109,20 @@ export async function generateProjectDeepDive(projectId: string) {
         console.error("Deep dive generation failed:", error);
          const errorMessage = error.message || "An unknown error occurred.";
         return `I'm sorry, but I was unable to generate a deep-dive for this project. Error: ${errorMessage}`;
+    }
+}
+
+export async function handleSemanticSearch(query: string): Promise<Venture[]> {
+    if (!query) {
+        return allVentures;
+    }
+    try {
+        const results = await semanticSearch({ query });
+        // The flow now returns enriched venture objects, so we can just return them.
+        return results.ventures;
+    } catch (error) {
+        console.error("Semantic search failed:", error);
+        // In case of an error, you might want to return an empty array or handle it differently
+        return [];
     }
 }

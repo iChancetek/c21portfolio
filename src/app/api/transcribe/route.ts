@@ -1,26 +1,26 @@
 'use server';
 
 import { NextRequest, NextResponse } from 'next/server';
-import { enhanceText } from '@/ai/flows/whisper-flow';
+import { transcribeAudio } from '@/ai/flows/whisper-flow';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { text } = body;
+    const { audioDataUri } = body;
 
-    if (!text) {
+    if (!audioDataUri) {
       return NextResponse.json(
-        { error: 'Missing text in request body' },
+        { error: 'Missing audioDataUri in request body' },
         { status: 400 }
       );
     }
 
-    const result = await enhanceText({ text });
+    const result = await transcribeAudio({ audioDataUri });
     return NextResponse.json(result);
   } catch (error) {
-    console.error('Enhancement error:', error);
+    console.error('Transcription error:', error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Enhancement failed' },
+      { error: error instanceof Error ? error.message : 'Transcription failed' },
       { status: 500 }
     );
   }
