@@ -1,19 +1,32 @@
 'use client';
 
-import { useState, useTransition, useRef } from 'react';
+import { useState, useTransition, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2, Volume2 } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Volume2, Play, Pause } from 'lucide-react';
 import { generateAffirmation } from '@/ai/flows/affirmation-generator';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
+
+type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
 export default function AffirmationsPage() {
   const [affirmation, setAffirmation] = useState(
     'Click the button to generate an affirmation and start your journey.'
   );
   const [isGenerating, startGenerationTransition] = useTransition();
-  const [isReading, startReadingTransition] = useTransition();
+  const [audioState, setAudioState] = useState<AudioState>('idle');
+  const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // When a new affirmation is generated, reset the audio state.
+  useEffect(() => {
+    setAudioState('idle');
+    setAudioSrc(null);
+    if(audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+    }
+  }, [affirmation]);
 
   const handleGenerate = () => {
     startGenerationTransition(async () => {
@@ -27,20 +40,64 @@ export default function AffirmationsPage() {
     });
   };
 
-  const handleReadAloud = () => {
+  const handleReadAloud = async () => {
     if (!affirmation || affirmation.includes('Click the button')) return;
+    
+    if (audioState === 'playing') {
+      audioRef.current?.pause();
+      setAudioState('paused');
+      return;
+    }
+    
+    if (audioState === 'paused' && audioRef.current) {
+      audioRef.current.play();
+      setAudioState('playing');
+      return;
+    }
+    
+    if (audioState === 'idle') {
+      setAudioState('loading');
+      try {
+        const { audioDataUri } = await textToSpeech({ text: affirmation });
+        setAudioSrc(audioDataUri);
+        // The play action will be triggered by the useEffect below
+      } catch (error) {
+        console.error('Failed to generate speech:', error);
+        setAudioState('idle');
+      }
+    }
+  };
 
-    startReadingTransition(async () => {
-        try {
-            const { audioDataUri } = await textToSpeech({ text: affirmation });
-            if (audioRef.current) {
-                audioRef.current.src = audioDataUri;
-                audioRef.current.play();
-            }
-        } catch (error) {
-            console.error('Failed to generate speech:', error);
-        }
-    });
+  // Effect to play audio once the source is set
+  useEffect(() => {
+    if (audioSrc && audioRef.current) {
+      audioRef.current.src = audioSrc;
+      audioRef.current.play();
+      setAudioState('playing');
+    }
+  }, [audioSrc]);
+  
+  // Effect to handle when audio finishes playing
+  useEffect(() => {
+    const audioElement = audioRef.current;
+    const onEnded = () => setAudioState('idle');
+    audioElement?.addEventListener('ended', onEnded);
+    return () => {
+      audioElement?.removeEventListener('ended', onEnded);
+    };
+  }, []);
+
+  const getReadAloudIcon = () => {
+    switch (audioState) {
+        case 'loading':
+            return <Loader2 className="mr-2 h-5 w-5 animate-spin" />;
+        case 'playing':
+            return <Pause className="mr-2 h-5 w-5" />;
+        case 'paused':
+            return <Play className="mr-2 h-5 w-5" />;
+        default:
+            return <Volume2 className="mr-2 h-5 w-5" />;
+    }
   };
 
   return (
@@ -75,13 +132,9 @@ export default function AffirmationsPage() {
             )}
             Generate New Affirmation
         </Button>
-        <Button size="lg" onClick={handleReadAloud} disabled={isGenerating || isReading} variant="outline">
-            {isReading ? (
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-            ) : (
-                <Volume2 className="mr-2 h-5 w-5" />
-            )}
-            Read Aloud
+        <Button size="lg" onClick={handleReadAloud} disabled={isGenerating || audioState === 'loading'} variant="outline">
+            {getReadAloudIcon()}
+            {audioState === 'playing' ? 'Pause' : 'Read Aloud'}
         </Button>
       </div>
     </div>
