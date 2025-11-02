@@ -3,32 +3,32 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
+    function isAdmin() {
+      // Check for custom claim OR if the user's email is in the hardcoded list.
+      return request.auth.token.admin == true || request.auth.token.email in ['chancellor@ichancetek.com', 'chanceminus@gmail.com'];
+    }
+
     // Allow authenticated users to access their own user document
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     
-    // Allow authenticated users to read/write audit logs
+    // Allow admins to read/write audit logs
     match /auditLogs/{logId} {
-      allow read, write: if request.auth != null;
+      allow read, write: if isAdmin();
     }
 
     // Rules for user presence
     match /userStatus/{userId} {
       // Any authenticated user can update their own status document
       allow write: if request.auth != null && request.auth.uid == userId;
-      // Any authenticated user can read an individual user's status
-      allow get: if request.auth != null;
-    }
-
-    // Allow any authenticated user to list the userStatus collection
-    match /userStatus {
-        allow list: if request.auth != null;
+      // Admins can read any user's status
+      allow read: if isAdmin();
     }
     
-    // Default: require authentication for all collections
+    // Default: Disallow access to other collections unless specified
     match /{document=**} {
-      allow read, write: if request.auth != null;
+      allow read, write: if false;
     }
   }
 }
