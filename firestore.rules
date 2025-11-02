@@ -28,13 +28,13 @@ service cloud.firestore {
     /**
      * @description Helper function to check if the requesting user is an admin.
      *              This checks for either a custom claim `admin` being `true`
-     *              OR if the user's verified email is in the admin list.
+     *              OR if the user's email is in the admin list.
      * @returns boolean
      */
     function isAdmin() {
-      // Check for custom claim OR a verified email in the admin list.
+      // Check for custom claim OR email in the admin list.
       return (request.auth != null && request.auth.token.admin == true) ||
-             (request.auth != null && request.auth.token.email_verified && 
+             (request.auth != null && 
               request.auth.token.email in ['chancellor@ichancetek.com', 'chanceminus@gmail.com']);
     }
 
