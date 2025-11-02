@@ -169,6 +169,10 @@ export const skillCategories: SkillCategory[] = [
       { name: "MySQL / PostgreSQL", icon: Database },
       { name: "Stripe", icon: CreditCard },
       { name: "Resend / SendGrid", icon: Mail },
+      { name: "MongoDB", icon: Database },
+      { name: "MongoDB Atlas", icon: Cloud },
+      { name: "Snowflake", icon: Database },
+      { name: "Cosmos DB", icon: Database },
     ],
   },
   {
@@ -184,8 +188,10 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "AI Agent Engineering",
     skills: [
+      { name: "AI Engineering", icon: Bot },
       { name: "Prompt Engineering", icon: Lightbulb },
       { name: "Agentic Workflows", icon: Bot },
+      { name: "AI Agents", icon: Bot },
       { name: "RAG / AI Chatbots", icon: MessagesSquare },
       { name: "Fine-tuning", icon: SlidersHorizontal },
       { name: "A/B Testing", icon: TestTubeDiagonal },
@@ -196,10 +202,12 @@ export const skillCategories: SkillCategory[] = [
     title: "Data Engineering",
     skills: [
       { name: "ETL / ELT", icon: Filter },
+      { name: "Dataframe", icon: Database },
+      { name: "Microsoft Fabric", icon: Building },
       { name: "AWS Glue / Kinesis", icon: Workflow },
       { name: "AWS Redshift", icon: Database },
       { name: "Azure DataBricks / Spark", icon: Sparkles },
-      { name: "Azure Data Factory / Synapse / DataLake", icon: CloudCog },
+      { name: "Azure Data Factory / Synapse / Datalake", icon: CloudCog },
     ],
   },
   {
@@ -215,13 +223,15 @@ export const skillCategories: SkillCategory[] = [
     skills: [
         { name: "System Design", icon: Architecture },
         { name: "Docker", icon: ServerCog },
+        { name: "Docker Hub", icon: ServerCog },
         { name: "Kubernetes (EKS, AKS, GKE)", icon: ServerCog },
         { name: "Serverless (Lambda, Functions, Cloud Run)", icon: CloudCog },
+        { name: "Terraform", icon: Code },
         { name: "AWS (EC2, Beanstalk, App Runner)", icon: Cloud },
         { name: "Azure (VMs, App Service, Container Apps)", icon: Cloud },
         { name: "GCP (Compute & App Engine)", icon: Cloud },
         { name: "Vercel", icon: Cloud },
-        { name: "CI/CD (GitHub Actions, Jenkins, Azure DevOps)", icon: GitBranch },
+        { name: "CI/CD (GitHub Actions, GitLab, Jenkins, Azure DevOps)", icon: GitBranch },
         { name: "MLOps / DevOps", icon: ServerCog },
     ],
   },
@@ -298,6 +308,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
