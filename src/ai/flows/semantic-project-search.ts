@@ -9,7 +9,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'zod';
-import {embed} from 'genkit/embed';
+import {embed} from 'genkit';
 import {
   retrieve,
   defineIndexer,
