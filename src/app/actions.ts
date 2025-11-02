@@ -4,10 +4,12 @@
 import { z } from 'zod';
 import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
-import type { Project, Venture } from '@/lib/types';
+import type { Venture } from '@/lib/types';
 import { Resend } from 'resend';
 import { ventures } from '@/lib/data';
-import { handleSemanticSearch as semanticSearch } from '@/ai/flows/semantic-project-search';
+import { embed } from 'genkit';
+import { ai } from '@/ai/genkit';
+
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
@@ -112,15 +114,71 @@ export async function generateProjectDeepDive(projectId: string) {
     }
 }
 
+function dotProduct(a: number[], b: number[]) {
+    if (a.length !== b.length) {
+        throw new Error('Vectors must be of the same length');
+    }
+    return a.reduce((sum, val, i) => sum + val * b[i], 0);
+}
+
+async function semanticSearch(query: string): Promise<Venture[]> {
+    try {
+        const projectContent = allVentures.map(v => `Project Name: ${v.name}, Description: ${v.description}`);
+
+        const [queryEmbedding, projectEmbeddings] = await Promise.all([
+            embed({
+                embedder: ai.embedder,
+                content: query,
+            }),
+            embed({
+                embedder: ai.embedder,
+                content: projectContent,
+            }),
+        ]);
+
+        const similarities = projectEmbeddings.map((projectEmbedding, i) => ({
+            index: i,
+            similarity: dotProduct(queryEmbedding, projectEmbedding),
+        }));
+
+        similarities.sort((a, b) => b.similarity - a.similarity);
+
+        const topK = 5; // Return top 5 results
+        const topResults = similarities
+            .slice(0, topK)
+            .filter(result => result.similarity > 0.75) // Threshold to avoid irrelevant results
+            .map(result => allVentures[result.index]);
+        
+        return topResults;
+    } catch (error) {
+        console.error("Semantic search AI flow failed:", error);
+        return [];
+    }
+}
+
+
 export async function handleSemanticSearch(query: string): Promise<Venture[]> {
     if (!query) {
         return allVentures;
     }
+
+    const lowercasedQuery = query.toLowerCase();
+
+    // 1. Exact and partial text search first
+    const textSearchResults = allVentures.filter(venture => 
+        venture.name.toLowerCase().includes(lowercasedQuery) || 
+        venture.description.toLowerCase().includes(lowercasedQuery)
+    );
+
+    if (textSearchResults.length > 0) {
+        return textSearchResults;
+    }
+
+    // 2. Fallback to AI-powered semantic search
     try {
-        const results = await semanticSearch({ query });
-        // The AI flow returns partial venture objects. We need to map them back to the full objects
-        // to ensure all data (like the icon) is available in the component.
-        const rankedVentures = results.ventures
+        const semanticResults = await semanticSearch(query);
+        // The AI flow now returns full venture objects, but we still ensure correctness
+        const rankedVentures = semanticResults
             .map(result => allVentures.find(v => v.id === result.id))
             .filter((v): v is Venture => !!v); // Filter out any potential undefined values
 
