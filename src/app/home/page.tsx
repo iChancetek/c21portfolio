@@ -33,16 +33,11 @@ function HomePageContent() {
     });
   }
   
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSearch(currentQuery);
-  }
-
   useEffect(() => {
     if (initialQuery) {
       onSearch(initialQuery);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialQuery]);
 
   return (
@@ -50,7 +45,13 @@ function HomePageContent() {
       <Hero />
       <WhatIDo />
       <div className="max-w-xl mx-auto my-12 w-full">
-         <form onSubmit={handleSearchSubmit} className="w-full flex gap-2 items-center">
+         <form 
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSearch(currentQuery);
+            }} 
+            className="w-full flex gap-2 items-center"
+          >
             <Input
               type="text"
               name="query"
