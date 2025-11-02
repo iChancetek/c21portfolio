@@ -174,7 +174,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Agentic Workflows", icon: Bot },
       { name: "RAG / AI Chatbots", icon: MessagesSquare },
       { name: "Fine-tuning", icon: SlidersHorizontal },
-      { name: "A/B Testing", icon: TestTube },
+      { name: "A/B Testing", icon: TestTubeDiagonal },
       { name: "Voice AI Agents", icon: MicVocal },
     ],
   },
@@ -242,3 +242,7 @@ export const socialLinks = [
     { name: "LinkedIn", href: "#", icon: Linkedin },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
+
+    
+
+    
