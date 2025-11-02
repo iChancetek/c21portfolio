@@ -4,6 +4,7 @@
 import { z } from 'zod';
 import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
+import { getTechInsight } from '@/ai/flows/tech-expert-flow';
 import type { Venture } from '@/lib/types';
 import { Resend } from 'resend';
 import { ventures } from '@/lib/data';
@@ -111,6 +112,17 @@ export async function generateProjectDeepDive(projectId: string) {
         console.error("Deep dive generation failed:", error);
          const errorMessage = error.message || "An unknown error occurred.";
         return `I'm sorry, but I was unable to generate a deep-dive for this project. Error: ${errorMessage}`;
+    }
+}
+
+export async function generateTechInsight(topic: z.infer<typeof import('@/ai/flows/tech-expert-flow').techTopics>[number]) {
+    try {
+        const response = await getTechInsight({ topic });
+        return response.insight;
+    } catch (error: any) {
+        console.error("Tech insight generation failed:", error);
+        const errorMessage = error.message || "An unknown error occurred.";
+        return `<p>I'm sorry, but I was unable to generate an insight for this topic. Error: ${errorMessage}</p>`;
     }
 }
 

@@ -7,3 +7,4 @@ import '@/ai/flows/menuSuggestionFlow.ts';
 import '@/ai/flows/whisper-flow.ts';
 import '@/ai/flows/iskylar-search-flow.ts';
 import '@/ai/flows/affirmation-generator.ts';
+import '@/ai/flows/tech-expert-flow.ts';

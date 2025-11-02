@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Code, Menu, User, LogOut, Briefcase } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard } from 'lucide-react';
 import { Button } from './ui/button';
 import { navLinks } from '@/lib/data';
 import { useState } from 'react';
@@ -96,6 +96,14 @@ export default function Header() {
               Projects
             </div>
           </NavLink>
+          {user && (
+             <NavLink href="/dashboard" isProjectLink>
+                <div className="flex items-center gap-2">
+                    <LayoutDashboard className="h-4 w-4" />
+                    Dashboard
+                </div>
+             </NavLink>
+          )}
           {navLinks.map((link) => (
             <NavLink key={link.href} href={link.href}>{link.name}</NavLink>
           ))}
@@ -123,6 +131,9 @@ export default function Header() {
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
                     <NavLink href="/projects" isProjectLink>Projects</NavLink>
+                     {user && (
+                        <NavLink href="/dashboard" isProjectLink>Dashboard</NavLink>
+                     )}
                     {navLinks.map((link) => (
                         <NavLink key={link.href} href={link.href}>{link.name}</NavLink>
                     ))}
