@@ -1,6 +1,6 @@
 
 import { Project, SkillCategory, Venture, VentureIcon } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -285,6 +285,7 @@ export const techTopics = [
 ] as const;
 
 export const navLinks = [
+    { name: "AI Assistant", href: "/ai-assistant" },
     { name: "Skills", href: "/projects#skills" },
     { name: "Contact", href: "/projects#contact" },
     { name: "Affirmations", href: "/affirmations" },
@@ -313,6 +314,7 @@ export const socialLinks = [
     
 
     
+
 
 
 

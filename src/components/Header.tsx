@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, MessageCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { navLinks } from '@/lib/data';
 import { useState } from 'react';
@@ -114,9 +114,19 @@ export default function Header() {
                 </div>
              </NavLink>
           )}
-          {navLinks.map((link) => (
-            <NavLink key={link.href} href={link.href}>{link.name}</NavLink>
-          ))}
+          {navLinks.map((link) => {
+            let Icon;
+            if (link.name === "AI Assistant") Icon = MessageCircle;
+            
+            return (
+              <NavLink key={link.href} href={link.href} isProjectLink={link.name === 'AI Assistant'}>
+                <div className="flex items-center gap-2">
+                  {Icon && <Icon className="h-4 w-4" />}
+                  {link.name}
+                </div>
+              </NavLink>
+            )
+          })}
         </nav>
         <div className="flex flex-1 items-center justify-end gap-2">
             <ModeToggle />
