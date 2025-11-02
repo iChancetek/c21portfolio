@@ -118,11 +118,16 @@ export async function handleSemanticSearch(query: string): Promise<Venture[]> {
     }
     try {
         const results = await semanticSearch({ query });
-        // The flow now returns enriched venture objects, so we can just return them.
-        return results.ventures;
+        // The AI flow returns partial venture objects. We need to map them back to the full objects
+        // to ensure all data (like the icon) is available in the component.
+        const rankedVentures = results.ventures
+            .map(result => allVentures.find(v => v.id === result.id))
+            .filter((v): v is Venture => !!v); // Filter out any potential undefined values
+
+        return rankedVentures;
     } catch (error) {
         console.error("Semantic search failed:", error);
-        // In case of an error, you might want to return an empty array or handle it differently
+        // In case of an error, return an empty array to prevent breaking the UI.
         return [];
     }
 }

@@ -29,11 +29,7 @@ export default function ProjectShowcase() {
     startTransition(async () => {
       setIsSearching(true);
       const searchResults = await handleSemanticSearch(query);
-      const filteredVentures = searchResults
-        .map(result => allVentures.find(v => v.id === result.id))
-        .filter((v): v is Venture => !!v);
-
-      setDisplayedProjects(filteredVentures);
+      setDisplayedProjects(searchResults);
       setIsSearching(false);
     });
   };
