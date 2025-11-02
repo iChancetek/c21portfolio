@@ -9,10 +9,11 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/firebase';
-import { createUserWithEmailAndPassword, AuthError } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, AuthError } from 'firebase/auth';
 import { Loader2 } from 'lucide-react';
 
 export default function SignupPage() {
+  const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,18 +29,24 @@ export default function SignupPage() {
       setError('Passwords do not match.');
       return;
     }
+    if (!displayName) {
+        setError('Display Name is required.');
+        return;
+    }
     if (!auth) return;
 
     setIsLoading(true);
     setError(null);
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(userCredential.user, { displayName });
       toast({ title: 'Success', description: 'Account created successfully. Please log in.' });
       router.push('/login');
     } catch (err) {
       const error = err as AuthError;
       setError(error.message);
-      setIsLoading(false);
+    } finally {
+        setIsLoading(false);
     }
   };
 
@@ -53,6 +60,17 @@ export default function SignupPage() {
         <form onSubmit={handleSignup}>
           <CardContent className="space-y-4">
              {error && <p className="text-sm text-destructive">{error}</p>}
+            <div className="space-y-2">
+              <Label htmlFor="displayName">Display Name</Label>
+              <Input
+                id="displayName"
+                type="text"
+                placeholder="Your Name"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                required
+              />
+            </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input

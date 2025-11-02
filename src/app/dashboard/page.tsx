@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useState, useTransition, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/firebase';
-import { Loader2, Wand2, BrainCircuit } from 'lucide-react';
+import { Loader2, Wand2, BrainCircuit, PlayCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
@@ -17,6 +17,7 @@ import { techTopics } from '@/ai/flows/tech-expert-flow';
 import { generateTechInsight } from '@/app/actions';
 import type { z } from 'zod';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { generateGreeting } from '@/ai/flows/tts-flow';
 
 type Topic = z.infer<typeof techTopics>[number];
 
@@ -26,12 +27,41 @@ export default function DashboardPage() {
   const [selectedTopic, setSelectedTopic] = useState<Topic | ''>('');
   const [insight, setInsight] = useState('');
   const [isGenerating, startTransition] = useTransition();
+  const [greetingAudio, setGreetingAudio] = useState<string | null>(null);
+  const [isGreetingLoading, setIsGreetingLoading] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const greetingPlayed = useRef(false);
 
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.replace('/login');
     }
   }, [user, isUserLoading, router]);
+
+  useEffect(() => {
+    if (user?.displayName && !greetingPlayed.current) {
+      setIsGreetingLoading(true);
+      generateGreeting({ name: user.displayName })
+        .then((result) => {
+          setGreetingAudio(result.audioDataUri);
+        })
+        .catch((e) => {
+            console.error("Failed to generate greeting:", e);
+            setGreetingAudio(null);
+        })
+        .finally(() => {
+          setIsGreetingLoading(false);
+          greetingPlayed.current = true;
+        });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (greetingAudio && audioRef.current) {
+      audioRef.current.play().catch(e => console.error("Audio playback failed:", e));
+    }
+  }, [greetingAudio]);
+
 
   const handleGenerateInsight = () => {
     if (!selectedTopic) return;
@@ -53,6 +83,7 @@ export default function DashboardPage() {
 
   return (
     <div className="container py-12 md:py-24">
+      {greetingAudio && <audio ref={audioRef} src={greetingAudio} />}
       <div className="text-center mb-12">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-4 text-primary-gradient">
           GenAI Dashboard
