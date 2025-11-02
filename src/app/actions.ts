@@ -158,13 +158,19 @@ async function semanticSearch(query: string): Promise<Venture[]> {
 
 
 export async function handleSemanticSearch(query: string): Promise<Venture[]> {
-    if (!query) {
+    const lowercasedQuery = query.toLowerCase().trim();
+
+    if (!lowercasedQuery) {
+        return allVentures;
+    }
+    
+    // 1. Handle command-like queries
+    const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all'];
+    if(commandQueries.includes(lowercasedQuery)) {
         return allVentures;
     }
 
-    const lowercasedQuery = query.toLowerCase();
-
-    // 1. Exact and partial text search first
+    // 2. Exact and partial text search first
     const textSearchResults = allVentures.filter(venture => 
         venture.name.toLowerCase().includes(lowercasedQuery) || 
         venture.description.toLowerCase().includes(lowercasedQuery)
@@ -174,18 +180,16 @@ export async function handleSemanticSearch(query: string): Promise<Venture[]> {
         return textSearchResults;
     }
 
-    // 2. Fallback to AI-powered semantic search
+    // 3. Fallback to AI-powered semantic search
     try {
         const semanticResults = await semanticSearch(query);
-        // The AI flow now returns full venture objects, but we still ensure correctness
         const rankedVentures = semanticResults
             .map(result => allVentures.find(v => v.id === result.id))
-            .filter((v): v is Venture => !!v); // Filter out any potential undefined values
+            .filter((v): v is Venture => !!v); 
 
         return rankedVentures;
     } catch (error) {
         console.error("Semantic search failed:", error);
-        // In case of an error, return an empty array to prevent breaking the UI.
         return [];
     }
 }
