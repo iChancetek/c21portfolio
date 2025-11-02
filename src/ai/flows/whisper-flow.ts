@@ -42,7 +42,7 @@ const whisperTranscriptionFlow = ai.defineFlow(
       model: 'openai/whisper-1',
       media: {
         url: input.audioDataUri,
-      }
+      },
     });
 
     return { transcription: text };
