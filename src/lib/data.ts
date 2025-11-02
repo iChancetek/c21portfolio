@@ -1,6 +1,6 @@
 
 import { Project, SkillCategory, Venture, VentureIcon } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -164,6 +164,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Node.js", icon: Server },
       { name: "Python (Flask, FastAPI, Django)", icon: Code },
       { name: "APIs / REST APIs", icon: Puzzle },
+      { name: "API Gateway", icon: Puzzle },
       { name: "Firebase", icon: Code },
       { name: "Supabase", icon: Database },
       { name: "MySQL / PostgreSQL", icon: Database },
@@ -233,6 +234,10 @@ export const skillCategories: SkillCategory[] = [
         { name: "Vercel", icon: Cloud },
         { name: "CI/CD (GitHub Actions, GitLab, Jenkins, Azure DevOps)", icon: GitBranch },
         { name: "MLOps / DevOps", icon: ServerCog },
+        { name: "Amazon Route 53", icon: Route },
+        { name: "Azure DNS", icon: Network },
+        { name: "Azure Traffic Manager", icon: ServerCrash },
+        { name: "Application Load Balancer", icon: ServerCog },
     ],
   },
   {
@@ -308,6 +313,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
