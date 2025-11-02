@@ -7,6 +7,7 @@ import { useAdmin } from '@/hooks/useAdmin';
 import { Loader2, Shield } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import AuditLogs from '@/components/AuditLogs';
 
 function AdminDashboardPage() {
   const { isAdmin, isLoading } = useAdmin();
@@ -45,7 +46,7 @@ function AdminDashboardPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="users" className="w-full">
+      <Tabs defaultValue="logs" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="users">Active Users</TabsTrigger>
             <TabsTrigger value="logs">Audit Logs</TabsTrigger>
@@ -65,17 +66,7 @@ function AdminDashboardPage() {
             </Card>
         </TabsContent>
         <TabsContent value="logs">
-            <Card>
-            <CardHeader>
-                <CardTitle>Audit Logs</CardTitle>
-                <CardDescription>
-                Track important events and actions across the application. (Coming Soon)
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-                <p className="text-muted-foreground">Implementation for audit logs display is pending.</p>
-            </CardContent>
-            </Card>
+            <AuditLogs />
         </TabsContent>
         <TabsContent value="reports">
             <Card>
