@@ -213,12 +213,15 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Cloud & DevOps",
     skills: [
-        { name: "AWS, GCP, Azure", icon: CloudCog },
         { name: "System Design", icon: Architecture },
-        { name: "Docker / Docker Hub", icon: ServerCog },
-        { name: "GitHub Actions / GitLab", icon: GitBranch },
-        { name: "Jenkins / Azure DevOps", icon: ServerCog },
+        { name: "Docker", icon: ServerCog },
+        { name: "Kubernetes (EKS, AKS, GKE)", icon: ServerCog },
+        { name: "Serverless (Lambda, Functions, Cloud Run)", icon: CloudCog },
+        { name: "AWS (EC2, Beanstalk, App Runner)", icon: Cloud },
+        { name: "Azure (VMs, App Service, Container Apps)", icon: Cloud },
+        { name: "GCP (Compute & App Engine)", icon: Cloud },
         { name: "Vercel", icon: Cloud },
+        { name: "CI/CD (GitHub Actions, Jenkins, Azure DevOps)", icon: GitBranch },
         { name: "MLOps / DevOps", icon: ServerCog },
     ],
   },
@@ -295,6 +298,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
