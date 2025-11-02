@@ -15,7 +15,7 @@ import {
   defineIndexer,
   defineRetriever,
   vectorQuery,
-} from 'genkit/retrieval';
+} from 'genkit/experimental/retrieval';
 import { ventures } from '@/lib/data';
 import type { Venture } from '@/lib/types';
 
