@@ -2,7 +2,6 @@
 
 import Contact from '@/components/Contact';
 import Skills from '@/components/Skills';
-import Transcriber from '@/components/Transcriber';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import ProjectShowcase from '@/components/ProjectShowcase';
 import { ventures } from '@/lib/data';
@@ -16,7 +15,6 @@ function ProjectsPageContent() {
     <div className="flex flex-col">
       <ProjectShowcase projects={allVentures} />
       <Skills />
-      <Transcriber />
       <Contact />
       <FloatingAIAssistant />
     </div>

@@ -2,6 +2,7 @@
 
 import AIAssistant from '@/components/AIAssistant';
 import { Button } from '@/components/ui/button';
+import Transcriber from '@/components/Transcriber';
 import Link from 'next/link';
 
 export default function AIAssistantPage() {
@@ -33,6 +34,7 @@ export default function AIAssistantPage() {
           <AIAssistant />
         </div>
       </div>
+      <Transcriber />
     </section>
   );
 }
