@@ -27,10 +27,13 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isGuestLoading, setIsGuestLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
+  
+  const anyLoading = isLoading || isGoogleLoading || isGuestLoading;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,7 +71,7 @@ export default function LoginPage() {
 
   const handleAnonymousLogin = async () => {
     if (!auth) return;
-    setIsLoading(true);
+    setIsGuestLoading(true);
     setError(null);
     try {
       await signInAnonymously(auth);
@@ -78,21 +81,23 @@ export default function LoginPage() {
       const error = err as AuthError;
       setError(error.message);
     } finally {
-      setIsLoading(false);
+      setIsGuestLoading(false);
     }
   };
 
   return (
-    <div className="container flex items-center justify-center py-24">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>Enter your credentials to access the dashboard.</CardDescription>
+    <div className="flex items-center justify-center min-h-[calc(100vh-150px)] py-12 px-4">
+      <Card className="w-full max-w-md bg-black/30 backdrop-blur-sm border-white/10 shadow-2xl shadow-primary/10">
+        <CardHeader className="text-center">
+          <h1 className="text-3xl font-bold tracking-tighter mb-2 text-primary-gradient">
+            Welcome Back
+          </h1>
+          <CardDescription>Enter your credentials to access your dashboard.</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button variant="outline" type="button" className="w-full" onClick={handleGoogleSignIn} disabled={isGoogleLoading || isLoading}>
-            {isGoogleLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <GoogleIcon className="mr-2 h-4 w-4" />}
+        <CardContent className="space-y-6">
+          {error && <p className="text-sm text-center text-destructive">{error}</p>}
+          <Button variant="outline" type="button" className="w-full h-12 text-base border-white/20 hover:bg-white/5 hover:text-white" onClick={handleGoogleSignIn} disabled={anyLoading}>
+            {isGoogleLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <GoogleIcon className="mr-2 h-5 w-5" />}
             Sign in with Google
           </Button>
           
@@ -115,7 +120,8 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                disabled={isLoading || isGoogleLoading}
+                disabled={anyLoading}
+                className="bg-black/20 backdrop-blur-sm border-white/10 h-12"
               />
             </div>
             <div className="space-y-2">
@@ -126,18 +132,19 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                disabled={isLoading || isGoogleLoading}
+                disabled={anyLoading}
+                className="bg-black/20 backdrop-blur-sm border-white/10 h-12"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={isLoading || isGoogleLoading}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+            <Button type="submit" className="w-full h-12 text-base bg-primary-gradient" disabled={anyLoading}>
+              {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
               Login with Email
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-            <Button type="button" variant="secondary" className="w-full" onClick={handleAnonymousLogin} disabled={isLoading || isGoogleLoading}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+            <Button type="button" variant="secondary" className="w-full h-12 text-base" onClick={handleAnonymousLogin} disabled={anyLoading}>
+              {isGuestLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
               Continue as Guest
             </Button>
             <p className="text-sm text-center text-muted-foreground">

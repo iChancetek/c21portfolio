@@ -31,7 +31,7 @@
     --radius: 0.5rem;
   }
   .dark {
-    --background: 224 71% 4%;
+    --background: 222 84% 4%;
     --foreground: 0 0% 98%;
     --card: 224 71% 4%;
     --card-foreground: 0 0% 98%;
@@ -43,8 +43,7 @@
     --secondary-foreground: 0 0% 98%;
     --muted: 215 28% 17%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 300 81% 59%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 260 81% 69%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 215 28% 17%;
