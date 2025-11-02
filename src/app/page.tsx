@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useTransition } from 'react';
@@ -10,19 +11,22 @@ import { handleSemanticSearch } from '@/app/actions';
 import ProjectShowcase from '@/components/ProjectShowcase';
 import type { Venture } from '@/lib/types';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
+import { ventures } from '@/lib/data';
+
+const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
   const [isSuggesting, startSuggestionTransition] = useTransition();
   const [isSearching, startSearchTransition] = useTransition();
   const [aiSuggestion, setAiSuggestion] = useState('e.g., "AI in healthcare"');
-  const [projects, setProjects] = useState<Venture[] | null>(null);
+  const [projects, setProjects] = useState<Venture[] | null>(allVentures);
   const [searchedQuery, setSearchedQuery] = useState<string>('');
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!query.trim()) {
-      setProjects(null);
+      setProjects(allVentures);
       setSearchedQuery('');
       return;
     }
@@ -45,12 +49,12 @@ export default function LandingPage() {
 
   const handleReset = () => {
     setQuery('');
-    setProjects(null);
+    setProjects(allVentures);
     setSearchedQuery('');
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] text-center">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] text-center py-12">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -78,7 +82,7 @@ export default function LandingPage() {
             {isSearching ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
             AI Search
           </Button>
-          {projects && (
+          {searchedQuery && (
             <Button
               type="button"
               size="icon"
@@ -102,18 +106,16 @@ export default function LandingPage() {
         </Button>
       </motion.div>
 
-      {isSearching && (
-        <div className="mt-16 text-center">
-          <Loader2 className="mx-auto h-12 w-12 animate-spin text-primary" />
-          <p className="mt-4 text-muted-foreground">Searching for projects...</p>
-        </div>
-      )}
-
-      {!isSearching && projects && (
-        <div className="w-full mt-8">
-          <ProjectShowcase projects={projects} searchQuery={searchedQuery} />
-        </div>
-      )}
+      <div className="w-full mt-16">
+        {isSearching ? (
+          <div className="text-center">
+            <Loader2 className="mx-auto h-12 w-12 animate-spin text-primary" />
+            <p className="mt-4 text-muted-foreground">Searching for projects related to "{searchedQuery}"...</p>
+          </div>
+        ) : (
+          <ProjectShowcase projects={projects || []} searchQuery={searchedQuery} />
+        )}
+      </div>
 
       <FloatingAIAssistant />
     </div>
