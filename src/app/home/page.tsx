@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
 import WhatIDo from '@/components/WhatIDo';
 import Contact from '@/components/Contact';
@@ -20,26 +20,32 @@ const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`
 export default function Home() {
   const [projects, setProjects] = useState<Venture[]>(allVentures);
   const searchParams = useSearchParams();
-  const query = searchParams.get('q') || '';
-  
+  const initialQuery = searchParams.get('q') || '';
+  const [isPending, startTransition] = useTransition();
+
+  const onSearch = (query: string) => {
+    startTransition(async () => {
+        const searchResults = await handleSemanticSearch(query);
+        setProjects(searchResults);
+    });
+  }
+
   // This effect will run when the page loads with a query parameter.
   useEffect(() => {
-    if (query) {
-      handleSemanticSearch(query).then(setProjects);
-    } else {
-      setProjects(allVentures);
+    if (initialQuery) {
+      onSearch(initialQuery);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, [initialQuery]);
 
   return (
     <div className="flex flex-col">
       <Hero />
       <WhatIDo />
       <div className="max-w-xl mx-auto my-12 w-full">
-         <AISearch onSearch={setProjects} />
+         <AISearch onSearch={onSearch} initialQuery={initialQuery} isSearching={isPending} />
       </div>
-      <ProjectShowcase projects={projects} searchQuery={query} />
+      <ProjectShowcase projects={projects} searchQuery={initialQuery} />
       <Skills />
       <Transcriber />
       <Contact />

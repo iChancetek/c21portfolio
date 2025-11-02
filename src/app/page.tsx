@@ -1,26 +1,24 @@
 
 'use client';
 
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ArrowRight, Bot, Code, Cpu } from 'lucide-react';
-import AISearch from '@/components/AISearch';
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.2,
-      duration: 0.5,
-      ease: 'easeOut',
-    },
-  }),
-};
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Wand2 } from 'lucide-react';
 
 export default function LandingPage() {
+  const router = useRouter();
+
+  const handleSearch = (formData: FormData) => {
+    const query = formData.get('query') as string;
+    if (query) {
+      router.push(`/home?q=${encodeURIComponent(query)}`);
+    } else {
+      router.push('/home');
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
@@ -48,7 +46,18 @@ export default function LandingPage() {
                 transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
                 className="w-full max-w-2xl"
               >
-                <AISearch />
+                <form action={handleSearch} className="w-full flex gap-2 items-center">
+                    <Input
+                        type="text"
+                        name="query"
+                        placeholder="e.g., 'Healthcare automation' or 'list all'"
+                        className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
+                    />
+                    <Button type="submit" size="lg">
+                        <Wand2 className="mr-2 h-5 w-5" />
+                        AI Search
+                    </Button>
+                </form>
               </motion.div>
             </div>
           </div>

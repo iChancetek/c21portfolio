@@ -1,49 +1,23 @@
 
 'use client';
 
-import { useState, useTransition } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Loader2, Wand2 } from 'lucide-react';
-import { handleSemanticSearch } from '@/app/actions';
-import type { Venture } from '@/lib/types';
 
 interface AISearchProps {
-  onSearch?: (results: Venture[]) => void;
+  onSearch: (query: string) => void;
+  initialQuery?: string;
+  isSearching: boolean;
 }
 
-export default function AISearch({ onSearch }: AISearchProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [isPending, startTransition] = useTransition();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
-  const [isSearching, setIsSearching] = useState(false);
+export default function AISearch({ onSearch, initialQuery = '', isSearching }: AISearchProps) {
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
 
   const performSearch = (formData: FormData) => {
     const query = formData.get('query') as string;
-    setSearchQuery(query);
-    const params = new URLSearchParams(window.location.search);
-
-    if (query) {
-      params.set('q', query);
-    } else {
-      params.delete('q');
-    }
-    
-    // If onSearch prop is provided (i.e., we are on /home), update state locally.
-    if (onSearch) {
-        startTransition(async () => {
-          setIsSearching(true);
-          window.history.replaceState(null, '', `?${params.toString()}`);
-          const searchResults = await handleSemanticSearch(query);
-          onSearch(searchResults);
-          setIsSearching(false);
-        });
-    } else {
-        // If onSearch is not provided (i.e., we are on the landing page), navigate.
-        router.push(`/home?${params.toString()}`);
-    }
+    onSearch(query);
   };
 
   return (
@@ -54,10 +28,10 @@ export default function AISearch({ onSearch }: AISearchProps) {
         placeholder="e.g., 'Healthcare automation' or 'list all'"
         className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
         onChange={(e) => setSearchQuery(e.target.value)}
-        value={searchQuery}
+        defaultValue={initialQuery}
       />
-      <Button type="submit" size="lg" disabled={isPending || isSearching}>
-        {isPending || isSearching ? (
+      <Button type="submit" size="lg" disabled={isSearching}>
+        {isSearching ? (
           <Loader2 className="mr-2 h-5 w-5 animate-spin" />
         ) : (
           <Wand2 className="mr-2 h-5 w-5" />
