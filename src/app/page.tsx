@@ -122,12 +122,11 @@ export default function LandingPage() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-4xl"
       >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
           <span className="text-primary-gradient">The Future of Development — Today</span>
         </h1>
-        <p className="max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground mb-10">
-          I build intelligent, enterprise-grade AI solutions that drive business value. Explore my
-          work or ask my AI assistant about my experience.
+        <p className="text-lg sm:text-xl text-muted-foreground mb-10">
+          Chancellor Minus | AI Engineer & Full-Stack Developer Portfolio
         </p>
 
         <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2 mb-4">
