@@ -10,7 +10,6 @@ import { getMenuSuggestion } from '@/ai/flows/menuSuggestionFlow';
 import { handleSemanticSearch } from '@/app/actions';
 import ProjectShowcase from '@/components/ProjectShowcase';
 import type { Venture } from '@/lib/types';
-import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import { ventures } from '@/lib/data';
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
@@ -116,8 +115,6 @@ export default function LandingPage() {
           <ProjectShowcase projects={projects || []} searchQuery={searchedQuery} />
         )}
       </div>
-
-      <FloatingAIAssistant />
     </div>
   );
 }
