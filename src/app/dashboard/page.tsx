@@ -3,8 +3,8 @@
 import { useEffect, useState, useTransition, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/firebase';
-import { Loader2, Wand2, BrainCircuit } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Loader2, Wand2, BrainCircuit, Bot } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
@@ -32,12 +32,12 @@ export default function DashboardPage() {
     }
   }, [user, isUserLoading, router]);
 
-  const handleGenerateInsight = () => {
+  const handleGenerateInsight = (isDeeperDive = false) => {
     if (!selectedTopic) return;
 
     startTransition(async () => {
       setInsight('');
-      const result = await generateTechInsight(selectedTopic as Topic);
+      const result = await generateTechInsight(selectedTopic as Topic, isDeeperDive);
       setInsight(result);
     });
   };
@@ -85,7 +85,7 @@ export default function DashboardPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Button onClick={handleGenerateInsight} disabled={isGenerating || !selectedTopic} className="w-full sm:w-auto bg-primary-gradient">
+            <Button onClick={() => handleGenerateInsight(false)} disabled={isGenerating || !selectedTopic} className="w-full sm:w-auto bg-primary-gradient">
               {isGenerating ? (
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
               ) : (
@@ -115,6 +115,14 @@ export default function DashboardPage() {
             )}
           </div>
         </CardContent>
+        {insight && !isGenerating && (
+          <CardFooter>
+            <Button onClick={() => handleGenerateInsight(true)} variant="outline">
+              <Bot className="mr-2 h-5 w-5" />
+              Deeper Dive...
+            </Button>
+          </CardFooter>
+        )}
       </Card>
     </div>
   );

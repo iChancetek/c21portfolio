@@ -7,7 +7,7 @@ import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import { getTechInsight } from '@/ai/flows/tech-expert-flow';
 import type { Venture } from '@/lib/types';
 import { Resend } from 'resend';
-import { ventures } from '@/lib/data';
+import { ventures, techTopics } from '@/lib/data';
 import { embed } from 'genkit';
 import { ai } from '@/ai/genkit';
 
@@ -115,9 +115,9 @@ export async function generateProjectDeepDive(projectId: string) {
     }
 }
 
-export async function generateTechInsight(topic: z.infer<typeof import('@/ai/flows/tech-expert-flow').techTopics>[number]) {
+export async function generateTechInsight(topic: z.infer<typeof techTopics>[number], isDeeperDive = false) {
     try {
-        const response = await getTechInsight({ topic });
+        const response = await getTechInsight({ topic, isDeeperDive });
         return response.insight;
     } catch (error: any) {
         console.error("Tech insight generation failed:", error);
