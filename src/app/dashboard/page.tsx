@@ -13,7 +13,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { techTopics, type TechInsightInput } from '@/ai/flows/tech-expert-flow';
+import { techTopics } from '@/ai/flows/tech-expert-flow';
+import type { TechInsightInput } from '@/ai/flows/tech-expert-flow';
 import { generateTechInsight } from '@/app/actions';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { generateGreeting } from '@/ai/flows/tts-flow';
