@@ -9,10 +9,6 @@ import { getMenuSuggestion } from '@/ai/flows/menuSuggestionFlow';
 import { handleSemanticSearch } from '@/app/actions';
 import ProjectShowcase from '@/components/ProjectShowcase';
 import type { Venture } from '@/lib/types';
-import WhatIDo from '@/components/WhatIDo';
-import Skills from '@/components/Skills';
-import Transcriber from '@/components/Transcriber';
-import Contact from '@/components/Contact';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 
 export default function LandingPage() {
@@ -94,15 +90,7 @@ export default function LandingPage() {
          </div>
       )}
 
-      {!projects && (
-        <div className="w-full mt-8">
-            <Skills />
-            <WhatIDo />
-            <Transcriber />
-            <Contact />
-            <FloatingAIAssistant />
-        </div>
-      )}
+      <FloatingAIAssistant />
     </div>
   );
 }
