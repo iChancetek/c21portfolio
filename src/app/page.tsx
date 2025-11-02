@@ -1,10 +1,11 @@
+
 'use client';
 
 import { useState, useTransition } from 'react';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2, Wand2 } from 'lucide-react';
+import { Loader2, Wand2, RefreshCw } from 'lucide-react';
 import { getMenuSuggestion } from '@/ai/flows/menuSuggestionFlow';
 import { handleSemanticSearch } from '@/app/actions';
 import ProjectShowcase from '@/components/ProjectShowcase';
@@ -41,6 +42,12 @@ export default function LandingPage() {
     });
   };
 
+  const handleReset = () => {
+    setQuery('');
+    setProjects(null);
+    setSearchedQuery('');
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] text-center">
       <motion.div
@@ -69,6 +76,11 @@ export default function LandingPage() {
             {isSearching ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
             AI Search
           </Button>
+          {projects && (
+            <Button type="button" size="icon" variant="ghost" onClick={handleReset} className="h-12 w-12" title="Reset Search">
+              <RefreshCw className="h-5 w-5" />
+            </Button>
+          )}
         </form>
         
         <Button variant="link" onClick={handleSuggestion} disabled={isSuggesting}>
