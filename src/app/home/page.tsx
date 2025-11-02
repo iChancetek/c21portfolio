@@ -1,7 +1,8 @@
 
 'use client';
 
-import { useState, useTransition, useSearchParams } from 'react';
+import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import WhatIDo from '@/components/WhatIDo';
 import Contact from '@/components/Contact';
 import Hero from '@/components/Hero';
