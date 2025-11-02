@@ -1,3 +1,4 @@
+
 /**
  * @fileoverview Firestore Security Rules for Chancellor's AI Portfolio.
  *
@@ -5,75 +6,89 @@
  * This ruleset provides public read access to projects, skills, and project skills,
  * while restricting write access to authorized users (e.g., admins via a backend function).
  * Contact form submissions are writeable by any authenticated user.
+ * Audit logs are write-only for authenticated users and read-only for admins.
  *
  * Data Structure:
  * - /projects/{projectId}: Stores project information.
  * - /skills/{skillId}: Stores skill information.
  * - /projectSkills/{projectSkillId}: Stores the relationships between projects and skills.
- * - /contactFormSubmissions/{contactFormSubmissionId}: Stores contact form submissions.
+ * - /contactFormSubmissions/{submissionId}: Stores contact form submissions.
+ * - /auditLogs/{logId}: Stores audit trail of important user actions.
  *
  * Key Security Decisions:
- * - Public read access is granted for projects, skills, and project skills to allow open browsing.
- * - Listing of contact form submissions is denied to prevent unauthorized access to personal information.
- * - Write access to projects, skills, and project skills is only granted through backend admin authentication.
- * - Contact form submissions can be created by any authenticated user.
+ * - Public read access for portfolio content.
+ * - Write access for portfolio content restricted to backend/admin roles.
+ * - Contact submissions can be created by authenticated users but not read publicly.
+ * - Audit logs can be created by the system/authenticated users but only read by admins.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
+     * @description Helper function to check if the requesting user is an admin.
+     *              This relies on a custom claim `admin` being set to `true`.
+     * @returns boolean
+     */
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    /**
+     * @description Helper function to check if a user is signed in.
+     * @returns boolean
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
      * @description Allows public read access to projects, but restricts write access.
      * @path /projects/{projectId}
-     * @allow (get, list): if true
-     * @deny (create, update, delete): if false
-     * @principle Public read, owner-only writes (enforced via backend).
      */
     match /projects/{projectId} {
       allow get, list: if true;
-      allow create, update, delete: if false; // TODO: Implement owner validation via backend.
+      allow create, update, delete: if isAdmin();
     }
 
     /**
      * @description Allows public read access to skills, but restricts write access.
      * @path /skills/{skillId}
-     * @allow (get, list): if true
-     * @deny (create, update, delete): if false
-     * @principle Public read, owner-only writes (enforced via backend).
      */
     match /skills/{skillId} {
       allow get, list: if true;
-      allow create, update, delete: if false; // TODO: Implement owner validation via backend.
+      allow create, update, delete: if isAdmin();
     }
 
     /**
      * @description Allows public read access to projectSkills, but restricts write access.
      * @path /projectSkills/{projectSkillId}
-     * @allow (get, list): if true
-     * @deny (create, update, delete): if false
-     * @principle Public read, owner-only writes (enforced via backend).
      */
     match /projectSkills/{projectSkillId} {
       allow get, list: if true;
-      allow create, update, delete: if false; // TODO: Implement owner validation via backend.
+      allow create, update, delete: if isAdmin();
     }
 
     /**
      * @description Allows any authenticated user to submit a contact form.
+     *              Submissions are not readable by other users.
      * @path /contactFormSubmissions/{contactFormSubmissionId}
-     * @allow (create): if isSignedIn()
-     * @deny (get, update, delete, list): if false
-     * @principle Authenticated users can create contact form submissions.
      */
     match /contactFormSubmissions/{contactFormSubmissionId} {
       allow create: if isSignedIn();
-      allow get, update, delete: if false;
-      allow list: if false;
+      allow get, list, update, delete: if isAdmin();
     }
-
-    // Helper function to determine if a user is signed in.
-    function isSignedIn() {
-      return request.auth != null;
+    
+    /**
+     * @description Secures the audit logs collection.
+     *              Allows authenticated services/users to create logs.
+     *              Only allows admins to read/list the logs.
+     * @path /auditLogs/{logId}
+     */
+    match /auditLogs/{logId} {
+      allow create: if isSignedIn(); // Allows server actions authenticated as a user to write
+      allow get, list: if isAdmin();
+      allow update, delete: if false; // Logs should be immutable
     }
   }
 }

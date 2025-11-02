@@ -10,6 +10,7 @@ import { Resend } from 'resend';
 import { ventures, techTopics } from '@/lib/data';
 import { embed } from 'genkit';
 import { ai } from '@/ai/genkit';
+import { initializeServerApp } from '@/firebase/server-config';
 
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
@@ -19,6 +20,38 @@ const contactSchema = z.object({
   email: z.string().email('Invalid email address.'),
   message: z.string().min(10, 'Message must be at least 10 characters.'),
 });
+
+const auditEventSchema = z.object({
+  eventType: z.enum(['USER_LOGIN', 'USER_SIGNUP', 'ADMIN_ACTION']),
+  actor: z.object({
+    uid: z.string(),
+    email: z.string(),
+  }),
+  details: z.string(),
+});
+
+
+export async function logAuditEvent(eventData: z.infer<typeof auditEventSchema>) {
+    try {
+        const { firestore } = initializeServerApp();
+        const validatedEvent = auditEventSchema.safeParse(eventData);
+
+        if (!validatedEvent.success) {
+            console.error("Invalid audit event data:", validatedEvent.error);
+            return;
+        }
+        
+        const eventWithTimestamp = {
+            ...validatedEvent.data,
+            timestamp: new Date().toISOString(),
+        };
+
+        await firestore.collection('auditLogs').add(eventWithTimestamp);
+    } catch (error) {
+        console.error("Failed to log audit event:", error);
+    }
+}
+
 
 export async function submitContactForm(prevState: any, formData: FormData) {
   const validatedFields = contactSchema.safeParse({

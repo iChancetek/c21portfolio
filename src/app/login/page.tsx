@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,9 +9,10 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/firebase';
-import { signInWithEmailAndPassword, signInAnonymously, AuthError, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, AuthError, GoogleAuthProvider, signInWithPopup, UserCredential } from 'firebase/auth';
 import { Loader2 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { logAuditEvent } from '@/app/actions';
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -26,13 +27,23 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
-  const [isGuestLoading, setIsGuestLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
   
-  const anyLoading = isLoading || isGoogleLoading || isGuestLoading;
+  const anyLoading = isLoading || isGoogleLoading;
+
+  const handleSuccessfulLogin = (userCredential: UserCredential) => {
+    const user = userCredential.user;
+    logAuditEvent({
+        eventType: 'USER_LOGIN',
+        actor: { uid: user.uid, email: user.email || 'N/A' },
+        details: `User logged in via ${userCredential.providerId || 'email'}.`
+    });
+    toast({ title: 'Success', description: 'Logged in successfully.' });
+    router.push('/dashboard');
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,9 +51,8 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(null);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      toast({ title: 'Success', description: 'Logged in successfully.' });
-      router.push('/dashboard');
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      handleSuccessfulLogin(userCredential);
     } catch (err) {
       const error = err as AuthError;
       setError(error.message);
@@ -57,30 +67,13 @@ export default function LoginPage() {
     setError(null);
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      toast({ title: 'Success', description: 'Logged in with Google successfully.' });
-      router.push('/dashboard');
+      const userCredential = await signInWithPopup(auth, provider);
+      handleSuccessfulLogin(userCredential);
     } catch (err) {
       const error = err as AuthError;
       setError(error.message);
     } finally {
       setIsGoogleLoading(false);
-    }
-  };
-
-  const handleAnonymousLogin = async () => {
-    if (!auth) return;
-    setIsGuestLoading(true);
-    setError(null);
-    try {
-      await signInAnonymously(auth);
-      toast({ title: 'Success', description: 'Logged in anonymously.' });
-      router.push('/');
-    } catch (err) {
-      const error = err as AuthError;
-      setError(error.message);
-    } finally {
-      setIsGuestLoading(false);
     }
   };
 
@@ -142,10 +135,6 @@ export default function LoginPage() {
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-            <Button type="button" variant="secondary" className="w-full h-12 text-base" onClick={handleAnonymousLogin} disabled={anyLoading}>
-              {isGuestLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
-              Continue as Guest
-            </Button>
             <p className="text-sm text-center text-muted-foreground">
               Don't have an account?{' '}
               <Link href="/signup" className="font-semibold text-primary hover:underline">
