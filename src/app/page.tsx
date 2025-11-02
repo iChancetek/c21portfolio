@@ -8,32 +8,23 @@ import { Button } from '@/components/ui/button';
 import { Loader2, Wand2, RefreshCw } from 'lucide-react';
 import { getMenuSuggestion } from '@/ai/flows/menuSuggestionFlow';
 import { handleSemanticSearch } from '@/app/actions';
-import ProjectShowcase from '@/components/ProjectShowcase';
-import type { Venture } from '@/lib/types';
-import { ventures } from '@/lib/data';
-
-const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
   const [isSuggesting, startSuggestionTransition] = useTransition();
   const [isSearching, startSearchTransition] = useTransition();
   const [aiSuggestion, setAiSuggestion] = useState('e.g., "AI in healthcare"');
-  const [projects, setProjects] = useState<Venture[] | null>(allVentures);
-  const [searchedQuery, setSearchedQuery] = useState<string>('');
-
+  
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!query.trim()) {
-      setProjects(allVentures);
-      setSearchedQuery('');
       return;
     }
-
-    setSearchedQuery(query);
     startSearchTransition(async () => {
-      const results = await handleSemanticSearch(query);
-      setProjects(results);
+      // The search action can be performed, but the results are not displayed on this page.
+      // You might want to navigate to a results page or handle this differently.
+      await handleSemanticSearch(query);
+      console.log(`Searched for: ${query}`);
     });
   };
 
@@ -48,8 +39,6 @@ export default function LandingPage() {
 
   const handleReset = () => {
     setQuery('');
-    setProjects(allVentures);
-    setSearchedQuery('');
   };
 
   return (
@@ -81,7 +70,7 @@ export default function LandingPage() {
             {isSearching ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
             AI Search
           </Button>
-          {searchedQuery && (
+          {query && (
             <Button
               type="button"
               size="icon"
@@ -104,17 +93,6 @@ export default function LandingPage() {
           Get another suggestion
         </Button>
       </motion.div>
-
-      <div className="w-full mt-16">
-        {isSearching ? (
-          <div className="text-center">
-            <Loader2 className="mx-auto h-12 w-12 animate-spin text-primary" />
-            <p className="mt-4 text-muted-foreground">Searching for projects related to "{searchedQuery}"...</p>
-          </div>
-        ) : (
-          <ProjectShowcase projects={projects || []} searchQuery={searchedQuery} />
-        )}
-      </div>
     </div>
   );
 }
