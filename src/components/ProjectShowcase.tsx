@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useTransition, useEffect } from 'react';
+import { useState, useTransition } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { Loader2, Search } from 'lucide-react';
+import { Loader2, Search, Wand2 } from 'lucide-react';
 import type { Venture } from '@/lib/types';
 import ProjectCard from './ProjectCard';
 import { ventures, ventureIcons } from '@/lib/data';
@@ -14,24 +14,27 @@ const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`
 export default function ProjectShowcase() {
   const [isPending, startTransition] = useTransition();
   const [searchQuery, setSearchQuery] = useState('');
-  
   const [displayedProjects, setDisplayedProjects] = useState<Venture[]>(allVentures);
-  const [isLoadingProjects, setIsLoadingProjects] = useState(false);
-
+  const [isSearching, setIsSearching] = useState(false);
+  
   const onSearch = (formData: FormData) => {
     const query = formData.get('query') as string;
     setSearchQuery(query);
-    
+
     if (!query) {
-        setDisplayedProjects(allVentures);
-        return;
+      setDisplayedProjects(allVentures);
+      return;
     }
 
     startTransition(async () => {
-        setIsLoadingProjects(true);
-        const results = await handleSemanticSearch(query);
-        setDisplayedProjects(results);
-        setIsLoadingProjects(false);
+      setIsSearching(true);
+      const searchResults = await handleSemanticSearch(query);
+      const filteredVentures = searchResults
+        .map(result => allVentures.find(v => v.id === result.id))
+        .filter((v): v is Venture => !!v);
+
+      setDisplayedProjects(filteredVentures);
+      setIsSearching(false);
     });
   };
 
@@ -52,25 +55,28 @@ export default function ProjectShowcase() {
             name="query"
             placeholder="e.g., 'Healthcare automation' or 'Fintech'" 
             className="flex-grow bg-black/20 backdrop-blur-sm border-white/10"
+            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
           />
-          <Button type="submit" disabled={isPending}>
-            {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Search className="mr-2 h-4 w-4" />}
-            Search
+          <Button type="submit" disabled={isPending || isSearching}>
+            {isPending || isSearching ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
+            AI Search
           </Button>
         </form>
 
-        {(isLoadingProjects || isPending) && (
+        {(isPending || isSearching) && (
             <div className="flex justify-center">
                 <Loader2 className="h-12 w-12 animate-spin text-primary" />
             </div>
         )}
 
-        {!isLoadingProjects && !isPending && (
+        {!(isPending || isSearching) && (
             <>
                 {displayedProjects.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {displayedProjects.map((project, index) => {
-                        const Icon = ventureIcons.find(icon => icon.name.toLowerCase().includes(project.name.split(' ')[0].toLowerCase())) || ventureIcons[index % ventureIcons.length];
+                        const iconData = ventureIcons.find(icon => icon.name === project.name);
+                        const Icon = iconData ? iconData.icon : Users;
                         return <ProjectCard key={project.id} project={project} Icon={Icon} />
                     })}
                     </div>

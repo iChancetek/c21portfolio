@@ -1,6 +1,6 @@
 
-import { Project, SkillCategory, Venture } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, TestTube } from "lucide-react";
+import { Project, SkillCategory, Venture, VentureIcon } from "@/lib/types";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -131,7 +131,20 @@ export const ventures: Omit<Venture, 'id'>[] = [
     }
 ];
 
-export const ventureIcons = [Briefcase, HeartPulse, Search, FileText, Lightbulb, BrainCircuit, Microscope, MessagesSquare, HandHeart, Drama, Users, ShoppingCart];
+export const ventureIcons: VentureIcon[] = [
+    { name: "iChanceTEK", icon: Briefcase },
+    { name: "ChanceTEK Health", icon: HeartPulse },
+    { name: "iQMarketing", icon: Search },
+    { name: "MediScribe", icon: FileText },
+    { name: "MemoiQ", icon: Lightbulb },
+    { name: "ModeliQ", icon: BrainCircuit },
+    { name: "WoundiQ", icon: Microscope },
+    { name: "iSydney", icon: MessagesSquare },
+    { name: "iHailey", icon: HandHeart },
+    { name: "iSkylar", icon: Drama },
+    { name: "Nesto Banks", icon: Users },
+    { name: "The Potluxe", icon: ShoppingCart }
+];
 
 
 export const skillCategories: SkillCategory[] = [
@@ -261,6 +274,7 @@ export const socialLinks = [
     
 
     
+
 
 
 

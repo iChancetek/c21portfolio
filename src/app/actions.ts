@@ -2,7 +2,6 @@
 'use server';
 
 import { z } from 'zod';
-import { semanticProjectSearch } from '@/ai/flows/semantic-project-search';
 import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import type { Project } from '@/lib/types';
@@ -85,35 +84,6 @@ export async function submitContactForm(prevState: any, formData: FormData) {
         submissionDate: new Date().toISOString(),
     }
   };
-}
-
-export async function handleSemanticSearch(query: string) {
-    if (!query) {
-        return ventures.map((v, i) => ({...v, id: `venture-${i}`}));
-    }
-    try {
-        const searchResults = await semanticProjectSearch({ query });
-
-        const allVentures = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
-        
-        // Create a map for quick lookups
-        const ventureMap = new Map(allVentures.map(v => [v.id, v]));
-
-        const matchedProjects = searchResults
-            .map(result => ventureMap.get(result.projectId))
-            .filter((p): p is NonNullable<typeof p> => p !== undefined);
-
-        return matchedProjects;
-    } catch (error) {
-        console.error("Semantic search failed:", error);
-        // Fallback to simple text search
-        const lowerCaseQuery = query.toLowerCase();
-        const allVentures = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
-        return allVentures.filter(p => 
-            p.name.toLowerCase().includes(lowerCaseQuery) ||
-            p.description.toLowerCase().includes(lowerCaseQuery)
-        );
-    }
 }
 
 export async function getAIAssistantResponse(query: string) {

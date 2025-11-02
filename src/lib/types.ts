@@ -30,3 +30,8 @@ export interface Venture {
     href: string;
     description: string;
 }
+
+export interface VentureIcon {
+    name: string;
+    icon: LucideIcon;
+}
