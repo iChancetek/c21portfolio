@@ -57,7 +57,8 @@
     "zod": "^3.24.2",
     "genkit": "latest",
     "@genkit-ai/ai": "latest",
-    "genkitx-openai": "latest"
+    "genkitx-openai": "latest",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@types/node": "^20",

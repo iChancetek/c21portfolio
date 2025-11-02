@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/firebase';
-import { Loader2, Wand2, BrainCircuit, Bot } from 'lucide-react';
+import { Loader2, Wand2, BrainCircuit, Bot, Volume2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { techTopics } from '@/lib/data';
 import { generateTechInsight } from '@/app/actions';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 
 type Topic = (typeof techTopics)[number];
 
@@ -25,6 +26,8 @@ export default function DashboardPage() {
   const [selectedTopic, setSelectedTopic] = useState<Topic | ''>('');
   const [insight, setInsight] = useState('');
   const [isGenerating, startTransition] = useTransition();
+  const [isReading, startReadingTransition] = useTransition();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -42,6 +45,27 @@ export default function DashboardPage() {
     });
   };
 
+  const handleReadAloud = () => {
+    if (!insight) return;
+
+    startReadingTransition(async () => {
+        try {
+            // A simple way to strip HTML for cleaner speech
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = insight;
+            const textToRead = tempDiv.textContent || tempDiv.innerText || "";
+            
+            const { audioDataUri } = await textToSpeech({ text: textToRead });
+            if (audioRef.current) {
+                audioRef.current.src = audioDataUri;
+                audioRef.current.play();
+            }
+        } catch (error) {
+            console.error('Failed to generate speech:', error);
+        }
+    });
+  };
+
   if (isUserLoading || !user) {
     return (
       <div className="container flex items-center justify-center py-24">
@@ -52,6 +76,7 @@ export default function DashboardPage() {
 
   return (
     <div className="container py-12 md:py-24">
+      <audio ref={audioRef} />
       <div className="text-center mb-12">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-4 text-primary-gradient">
           GenAI Dashboard
@@ -116,10 +141,18 @@ export default function DashboardPage() {
           </div>
         </CardContent>
         {insight && !isGenerating && (
-          <CardFooter>
-            <Button onClick={() => handleGenerateInsight(true)} variant="outline">
+          <CardFooter className="flex justify-between">
+            <Button onClick={() => handleGenerateInsight(true)} variant="outline" disabled={isGenerating}>
               <Bot className="mr-2 h-5 w-5" />
               Deeper Dive...
+            </Button>
+            <Button onClick={handleReadAloud} variant="outline" disabled={isReading}>
+              {isReading ? (
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              ) : (
+                <Volume2 className="mr-2 h-5 w-5" />
+              )}
+              Read Aloud
             </Button>
           </CardFooter>
         )}

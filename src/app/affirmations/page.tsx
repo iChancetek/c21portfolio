@@ -1,16 +1,19 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2 } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Volume2 } from 'lucide-react';
 import { generateAffirmation } from '@/ai/flows/affirmation-generator';
+import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 
 export default function AffirmationsPage() {
   const [affirmation, setAffirmation] = useState(
     'Click the button to generate an affirmation and start your journey.'
   );
   const [isGenerating, startGenerationTransition] = useTransition();
+  const [isReading, startReadingTransition] = useTransition();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleGenerate = () => {
     startGenerationTransition(async () => {
@@ -24,8 +27,25 @@ export default function AffirmationsPage() {
     });
   };
 
+  const handleReadAloud = () => {
+    if (!affirmation || affirmation.includes('Click the button')) return;
+
+    startReadingTransition(async () => {
+        try {
+            const { audioDataUri } = await textToSpeech({ text: affirmation });
+            if (audioRef.current) {
+                audioRef.current.src = audioDataUri;
+                audioRef.current.play();
+            }
+        } catch (error) {
+            console.error('Failed to generate speech:', error);
+        }
+    });
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] text-center py-12">
+      <audio ref={audioRef} />
       <Sparkles className="w-16 h-16 text-primary mb-4" />
       <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-4 text-primary-gradient">
         Become Your Best Self
@@ -46,14 +66,24 @@ export default function AffirmationsPage() {
         </CardContent>
       </Card>
 
-      <Button size="lg" onClick={handleGenerate} disabled={isGenerating} className="bg-primary-gradient">
-        {isGenerating ? (
-          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-        ) : (
-          <Wand2 className="mr-2 h-5 w-5" />
-        )}
-        Generate New Affirmation
-      </Button>
+      <div className="flex gap-4">
+        <Button size="lg" onClick={handleGenerate} disabled={isGenerating} className="bg-primary-gradient">
+            {isGenerating ? (
+            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+            ) : (
+            <Wand2 className="mr-2 h-5 w-5" />
+            )}
+            Generate New Affirmation
+        </Button>
+        <Button size="lg" onClick={handleReadAloud} disabled={isGenerating || isReading} variant="outline">
+            {isReading ? (
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+            ) : (
+                <Volume2 className="mr-2 h-5 w-5" />
+            )}
+            Read Aloud
+        </Button>
+      </div>
     </div>
   );
 }
