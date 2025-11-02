@@ -1,5 +1,7 @@
+
 import { skillCategories } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Code } from "lucide-react";
 
 export default function Skills() {
     return (
@@ -20,12 +22,15 @@ export default function Skills() {
                             </CardHeader>
                             <CardContent>
                                 <ul className="space-y-3">
-                                    {category.skills.map((skill, index) => (
-                                        <li key={`${category.title}-${skill.name}-${index}`} className="flex items-center gap-3 text-slate-400">
-                                            <skill.icon className="w-5 h-5 text-primary/80 transition-colors duration-300 group-hover:text-accent" />
-                                            <span>{skill.name}</span>
-                                        </li>
-                                    ))}
+                                    {category.skills.map((skill, index) => {
+                                        const IconComponent = skill.icon || Code; // Fallback to Code icon
+                                        return (
+                                            <li key={`${category.title}-${skill.name}-${index}`} className="flex items-center gap-3 text-slate-400">
+                                                <IconComponent className="w-5 h-5 text-primary/80 transition-colors duration-300 group-hover:text-accent" />
+                                                <span>{skill.name}</span>
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             </CardContent>
                         </Card>
