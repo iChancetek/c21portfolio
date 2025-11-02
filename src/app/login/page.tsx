@@ -40,7 +40,7 @@ export default function LoginPage() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast({ title: 'Success', description: 'Logged in successfully.' });
-      router.push('/profile');
+      router.push('/dashboard');
     } catch (err) {
       const error = err as AuthError;
       setError(error.message);
@@ -57,7 +57,7 @@ export default function LoginPage() {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
       toast({ title: 'Success', description: 'Logged in with Google successfully.' });
-      router.push('/profile');
+      router.push('/dashboard');
     } catch (err) {
       const error = err as AuthError;
       setError(error.message);
@@ -130,14 +130,14 @@ export default function LoginPage() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading || isGoogleLoading}>
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               Login with Email
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
             <Button type="button" variant="secondary" className="w-full" onClick={handleAnonymousLogin} disabled={isLoading || isGoogleLoading}>
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               Continue as Guest
             </Button>
             <p className="text-sm text-center text-muted-foreground">
