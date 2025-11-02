@@ -42,6 +42,7 @@ const prompt = ai.definePrompt({
            4.  **Common Pitfalls:** Highlight potential challenges or common mistakes to avoid.
            5.  **Future Trends:** Discuss the future direction of the technology and what to watch out for.
 
+           Elaborate on each section to ensure the total response is detailed and substantial, aiming for a total length of 5-6 paragraphs.
            Structure the output as clean, well-formatted HTML using headings (<h3>, <h4>), paragraphs (<p>), lists (<ul>, <ol>, <li>), and code blocks (<pre><code>) for readability. Be engaging and authoritative.`,
   prompt: `Generate a detailed expert report for the following topic: {{{topic}}}.`,
   config: {
