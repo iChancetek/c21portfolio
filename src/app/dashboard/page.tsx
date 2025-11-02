@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/firebase';
-import { Loader2, Wand2, BrainCircuit, PlayCircle } from 'lucide-react';
+import { Loader2, Wand2, BrainCircuit, PlayCircle, Volume2 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
@@ -17,6 +17,7 @@ import { techTopics } from '@/lib/data';
 import { generateTechInsight } from '@/app/actions';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { generateGreeting } from '@/ai/flows/tts-flow';
+import { textToSpeech } from '@/ai/flows/speech-flow';
 
 type Topic = (typeof techTopics)[number];
 
@@ -30,6 +31,9 @@ export default function DashboardPage() {
   const [isGreetingLoading, setIsGreetingLoading] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const greetingPlayed = useRef(false);
+  const [isReading, startReadingTransition] = useTransition();
+  const [insightAudio, setInsightAudio] = useState<string | null>(null);
+  const insightAudioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -60,6 +64,12 @@ export default function DashboardPage() {
       audioRef.current.play().catch(e => console.error("Audio playback failed:", e));
     }
   }, [greetingAudio]);
+  
+  useEffect(() => {
+    if (insightAudio && insightAudioRef.current) {
+        insightAudioRef.current.play().catch(e => console.error("Audio playback failed:", e));
+    }
+  }, [insightAudio]);
 
 
   const handleGenerateInsight = () => {
@@ -67,10 +77,21 @@ export default function DashboardPage() {
 
     startTransition(async () => {
       setInsight('');
+      setInsightAudio(null);
       const result = await generateTechInsight(selectedTopic as Topic);
       setInsight(result);
     });
   };
+
+  const handleReadInsight = () => {
+      if (!insight) return;
+      startReadingTransition(async () => {
+          setInsightAudio(null);
+          const plainText = new DOMParser().parseFromString(insight, 'text/html').body.textContent || '';
+          const result = await textToSpeech({ text: plainText });
+          setInsightAudio(result.audioDataUri);
+      });
+  }
 
   if (isUserLoading || !user) {
     return (
@@ -83,6 +104,7 @@ export default function DashboardPage() {
   return (
     <div className="container py-12 md:py-24">
       {greetingAudio && <audio ref={audioRef} src={greetingAudio} />}
+      {insightAudio && <audio ref={insightAudioRef} src={insightAudio} />}
       <div className="text-center mb-12">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-4 text-primary-gradient">
           GenAI Dashboard
@@ -126,7 +148,23 @@ export default function DashboardPage() {
             </Button>
           </div>
 
-          <div className="min-h-[300px] bg-secondary rounded-lg p-4 border">
+          <div className="min-h-[300px] bg-secondary rounded-lg p-4 border relative">
+             {insight && !isGenerating && (
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleReadInsight}
+                    disabled={isReading}
+                    className="absolute top-4 right-4 z-10"
+                >
+                    {isReading ? (
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                    ) : (
+                        <Volume2 className="h-5 w-5 text-primary" />
+                    )}
+                    <span className="sr-only">Read insight aloud</span>
+                </Button>
+            )}
             {isGenerating ? (
               <div className="flex items-center justify-center h-full text-muted-foreground">
                 <Loader2 className="h-8 w-8 animate-spin text-primary mr-4" />
