@@ -7,6 +7,7 @@ import { Loader2, Search } from 'lucide-react';
 import type { Venture } from '@/lib/types';
 import ProjectCard from './ProjectCard';
 import { ventures, ventureIcons } from '@/lib/data';
+import { handleSemanticSearch } from '@/app/actions';
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
@@ -14,43 +15,25 @@ export default function ProjectShowcase() {
   const [isPending, startTransition] = useTransition();
   const [searchQuery, setSearchQuery] = useState('');
   
-  const initialProjects = allVentures;
-  const isLoadingProjects = false;
-  
-  const [displayedProjects, setDisplayedProjects] = useState<Venture[] | null>(null);
-
-  useEffect(() => {
-    setDisplayedProjects(initialProjects);
-  }, []);
-
+  const [displayedProjects, setDisplayedProjects] = useState<Venture[]>(allVentures);
+  const [isLoadingProjects, setIsLoadingProjects] = useState(false);
 
   const onSearch = (formData: FormData) => {
     const query = formData.get('query') as string;
     setSearchQuery(query);
     
-    if(!initialProjects) return;
-    
     if (!query) {
-        setDisplayedProjects(initialProjects);
+        setDisplayedProjects(allVentures);
         return;
     }
 
     startTransition(async () => {
-      // For now, we'll do a simple client-side filter.
-      const lowerCaseQuery = query.toLowerCase();
-      const results = initialProjects.filter(p => 
-            p.name.toLowerCase().includes(lowerCaseQuery) ||
-            p.description.toLowerCase().includes(lowerCaseQuery)
-        );
-      setDisplayedProjects(results);
+        setIsLoadingProjects(true);
+        const results = await handleSemanticSearch(query);
+        setDisplayedProjects(results);
+        setIsLoadingProjects(false);
     });
   };
-
-  useEffect(() => {
-    if (searchQuery === '' && initialProjects) {
-        setDisplayedProjects(initialProjects);
-    }
-  }, [searchQuery, initialProjects])
 
   return (
     <section id="projects" className="py-16 md:py-24 lg:py-32 relative bg-background overflow-hidden">
@@ -59,7 +42,7 @@ export default function ProjectShowcase() {
         <div className="flex flex-col items-center text-center space-y-4 mb-12">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">Ventures & Innovations</h2>
           <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            A showcase of AI-driven companies and products I've built.
+            A showcase of AI-driven companies and products I've built. Use the semantic search below to find projects based on your interests.
           </p>
         </div>
         
@@ -67,9 +50,7 @@ export default function ProjectShowcase() {
           <Input 
             type="text" 
             name="query"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search ventures..." 
+            placeholder="e.g., 'Healthcare automation' or 'Fintech'" 
             className="flex-grow bg-black/20 backdrop-blur-sm border-white/10"
           />
           <Button type="submit" disabled={isPending}>
@@ -78,26 +59,27 @@ export default function ProjectShowcase() {
           </Button>
         </form>
 
-        {isLoadingProjects && (
+        {(isLoadingProjects || isPending) && (
             <div className="flex justify-center">
                 <Loader2 className="h-12 w-12 animate-spin text-primary" />
             </div>
         )}
 
-        {!isLoadingProjects && displayedProjects && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayedProjects.map((project, index) => {
-                  const Icon = ventureIcons[index % ventureIcons.length];
-                  return <ProjectCard key={project.id} project={project} Icon={Icon} />
-              })}
-            </div>
-        )}
-
-
-        {!isLoadingProjects && displayedProjects?.length === 0 && (
-            <div className="text-center col-span-full mt-8 text-muted-foreground">
-                <p>No projects found for "{searchQuery}". Try a different search.</p>
-            </div>
+        {!isLoadingProjects && !isPending && (
+            <>
+                {displayedProjects.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {displayedProjects.map((project, index) => {
+                        const Icon = ventureIcons.find(icon => icon.name.toLowerCase().includes(project.name.split(' ')[0].toLowerCase())) || ventureIcons[index % ventureIcons.length];
+                        return <ProjectCard key={project.id} project={project} Icon={Icon} />
+                    })}
+                    </div>
+                ) : (
+                    <div className="text-center col-span-full mt-8 text-muted-foreground">
+                        <p>No projects found for "{searchQuery}". Try a different search.</p>
+                    </div>
+                )}
+            </>
         )}
       </div>
     </section>

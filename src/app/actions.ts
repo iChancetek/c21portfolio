@@ -7,6 +7,7 @@ import { aiPortfolioAssistant } from '@/ai/flows/ai-portfolio-assistant';
 import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import type { Project } from '@/lib/types';
 import { Resend } from 'resend';
+import { ventures } from '@/lib/data';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -86,25 +87,31 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   };
 }
 
-// This function is now problematic as it relies on a static list of projects.
-// It will need to be updated to work with Firestore data for ventures.
-export async function handleSemanticSearch(query: string, projects: Project[]) {
+export async function handleSemanticSearch(query: string) {
     if (!query) {
-        return projects;
+        return ventures.map((v, i) => ({...v, id: `venture-${i}`}));
     }
     try {
         const searchResults = await semanticProjectSearch({ query });
+
+        const allVentures = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
+        
+        // Create a map for quick lookups
+        const ventureMap = new Map(allVentures.map(v => [v.id, v]));
+
         const matchedProjects = searchResults
-            .map(result => projects.find(p => p.id === result.projectId))
+            .map(result => ventureMap.get(result.projectId))
             .filter((p): p is NonNullable<typeof p> => p !== undefined);
+
         return matchedProjects;
     } catch (error) {
         console.error("Semantic search failed:", error);
         // Fallback to simple text search
         const lowerCaseQuery = query.toLowerCase();
-        return projects.filter(p => 
-            p.title.toLowerCase().includes(lowerCaseQuery) ||
-            p.oneLiner.toLowerCase().includes(lowerCaseQuery)
+        const allVentures = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
+        return allVentures.filter(p => 
+            p.name.toLowerCase().includes(lowerCaseQuery) ||
+            p.description.toLowerCase().includes(lowerCaseQuery)
         );
     }
 }

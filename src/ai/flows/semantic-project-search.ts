@@ -3,18 +3,78 @@
  *
  * This file defines a Genkit flow that allows users to search for projects
  * using natural language queries. The flow uses embeddings to find relevant
- * projects and returns a ranked list of project IDs and match reasons.
- *
- * @fileOverview Semantic project search flow.
- *
- * @function semanticProjectSearch - The main function that handles the semantic project search process.
- * @interface SemanticProjectSearchInput - The input type for the semanticProjectSearch function.
- * @interface SemanticProjectSearchOutput - The return type for the semanticProjectSearch function.
+ * projects and returns a ranked list of project IDs.
  */
 'use server';
 
 import {ai} from '@/ai/genkit';
 import {z} from 'zod';
+import {embed} from 'genkit/embed';
+import {
+  retrieve,
+  defineIndexer,
+  defineRetriever,
+  vectorQuery,
+} from 'genkit/retrieval';
+import { ventures } from '@/lib/data';
+import type { Venture } from '@/lib/types';
+
+const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
+
+const SearchProjectSchema = z.object({
+  name: z.string().describe('The name of the project.'),
+  description: z.string().describe('A detailed description of the project.'),
+});
+
+const getProjects = ai.defineTool(
+  {
+    name: 'getProjects',
+    description: 'Retrieves all projects from the database.',
+    outputSchema: z.array(SearchProjectSchema),
+  },
+  async () => {
+    console.log('Calling getProjects tool');
+    return allVentures;
+  }
+);
+
+export const projectIndexer = defineIndexer(
+  'project-indexer',
+  async () => {
+    const projects = await getProjects();
+    return {
+      documents: projects.map((project, index) => ({
+        content: [
+          {
+            text: `Project: ${project.name}\nDescription: ${project.description}`,
+          },
+        ],
+        metadata: {
+          projectId: `venture-${index}`,
+          name: project.name,
+        },
+      })),
+    };
+  }
+);
+
+export const projectRetriever = defineRetriever(
+  'project-retriever',
+  async (input, options) => {
+    const embedding = await embed({
+      embedder: 'text-embedding-004',
+      content: input,
+    });
+    return {
+      documents: await vectorQuery({
+        query: embedding,
+        collection: projectIndexer.collection,
+        k: options?.k,
+      }),
+    };
+  }
+);
+
 
 const SemanticProjectSearchInputSchema = z.object({
   query: z.string().describe('The natural language search query.'),
@@ -24,7 +84,6 @@ export type SemanticProjectSearchInput = z.infer<typeof SemanticProjectSearchInp
 const SemanticProjectSearchOutputSchema = z.array(
   z.object({
     projectId: z.string().describe('The ID of the project.'),
-    matchReason: z.string().describe('The reason why the project matches the query.'),
   })
 );
 export type SemanticProjectSearchOutput = z.infer<typeof SemanticProjectSearchOutputSchema>;
@@ -33,25 +92,29 @@ export async function semanticProjectSearch(input: SemanticProjectSearchInput): 
   return semanticProjectSearchFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'semanticProjectSearchPrompt',
-  input: {schema: SemanticProjectSearchInputSchema},
-  output: {schema: SemanticProjectSearchOutputSchema},
-  prompt: `You are a search assistant that helps users find projects based on their natural language query. 
-  Return a ranked list of project IDs and a brief reason why each project matches the query.
-
-  Query: {{{query}}}
-  `,
-});
-
 const semanticProjectSearchFlow = ai.defineFlow(
   {
     name: 'semanticProjectSearchFlow',
     inputSchema: SemanticProjectSearchInputSchema,
     outputSchema: SemanticProjectSearchOutputSchema,
   },
-  async input => {
-    const {output} = await prompt(input);
-    return output!;
+  async (input) => {
+    const documents = await retrieve({
+      retriever: projectRetriever,
+      query: input.query,
+      options: { k: 5 },
+    });
+
+    const projectIds = documents.map(doc => ({
+        projectId: doc.metadata.projectId,
+    }));
+    
+    // Remove duplicates
+    const uniqueProjectIds = Array.from(new Set(projectIds.map(p => p.projectId)))
+      .map(projectId => {
+        return projectIds.find(p => p.projectId === projectId)!;
+      });
+
+    return uniqueProjectIds;
   }
 );
