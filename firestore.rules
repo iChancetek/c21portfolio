@@ -1,98 +1,22 @@
-
-/**
- * @fileoverview Firestore Security Rules for Chancellor's AI Portfolio.
- *
- * Core Philosophy:
- * This ruleset provides public read access to projects, skills, and project skills,
- * while restricting write access to authorized users (e.g., admins via a backend function).
- * Contact form submissions are writeable by any authenticated user.
- * Audit logs are write-only for authenticated users and read-only for admins.
- *
- * Data Structure:
- * - /projects/{projectId}: Stores project information.
- * - /skills/{skillId}: Stores skill information.
- * - /projectSkills/{projectSkillId}: Stores the relationships between projects and skills.
- * - /contactFormSubmissions/{submissionId}: Stores contact form submissions.
- * - /auditLogs/{logId}: Stores audit trail of important user actions.
- *
- * Key Security Decisions:
- * - Public read access for portfolio content.
- * - Write access for portfolio content restricted to backend/admin roles.
- * - Contact submissions can be created by authenticated users but not read publicly.
- * - Audit logs can be created by the system/authenticated users but only read by admins.
- */
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    /**
-     * @description Helper function to check if the requesting user is an admin.
-     *              This checks for either a custom claim `admin` being `true`
-     *              OR if the user's email is in the admin list.
-     * @returns boolean
-     */
-    function isAdmin() {
-      // Check for custom claim OR email in the admin list.
-      return (request.auth != null && request.auth.token.admin == true) ||
-             (request.auth != null && 
-              request.auth.token.email in ['chancellor@ichancetek.com', 'chanceminus@gmail.com']);
-    }
-
-    /**
-     * @description Helper function to check if a user is signed in.
-     * @returns boolean
-     */
-    function isSignedIn() {
-      return request.auth != null;
-    }
-
-    /**
-     * @description Allows public read access to projects, but restricts write access.
-     * @path /projects/{projectId}
-     */
-    match /projects/{projectId} {
-      allow get, list: if true;
-      allow create, update, delete: if isAdmin();
-    }
-
-    /**
-     * @description Allows public read access to skills, but restricts write access.
-     * @path /skills/{skillId}
-     */
-    match /skills/{skillId} {
-      allow get, list: if true;
-      allow create, update, delete: if isAdmin();
-    }
-
-    /**
-     * @description Allows public read access to projectSkills, but restricts write access.
-     * @path /projectSkills/{projectSkillId}
-     */
-    match /projectSkills/{projectSkillId} {
-      allow get, list: if true;
-      allow create, update, delete: if isAdmin();
-    }
-
-    /**
-     * @description Allows any authenticated user to submit a contact form.
-     *              Submissions are not readable by other users.
-     * @path /contactFormSubmissions/{contactFormSubmissionId}
-     */
-    match /contactFormSubmissions/{contactFormSubmissionId} {
-      allow create: if isSignedIn();
-      allow get, list, update, delete: if isAdmin();
+    
+    // Allow authenticated users to read/write their own data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     
-    /**
-     * @description Secures the audit logs collection.
-     *              Allows authenticated services/users to create logs.
-     *              Only allows admins to read/list the logs.
-     * @path /auditLogs/{logId}
-     */
+    // Allow authenticated users to access audit logs
     match /auditLogs/{logId} {
-      allow create: if isSignedIn(); // Allows server actions authenticated as a user to write
-      allow get, list: if isAdmin();
-      allow update, delete: if false; // Logs should be immutable
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+    
+    // Add other collections as needed
+    match /{document=**} {
+      allow read, write: if request.auth != null;
     }
   }
 }
