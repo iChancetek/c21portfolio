@@ -43,6 +43,10 @@ const whisperTranscriptionFlow = ai.defineFlow(
       media: {
         url: input.audioDataUri,
       },
+      config: {
+        language: 'en',
+        prompt: 'The following is a transcription of a user interacting with a web application.',
+      },
     });
 
     return { transcription: text };

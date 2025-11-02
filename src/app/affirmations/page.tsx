@@ -134,7 +134,7 @@ export default function AffirmationsPage() {
         </Button>
         <Button size="lg" onClick={handleReadAloud} disabled={isGenerating || audioState === 'loading'} variant="outline">
             {getReadAloudIcon()}
-            {audioState === 'playing' ? 'Pause' : 'Read Aloud'}
+            {audioState === 'playing' ? 'Pause' : (audioState === 'paused' ? 'Resume' : 'Read Aloud')}
         </Button>
       </div>
     </div>
