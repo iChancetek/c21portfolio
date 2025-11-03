@@ -87,13 +87,22 @@ export default function HealthyLivingPage() {
   
   // Timer logic for meditation
   useEffect(() => {
+    const musicEl = musicAudioRef.current;
+
+    const playMusicWhenReady = () => {
+        if (musicEl) {
+            musicEl.volume = 0.2;
+            musicEl.play().catch(e => console.error("Error playing music:", e));
+        }
+    };
+
     if (isMeditating) {
-      // Start background music if enabled
-      if (playMusic && musicAudioRef.current && musicSrc) {
-        musicAudioRef.current.src = musicSrc;
-        musicAudioRef.current.volume = 0.2;
-        musicAudioRef.current.play().catch(e => console.error("Error playing music:", e));
-      }
+        if (playMusic && musicEl && musicSrc) {
+            musicEl.src = musicSrc;
+            // Listen for the 'canplaythrough' event to ensure the audio is ready
+            musicEl.addEventListener('canplaythrough', playMusicWhenReady, { once: true });
+            musicEl.load(); // Start loading the audio
+        }
       
       // Start countdown timer
       timerIntervalRef.current = setInterval(() => {
@@ -101,8 +110,10 @@ export default function HealthyLivingPage() {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
-            if (musicAudioRef.current) {
-                musicAudioRef.current.pause();
+            if (musicEl) {
+                musicEl.pause();
+                musicEl.removeAttribute('src'); // Clean up the source
+                musicEl.load();
             }
             playEndSound();
             return 0;
@@ -113,11 +124,16 @@ export default function HealthyLivingPage() {
     } else {
       // Cleanup when not meditating
       clearInterval(timerIntervalRef.current!);
-      if (musicAudioRef.current) {
-        musicAudioRef.current.pause();
+      if (musicEl) {
+        musicEl.pause();
       }
     }
-    return () => clearInterval(timerIntervalRef.current!);
+    return () => {
+        clearInterval(timerIntervalRef.current!);
+        if (musicEl) {
+            musicEl.removeEventListener('canplaythrough', playMusicWhenReady);
+        }
+    };
   }, [isMeditating, playMusic, musicSrc]);
 
   const playEndSound = () => {
@@ -150,6 +166,8 @@ export default function HealthyLivingPage() {
     stopPlayback();
     if (musicAudioRef.current) {
       musicAudioRef.current.pause();
+      musicAudioRef.current.removeAttribute('src');
+      musicAudioRef.current.load();
     }
   };
 
@@ -248,7 +266,7 @@ export default function HealthyLivingPage() {
         if (isMeditating) {
           stopMeditation();
         }
-        const stopMessage: Message = { role: 'user', content: query };
+        const stopMessage: Message = { role: 'user', content: query, isUser: true };
         const confirmationMessage: Message = { role: 'assistant', content: 'Okay, stopping.' };
         setMessages((prev) => [...prev, stopMessage, confirmationMessage]);
         setInput('');
