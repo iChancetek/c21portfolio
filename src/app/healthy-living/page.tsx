@@ -97,12 +97,11 @@ export default function HealthyLivingPage() {
     };
 
     if (isMeditating) {
-        if (playMusic && musicEl && musicSrc) {
-            musicEl.src = musicSrc;
-            // Listen for the 'canplaythrough' event to ensure the audio is ready
-            musicEl.addEventListener('canplaythrough', playMusicWhenReady, { once: true });
-            musicEl.load(); // Start loading the audio
-        }
+      if (playMusic && musicEl && musicSrc) {
+          musicEl.src = musicSrc;
+          musicEl.addEventListener('canplaythrough', playMusicWhenReady, { once: true });
+          musicEl.load(); 
+      }
       
       // Start countdown timer
       timerIntervalRef.current = setInterval(() => {
@@ -166,8 +165,10 @@ export default function HealthyLivingPage() {
     stopPlayback();
     if (musicAudioRef.current) {
       musicAudioRef.current.pause();
-      musicAudioRef.current.removeAttribute('src');
-      musicAudioRef.current.load();
+      if(musicAudioRef.current.src) {
+        musicAudioRef.current.removeAttribute('src');
+        musicAudioRef.current.load();
+      }
     }
   };
 
