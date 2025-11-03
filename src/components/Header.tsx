@@ -134,6 +134,9 @@ export default function Header() {
               {t('projects')}
             </div>
           </NavLink>
+          <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
+          <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
+          <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
           {user && (
             <>
              <NavLink href="/dashboard" isProjectLink>
@@ -158,9 +161,6 @@ export default function Header() {
                 </div>
              </NavLink>
           )}
-          <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
-          <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
-          <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
         </nav>
         <div className="flex flex-1 items-center justify-end gap-2">
             <ModeToggle />
@@ -185,6 +185,9 @@ export default function Header() {
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
                     <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>
+                    <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
+                    <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
+                    <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
                      {user && (
                         <>
                           <NavLink href="/dashboard" isProjectLink>{t('techInsight')}</NavLink>
@@ -194,9 +197,6 @@ export default function Header() {
                      {isAdmin && (
                         <NavLink href="/admin" isProjectLink>Admin</NavLink>
                      )}
-                    <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
-                    <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
-                    <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
                 </nav>
                 <div className="mt-8">
                   <MobileAuthButtons />
