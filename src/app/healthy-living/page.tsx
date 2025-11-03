@@ -250,12 +250,12 @@ export default function HealthyLivingPage() {
   }, [audioSrc]);
   
   const stopPlayback = () => {
-      if(audioRef.current && !audioRef.current.paused) {
-        audioRef.current.pause();
-      }
-      setIsSpeaking(false);
-      setAudioSrc(null);
-  }
+    if (audioRef.current && !audioRef.current.paused) {
+      audioRef.current.pause();
+    }
+    setIsSpeaking(false);
+    // Don't clear audioSrc here, as it might be needed if paused/resumed
+  };
 
   const handleInteraction = async (query: string) => {
     const trimmedQuery = query.trim().toLowerCase();
@@ -283,7 +283,7 @@ export default function HealthyLivingPage() {
 
     startTransition(async () => {
         try {
-            const history = messages.map(msg => ({ content: msg.content, isUser: msg.role === 'user' }));
+            const history = messages.map(msg => ({ content: msg.content, role: msg.role, isUser: msg.role === 'user' }));
             const response = await iChancellor({ query, history });
             const assistantMessage: Message = { role: 'assistant', content: response.answer };
             setMessages((prev) => [...prev, assistantMessage]);
@@ -315,7 +315,7 @@ export default function HealthyLivingPage() {
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <Button variant={mode === 'chat' ? 'secondary' : 'ghost'} size="sm" onClick={() => setMode('chat')}>Chat</Button>
-                    <Button variant={mode === 'meditation' ? 'secondary' : 'ghost'} size="sm" onClick={() => setMode('meditation')}>Meditation</Button>
+                    <Button variant={mode === 'meditation' ? 'secondary' : 'ghost'} size="sm" onClick={() => { setMode('meditation'); stopPlayback(); }}>Meditation</Button>
                   </div>
                 </div>
                 <CardDescription>Your partner in mindfulness, health, and personal growth.</CardDescription>
