@@ -16,6 +16,7 @@ const IChancellorInputSchema = z.object({
   history: z.array(z.object({
     role: z.enum(['user', 'assistant']),
     content: z.string(),
+    isUser: z.boolean().optional(),
   })).optional().describe('The conversation history.'),
 });
 export type IChancellorInput = z.infer<typeof IChancellorInputSchema>;
@@ -60,13 +61,11 @@ const prompt = ai.definePrompt({
   prompt: `{{#if history}}
 Conversation History:
 {{#each history}}
-  {{#with (lookup this "role") as |role|}}
-    {{#if (eq role "user")}}
-User: {{{../this.content}}}
-    {{else}}
-Assistant: {{{../this.content}}}
-    {{/if}}
-  {{/with}}
+  {{#if this.isUser}}
+User: {{{this.content}}}
+  {{else}}
+Assistant: {{{this.content}}}
+  {{/if}}
 {{/each}}
 {{/if}}
 

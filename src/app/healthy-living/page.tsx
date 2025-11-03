@@ -202,7 +202,9 @@ export default function HealthyLivingPage() {
 
     startTransition(async () => {
         try {
-            const response = await iChancellor({ query, history: messages });
+            // Prepare history with the isUser flag for the template
+            const historyWithFlag = messages.map(msg => ({ ...msg, isUser: msg.role === 'user' }));
+            const response = await iChancellor({ query, history: historyWithFlag });
             const assistantMessage: Message = { role: 'assistant', content: response.answer };
             setMessages((prev) => [...prev, assistantMessage]);
             await speak(response.answer);
@@ -309,5 +311,3 @@ export default function HealthyLivingPage() {
     </div>
   );
 }
-
-    
