@@ -76,9 +76,11 @@ export default function HealthyLivingPage() {
 
     if (!hasMessages || (hasMessages && messages[0].content !== welcomeMessage)) {
         setMessages([{ role: 'assistant', content: welcomeMessage }]);
-        speak(welcomeMessage);
+        if (mode === 'chat') {
+          speak(welcomeMessage);
+        }
     }
-  }, [t, locale]);
+  }, [t, locale, mode]); // Rerun when mode changes too
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -151,17 +153,13 @@ export default function HealthyLivingPage() {
       if (playPromise !== undefined) {
         playPromise.catch(error => {
           console.error("Music autoplay was prevented:", error);
-          toast({
-            title: "Music playback blocked",
-            description: "Your browser prevented music from starting automatically. You may need to interact with the page first.",
-            variant: "destructive"
-          });
+          // Don't toast here, as it can be annoying. The user will know if music isn't playing.
         });
       }
     }
   
     // Fetch AI guidance concurrently
-    const prompt = `Start a guided meditation session for ${meditationDuration / 60} minutes in ${locale === 'es' ? 'Spanish' : 'English'}.`;
+    const prompt = `Start a guided meditation session for ${meditationDuration / 60} minutes in ${locale === 'es' ? 'Spanish' : 'English'}. Begin with a short welcome and then guide me through settling in.`;
     handleInteraction(prompt);
   };
   
@@ -231,9 +229,9 @@ export default function HealthyLivingPage() {
 
   const speak = async (text: string) => {
     if (isMuted || isSpeaking) return;
+    stopPlayback(); // Stop any currently playing speech
     setIsSpeaking(true);
     try {
-      // The OpenAI voice is auto-detected from text language, so no need to specify voice per language
       const { audioDataUri } = await textToSpeech({ text, voice: 'alloy' });
       setAudioSrc(audioDataUri);
     } catch (error) {
@@ -245,7 +243,13 @@ export default function HealthyLivingPage() {
   useEffect(() => {
     if (audioSrc && audioRef.current) {
         audioRef.current.src = audioSrc;
-        audioRef.current.play();
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(err => {
+                console.error("AI speech playback failed:", err);
+                setIsSpeaking(false);
+            })
+        }
         audioRef.current.onended = () => {
             setIsSpeaking(false);
             setAudioSrc(null); // Clear src after playing
@@ -256,6 +260,7 @@ export default function HealthyLivingPage() {
   const stopPlayback = () => {
     if (audioRef.current && !audioRef.current.paused) {
       audioRef.current.pause();
+      audioRef.current.currentTime = 0; // Reset audio
     }
     setIsSpeaking(false);
   };
@@ -271,7 +276,7 @@ export default function HealthyLivingPage() {
           stopMeditation();
         }
         const stopMessage: Message = { role: 'user', content: query, isUser: true };
-        const confirmationMessage: Message = { role: 'assistant', content: 'Okay, stopping.' };
+        const confirmationMessage: Message = { role: 'assistant', content: t('stopCommandConfirmation') };
         setMessages((prev) => [...prev, stopMessage, confirmationMessage]);
         setInput('');
         speak(confirmationMessage.content); // Speak the confirmation
@@ -413,7 +418,8 @@ export default function HealthyLivingPage() {
                           </Button>
                       )}
                   </div>
-                  <div className="space-y-4 p-4 border rounded-lg">
+                   <div className="space-y-4 p-4 border rounded-lg w-full max-w-sm">
+                    <h4 className="font-medium text-center">{t('meditationSettings')}</h4>
                     <MeditationSettingsContent />
                   </div>
               </CardContent>
@@ -424,3 +430,5 @@ export default function HealthyLivingPage() {
     </>
   );
 }
+
+    

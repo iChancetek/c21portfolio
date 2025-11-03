@@ -139,7 +139,7 @@
   "startSession": "Iniciar Sesión",
   "duration": "Duración:",
   "selectDuration": "Seleccionar duración",
-  "minutes": "{count} minutos",
+  "minutes": "{count, plural, one {# minuto} other {# minutos}}",
   "playMusic": "Poner Música:",
   "listening": "Escuchando...",
   "processing": "Procesando...",
@@ -161,5 +161,8 @@
   "transcription": "Transcripción:",
   "noAudio": "Sin Audio",
   "noAudioDescription": "Por favor, graba o sube un archivo de audio primero.",
-  "admin": "Administración"
+  "admin": "Administración",
+  "meditationSettings": "Ajustes de Meditación"
 }
+
+    
