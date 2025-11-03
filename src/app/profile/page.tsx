@@ -6,7 +6,7 @@ import { useUser, useAuth } from '@/firebase';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Loader2, LogOut } from 'lucide-react';
+import { Loader2, LogOut, ArrowLeft } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { useLocale } from '@/hooks/useLocale';
 
@@ -62,10 +62,16 @@ export default function ProfilePage() {
                      <p className="text-muted-foreground text-sm">
                         {t('lastSignIn', { date: user.metadata.lastSignInTime ? new Date(user.metadata.lastSignInTime).toLocaleDateString() : 'N/A' })}
                     </p>
-                    <Button onClick={handleSignOut} className="mt-8">
-                        <LogOut className="mr-2 h-4 w-4" />
-                        {t('signOut')}
-                    </Button>
+                    <div className="mt-8 flex justify-center gap-4">
+                        <Button onClick={() => router.back()} variant="outline">
+                            <ArrowLeft className="mr-2 h-4 w-4" />
+                            Go Back
+                        </Button>
+                        <Button onClick={handleSignOut}>
+                            <LogOut className="mr-2 h-4 w-4" />
+                            {t('signOut')}
+                        </Button>
+                    </div>
                 </CardContent>
             </Card>
         </div>

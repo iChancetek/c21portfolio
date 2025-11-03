@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Code } from 'lucide-react';
 import { socialLinks } from '@/lib/data';
