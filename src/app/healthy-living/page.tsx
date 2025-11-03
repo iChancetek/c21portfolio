@@ -99,7 +99,10 @@ export default function HealthyLivingPage() {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
-            if (musicAudioRef.current) musicAudioRef.current.pause();
+            if (musicAudioRef.current) {
+                musicAudioRef.current.pause();
+                musicAudioRef.current.src = '';
+            }
             playEndSound();
             return 0;
           }
