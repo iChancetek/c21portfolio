@@ -224,6 +224,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "AWS Glue / Kinesis", icon: Workflow },
       { name: "AWS Redshift", icon: Database },
       { name: "Azure DataBricks / Spark", icon: Sparkles },
+      { name: "Apache Spark", icon: Sparkles },
       { name: "Tableau", icon: BarChart },
       { name: "Power BI", icon: BarChart },
     ],
