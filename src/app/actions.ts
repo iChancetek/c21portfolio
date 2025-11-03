@@ -159,6 +159,11 @@ export async function generateTechInsight(topic: z.infer<typeof techTopics>[numb
     }
 }
 
+function dotProduct(a: number[], b: number[]): number {
+    return a.map((val, i) => val * b[i]).reduce((sum, current) => sum + current, 0);
+}
+
+
 async function semanticSearch(query: string): Promise<Venture[]> {
     try {
         // Use the AI assistant to get a contextual answer.

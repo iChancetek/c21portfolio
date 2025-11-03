@@ -3,7 +3,20 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "apphosting": {
-    "site": "studio-1594258539-a60ba"
-  }
+  "apphosting": [
+    {
+      "site": "studio-1594258539-a60ba"
+    },
+    {
+      "backendId": "chancellor",
+      "rootDir": "/",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "functions"
+      ]
+    }
+  ]
 }
