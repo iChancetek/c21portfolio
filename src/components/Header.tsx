@@ -2,9 +2,8 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, MessageCircle, Heart, Settings as SettingsIcon } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon } from 'lucide-react';
 import { Button } from './ui/button';
-import { navLinks } from '@/lib/data';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
 import { useUser, useAuth } from '@/firebase';
@@ -59,7 +58,7 @@ export default function Header() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="flex items-center gap-2">
-              <Avatar className="h-8 w-8">
+               <Avatar className="h-8 w-8 sm:hidden">
                   <AvatarImage src={user.photoURL || ''} alt={user.displayName || ''} />
                   <AvatarFallback>{user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}</AvatarFallback>
               </Avatar>

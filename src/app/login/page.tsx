@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/firebase';
 import { signInWithEmailAndPassword, AuthError, GoogleAuthProvider, signInWithPopup, UserCredential } from 'firebase/auth';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Eye, EyeOff } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { logAuditEvent } from '@/app/actions';
 import { useLocale } from '@/hooks/useLocale';
@@ -26,6 +26,7 @@ const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -121,17 +122,27 @@ export default function LoginPage() {
                 className="bg-black/20 backdrop-blur-sm border-white/10 h-12"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 relative">
               <Label htmlFor="password">{t('password')}</Label>
               <Input
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={anyLoading}
-                className="bg-black/20 backdrop-blur-sm border-white/10 h-12"
+                className="bg-black/20 backdrop-blur-sm border-white/10 h-12 pr-10"
               />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="absolute right-1 top-7 h-8 w-8 text-muted-foreground"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                <span className="sr-only">{showPassword ? 'Hide password' : 'Show password'}</span>
+              </Button>
             </div>
             <Button type="submit" className="w-full h-12 text-base bg-primary-gradient" disabled={anyLoading}>
               {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
