@@ -16,6 +16,7 @@ import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 
 
 interface Message {
@@ -43,6 +44,7 @@ export default function HealthyLivingPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const musicAudioRef = useRef<HTMLAudioElement | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   
   // Meditation state
@@ -51,6 +53,7 @@ export default function HealthyLivingPage() {
   const [timer, setTimer] = useState(meditationDuration);
   const [isMeditating, setIsMeditating] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [playMusic, setPlayMusic] = useState(true);
   
   const { toast } = useToast();
 
@@ -82,11 +85,16 @@ export default function HealthyLivingPage() {
   // Timer logic
   useEffect(() => {
     if (isMeditating) {
+      if (playMusic && musicAudioRef.current) {
+        musicAudioRef.current.volume = 0.2;
+        musicAudioRef.current.play();
+      }
       timerIntervalRef.current = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
+            if (musicAudioRef.current) musicAudioRef.current.pause();
             playEndSound();
             return 0;
           }
@@ -95,9 +103,13 @@ export default function HealthyLivingPage() {
       }, 1000);
     } else {
       clearInterval(timerIntervalRef.current!);
+      if (musicAudioRef.current) {
+        musicAudioRef.current.pause();
+        musicAudioRef.current.currentTime = 0;
+      }
     }
     return () => clearInterval(timerIntervalRef.current!);
-  }, [isMeditating]);
+  }, [isMeditating, playMusic]);
 
   const playEndSound = () => {
     // Simple browser-based sound
@@ -121,6 +133,16 @@ export default function HealthyLivingPage() {
     setIsMeditating(true);
     const prompt = `Start a guided meditation session for ${meditationDuration / 60} minutes.`;
     handleInteraction(prompt);
+  };
+  
+  const stopMeditation = () => {
+    setIsMeditating(false);
+    setTimer(meditationDuration);
+    stopPlayback();
+    if (musicAudioRef.current) {
+      musicAudioRef.current.pause();
+      musicAudioRef.current.currentTime = 0;
+    }
   };
 
   const handleMicClick = () => {
@@ -210,7 +232,7 @@ export default function HealthyLivingPage() {
     if (trimmedQuery === 'stop' || trimmedQuery === 'stop.') {
         stopPlayback();
         if(isMeditating) {
-          setIsMeditating(false);
+          stopMeditation();
         }
         const stopMessage: Message = { role: 'user', content: query };
         const confirmationMessage: Message = { role: 'assistant', content: 'Okay, stopping.' };
@@ -228,8 +250,8 @@ export default function HealthyLivingPage() {
 
     startTransition(async () => {
         try {
-            const history = messages.map(msg => ({ ...msg, isUser: msg.role === 'user' }));
-            const response = await iChancellor({ query, history: history });
+            const history = messages.map(msg => ({ content: msg.content, isUser: msg.role === 'user' }));
+            const response = await iChancellor({ query, history });
             const assistantMessage: Message = { role: 'assistant', content: response.answer };
             setMessages((prev) => [...prev, assistantMessage]);
             await speak(response.answer);
@@ -250,6 +272,7 @@ export default function HealthyLivingPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
+        <audio ref={musicAudioRef} src="https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3" loop />
         <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
             <CardHeader>
                 <div className="flex justify-between items-center">
@@ -291,7 +314,7 @@ export default function HealthyLivingPage() {
                         <Button type="button" size="icon" variant={isRecording ? 'destructive' : 'outline'} onClick={handleMicClick} disabled={isResponding}>
                             <Mic className="h-4 w-4" />
                         </Button>
-                        <Input id="message" placeholder="Ask for guidance or start a meditation..." value={input} onChange={(e) => setInput(e.target.value)} disabled={anyLoading} autoComplete="off" />
+                        <Input id="message" placeholder="Ask for guidance or say 'stop'..." value={input} onChange={(e) => setInput(e.target.value)} disabled={anyLoading} autoComplete="off" />
                         <Button type="submit" size="icon" disabled={anyLoading || !input.trim()}>
                             {isResponding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                         </Button>
@@ -299,14 +322,14 @@ export default function HealthyLivingPage() {
                 </CardFooter>
               </>
             ) : (
-              <CardContent className="flex-grow flex flex-col items-center justify-center gap-8 text-center">
+              <CardContent className="flex-grow flex flex-col items-center justify-center gap-6 text-center">
                   <div className="relative">
                     <p className="text-8xl font-bold font-mono text-primary-gradient">{formatTime(timer)}</p>
                     <p className="text-muted-foreground">Meditation Session</p>
                   </div>
                   <div className="flex items-center gap-4">
                       {isMeditating ? (
-                          <Button size="lg" variant="destructive" onClick={() => setIsMeditating(false)}>
+                          <Button size="lg" variant="destructive" onClick={stopMeditation}>
                             <Pause className="mr-2 h-5 w-5"/> End Session
                           </Button>
                       ) : (
@@ -315,20 +338,26 @@ export default function HealthyLivingPage() {
                           </Button>
                       )}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Label htmlFor="duration">Duration:</Label>
-                    <Select value={String(meditationDuration / 60)} onValueChange={(val) => setMeditationDuration(Number(val) * 60)} disabled={isMeditating}>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Select duration" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="5">5 minutes</SelectItem>
-                        <SelectItem value="10">10 minutes</SelectItem>
-                        <SelectItem value="15">15 minutes</SelectItem>
-                        <SelectItem value="20">20 minutes</SelectItem>
-                        <SelectItem value="30">30 minutes</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                        <Label htmlFor="duration" className="w-24 text-right">Duration:</Label>
+                        <Select value={String(meditationDuration / 60)} onValueChange={(val) => setMeditationDuration(Number(val) * 60)} disabled={isMeditating}>
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select duration" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="5">5 minutes</SelectItem>
+                            <SelectItem value="10">10 minutes</SelectItem>
+                            <SelectItem value="15">15 minutes</SelectItem>
+                            <SelectItem value="20">20 minutes</SelectItem>
+                            <SelectItem value="30">30 minutes</SelectItem>
+                        </SelectContent>
+                        </Select>
+                    </div>
+                     <div className="flex items-center gap-2">
+                        <Label htmlFor="play-music" className="w-24 text-right">Play Music:</Label>
+                        <Switch id="play-music" checked={playMusic} onCheckedChange={setPlayMusic} disabled={isMeditating} />
+                    </div>
                   </div>
               </CardContent>
             )}
