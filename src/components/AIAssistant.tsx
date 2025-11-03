@@ -9,6 +9,7 @@ import { Bot, Send, User, Loader2 } from 'lucide-react';
 import { ScrollArea } from './ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { getAIAssistantResponse } from '@/app/actions';
+import { useLocale } from '@/hooks/useLocale';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -16,10 +17,11 @@ interface Message {
 }
 
 export default function AIAssistant() {
+  const { t } = useLocale();
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm Chancellor's AI assistant. Ask me anything about his skills and experience.",
+      content: t('aiAssistantWelcome'),
     },
   ]);
   const [input, setInput] = useState('');
@@ -101,7 +103,7 @@ export default function AIAssistant() {
                     </AvatarFallback>
                 </Avatar>
                 <div className="bg-secondary text-secondary-foreground rounded-lg p-3 text-sm flex items-center">
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Thinking...
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('thinking')}
                 </div>
               </div>
             )}
@@ -112,7 +114,7 @@ export default function AIAssistant() {
         <form onSubmit={handleSubmit} className="flex w-full items-center space-x-2">
           <Input
             id="message"
-            placeholder="e.g., What's his backend experience?"
+            placeholder={t('aiAssistantPlaceholder')}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={isLoading}
@@ -120,7 +122,7 @@ export default function AIAssistant() {
           />
           <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
             {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-            <span className="sr-only">Send</span>
+            <span className="sr-only">{t('send')}</span>
           </Button>
         </form>
       </CardFooter>

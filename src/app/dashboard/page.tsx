@@ -17,6 +17,7 @@ import { techTopics } from '@/lib/data';
 import { generateTechInsight } from '@/app/actions';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
+import { useLocale } from '@/hooks/useLocale';
 
 type Topic = (typeof techTopics)[number];
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
@@ -30,6 +31,7 @@ export default function DashboardPage() {
   const [audioState, setAudioState] = useState<AudioState>('idle');
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { t } = useLocale();
   
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -131,10 +133,10 @@ export default function DashboardPage() {
       <audio ref={audioRef} />
       <div className="text-center mb-12">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-4 text-primary-gradient">
-          GenAI Dashboard
+          {t('dashboardTitle')}
         </h1>
         <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-          Welcome, {user.displayName || user.email}! Select a topic to get the latest AI-powered insights.
+          {t('dashboardWelcome', { name: user.displayName || user.email })}
         </p>
       </div>
 
@@ -142,17 +144,17 @@ export default function DashboardPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BrainCircuit className="text-primary" />
-            Tech Insight Generator
+            {t('techInsightGenerator')}
           </CardTitle>
           <CardDescription>
-            Choose a topic and let the AI analyst provide you with a summary and tips.
+            {t('techInsightDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <Select onValueChange={(value) => setSelectedTopic(value as Topic)} value={selectedTopic}>
               <SelectTrigger className="w-full sm:w-[280px]">
-                <SelectValue placeholder="Select a topic..." />
+                <SelectValue placeholder={t('selectTopic')} />
               </SelectTrigger>
               <SelectContent>
                 {techTopics.map((topic) => (
@@ -168,7 +170,7 @@ export default function DashboardPage() {
               ) : (
                 <Wand2 className="mr-2 h-5 w-5" />
               )}
-              Generate Insight
+              {t('generateInsight')}
             </Button>
           </div>
 
@@ -176,7 +178,7 @@ export default function DashboardPage() {
             {isGenerating ? (
               <div className="flex items-center justify-center h-full text-muted-foreground">
                 <Loader2 className="h-8 w-8 animate-spin text-primary mr-4" />
-                Generating your insight on {selectedTopic}...
+                {t('generatingInsight', { topic: selectedTopic })}
               </div>
             ) : insight ? (
               <ScrollArea className="h-[40vh] pr-4">
@@ -187,7 +189,7 @@ export default function DashboardPage() {
               </ScrollArea>
             ) : (
               <div className="flex items-center justify-center h-full text-muted-foreground">
-                <p>Your AI-generated insight will appear here.</p>
+                <p>{t('insightPlaceholder')}</p>
               </div>
             )}
           </div>
@@ -196,11 +198,11 @@ export default function DashboardPage() {
           <CardFooter className="flex justify-between">
             <Button onClick={() => handleGenerateInsight(true)} variant="outline" disabled={isGenerating}>
               <Bot className="mr-2 h-5 w-5" />
-              Deeper Dive...
+              {t('deeperDive')}
             </Button>
             <Button onClick={handleReadAloud} variant="outline" disabled={audioState === 'loading'}>
               {getReadAloudIcon()}
-              {audioState === 'playing' ? 'Pause' : 'Read Aloud'}
+              {audioState === 'playing' ? t('pause') : t('readAloud')}
             </Button>
           </CardFooter>
         )}

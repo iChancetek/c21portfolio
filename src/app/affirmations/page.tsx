@@ -7,14 +7,14 @@ import { Loader2, Sparkles, Wand2, Volume2, Play, Pause, Bot } from 'lucide-reac
 import { generateAffirmation } from '@/ai/flows/affirmation-generator';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useLocale } from '@/hooks/useLocale';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 type ViewState = 'affirmation' | 'deepDive';
 
 export default function AffirmationsPage() {
-  const [affirmation, setAffirmation] = useState(
-    'Click the button to generate an affirmation and start your journey.'
-  );
+  const { t, locale } = useLocale();
+  const [affirmation, setAffirmation] = useState(t('affirmationsInitialText'));
   const [deepDiveContent, setDeepDiveContent] = useState('');
   const [viewState, setViewState] = useState<ViewState>('affirmation');
   const [isGenerating, startGenerationTransition] = useTransition();
@@ -38,11 +38,11 @@ export default function AffirmationsPage() {
   const handleGenerate = () => {
     startGenerationTransition(async () => {
       try {
-        const result = await generateAffirmation();
+        const result = await generateAffirmation({ locale });
         setAffirmation(result.affirmation);
       } catch (error) {
         console.error('Failed to generate affirmation:', error);
-        setAffirmation('There was an error generating an affirmation. Please try again.');
+        setAffirmation(t('affirmationError'));
       }
     });
   };
@@ -54,7 +54,7 @@ export default function AffirmationsPage() {
     }
 
     startDeeperDiveTransition(async () => {
-        const result = await generateAffirmation({ affirmation, isDeeperDive: true });
+        const result = await generateAffirmation({ affirmation, isDeeperDive: true, locale });
         setDeepDiveContent(result.affirmation);
         setViewState('deepDive');
     });
@@ -131,10 +131,10 @@ export default function AffirmationsPage() {
       <audio ref={audioRef} />
       <Sparkles className="w-16 h-16 text-primary mb-4" />
       <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-4 text-primary-gradient">
-        Become Your Best Self
+        {t('affirmationsTitle')}
       </h1>
       <p className="max-w-2xl mx-auto text-lg text-muted-foreground mb-10">
-        Generate a positive affirmation to inspire and motivate you on your journey of personal growth.
+        {t('affirmationsDescription')}
       </p>
 
       <Card className="w-full max-w-2xl min-h-[250px] flex flex-col p-8 bg-black/20 backdrop-blur-sm border-white/10">
@@ -165,15 +165,15 @@ export default function AffirmationsPage() {
             ) : (
             <Wand2 className="mr-2 h-5 w-5" />
             )}
-            New Affirmation
+            {t('newAffirmation')}
         </Button>
         <Button size="lg" onClick={handleReadAloud} disabled={anyLoading || audioState === 'loading'} variant="outline">
             {getReadAloudIcon()}
-            {audioState === 'playing' ? 'Pause' : (audioState === 'paused' ? 'Resume' : 'Read Aloud')}
+            {audioState === 'playing' ? t('pause') : (audioState === 'paused' ? t('resume') : t('readAloud'))}
         </Button>
          <Button size="lg" onClick={handleDeeperDive} disabled={anyLoading} variant="outline">
             {isDeeperDiveLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Bot className="mr-2 h-5 w-5" />}
-            {viewState === 'deepDive' ? 'Show Affirmation' : 'Deeper Dive'}
+            {viewState === 'deepDive' ? t('showAffirmation') : t('deeperDive')}
         </Button>
       </div>
     </div>

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
@@ -9,6 +8,7 @@ import { Loader2, Wifi, WifiOff } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Badge } from './ui/badge';
 import { formatDistanceToNow } from 'date-fns';
+import { useLocale } from '@/hooks/useLocale';
 
 interface UserStatus {
   id: string;
@@ -24,10 +24,10 @@ interface UserStatus {
 
 export default function ActiveUsers() {
   const firestore = useFirestore();
+  const { t } = useLocale();
 
   const onlineUsersQuery = useMemoFirebase(() => {
     if (!firestore) return null;
-    // Query for users who are currently 'online'
     return query(
         collection(firestore, 'userStatus'), 
         where('status', '==', 'online'),
@@ -42,21 +42,19 @@ export default function ActiveUsers() {
       return (
         <div className="flex items-center justify-center h-40">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="ml-2 text-muted-foreground">Loading active users...</p>
+          <p className="ml-2 text-muted-foreground">{t('loadingActiveUsers')}</p>
         </div>
       );
     }
 
     if (error) {
-       // Throw the error to be caught by the nearest error boundary.
-       // This provides a better debugging experience in Next.js.
        throw error;
     }
 
     if (!users || users.length === 0) {
       return (
         <div className="flex items-center justify-center h-40">
-          <p className="text-muted-foreground">No users are currently active.</p>
+          <p className="text-muted-foreground">{t('noActiveUsers')}</p>
         </div>
       );
     }
@@ -65,9 +63,9 @@ export default function ActiveUsers() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>User</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="text-right">Last Seen</TableHead>
+            <TableHead>{t('user')}</TableHead>
+            <TableHead>{t('status')}</TableHead>
+            <TableHead className="text-right">{t('lastSeen')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -80,7 +78,7 @@ export default function ActiveUsers() {
                         <AvatarFallback>{user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}</AvatarFallback>
                     </Avatar>
                     <div>
-                        <div className="font-medium">{user.displayName || 'Anonymous'}</div>
+                        <div className="font-medium">{user.displayName || t('anonymous')}</div>
                         <div className="text-xs text-muted-foreground">{user.email}</div>
                     </div>
                 </div>
@@ -88,7 +86,7 @@ export default function ActiveUsers() {
               <TableCell>
                 <Badge variant={user.status === 'online' ? 'default' : 'secondary'} className={user.status === 'online' ? 'bg-green-500/20 text-green-400 border-green-500/30' : ''}>
                     {user.status === 'online' ? <Wifi className="mr-2 h-3 w-3" /> : <WifiOff className="mr-2 h-3 w-3" />}
-                    {user.status}
+                    {t(user.status)}
                 </Badge>
               </TableCell>
               <TableCell className="text-right text-muted-foreground">
@@ -104,8 +102,8 @@ export default function ActiveUsers() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Real-Time User Activity</CardTitle>
-        <CardDescription>View users who are currently active on the site.</CardDescription>
+        <CardTitle>{t('activeUsers')}</CardTitle>
+        <CardDescription>{t('activeUsersDescription')}</CardDescription>
       </CardHeader>
       <CardContent>{renderContent()}</CardContent>
     </Card>

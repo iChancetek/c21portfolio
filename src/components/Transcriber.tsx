@@ -6,6 +6,7 @@ import { Button } from './ui/button';
 import { Loader2, Mic, MicOff, Upload, FileText, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Textarea } from './ui/textarea';
+import { useLocale } from '@/hooks/useLocale';
 
 export default function Transcriber() {
   const [transcription, setTranscription] = useState('');
@@ -15,6 +16,7 @@ export default function Transcriber() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const { toast } = useToast();
+  const { t } = useLocale();
 
   const handleMicClick = () => {
     if (isRecording) {
@@ -42,11 +44,11 @@ export default function Transcriber() {
       setIsRecording(true);
       setAudioBlob(null);
       setTranscription('');
-      toast({ title: 'Recording started...' });
+      toast({ title: t('listening') });
     } catch (error) {
       console.error('Error accessing microphone:', error);
       toast({
-        title: 'Microphone Error',
+        title: t('micDenied'),
         description: 'Could not access the microphone. Please check permissions.',
         variant: 'destructive',
       });
@@ -57,7 +59,7 @@ export default function Transcriber() {
     if (mediaRecorderRef.current && isRecording) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
-      toast({ title: 'Recording stopped.' });
+      toast({ title: t('stopRecording') });
     }
   };
 
@@ -66,7 +68,7 @@ export default function Transcriber() {
     if (file) {
       setAudioBlob(file);
       setTranscription('');
-      toast({ title: 'File selected', description: file.name });
+      toast({ title: t('fileSelected', {name: file.name}) });
     }
   };
 
@@ -82,8 +84,8 @@ export default function Transcriber() {
   const handleTranscribe = async () => {
     if (!audioBlob) {
       toast({
-        title: 'No Audio',
-        description: 'Please record or upload an audio file first.',
+        title: t('noAudio'),
+        description: t('noAudioDescription'),
         variant: 'destructive',
       });
       return;
@@ -110,13 +112,13 @@ export default function Transcriber() {
       const result = await response.json();
       setTranscription(result.transcription);
       toast({
-        title: 'Success',
+        title: t('success'),
         description: 'Audio transcribed successfully.',
       });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
       toast({
-        title: 'Error',
+        title: t('error'),
         description: errorMessage,
         variant: 'destructive',
       });
@@ -136,19 +138,19 @@ export default function Transcriber() {
         <Card className="w-full max-w-xl">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold flex items-center justify-center gap-2">
-              <Mic className="w-8 h-8 text-primary" /> Audio Transcriber
+              <Mic className="w-8 h-8 text-primary" /> {t('transcriberTitle')}
             </CardTitle>
-            <CardDescription>Record or upload audio to transcribe it using OpenAI's Whisper.</CardDescription>
+            <CardDescription>{t('transcriberDescription')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-4">
               <Button onClick={handleMicClick} variant={isRecording ? 'destructive' : 'outline'} className="w-full">
                 {isRecording ? <MicOff className="mr-2" /> : <Mic className="mr-2" />}
-                {isRecording ? 'Stop Recording' : 'Start Recording'}
+                {isRecording ? t('stopRecording') : t('startRecording')}
               </Button>
               <Button asChild variant="outline" className="w-full">
                 <label htmlFor="audio-upload" className="cursor-pointer">
-                  <Upload className="mr-2" /> Upload File
+                  <Upload className="mr-2" /> {t('uploadFile')}
                   <input id="audio-upload" type="file" accept="audio/*" className="sr-only" onChange={handleFileUpload} />
                 </label>
               </Button>
@@ -157,14 +159,14 @@ export default function Transcriber() {
             {audioBlob && (
                 <div className="p-4 bg-secondary rounded-lg border text-center text-sm text-muted-foreground">
                     <p>
-                        {audioBlob.type.startsWith('audio') ? `Audio ready for transcription (${(audioBlob.size / 1024).toFixed(2)} KB).` : `File selected: ${audioBlob.name}`}
+                        {audioBlob.type.startsWith('audio') ? t('audioReady', {size: (audioBlob.size / 1024).toFixed(2)}) : t('fileSelected', {name: audioBlob.name})}
                     </p>
                     <div className="flex justify-center items-center gap-4 mt-4">
                         <Button onClick={handleTranscribe} disabled={isLoading} className="bg-primary-gradient">
                             {isLoading ? (
-                                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Transcribing...</>
+                                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('transcribing')}</>
                             ) : (
-                                <><FileText className="mr-2 h-4 w-4" /> Transcribe</>
+                                <><FileText className="mr-2 h-4 w-4" /> {t('transcribe')}</>
                             )}
                         </Button>
                         <Button variant="ghost" size="icon" onClick={handleClear} disabled={isLoading}>
@@ -176,7 +178,7 @@ export default function Transcriber() {
             
             {transcription && (
               <div className="mt-6">
-                <h3 className="font-semibold mb-2">Transcription:</h3>
+                <h3 className="font-semibold mb-2">{t('transcription')}</h3>
                 <Textarea value={transcription} readOnly className="min-h-[120px] bg-secondary"/>
               </div>
             )}

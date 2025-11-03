@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect } from 'react';
@@ -9,14 +8,15 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AuditLogs from '@/components/AuditLogs';
 import ActiveUsers from '@/components/ActiveUsers';
+import { useLocale } from '@/hooks/useLocale';
 
 function AdminDashboardPage() {
   const { isAdmin, isLoading } = useAdmin();
   const router = useRouter();
+  const { t } = useLocale();
 
   useEffect(() => {
     if (!isLoading && !isAdmin) {
-      // If loading is finished and user is not an admin, redirect
       router.replace('/');
     }
   }, [isAdmin, isLoading, router]);
@@ -25,13 +25,12 @@ function AdminDashboardPage() {
     return (
       <div className="container flex items-center justify-center py-24">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
-        <p className="ml-4 text-muted-foreground">Verifying permissions...</p>
+        <p className="ml-4 text-muted-foreground">{t('verifyingPermissions')}</p>
       </div>
     );
   }
 
   if (!isAdmin) {
-    // Render nothing while redirecting
     return null;
   }
 
@@ -40,18 +39,18 @@ function AdminDashboardPage() {
        <div className="text-center mb-12">
         <Shield className="w-16 h-16 text-primary mx-auto mb-4" />
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-4 text-primary-gradient">
-          Admin Dashboard
+          {t('adminDashboard')}
         </h1>
         <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-          Manage users, view activity, and monitor the application.
+          {t('adminDescription')}
         </p>
       </div>
 
       <Tabs defaultValue="logs" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="users">Active Users</TabsTrigger>
-            <TabsTrigger value="logs">Audit Logs</TabsTrigger>
-            <TabsTrigger value="reports">Reporting</TabsTrigger>
+            <TabsTrigger value="users">{t('activeUsers')}</TabsTrigger>
+            <TabsTrigger value="logs">{t('auditLogs')}</TabsTrigger>
+            <TabsTrigger value="reports">{t('reporting')}</TabsTrigger>
         </TabsList>
         <TabsContent value="users">
             <ActiveUsers />
@@ -62,13 +61,13 @@ function AdminDashboardPage() {
         <TabsContent value="reports">
             <Card>
             <CardHeader>
-                <CardTitle>Reporting Tools</CardTitle>
+                <CardTitle>{t('reporting')}</CardTitle>
                 <CardDescription>
-                Generate reports on user engagement and system health. (Coming Soon)
+                {t('reportingDescription')}
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-                 <p className="text-muted-foreground">Implementation for reporting is pending.</p>
+                 <p className="text-muted-foreground">{t('reportingPending')}</p>
             </CardContent>
             </Card>
         </TabsContent>

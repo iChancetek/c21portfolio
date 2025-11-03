@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
@@ -9,6 +8,7 @@ import { Loader2, AlertTriangle } from 'lucide-react';
 import { ScrollArea } from './ui/scroll-area';
 import { formatDistanceToNow } from 'date-fns';
 import { Badge } from './ui/badge';
+import { useLocale } from '@/hooks/useLocale';
 
 interface AuditLog {
   id: string;
@@ -29,6 +29,7 @@ const eventTypeVariant: Record<AuditLog['eventType'], 'default' | 'secondary' | 
 
 export default function AuditLogs() {
   const firestore = useFirestore();
+  const { t } = useLocale();
   
   const auditLogsQuery = useMemoFirebase(() => {
       if (!firestore) return null;
@@ -42,21 +43,19 @@ export default function AuditLogs() {
       return (
         <div className="flex items-center justify-center h-40">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="ml-2 text-muted-foreground">Loading audit logs...</p>
+          <p className="ml-2 text-muted-foreground">{t('loadingAuditLogs')}</p>
         </div>
       );
     }
 
     if (error) {
-        // We throw the error here to let the global error boundary catch it.
-        // This provides a better debugging experience with a detailed overlay.
         throw error;
     }
 
     if (!logs || logs.length === 0) {
       return (
         <div className="flex items-center justify-center h-40">
-          <p className="text-muted-foreground">No audit logs found.</p>
+          <p className="text-muted-foreground">{t('noAuditLogs')}</p>
         </div>
       );
     }
@@ -66,10 +65,10 @@ export default function AuditLogs() {
             <Table>
                 <TableHeader>
                 <TableRow>
-                    <TableHead>Event</TableHead>
-                    <TableHead>Actor</TableHead>
-                    <TableHead>Details</TableHead>
-                    <TableHead className="text-right">Timestamp</TableHead>
+                    <TableHead>{t('event')}</TableHead>
+                    <TableHead>{t('actor')}</TableHead>
+                    <TableHead>{t('details')}</TableHead>
+                    <TableHead className="text-right">{t('timestamp')}</TableHead>
                 </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -99,8 +98,8 @@ export default function AuditLogs() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Audit Logs</CardTitle>
-        <CardDescription>Track important events and actions across the application.</CardDescription>
+        <CardTitle>{t('auditLogs')}</CardTitle>
+        <CardDescription>{t('auditLogsDescription')}</CardDescription>
       </CardHeader>
       <CardContent>{renderContent()}</CardContent>
     </Card>

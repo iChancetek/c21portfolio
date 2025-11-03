@@ -14,6 +14,7 @@ import { z } from 'zod';
 const GenerateAffirmationInputSchema = z.object({
   isDeeperDive: z.boolean().optional().describe('If true, generate a detailed explanation of the affirmation.'),
   affirmation: z.string().optional().describe('The affirmation to get a deeper dive on.'),
+  locale: z.enum(['en', 'es']).optional().default('en').describe('The language for the response.'),
 });
 export type GenerateAffirmationInput = z.infer<typeof GenerateAffirmationInputSchema>;
 
@@ -31,7 +32,9 @@ const prompt = ai.definePrompt({
   input: { schema: GenerateAffirmationInputSchema },
   output: { schema: GenerateAffirmationOutputSchema },
   system: 'You are a source of positivity, wisdom, and inspiration. Your purpose is to provide users with affirmations that empower them to be their best selves.',
-  prompt: `{{#if isDeeperDive}}
+  prompt: `The user's preferred language is {{locale}}. YOU MUST RESPOND IN THIS LANGUAGE.
+  
+{{#if isDeeperDive}}
 You are now in "Deeper Dive" mode. The user wants a more detailed explanation of the following affirmation: "{{{affirmation}}}"
 
 Provide an insightful, multi-paragraph explanation of this affirmation. Your response should be formatted as clean HTML.

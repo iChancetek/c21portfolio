@@ -7,12 +7,19 @@ import Footer from '@/components/Footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { UserPresenceProvider } from '@/hooks/UserPresenceProvider';
-import { LocaleProvider } from '@/hooks/useLocale';
+import { LocaleProvider, useLocale } from '@/hooks/useLocale';
+
+// This is a new component to handle metadata within the provider context
+const PageMetadata: React.FC = () => {
+  const { t } = useLocale();
+  return null; // This component doesn't render anything, it's just for metadata access
+};
 
 export const metadata: Metadata = {
   title: 'Chancellor Minus | AI Engineer & Full-Stack Developer Portfolio',
   description: 'A full stack AI-powered portfolio showcasing the projects and skills of Chancellor Minus.',
 };
+
 
 export default function RootLayout({
   children,

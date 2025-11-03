@@ -2,15 +2,17 @@ import Link from 'next/link';
 import { Code } from 'lucide-react';
 import { socialLinks } from '@/lib/data';
 import { Button } from './ui/button';
+import { useLocale } from '@/hooks/useLocale';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLocale();
 
   return (
     <footer className="border-t border-border/40">
       <div className="container flex flex-col-reverse items-center justify-between gap-4 py-8 sm:flex-row">
         <p className="text-center text-sm text-muted-foreground">
-          © {currentYear} Chancellor Minus. All rights reserved.
+          {t('footerText', { year: currentYear })}
         </p>
         <div className="flex items-center gap-2">
           {socialLinks.map((link) => (

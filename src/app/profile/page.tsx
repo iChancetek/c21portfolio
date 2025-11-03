@@ -8,11 +8,13 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Loader2, LogOut } from 'lucide-react';
 import { signOut } from 'firebase/auth';
+import { useLocale } from '@/hooks/useLocale';
 
 export default function ProfilePage() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
+  const { t } = useLocale();
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -46,23 +48,23 @@ export default function ProfilePage() {
                             {user.email?.charAt(0).toUpperCase() || 'U'}
                         </AvatarFallback>
                     </Avatar>
-                    <CardTitle className="text-3xl">{user.displayName || 'Welcome'}</CardTitle>
+                    <CardTitle className="text-3xl">{user.displayName || t('profileWelcome')}</CardTitle>
                     <CardDescription>{user.email}</CardDescription>
                 </CardHeader>
                 <CardContent className="text-center">
                     <p className="text-muted-foreground mb-1">UID: {user.uid}</p>
                     <p className="text-muted-foreground text-sm">
-                        {user.isAnonymous ? 'You are signed in as a guest.' : 'You are a registered user.'}
+                        {user.isAnonymous ? t('guestUser') : t('registeredUser')}
                     </p>
                     <p className="text-muted-foreground text-sm mt-4">
-                        Account created: {user.metadata.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString() : 'N/A'}
+                        {t('accountCreated', { date: user.metadata.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString() : 'N/A' })}
                     </p>
                      <p className="text-muted-foreground text-sm">
-                        Last sign-in: {user.metadata.lastSignInTime ? new Date(user.metadata.lastSignInTime).toLocaleDateString() : 'N/A'}
+                        {t('lastSignIn', { date: user.metadata.lastSignInTime ? new Date(user.metadata.lastSignInTime).toLocaleDateString() : 'N/A' })}
                     </p>
                     <Button onClick={handleSignOut} className="mt-8">
                         <LogOut className="mr-2 h-4 w-4" />
-                        Sign Out
+                        {t('signOut')}
                     </Button>
                 </CardContent>
             </Card>

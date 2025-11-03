@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import { useState, useTransition } from 'react';
@@ -17,11 +15,12 @@ import CaseStudyModal from '@/components/CaseStudyModal';
 import { ventures } from '@/lib/data';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
+import { useLocale } from '@/hooks/useLocale';
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
-// New component dedicated to displaying search results on the landing page
 function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQuery: string; }) {
+    const { t } = useLocale();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<Venture | null>(null);
 
@@ -33,7 +32,7 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
     if (searchQuery && projects.length === 0) {
         return (
             <div className="text-center col-span-full mt-8 text-muted-foreground">
-                <p>No projects found for "{searchQuery}". Try a different search.</p>
+                <p>{t('noProjectsFound', { searchQuery })}</p>
             </div>
         );
     }
@@ -45,7 +44,7 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
     if (projects.length === 0 && searchQuery) {
         return (
              <div className="text-center col-span-full mt-8 text-muted-foreground">
-                <p>No projects found for "{searchQuery}". Try a different search.</p>
+                <p>{t('noProjectsFound', { searchQuery })}</p>
             </div>
         )
     }
@@ -55,9 +54,9 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
     <>
         <div id="results" className="w-full relative z-10 mt-12">
              <div className="flex flex-col items-center text-center space-y-4 mb-12">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">Search Results</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">{t('searchResults')}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    Showing results for: <span className="text-foreground font-semibold">"{searchQuery}"</span>
+                    {t('showingResultsFor', { searchQuery })}
                 </p>
             </div>
 
@@ -78,11 +77,11 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
                             <div className="flex w-full flex-col sm:flex-row gap-2">
                                 <Button className="w-full" onClick={() => openModal(project)}>
                                     <Bot className="mr-2 h-4 w-4" />
-                                    AI Deep-Dive
+                                    {t('aiDeepDive')}
                                 </Button>
                                 <Button variant="outline" asChild className="w-full">
                                     <a href={project.href} target="_blank" rel="noopener noreferrer">
-                                        <ExternalLink className="mr-2 h-4 w-4" /> Demo
+                                        <ExternalLink className="mr-2 h-4 w-4" /> {t('demo')}
                                     </a>
                                 </Button>
                             </div>
@@ -105,19 +104,20 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
 }
 
 function SignUpCta() {
+    const { t } = useLocale();
     return (
         <section className="w-full py-16 md:py-24">
             <Separator className="my-8 bg-border/20" />
             <div className="container max-w-4xl mx-auto text-center bg-secondary/30 backdrop-blur-sm border border-border/20 rounded-xl p-8 md:p-12">
                 <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 text-primary-gradient">
-                    Unlock Your Healthier Future
+                    {t('ctaTitle')}
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-                   Sign up for an account to access Healthy Living — your gateway to guided meditation sessions, personalized wellness support with iChancellor – your AI wellness assistant, and exclusive access to the Tech Insight Generator for innovative perspectives on technology and well-being.
+                   {t('ctaDescription')}
                 </p>
                 <Button size="lg" asChild className="bg-primary-gradient">
-                    <Link href="/signup">Sign Up Now</Link>
+                    <Link href="/signup">{t('signUpNow')}</Link>
                 </Button>
             </div>
         </section>
@@ -130,8 +130,9 @@ export default function LandingPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [projects, setProjects] = useState<Venture[]>([]);
   const [isSearching, startSearchTransition] = useTransition();
-  const [aiSuggestion, setAiSuggestion] = useState("what projects are on ChancellorMinus.com");
   const router = useRouter();
+  const { t } = useLocale();
+  const aiSuggestion = t('landingSearchPlaceholder');
   
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -163,10 +164,10 @@ export default function LandingPage() {
         className="w-full max-w-4xl"
       >
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
-          <span className="text-primary-gradient">The Future of Development — Today</span>
+          <span className="text-primary-gradient">{t('landingTitle')}</span>
         </h1>
         <p className="text-lg sm:text-xl text-muted-foreground mb-10">
-          Chancellor Minus | AI Engineer & Full-Stack Developer Portfolio
+          {t('landingSubtitle')}
         </p>
 
         <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2 mb-4">
@@ -180,7 +181,7 @@ export default function LandingPage() {
           />
           <Button type="submit" size="lg" className="bg-primary-gradient h-12" disabled={isSearching}>
             {isSearching ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
-            AI Search
+            {t('aiSearch')}
           </Button>
         </form>
       </motion.div>

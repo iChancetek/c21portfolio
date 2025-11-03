@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,6 +13,7 @@ import { signInWithEmailAndPassword, AuthError, GoogleAuthProvider, signInWithPo
 import { Loader2 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { logAuditEvent } from '@/app/actions';
+import { useLocale } from '@/hooks/useLocale';
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -31,6 +32,7 @@ export default function LoginPage() {
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
+  const { t } = useLocale();
   
   const anyLoading = isLoading || isGoogleLoading;
 
@@ -41,7 +43,7 @@ export default function LoginPage() {
         actor: { uid: user.uid, email: user.email || 'N/A' },
         details: `User logged in via ${userCredential.providerId || 'email'}.`
     });
-    toast({ title: 'Success', description: 'Logged in successfully.' });
+    toast({ title: t('success'), description: t('login') });
     router.push('/dashboard');
   };
 
@@ -85,15 +87,15 @@ export default function LoginPage() {
       <Card className="w-full max-w-md bg-black/30 backdrop-blur-sm border-white/10 shadow-2xl shadow-primary/10">
         <CardHeader className="text-center">
           <h1 className="text-3xl font-bold tracking-tighter mb-2 text-primary-gradient">
-            Welcome Back
+            {t('loginWelcome')}
           </h1>
-          <CardDescription>Enter your credentials to access your dashboard.</CardDescription>
+          <CardDescription>{t('loginDescription')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {error && <p className="text-sm text-center text-destructive">{error}</p>}
           <Button variant="outline" type="button" className="w-full h-12 text-base bg-white text-gray-800 border-gray-300 hover:bg-gray-50 hover:text-gray-900" onClick={handleGoogleSignIn} disabled={anyLoading}>
             {isGoogleLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <GoogleIcon className="mr-2 h-5 w-5 text-[#4285F4]" />}
-            Sign in with Google
+            {t('signInWithGoogle')}
           </Button>
           
           <div className="relative">
@@ -101,7 +103,7 @@ export default function LoginPage() {
                   <Separator />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
+                  <span className="bg-card px-2 text-muted-foreground">{t('orContinueWith')}</span>
               </div>
           </div>
 
@@ -120,7 +122,7 @@ export default function LoginPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('password')}</Label>
               <Input
                 id="password"
                 type="password"
@@ -133,15 +135,15 @@ export default function LoginPage() {
             </div>
             <Button type="submit" className="w-full h-12 text-base bg-primary-gradient" disabled={anyLoading}>
               {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
-              Login with Email
+              {t('loginWithEmail')}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
             <p className="text-sm text-center text-muted-foreground">
-              Don't have an account?{' '}
+              {t('noAccount')}
               <Link href="/signup" className="font-semibold text-primary hover:underline">
-                Sign up
+                {t('signUp')}
               </Link>
             </p>
         </CardFooter>

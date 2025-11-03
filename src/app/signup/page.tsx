@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/firebase';
 import { createUserWithEmailAndPassword, updateProfile, AuthError } from 'firebase/auth';
 import { Loader2 } from 'lucide-react';
+import { useLocale } from '@/hooks/useLocale';
 
 export default function SignupPage() {
   const [displayName, setDisplayName] = useState('');
@@ -22,6 +23,7 @@ export default function SignupPage() {
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
+  const { t } = useLocale();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +42,7 @@ export default function SignupPage() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName });
-      toast({ title: 'Success', description: 'Account created successfully. Please log in.' });
+      toast({ title: t('success'), description: t('createAccount') });
       router.push('/login');
     } catch (err) {
       const error = err as AuthError;
@@ -54,18 +56,18 @@ export default function SignupPage() {
     <div className="container flex items-center justify-center py-24">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Create Account</CardTitle>
-          <CardDescription>Sign up to get started.</CardDescription>
+          <CardTitle>{t('createAccount')}</CardTitle>
+          <CardDescription>{t('createAccountDescription')}</CardDescription>
         </CardHeader>
         <form onSubmit={handleSignup}>
           <CardContent className="space-y-4">
              {error && <p className="text-sm text-destructive">{error}</p>}
             <div className="space-y-2">
-              <Label htmlFor="displayName">Display Name</Label>
+              <Label htmlFor="displayName">{t('displayName')}</Label>
               <Input
                 id="displayName"
                 type="text"
-                placeholder="Your Name"
+                placeholder={t('yourDisplayName')}
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
                 required
@@ -83,7 +85,7 @@ export default function SignupPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('password')}</Label>
               <Input
                 id="password"
                 type="password"
@@ -93,7 +95,7 @@ export default function SignupPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirm-password">Confirm Password</Label>
+              <Label htmlFor="confirm-password">{t('confirmPassword')}</Label>
               <Input
                 id="confirm-password"
                 type="password"
@@ -106,12 +108,12 @@ export default function SignupPage() {
           <CardFooter className="flex flex-col gap-4">
             <Button type="submit" className="w-full" disabled={isLoading}>
                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Sign Up
+              {t('signUp')}
             </Button>
             <p className="text-sm text-center text-muted-foreground">
-              Already have an account?{' '}
+              {t('haveAccount')}
               <Link href="/login" className="font-semibold text-primary hover:underline">
-                Log in
+                {t('login')}
               </Link>
             </p>
           </CardFooter>
