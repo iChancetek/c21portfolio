@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2, Wand2, ExternalLink, Bot } from 'lucide-react';
+import { Loader2, Wand2, ExternalLink, Bot, Sparkles } from 'lucide-react';
 import { handleSearch } from '@/app/actions';
 import type { Venture } from '@/lib/types';
 import { Card } from '@/components/ui/card';
@@ -15,6 +15,8 @@ import { ventureIcons, navLinks } from '@/lib/data';
 import { Users } from 'lucide-react';
 import CaseStudyModal from '@/components/CaseStudyModal';
 import { ventures } from '@/lib/data';
+import Link from 'next/link';
+import { Separator } from '@/components/ui/separator';
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
@@ -102,6 +104,26 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
   );
 }
 
+function SignUpCta() {
+    return (
+        <section className="w-full py-16 md:py-24">
+            <Separator className="my-8 bg-border/20" />
+            <div className="container max-w-4xl mx-auto text-center bg-secondary/30 backdrop-blur-sm border border-border/20 rounded-xl p-8 md:p-12">
+                <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 text-primary-gradient">
+                    Unlock Your Healthier Future
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+                   Sign up for an account to access Healthy Living — your gateway to guided meditation sessions, personalized wellness support with iChancellor – your AI wellness assistant, and exclusive access to the Tech Insight Generator for innovative perspectives on technology and well-being.
+                </p>
+                <Button size="lg" asChild className="bg-primary-gradient">
+                    <Link href="/signup">Sign Up Now</Link>
+                </Button>
+            </div>
+        </section>
+    )
+}
+
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
@@ -165,6 +187,7 @@ export default function LandingPage() {
       <div className="w-full mt-16">
         <SearchResults projects={projects} searchQuery={searchQuery} />
       </div>
+      <SignUpCta />
     </div>
   );
 }
