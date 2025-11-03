@@ -116,6 +116,7 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
           
           <div className="space-y-2">
             <Label>Change Password</Label>
+            <p className="text-sm text-muted-foreground">Reset your password for your chancellorminus.com account.</p>
             <Button variant="outline" className="w-full" onClick={handlePasswordReset} disabled={isSendingReset}>
                 {isSendingReset && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Send Password Reset Email
