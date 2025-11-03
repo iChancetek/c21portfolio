@@ -18,7 +18,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useLocale } from '@/hooks/useLocale';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import SettingsDialog from '@/components/SettingsDialog';
 
 
 interface Message {
@@ -28,7 +28,6 @@ interface Message {
 }
 
 type Mode = 'chat' | 'meditation';
-const ttsVoices: TTSVoice[] = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'];
 
 export default function HealthyLivingPage() {
   const { user, isUserLoading } = useUser();
@@ -48,8 +47,10 @@ export default function HealthyLivingPage() {
   const musicAudioRef = useRef<HTMLAudioElement | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
-  const [selectedVoice, setSelectedVoice] = useState<TTSVoice>('alloy');
   
+  // Settings state
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
   // Meditation state
   const [mode, setMode] = useState<Mode>('chat');
   const [meditationDuration, setMeditationDuration] = useState(10 * 60); // 10 minutes in seconds
@@ -70,8 +71,11 @@ export default function HealthyLivingPage() {
   // Set initial welcome message and speak it when the locale changes
   useEffect(() => {
     const welcomeMessage = t('iChancellorWelcome');
-    setMessages([{ role: 'assistant', content: welcomeMessage }]);
-    speak(welcomeMessage);
+    // Set message only if it's the first message or the locale has changed
+    if (messages.length <= 1) {
+        setMessages([{ role: 'assistant', content: welcomeMessage }]);
+        speak(welcomeMessage);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t, locale]);
 
@@ -155,7 +159,7 @@ export default function HealthyLivingPage() {
   const handleStartMeditation = () => {
     setTimer(meditationDuration);
     setIsMeditating(true);
-    const prompt = `Start a guided meditation session for ${meditationDuration / 60} minutes.`;
+    const prompt = `Start a guided meditation session for ${meditationDuration / 60} minutes in ${locale === 'es' ? 'Spanish' : 'English'}.`;
     handleInteraction(prompt);
   };
   
@@ -230,7 +234,8 @@ export default function HealthyLivingPage() {
     if (isSpeaking) return;
     setIsSpeaking(true);
     try {
-      const { audioDataUri } = await textToSpeech({ text, voice: selectedVoice });
+      // The OpenAI voice is auto-detected from text language, so no need to specify voice per language
+      const { audioDataUri } = await textToSpeech({ text, voice: 'alloy' });
       setAudioSrc(audioDataUri);
     } catch (error) {
       toast({ title: 'Could not generate audio.', variant: 'destructive' });
@@ -301,29 +306,32 @@ export default function HealthyLivingPage() {
   
   const anyLoading = isResponding || isRecording;
 
-  const SettingsContent = () => (
+  const MeditationSettingsContent = () => (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-          <Label htmlFor="play-music" className="flex-grow">Play Music:</Label>
-          <Switch id="play-music" checked={playMusic} onCheckedChange={setPlayMusic} disabled={isMeditating} />
-      </div>
-      <div className="flex items-center justify-between">
-          <Label htmlFor="voice" className="flex-grow">Voice:</Label>
-          <Select value={selectedVoice} onValueChange={(val) => setSelectedVoice(val as TTSVoice)}>
+       <div className="flex items-center gap-2">
+            <Label htmlFor="duration" className="w-24 text-right">{t('duration')}</Label>
+            <Select value={String(meditationDuration / 60)} onValueChange={(val) => setMeditationDuration(Number(val) * 60)} disabled={isMeditating}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select voice" />
+                <SelectValue placeholder={t('selectDuration')} />
             </SelectTrigger>
             <SelectContent>
-              {ttsVoices.map(voice => (
-                <SelectItem key={voice} value={voice} className="capitalize">{voice}</SelectItem>
-              ))}
+                <SelectItem value="5">5 {t('minutes', { count: 5 })}</SelectItem>
+                <SelectItem value="10">10 {t('minutes', { count: 10 })}</SelectItem>
+                <SelectItem value="15">15 {t('minutes', { count: 15 })}</SelectItem>
+                <SelectItem value="20">20 {t('minutes', { count: 20 })}</SelectItem>
+                <SelectItem value="30">30 {t('minutes', { count: 30 })}</SelectItem>
             </SelectContent>
-          </Select>
+            </Select>
+        </div>
+      <div className="flex items-center justify-between">
+          <Label htmlFor="play-music" className="flex-grow">{t('playMusic')}</Label>
+          <Switch id="play-music" checked={playMusic} onCheckedChange={setPlayMusic} disabled={isMeditating} />
       </div>
     </div>
   );
 
   return (
+    <>
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
         <audio ref={musicAudioRef} loop />
@@ -337,17 +345,10 @@ export default function HealthyLivingPage() {
                   <div className="flex items-center gap-2">
                     <Button variant={mode === 'chat' ? 'secondary' : 'ghost'} size="sm" onClick={() => setMode('chat')}>{t('chat')}</Button>
                     <Button variant={mode === 'meditation' ? 'secondary' : 'ghost'} size="sm" onClick={() => { setMode('meditation'); stopPlayback(); }}>{t('meditation')}</Button>
-                    
-                     {mode === 'chat' && (
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Button variant="ghost" size="icon"><Settings className="h-4 w-4" /></Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-80">
-                               <SettingsContent />
-                            </PopoverContent>
-                        </Popover>
-                    )}
+                    <Button variant="ghost" size="icon" onClick={() => setIsSettingsOpen(true)}>
+                        <Settings className="h-4 w-4" />
+                        <span className="sr-only">{t('settings')}</span>
+                    </Button>
                   </div>
                 </div>
                 <CardDescription>{t('healthyLivingDescription')}</CardDescription>
@@ -404,26 +405,15 @@ export default function HealthyLivingPage() {
                       )}
                   </div>
                   <div className="space-y-4 p-4 border rounded-lg">
-                    <div className="flex items-center gap-2">
-                        <Label htmlFor="duration" className="w-24 text-right">{t('duration')}</Label>
-                        <Select value={String(meditationDuration / 60)} onValueChange={(val) => setMeditationDuration(Number(val) * 60)} disabled={isMeditating}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder={t('selectDuration')} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="5">5 {t('minutes', { count: 5 })}</SelectItem>
-                            <SelectItem value="10">10 {t('minutes', { count: 10 })}</SelectItem>
-                            <SelectItem value="15">15 {t('minutes', { count: 15 })}</SelectItem>
-                            <SelectItem value="20">20 {t('minutes', { count: 20 })}</SelectItem>
-                            <SelectItem value="30">30 {t('minutes', { count: 30 })}</SelectItem>
-                        </SelectContent>
-                        </Select>
-                    </div>
-                     <SettingsContent />
+                    <MeditationSettingsContent />
                   </div>
               </CardContent>
             )}
         </Card>
     </div>
+    {user && <SettingsDialog isOpen={isSettingsOpen} onOpenChange={setIsSettingsOpen} />}
+    </>
   );
 }
+
+    
