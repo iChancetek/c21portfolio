@@ -163,6 +163,8 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Node.js", icon: Server },
       { name: "Python (Flask, FastAPI, Django)", icon: Code },
+      { name: "C#", icon: Code },
+      { name: "R", icon: Code },
       { name: "APIs / REST APIs", icon: Puzzle },
       { name: "API Gateway", icon: Puzzle },
       { name: "Firebase", icon: Code },
@@ -217,6 +219,9 @@ export const skillCategories: SkillCategory[] = [
         { name: "Pandas & Numpy", icon: Database },
         { name: "Seaborn & Matplotlib", icon: BarChart },
         { name: "Scikit-learn", icon: TestTubeDiagonal },
+        { name: "PyTorch", icon: BrainCircuit },
+        { name: "TensorFlow", icon: BrainCircuit },
+        { name: "Data Structures", icon: GitCommit },
     ]
   },
   {
@@ -327,6 +332,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
