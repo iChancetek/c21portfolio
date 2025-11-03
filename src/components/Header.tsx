@@ -103,7 +103,7 @@ export default function Header() {
              <NavLink href="/dashboard" isProjectLink>
                 <div className="flex items-center gap-2">
                     <LayoutDashboard className="h-4 w-4" />
-                    Dashboard
+                    Tech Insight
                 </div>
              </NavLink>
              <NavLink href="/healthy-living" isProjectLink>
@@ -161,7 +161,7 @@ export default function Header() {
                     <NavLink href="/projects" isProjectLink>Projects</NavLink>
                      {user && (
                         <>
-                          <NavLink href="/dashboard" isProjectLink>Dashboard</NavLink>
+                          <NavLink href="/dashboard" isProjectLink>Tech Insight</NavLink>
                           <NavLink href="/healthy-living" isProjectLink>Healthy Living</NavLink>
                         </>
                      )}
