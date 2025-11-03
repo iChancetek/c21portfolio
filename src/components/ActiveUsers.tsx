@@ -48,15 +48,9 @@ export default function ActiveUsers() {
     }
 
     if (error) {
-      // The useCollection hook now throws the error, so we can rely on the error boundary
-      // but we can still show a fallback UI if needed.
-       return (
-        <div className="flex flex-col items-center justify-center h-40 text-destructive">
-          <WifiOff className="h-8 w-8 mb-2" />
-          <p>Failed to load user activity.</p>
-          <p className="text-xs">{error.message}</p>
-        </div>
-      );
+       // Throw the error to be caught by the nearest error boundary.
+       // This provides a better debugging experience in Next.js.
+       throw error;
     }
 
     if (!users || users.length === 0) {
