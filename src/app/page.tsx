@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2, Wand2, ExternalLink, Bot, Sparkles } from 'lucide-react';
+import { Loader2, Wand2, ExternalLink, Bot, Sparkles, RefreshCw } from 'lucide-react';
 import { handleSearch } from '@/app/actions';
 import type { Venture } from '@/lib/types';
 import { Card } from '@/components/ui/card';
@@ -155,6 +155,12 @@ export default function LandingPage() {
     });
   };
 
+  const handleResetSearch = () => {
+    setQuery('');
+    setSearchQuery('');
+    setProjects([]);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] text-center py-12">
       <motion.div
@@ -182,6 +188,10 @@ export default function LandingPage() {
           <Button type="submit" size="lg" className="bg-primary-gradient h-12" disabled={isSearching}>
             {isSearching ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
             {t('aiSearch')}
+          </Button>
+           <Button type="button" size="icon" variant="outline" className="h-12 w-12" onClick={handleResetSearch} disabled={isSearching}>
+            <RefreshCw className="h-5 w-5" />
+            <span className="sr-only">Refresh Search</span>
           </Button>
         </form>
       </motion.div>
