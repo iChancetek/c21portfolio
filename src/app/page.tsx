@@ -3,6 +3,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -10,7 +11,7 @@ import { Loader2, Wand2, ExternalLink, Bot } from 'lucide-react';
 import { handleSemanticSearch } from '@/app/actions';
 import type { Venture } from '@/lib/types';
 import { Card } from '@/components/ui/card';
-import { ventureIcons } from '@/lib/data';
+import { ventureIcons, navLinks } from '@/lib/data';
 import { Users } from 'lucide-react';
 import CaseStudyModal from '@/components/CaseStudyModal';
 
@@ -98,11 +99,20 @@ export default function LandingPage() {
   const [projects, setProjects] = useState<Venture[]>(allVentures);
   const [isSearching, startSearchTransition] = useTransition();
   const [aiSuggestion, setAiSuggestion] = useState("what projects are on ChancellorMinus.com");
+  const router = useRouter();
   
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newQuery = query.trim();
-    setSearchQuery(newQuery);
+    const newQuery = query.trim().toLowerCase();
+    
+    // Check for navigational keywords
+    const navLink = navLinks.find(link => link.keywords.includes(newQuery));
+    if (navLink) {
+        router.push(navLink.href);
+        return;
+    }
+
+    setSearchQuery(query.trim());
     
     if (!newQuery) {
       setProjects(allVentures);

@@ -285,10 +285,10 @@ export const techTopics = [
 ] as const;
 
 export const navLinks = [
-    { name: "AI Assistant", href: "/ai-assistant" },
-    { name: "Skills", href: "/projects#skills" },
-    { name: "Contact", href: "/projects#contact" },
-    { name: "Affirmations", href: "/affirmations" },
+    { name: "AI Assistant", href: "/ai-assistant", keywords: ['ai', 'assistant', 'ai assistant'] },
+    { name: "Skills", href: "/projects#skills", keywords: ['skills', 'expertise'] },
+    { name: "Contact", href: "/projects#contact", keywords: ['contact', 'get in touch', 'email'] },
+    { name: "Affirmations", href: "/affirmations", keywords: ['affirmations', 'affirmation', 'inspiration'] },
 ];
 
 export const socialLinks = [
@@ -314,6 +314,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
