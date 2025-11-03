@@ -1,6 +1,6 @@
 
 import { Project, SkillCategory, Venture, VentureIcon } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -170,12 +170,12 @@ export const skillCategories: SkillCategory[] = [
       { name: "R", icon: Code },
       { name: "APIs / REST APIs", icon: Puzzle },
       { name: "API Gateway", icon: Puzzle },
-      { name: "Firebase Authentication", icon: Code },
+      { name: "Firebase Authentication", icon: Shield },
       { name: "Firebase Database", icon: Database },
       { name: "Firebase Functions", icon: CloudCog },
-      { name: "Firebase Hosting", icon: Cloud },
+      { name: "Firebase Hosting", icon: Globe },
       { name: "Firebase Storage", icon: ServerCog },
-      { name: "Clerk", icon: Users },
+      { name: "Clerk", icon: ShieldCheck },
       { name: "Supabase", icon: Database },
       { name: "MySQL / PostgreSQL", icon: Database },
       { name: "Stripe", icon: CreditCard },
@@ -184,6 +184,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "MongoDB Atlas", icon: Cloud },
       { name: "Snowflake", icon: Database },
       { name: "Cosmos DB", icon: Database },
+      { name: "Kafka", icon: Layers },
+      { name: "RabbitMQ", icon: MessageCircle },
     ],
   },
   {
@@ -192,7 +194,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "GCP Vertex AI", icon: BrainCircuit },
       { name: "AWS Bedrock / SageMaker", icon: BrainCircuit },
       { name: "Azure Machine Learning", icon: BrainCircuit },
-      { name: "Azure Foundry", icon: Cloud },
+      { name: "Azure Foundry", icon: Factory },
       { name: "Gemini, GPT, Claude", icon: Bot },
       { name: "Meta Llama", icon: Bot },
       { name: "DeepSeek", icon: Bot },
@@ -247,8 +249,9 @@ export const skillCategories: SkillCategory[] = [
     title: "Cloud & DevOps",
     skills: [
         { name: "System Design", icon: Architecture },
-        { name: "Docker", icon: ServerCog },
-        { name: "Docker Hub", icon: ServerCog },
+        { name: "Docker", icon: Box },
+        { name: "Docker Hub", icon: Box },
+        { name: "Docker Desktop", icon: Monitor },
         { name: "Kubernetes (EKS, AKS, GKE)", icon: ServerCog },
         { name: "Serverless (Lambda, Functions, Cloud Run)", icon: CloudCog },
         { name: "Terraform", icon: Code },
@@ -264,6 +267,15 @@ export const skillCategories: SkillCategory[] = [
         { name: "Azure Front Door", icon: Network },
         { name: "Azure Traffic Manager", icon: ServerCrash },
         { name: "Application Load Balancer", icon: ServerCog },
+        { name: "Nginx / Apache", icon: Server },
+        { name: "Ansible", icon: Code },
+        { name: "Prometheus / Grafana", icon: BarChart },
+        { name: "ELK Stack", icon: Database },
+        { name: "Istio / Pulumi", icon: Puzzle },
+        { name: "Hashicorp Vault", icon: Shield },
+        { name: "ArgoCD", icon: CheckCircle },
+        { name: "VirtualBox / Vagrant", icon: Box },
+        { name: "Minikube", icon: Box },
     ],
   },
   {
@@ -274,6 +286,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "Cursor AI / Replit", icon: Monitor },
       { name: "Genkit / CrewAI", icon: Users },
       { name: "LangChain / LangGraph", icon: GitBranch },
+      { name: "LangSmith", icon: TestTubeDiagonal },
+      { name: "Flowise AI", icon: Workflow },
       { name: "Postman / Insomnia", icon: TestTubeDiagonal },
       { name: "Loveable", icon: HeartPulse },
     ],
@@ -284,7 +298,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Microsoft 365", icon: Globe },
       { name: "Teams / SharePoint / Exchange", icon: Share2 },
       { name: "AutoPilot / InTune", icon: Building },
-      { name: "Workflow Automation (Power Automate)", icon: Workflow },
+      { name: "Workflow Automation (Power Automate, Zapier, N8N, Make)", icon: Workflow },
     ]
   }
 ];
@@ -360,6 +374,8 @@ export const socialLinks = [
 
 
 
+
+    
 
     
 
