@@ -192,9 +192,35 @@ export default function HealthyLivingPage() {
       setIsSpeaking(false);
     }
   };
+  
+  const stopPlayback = () => {
+      if(audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+      }
+      setIsSpeaking(false);
+  }
 
   const handleInteraction = async (query: string) => {
-    if (!query.trim() || isResponding) return;
+    const trimmedQuery = query.trim().toLowerCase();
+    
+    if (!trimmedQuery) return;
+    
+    // Handle "stop" command
+    if (trimmedQuery === 'stop' || trimmedQuery === 'stop.') {
+        stopPlayback();
+        if(isMeditating) {
+          setIsMeditating(false);
+        }
+        const stopMessage: Message = { role: 'user', content: query };
+        const confirmationMessage: Message = { role: 'assistant', content: 'Okay, stopping.' };
+        setMessages((prev) => [...prev, stopMessage, confirmationMessage]);
+        setInput('');
+        speak(confirmationMessage.content);
+        return;
+    }
+    
+    if (isResponding) return;
 
     const userMessage: Message = { role: 'user', content: query };
     setMessages((prev) => [...prev, userMessage]);
@@ -202,9 +228,8 @@ export default function HealthyLivingPage() {
 
     startTransition(async () => {
         try {
-            // Prepare history with the isUser flag for the template
-            const historyWithFlag = messages.map(msg => ({ ...msg, isUser: msg.role === 'user' }));
-            const response = await iChancellor({ query, history: historyWithFlag });
+            const history = messages.map(msg => ({ ...msg, isUser: msg.role === 'user' }));
+            const response = await iChancellor({ query, history: history });
             const assistantMessage: Message = { role: 'assistant', content: response.answer };
             setMessages((prev) => [...prev, assistantMessage]);
             await speak(response.answer);
