@@ -210,7 +210,7 @@ export async function handleSemanticSearch(query: string): Promise<Venture[]> {
     }
     
     // 1. Handle command-like queries
-    const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all'];
+    const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
     if(commandQueries.includes(lowercasedQuery)) {
         return allVentures;
     }
