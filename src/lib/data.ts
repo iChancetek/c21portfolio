@@ -1,6 +1,6 @@
 
 import { Project, SkillCategory, Venture, VentureIcon } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -298,6 +298,16 @@ export const skillCategories: SkillCategory[] = [
       { name: "Zapier", icon: Workflow },
       { name: "N8N", icon: Workflow },
       { name: "Loveable", icon: HeartPulse },
+      { name: "Document Loader", icon: Upload },
+      { name: "RecursiveCharacterTextSplitter", icon: Puzzle },
+      { name: "Data Chunking", icon: Puzzle },
+      { name: "OpenAI Embedding", icon: Binary },
+      { name: "Hugging Face Embedding", icon: Binary },
+      { name: "Document Embedding", icon: Binary },
+      { name: "Retriever", icon: Search },
+      { name: "Vector Databases", icon: Database },
+      { name: "Pinecone", icon: Database },
+      { name: "Chroma", icon: Database },
     ],
   },
   {
@@ -343,3 +353,5 @@ export const socialLinks = [
     { name: "LinkedIn", href: "#", icon: Linkedin },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
+
+    
