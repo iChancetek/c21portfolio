@@ -2,5 +2,8 @@
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
+  },
+  "apphosting": {
+    "site": "studio-1594258539-a60ba"
   }
 }
