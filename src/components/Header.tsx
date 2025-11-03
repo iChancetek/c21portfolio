@@ -1,8 +1,7 @@
-
 'use client';
 
 import Link from 'next/link';
-import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, MessageCircle, Heart } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, MessageCircle, Heart, Settings as SettingsIcon } from 'lucide-react';
 import { Button } from './ui/button';
 import { navLinks } from '@/lib/data';
 import { useState } from 'react';
@@ -11,12 +10,24 @@ import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { ModeToggle } from './ModeToggle';
 import { useAdmin } from '@/hooks/useAdmin';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback } from './ui/avatar';
+import SettingsDialog from './SettingsDialog';
+
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, isUserLoading } = useUser();
   const { isAdmin } = useAdmin();
   const auth = useAuth();
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const handleSignOut = async () => {
     if (auth) {
@@ -41,18 +52,33 @@ export default function Header() {
     }
     if (user) {
       return (
-        <>
-          <Button asChild variant="ghost" size="icon">
-            <Link href="/profile">
-              <User />
-              <span className="sr-only">Profile</span>
-            </Link>
-          </Button>
-          <Button variant="ghost" size="icon" onClick={handleSignOut}>
-            <LogOut />
-            <span className="sr-only">Sign Out</span>
-          </Button>
-        </>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="flex items-center gap-2">
+              <Avatar className="h-8 w-8">
+                  <AvatarFallback>{user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}</AvatarFallback>
+              </Avatar>
+              <span className="hidden sm:inline-block">{user.displayName || user.email}</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => setIsSettingsOpen(true)}>
+              <SettingsIcon className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+             <DropdownMenuItem onClick={() => router.push('/profile')}>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={handleSignOut}>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Log Out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       );
     }
     return (
@@ -72,6 +98,9 @@ export default function Header() {
             <Button asChild className="w-full">
               <Link href="/profile">Profile</Link>
             </Button>
+             <Button onClick={() => { setIsSettingsOpen(true); setIsMenuOpen(false); }} variant='outline' className="w-full">
+                Settings
+            </Button>
             <Button onClick={handleSignOut} variant='outline' className="w-full">
                 Sign Out
             </Button>
@@ -86,6 +115,7 @@ export default function Header() {
   }
 
   return (
+    <>
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -139,7 +169,7 @@ export default function Header() {
         </nav>
         <div className="flex flex-1 items-center justify-end gap-2">
             <ModeToggle />
-           <div className="hidden sm:inline-flex gap-2">
+           <div className="inline-flex gap-2">
             <AuthButtons />
           </div>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
@@ -182,5 +212,7 @@ export default function Header() {
         </div>
       </div>
     </header>
+    {user && <SettingsDialog isOpen={isSettingsOpen} onOpenChange={setIsSettingsOpen} />}
+    </>
   );
 }
