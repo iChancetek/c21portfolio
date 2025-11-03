@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Bot, Send, User, Loader2, BrainCircuit, Mic, Pause, Play, Settings, Timer, X } from 'lucide-react';
+import { Bot, Send, User, Loader2, BrainCircuit, Mic, Pause, Play, Settings, Timer, Volume2, VolumeX } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { iChancellor } from '@/ai/flows/ichancellor-flow';
@@ -47,6 +47,7 @@ export default function HealthyLivingPage() {
   const musicAudioRef = useRef<HTMLAudioElement | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
   
   // Settings state
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -152,7 +153,7 @@ export default function HealthyLivingPage() {
           console.error("Music autoplay was prevented:", error);
           toast({
             title: "Music playback blocked",
-            description: "Your browser prevented music from starting automatically.",
+            description: "Your browser prevented music from starting automatically. You may need to interact with the page first.",
             variant: "destructive"
           });
         });
@@ -229,7 +230,7 @@ export default function HealthyLivingPage() {
   };
 
   const speak = async (text: string) => {
-    if (isSpeaking) return;
+    if (isMuted || isSpeaking) return;
     setIsSpeaking(true);
     try {
       // The OpenAI voice is auto-detected from text language, so no need to specify voice per language
@@ -297,6 +298,12 @@ export default function HealthyLivingPage() {
         }
     });
   };
+  
+  useEffect(() => {
+    if (isMuted) {
+      stopPlayback();
+    }
+  }, [isMuted]);
 
   if (isUserLoading || !user) {
     return <div className="container flex items-center justify-center py-24"><Loader2 className="h-16 w-16 animate-spin text-primary" /></div>;
@@ -340,9 +347,13 @@ export default function HealthyLivingPage() {
                       <BrainCircuit className="text-primary" />
                       {t('healthyLivingTitle')}
                   </CardTitle>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
                     <Button variant={mode === 'chat' ? 'secondary' : 'ghost'} size="sm" onClick={() => setMode('chat')}>{t('chat')}</Button>
                     <Button variant={mode === 'meditation' ? 'secondary' : 'ghost'} size="sm" onClick={() => { setMode('meditation'); stopPlayback(); }}>{t('meditation')}</Button>
+                    <Button variant="ghost" size="icon" onClick={() => setIsMuted(m => !m)}>
+                      {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                      <span className="sr-only">Mute</span>
+                    </Button>
                     <Button variant="ghost" size="icon" onClick={() => setIsSettingsOpen(true)}>
                         <Settings className="h-4 w-4" />
                         <span className="sr-only">{t('settings')}</span>
@@ -413,5 +424,3 @@ export default function HealthyLivingPage() {
     </>
   );
 }
-
-    
