@@ -293,6 +293,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Flowise AI", icon: Workflow },
       { name: "Postman / Insomnia", icon: TestTubeDiagonal },
       { name: "Loveable", icon: HeartPulse },
+      { name: "Workflow Automation (Power Automate, Zapier, N8N, Make)", icon: Workflow },
     ],
   },
   {
@@ -301,7 +302,6 @@ export const skillCategories: SkillCategory[] = [
       { name: "Microsoft 365", icon: Globe },
       { name: "Teams / SharePoint / Exchange", icon: Share2 },
       { name: "AutoPilot / InTune", icon: Building },
-      { name: "Workflow Automation (Power Automate, Zapier, N8N, Make)", icon: Workflow },
       { name: "Monday.com", icon: Package },
       { name: "Trello", icon: Package },
     ]
