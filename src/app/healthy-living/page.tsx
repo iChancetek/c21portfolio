@@ -61,6 +61,14 @@ export default function HealthyLivingPage() {
     }
   }, [user, isUserLoading, router]);
 
+  // Speak the initial welcome message when the component mounts
+  useEffect(() => {
+    if (messages.length === 1 && messages[0].role === 'assistant') {
+      speak(messages[0].content);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Scroll to bottom of chat
   useEffect(() => {
     if (scrollAreaRef.current) {
