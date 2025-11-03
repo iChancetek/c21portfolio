@@ -16,7 +16,6 @@ import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
 import { useLocale } from '@/hooks/useLocale';
 import SettingsDialog from '@/components/SettingsDialog';
 
@@ -44,7 +43,6 @@ export default function HealthyLivingPage() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const musicAudioRef = useRef<HTMLAudioElement | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(false);
@@ -58,7 +56,6 @@ export default function HealthyLivingPage() {
   const [timer, setTimer] = useState(meditationDuration);
   const [isMeditating, setIsMeditating] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [playMusic, setPlayMusic] = useState(true);
   
   const { toast } = useToast();
 
@@ -94,17 +91,12 @@ export default function HealthyLivingPage() {
   
   // Timer logic for meditation
   useEffect(() => {
-    const musicEl = musicAudioRef.current;
-
     if (isMeditating) {
       timerIntervalRef.current = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
-            if (musicEl) {
-              musicEl.pause();
-            }
             playEndSound();
             return 0;
           }
@@ -114,10 +106,6 @@ export default function HealthyLivingPage() {
     } else {
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
-      }
-      if (musicEl) {
-        musicEl.pause();
-        musicEl.currentTime = 0;
       }
     }
 
@@ -146,20 +134,6 @@ export default function HealthyLivingPage() {
   };
 
   const handleStartMeditation = () => {
-    const musicEl = musicAudioRef.current;
-    if (playMusic && musicEl) {
-      musicEl.src = "https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3";
-      musicEl.load();
-      musicEl.volume = 0.2;
-      const playPromise = musicEl.play();
-
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.error("Music autoplay was prevented:", error);
-        });
-      }
-    }
-  
     setTimer(meditationDuration);
     setIsMeditating(true);
   };
@@ -168,10 +142,6 @@ export default function HealthyLivingPage() {
     setIsMeditating(false);
     setTimer(meditationDuration);
     stopPlayback();
-    if (musicAudioRef.current) {
-      musicAudioRef.current.pause();
-      musicAudioRef.current.currentTime = 0;
-    }
   };
 
   const handleMicClick = () => {
@@ -344,17 +314,6 @@ export default function HealthyLivingPage() {
           </SelectContent>
         </Select>
       </div>
-      <div className="flex items-center justify-between">
-        <Label htmlFor="play-music" className="flex-grow">
-          {t('playMusic')}
-        </Label>
-        <Switch
-          id="play-music"
-          checked={playMusic}
-          onCheckedChange={setPlayMusic}
-          disabled={isMeditating}
-        />
-      </div>
     </div>
   );
 
@@ -362,7 +321,6 @@ export default function HealthyLivingPage() {
     <>
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
-        <audio ref={musicAudioRef} loop preload="auto" />
         <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
             <CardHeader>
                 <div className="flex justify-between items-center">
