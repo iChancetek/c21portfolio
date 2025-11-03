@@ -262,6 +262,10 @@ export default function HealthyLivingPage() {
 
   useEffect(() => {
     if (audioSrc && audioRef.current) {
+        if (isMuted) {
+          stopPlayback();
+          return;
+        }
         audioRef.current.src = audioSrc;
         const playPromise = audioRef.current.play();
         if (playPromise !== undefined) {
@@ -275,7 +279,7 @@ export default function HealthyLivingPage() {
             setAudioSrc(null); // Clear src after playing
         };
     }
-  }, [audioSrc]);
+  }, [audioSrc, isMuted]);
   
   const stopPlayback = () => {
     if (audioRef.current && !audioRef.current.paused) {
