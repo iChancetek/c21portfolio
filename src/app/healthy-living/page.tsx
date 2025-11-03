@@ -95,17 +95,19 @@ export default function HealthyLivingPage() {
 
     if (isMeditating) {
       if (playMusic && musicEl) {
-        // Ensure musicEl is ready before playing.
+        // Ensure the audio is loaded before playing
+        musicEl.load();
         const playPromise = musicEl.play();
         if (playPromise !== undefined) {
           playPromise.catch(error => {
-            // Autoplay was prevented. This can happen if the user hasn't interacted with the page yet.
-            // We can try to play again after a user interaction.
             console.error("Music autoplay was prevented:", error);
-            // We will set src and load, so it's ready for a later play() call.
-            musicEl.load();
+            toast({
+              title: "Music playback blocked",
+              description: "Your browser prevented music from starting automatically. Please interact with the page and try again.",
+              variant: "destructive"
+            });
           }).then(() => {
-            musicEl.volume = 0.2;
+            if(musicEl) musicEl.volume = 0.2;
           })
         }
       }
@@ -127,16 +129,20 @@ export default function HealthyLivingPage() {
       }, 1000);
     } else {
       // Cleanup when not meditating
-      clearInterval(timerIntervalRef.current!);
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current);
+      }
       if (musicEl) {
         musicEl.pause();
         musicEl.currentTime = 0; // Reset music to the beginning
       }
     }
     return () => {
-        clearInterval(timerIntervalRef.current!);
+        if(timerIntervalRef.current) {
+            clearInterval(timerIntervalRef.current);
+        }
     };
-  }, [isMeditating, playMusic]);
+  }, [isMeditating, playMusic, toast]);
 
   const playEndSound = () => {
     // Simple browser-based sound to signify end of session
@@ -411,3 +417,5 @@ export default function HealthyLivingPage() {
     </>
   );
 }
+
+    
