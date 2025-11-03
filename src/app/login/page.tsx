@@ -67,6 +67,9 @@ export default function LoginPage() {
     setError(null);
     try {
       const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({
+        prompt: 'select_account'
+      });
       const userCredential = await signInWithPopup(auth, provider);
       handleSuccessfulLogin(userCredential);
     } catch (err) {
@@ -122,7 +125,7 @@ export default function LoginPage() {
                 id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.targe.value)}
                 required
                 disabled={anyLoading}
                 className="bg-black/20 backdrop-blur-sm border-white/10 h-12"
