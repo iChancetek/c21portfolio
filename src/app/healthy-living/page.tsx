@@ -14,6 +14,9 @@ import { iChancellor } from '@/ai/flows/ichancellor-flow';
 import { transcribeAudio } from '@/ai/flows/whisper-flow';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import { useToast } from '@/hooks/use-toast';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
 
 interface Message {
   role: 'user' | 'assistant';
