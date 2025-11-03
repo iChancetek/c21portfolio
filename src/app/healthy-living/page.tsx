@@ -12,7 +12,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { iChancellor } from '@/ai/flows/ichancellor-flow';
 import { transcribeAudio } from '@/ai/flows/whisper-flow';
-import { textToSpeech, type TTSVoice } from '@/ai/flows/openai-tts-flow';
+import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -93,18 +93,21 @@ export default function HealthyLivingPage() {
   useEffect(() => {
     const musicEl = musicAudioRef.current;
 
-    const playMusicWhenReady = () => {
-        if (musicEl) {
-            musicEl.volume = 0.2;
-            musicEl.play().catch(e => console.error("Error playing music:", e));
-        }
-    };
-
     if (isMeditating) {
       if (playMusic && musicEl) {
-          musicEl.src = 'https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3';
-          musicEl.addEventListener('canplaythrough', playMusicWhenReady, { once: true });
-          musicEl.load(); 
+        // Ensure musicEl is ready before playing.
+        const playPromise = musicEl.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            // Autoplay was prevented. This can happen if the user hasn't interacted with the page yet.
+            // We can try to play again after a user interaction.
+            console.error("Music autoplay was prevented:", error);
+            // We will set src and load, so it's ready for a later play() call.
+            musicEl.load();
+          }).then(() => {
+            musicEl.volume = 0.2;
+          })
+        }
       }
       
       // Start countdown timer
@@ -115,8 +118,6 @@ export default function HealthyLivingPage() {
             setIsMeditating(false);
             if (musicEl) {
                 musicEl.pause();
-                musicEl.removeAttribute('src'); 
-                musicEl.load();
             }
             playEndSound();
             return 0;
@@ -129,13 +130,11 @@ export default function HealthyLivingPage() {
       clearInterval(timerIntervalRef.current!);
       if (musicEl) {
         musicEl.pause();
+        musicEl.currentTime = 0; // Reset music to the beginning
       }
     }
     return () => {
         clearInterval(timerIntervalRef.current!);
-        if (musicEl) {
-            musicEl.removeEventListener('canplaythrough', playMusicWhenReady);
-        }
     };
   }, [isMeditating, playMusic]);
 
@@ -169,10 +168,7 @@ export default function HealthyLivingPage() {
     stopPlayback();
     if (musicAudioRef.current) {
       musicAudioRef.current.pause();
-      if(musicAudioRef.current.src) {
-        musicAudioRef.current.removeAttribute('src');
-        musicAudioRef.current.load();
-      }
+      musicAudioRef.current.currentTime = 0;
     }
   };
 
@@ -334,7 +330,7 @@ export default function HealthyLivingPage() {
     <>
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
-        <audio ref={musicAudioRef} loop />
+        <audio ref={musicAudioRef} loop src="https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3" />
         <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
             <CardHeader>
                 <div className="flex justify-between items-center">
@@ -415,5 +411,3 @@ export default function HealthyLivingPage() {
     </>
   );
 }
-
-    
