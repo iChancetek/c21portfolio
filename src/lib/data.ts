@@ -280,6 +280,8 @@ export const skillCategories: SkillCategory[] = [
         { name: "ArgoCD", icon: CheckCircle },
         { name: "VirtualBox / Vagrant", icon: Box },
         { name: "Minikube", icon: Box },
+        { name: "Monday.com", icon: Package },
+        { name: "Trello", icon: Package },
     ],
   },
   {
@@ -305,8 +307,6 @@ export const skillCategories: SkillCategory[] = [
       { name: "Microsoft 365", icon: Globe },
       { name: "Teams / SharePoint / Exchange", icon: Share2 },
       { name: "AutoPilot / InTune", icon: Building },
-      { name: "Monday.com", icon: Package },
-      { name: "Trello", icon: Package },
     ]
   }
 ];
