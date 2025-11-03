@@ -22,6 +22,7 @@ import { Switch } from '@/components/ui/switch';
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  isUser?: boolean;
 }
 
 type Mode = 'chat' | 'meditation';
@@ -46,6 +47,7 @@ export default function HealthyLivingPage() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const musicAudioRef = useRef<HTMLAudioElement | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [audioSrc, setAudioSrc] = useState<string | null>(null);
   
   // Meditation state
   const [mode, setMode] = useState<Mode>('chat');
@@ -101,7 +103,6 @@ export default function HealthyLivingPage() {
             setIsMeditating(false);
             if (musicAudioRef.current) {
                 musicAudioRef.current.pause();
-                musicAudioRef.current.src = '';
             }
             playEndSound();
             return 0;
@@ -114,7 +115,6 @@ export default function HealthyLivingPage() {
       clearInterval(timerIntervalRef.current!);
       if (musicAudioRef.current) {
         musicAudioRef.current.pause();
-        musicAudioRef.current.src = ''; // Clear source to prevent errors
       }
     }
     return () => clearInterval(timerIntervalRef.current!);
@@ -150,7 +150,6 @@ export default function HealthyLivingPage() {
     stopPlayback();
     if (musicAudioRef.current) {
       musicAudioRef.current.pause();
-      musicAudioRef.current.src = '';
     }
   };
 
@@ -213,23 +212,30 @@ export default function HealthyLivingPage() {
     setIsSpeaking(true);
     try {
       const { audioDataUri } = await textToSpeech({ text });
-      if (audioRef.current) {
-        audioRef.current.src = audioDataUri;
-        audioRef.current.play();
-        audioRef.current.onended = () => setIsSpeaking(false);
-      }
+      setAudioSrc(audioDataUri);
     } catch (error) {
       toast({ title: 'Could not generate audio.', variant: 'destructive' });
       setIsSpeaking(false);
     }
   };
+
+  useEffect(() => {
+    if (audioSrc && audioRef.current) {
+        audioRef.current.src = audioSrc;
+        audioRef.current.play();
+        audioRef.current.onended = () => {
+            setIsSpeaking(false);
+            setAudioSrc(null); // Clear src after playing
+        };
+    }
+  }, [audioSrc]);
   
   const stopPlayback = () => {
-      if(audioRef.current) {
+      if(audioRef.current && !audioRef.current.paused) {
         audioRef.current.pause();
-        audioRef.current.src = '';
       }
       setIsSpeaking(false);
+      setAudioSrc(null);
   }
 
   const handleInteraction = async (query: string) => {
@@ -237,23 +243,22 @@ export default function HealthyLivingPage() {
     
     if (!trimmedQuery) return;
     
-    // Handle "stop" command
     if (trimmedQuery === 'stop' || trimmedQuery === 'stop.') {
         stopPlayback();
-        if(isMeditating) {
+        if (isMeditating) {
           stopMeditation();
         }
         const stopMessage: Message = { role: 'user', content: query };
         const confirmationMessage: Message = { role: 'assistant', content: 'Okay, stopping.' };
         setMessages((prev) => [...prev, stopMessage, confirmationMessage]);
         setInput('');
-        speak(confirmationMessage.content);
+        speak(confirmationMessage.content); // Speak the confirmation
         return;
     }
     
     if (isResponding) return;
 
-    const userMessage: Message = { role: 'user', content: query };
+    const userMessage: Message = { role: 'user', content: query, isUser: true };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
 
