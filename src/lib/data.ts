@@ -246,6 +246,7 @@ export const skillCategories: SkillCategory[] = [
         { name: "Kubernetes (EKS, AKS, GKE)", icon: ServerCog },
         { name: "Serverless (Lambda, Functions, Cloud Run)", icon: CloudCog },
         { name: "Terraform", icon: Code },
+        { name: "Powershell", icon: Code },
         { name: "AWS (EC2, Beanstalk, App Runner)", icon: Cloud },
         { name: "Azure (VMs, App Service, Container Apps)", icon: Cloud },
         { name: "GCP (Compute & App Engine)", icon: Cloud },
@@ -332,6 +333,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
