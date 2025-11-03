@@ -74,7 +74,7 @@ export default function HealthyLivingPage() {
     const welcomeMessage = t('iChancellorWelcome');
     const hasMessages = messages.length > 0;
 
-    if ((!hasMessages || (hasMessages && messages[0].content !== welcomeMessage)) && mode === 'chat') {
+    if (mode === 'chat' && (!hasMessages || (hasMessages && messages[0].content !== welcomeMessage))) {
         setMessages([{ role: 'assistant', content: welcomeMessage }]);
         speak(welcomeMessage);
     }
@@ -142,23 +142,26 @@ export default function HealthyLivingPage() {
   };
 
   const handleStartMeditation = () => {
-    setTimer(meditationDuration);
-    setIsMeditating(true);
-  
-    // Start music immediately on user gesture
+    // 1. Immediately try to play music on user click to satisfy browser policy
     if (playMusic && musicAudioRef.current) {
       musicAudioRef.current.volume = 0.2;
-      musicAudioRef.current.load(); // explicitly load
       const playPromise = musicAudioRef.current.play();
+
       if (playPromise !== undefined) {
         playPromise.catch(error => {
+          // Autoplay was prevented.
           console.error("Music autoplay was prevented:", error);
-          toast({ title: 'Music blocked', description: 'Your browser prevented background music from playing automatically.', variant: 'destructive' });
+          // Don't show a toast here as it can be annoying if the user intended not to play.
+          // The UI will still update to the meditating state.
         });
       }
     }
   
-    // Fetch AI guidance concurrently
+    // 2. Set meditating state and timer
+    setTimer(meditationDuration);
+    setIsMeditating(true);
+  
+    // 3. Fetch AI guidance concurrently
     const prompt = `Start a guided meditation session for ${meditationDuration / 60} minutes in ${locale === 'es' ? 'Spanish' : 'English'}. Begin with a short welcome and then guide me through settling in.`;
     handleInteraction(prompt);
   };
@@ -259,7 +262,7 @@ export default function HealthyLivingPage() {
             setAudioSrc(null); // Clear src after playing
         };
     }
-  }, [audioSrc]);
+  }, [audioSrc, isMuted]);
   
   const stopPlayback = () => {
     if (audioRef.current && !audioRef.current.paused) {
