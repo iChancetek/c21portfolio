@@ -224,6 +224,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "AWS Glue / Kinesis", icon: Workflow },
       { name: "AWS Redshift", icon: Database },
       { name: "Azure DataBricks / Spark", icon: Sparkles },
+      { name: "Tableau", icon: BarChart },
+      { name: "Power BI", icon: BarChart },
     ],
   },
   {
@@ -262,6 +264,7 @@ export const skillCategories: SkillCategory[] = [
         { name: "Vercel", icon: Cloud },
         { name: "CI/CD (GitHub Actions, GitLab, Jenkins, Azure DevOps)", icon: GitBranch },
         { name: "MLOps / DevOps", icon: ServerCog },
+        { name: "MLflow", icon: ServerCog },
         { name: "Amazon Route 53", icon: Route },
         { name: "Azure DNS", icon: Network },
         { name: "Azure Front Door", icon: Network },
@@ -299,6 +302,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "Teams / SharePoint / Exchange", icon: Share2 },
       { name: "AutoPilot / InTune", icon: Building },
       { name: "Workflow Automation (Power Automate, Zapier, N8N, Make)", icon: Workflow },
+      { name: "Monday.com", icon: Package },
+      { name: "Trello", icon: Package },
     ]
   }
 ];
@@ -336,47 +341,3 @@ export const socialLinks = [
     { name: "LinkedIn", href: "#", icon: Linkedin },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
-
-    
-
-    
-
-
-
-
-    
-
-
-
-
-    
-
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-    
-
-    
