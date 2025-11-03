@@ -8,14 +8,15 @@ import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Loader2, Wand2, ExternalLink, Bot } from 'lucide-react';
-import { handleSemanticSearch } from '@/app/actions';
+import { handleSearch } from '@/app/actions';
 import type { Venture } from '@/lib/types';
 import { Card } from '@/components/ui/card';
 import { ventureIcons, navLinks } from '@/lib/data';
 import { Users } from 'lucide-react';
 import CaseStudyModal from '@/components/CaseStudyModal';
+import { ventures } from '@/lib/data';
 
-const allVentures: Venture[] = [];
+const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 // New component dedicated to displaying search results on the landing page
 function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQuery: string; }) {
@@ -35,9 +36,18 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
         );
     }
     
-    if (projects.length === 0) {
+    if (projects.length === 0 && !searchQuery) { // Don't show anything if no search has been made
         return null;
     }
+    
+    if (projects.length === 0 && searchQuery) {
+        return (
+             <div className="text-center col-span-full mt-8 text-muted-foreground">
+                <p>No projects found for "{searchQuery}". Try a different search.</p>
+            </div>
+        )
+    }
+
 
   return (
     <>
@@ -96,32 +106,29 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
 export default function LandingPage() {
   const [query, setQuery] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [projects, setProjects] = useState<Venture[]>(allVentures);
+  const [projects, setProjects] = useState<Venture[]>([]);
   const [isSearching, startSearchTransition] = useTransition();
   const [aiSuggestion, setAiSuggestion] = useState("what projects are on ChancellorMinus.com");
   const router = useRouter();
   
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newQuery = query.trim().toLowerCase();
-    
-    // Check for navigational keywords
-    const navLink = navLinks.find(link => link.keywords.includes(newQuery));
-    if (navLink) {
-        router.push(navLink.href);
+    const currentQuery = query.trim();
+    if (!currentQuery) {
+        setProjects(allVentures);
+        setSearchQuery('');
         return;
     }
-
-    setSearchQuery(query.trim());
     
-    if (!newQuery) {
-      setProjects(allVentures);
-      return;
-    }
+    setSearchQuery(currentQuery);
     
     startSearchTransition(async () => {
-      const results = await handleSemanticSearch(newQuery);
-      setProjects(results);
+      const result = await handleSearch(currentQuery);
+      if (result.navPath) {
+          router.push(result.navPath);
+      } else {
+          setProjects(result.projects);
+      }
     });
   };
 

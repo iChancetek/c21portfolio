@@ -7,7 +7,7 @@ import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import { getTechInsight } from '@/ai/flows/tech-expert-flow';
 import type { Venture } from '@/lib/types';
 import { Resend } from 'resend';
-import { ventures, techTopics } from '@/lib/data';
+import { ventures, techTopics, navLinks } from '@/lib/data';
 import { embed } from 'genkit';
 import { ai } from '@/ai/genkit';
 import { initializeServerApp } from '@/firebase/server-config';
@@ -159,13 +159,6 @@ export async function generateTechInsight(topic: z.infer<typeof techTopics>[numb
     }
 }
 
-function dotProduct(a: number[], b: number[]) {
-    if (a.length !== b.length) {
-        throw new Error('Vectors must be of the same length');
-    }
-    return a.reduce((sum, val, i) => sum + val * b[i], 0);
-}
-
 async function semanticSearch(query: string): Promise<Venture[]> {
     try {
         // Use the AI assistant to get a contextual answer.
@@ -216,28 +209,48 @@ async function semanticSearch(query: string): Promise<Venture[]> {
 }
 
 
-export async function handleSemanticSearch(query: string): Promise<Venture[]> {
+export async function handleSearch(query: string): Promise<{ projects: Venture[]; navPath?: string; }> {
     const lowercasedQuery = query.toLowerCase().trim();
 
     if (!lowercasedQuery) {
-        return allVentures;
+        return { projects: allVentures };
     }
     
-    const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
-    if(commandQueries.includes(lowercasedQuery)) {
-        return allVentures;
+    // First, check for exact match navigation keywords
+    const directNavLink = navLinks.find(link => link.keywords.includes(lowercasedQuery));
+    if (directNavLink) {
+        return { projects: [], navPath: directNavLink.href };
     }
 
-    // Directly use the new RAG-powered semantic search
+    // If no direct match, use AI to check for misspelled nav keywords AND to search
     try {
-        const semanticResults = await semanticSearch(query);
-        return semanticResults;
+        const assistantResponse = await aiPortfolioAssistant({ query: lowercasedQuery, isNavQuery: true });
+        
+        // Check if the AI corrected a navigational term
+        if (assistantResponse.navKeyword) {
+            const correctedLower = assistantResponse.navKeyword.toLowerCase();
+            const navLink = navLinks.find(link => link.keywords.includes(correctedLower));
+            if (navLink) {
+                return { projects: [], navPath: navLink.href };
+            }
+        }
+        
+        // If not a nav query, proceed with semantic search for projects
+        const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
+        if(commandQueries.includes(lowercasedQuery)) {
+            return { projects: allVentures };
+        }
+
+        const semanticResults = await semanticSearch(lowercasedQuery);
+        return { projects: semanticResults };
+
     } catch (error) {
-        console.error("Semantic search failed:", error);
+        console.error("AI Search handler failed:", error);
         // Fallback to simple text search on error
-        return allVentures.filter(venture => 
+        const filteredProjects = allVentures.filter(venture => 
             venture.name.toLowerCase().includes(lowercasedQuery) || 
             venture.description.toLowerCase().includes(lowercasedQuery)
         );
+        return { projects: filteredProjects };
     }
 }
