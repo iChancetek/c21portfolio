@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, MessageCircle, Heart, Settings as SettingsIcon } from 'lucide-react';
 import { Button } from './ui/button';
 import { navLinks } from '@/lib/data';
@@ -18,7 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from './ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import SettingsDialog from './SettingsDialog';
 
 
@@ -28,6 +29,7 @@ export default function Header() {
   const { isAdmin } = useAdmin();
   const auth = useAuth();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const router = useRouter();
 
   const handleSignOut = async () => {
     if (auth) {
@@ -56,6 +58,7 @@ export default function Header() {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="flex items-center gap-2">
               <Avatar className="h-8 w-8">
+                  <AvatarImage src={user.photoURL || ''} alt={user.displayName || ''} />
                   <AvatarFallback>{user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}</AvatarFallback>
               </Avatar>
               <span className="hidden sm:inline-block">{user.displayName || user.email}</span>
