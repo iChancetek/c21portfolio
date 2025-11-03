@@ -94,14 +94,16 @@ export default function HealthyLivingPage() {
   
   // Timer logic for meditation
   useEffect(() => {
+    const musicEl = musicAudioRef.current;
+    
     if (isMeditating) {
       timerIntervalRef.current = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
-            if (musicAudioRef.current) {
-                musicAudioRef.current.pause();
+            if (musicEl) {
+                musicEl.pause();
             }
             playEndSound();
             return 0;
@@ -113,17 +115,34 @@ export default function HealthyLivingPage() {
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
       }
-      if (musicAudioRef.current) {
-        musicAudioRef.current.pause();
-        musicAudioRef.current.currentTime = 0;
+      if (musicEl) {
+        musicEl.pause();
+        musicEl.currentTime = 0;
       }
     }
+
+    const handleMusicReady = () => {
+        if (isMeditating && playMusic && musicEl && musicEl.paused) {
+            const playPromise = musicEl.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => console.error("Music play was prevented:", error));
+            }
+        }
+    };
+    
+    if (musicEl) {
+        musicEl.addEventListener('canplaythrough', handleMusicReady);
+    }
+
     return () => {
         if(timerIntervalRef.current) {
             clearInterval(timerIntervalRef.current);
         }
+        if (musicEl) {
+            musicEl.removeEventListener('canplaythrough', handleMusicReady);
+        }
     };
-  }, [isMeditating]);
+  }, [isMeditating, playMusic]);
 
   const playEndSound = () => {
     // Simple browser-based sound to signify end of session
@@ -149,11 +168,12 @@ export default function HealthyLivingPage() {
     // Start music immediately on user gesture
     if (playMusic && musicAudioRef.current) {
       musicAudioRef.current.volume = 0.2;
+      musicAudioRef.current.load(); // explicitly load
       const playPromise = musicAudioRef.current.play();
       if (playPromise !== undefined) {
         playPromise.catch(error => {
           console.error("Music autoplay was prevented:", error);
-          // Don't toast here, as it can be annoying. The user will know if music isn't playing.
+          toast({ title: 'Music blocked', description: 'Your browser prevented background music from playing automatically.', variant: 'destructive' });
         });
       }
     }
@@ -430,5 +450,3 @@ export default function HealthyLivingPage() {
     </>
   );
 }
-
-    
