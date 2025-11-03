@@ -54,6 +54,7 @@ export default function HealthyLivingPage() {
   const [isMeditating, setIsMeditating] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [playMusic, setPlayMusic] = useState(true);
+  const [musicSrc, setMusicSrc] = useState('https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3');
   
   const { toast } = useToast();
 
@@ -82,13 +83,17 @@ export default function HealthyLivingPage() {
     }
   }, [messages]);
   
-  // Timer logic
+  // Timer logic for meditation
   useEffect(() => {
     if (isMeditating) {
-      if (playMusic && musicAudioRef.current) {
+      // Start background music if enabled
+      if (playMusic && musicAudioRef.current && musicSrc) {
+        musicAudioRef.current.src = musicSrc;
         musicAudioRef.current.volume = 0.2;
-        musicAudioRef.current.play();
+        musicAudioRef.current.play().catch(e => console.error("Error playing music:", e));
       }
+      
+      // Start countdown timer
       timerIntervalRef.current = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
@@ -102,17 +107,18 @@ export default function HealthyLivingPage() {
         });
       }, 1000);
     } else {
+      // Cleanup when not meditating
       clearInterval(timerIntervalRef.current!);
       if (musicAudioRef.current) {
         musicAudioRef.current.pause();
-        musicAudioRef.current.currentTime = 0;
+        musicAudioRef.current.src = ''; // Clear source to prevent errors
       }
     }
     return () => clearInterval(timerIntervalRef.current!);
-  }, [isMeditating, playMusic]);
+  }, [isMeditating, playMusic, musicSrc]);
 
   const playEndSound = () => {
-    // Simple browser-based sound
+    // Simple browser-based sound to signify end of session
     const audioContext = new window.AudioContext();
     const oscillator = audioContext.createOscillator();
     oscillator.type = 'sine';
@@ -141,7 +147,7 @@ export default function HealthyLivingPage() {
     stopPlayback();
     if (musicAudioRef.current) {
       musicAudioRef.current.pause();
-      musicAudioRef.current.currentTime = 0;
+      musicAudioRef.current.src = '';
     }
   };
 
@@ -272,7 +278,7 @@ export default function HealthyLivingPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
-        <audio ref={musicAudioRef} src="https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3" loop />
+        <audio ref={musicAudioRef} loop />
         <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
             <CardHeader>
                 <div className="flex justify-between items-center">
