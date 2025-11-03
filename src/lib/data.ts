@@ -1,6 +1,6 @@
 
 import { Project, SkillCategory, Venture, VentureIcon } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -220,6 +220,19 @@ export const skillCategories: SkillCategory[] = [
     ]
   },
   {
+    title: "Machine Learning Algorithms",
+    skills: [
+        { name: "Linear Regression", icon: FunctionSquare },
+        { name: "Logistic Regression", icon: FunctionSquare },
+        { name: "Decision Trees", icon: GitCommit },
+        { name: "Naive Bayes", icon: Binary },
+        { name: "Random Forest", icon: ListTree },
+        { name: "Support Vector Machines (SVM)", icon: Sigma },
+        { name: "K-Means", icon: Sigma },
+        { name: "K-Nearest Neighbors (KNN)", icon: Sigma },
+    ]
+  },
+  {
     title: "Cloud & DevOps",
     skills: [
         { name: "System Design", icon: Architecture },
@@ -314,6 +327,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
