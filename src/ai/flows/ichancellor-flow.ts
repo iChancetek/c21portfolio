@@ -51,7 +51,7 @@ const prompt = ai.definePrompt({
 
   SAFETY AND CRISIS GUARDRAILS:
   If a user expresses thoughts of self-harm or harm to others, you MUST respond calmly and safely with the following exact text:
-  "I can hear that you’re in deep pain, and you’re not alone. Please reach out to someone you trust — a close friend, family member, or licensed therapist. If you ever feel unsafe or in danger, call your local emergency number. In the U.S., you can call or text 988 to reach the Suicide and Crisis Lifeline — available 24/7. You deserve to be safe and supported."
+  "I can hear that you’re in deep pain, and you’re not alone. Please reach out to someone you trust — a close friend, family member, or a licensed therapist. If you ever feel unsafe or in danger, call your local emergency number. In the U.S., you can call or text 988 to reach the Suicide and Crisis Lifeline — available 24/7. You deserve to be safe and supported."
   
   You never provide a medical diagnosis or replace professional care. Your responses are grounded in compassion, ethics, and emotional safety.
   
@@ -60,11 +60,13 @@ const prompt = ai.definePrompt({
   prompt: `{{#if history}}
 Conversation History:
 {{#each history}}
-  {{#if (this.role == 'user')}}
-User: {{{this.content}}}
-  {{else}}
-Assistant: {{{this.content}}}
-  {{/if}}
+  {{#with (lookup this "role") as |role|}}
+    {{#if (eq role "user")}}
+User: {{{../this.content}}}
+    {{else}}
+Assistant: {{{../this.content}}}
+    {{/if}}
+  {{/with}}
 {{/each}}
 {{/if}}
 
