@@ -192,7 +192,11 @@ export const skillCategories: SkillCategory[] = [
       { name: "GCP Vertex AI", icon: BrainCircuit },
       { name: "AWS Bedrock / SageMaker", icon: BrainCircuit },
       { name: "Azure Machine Learning", icon: BrainCircuit },
+      { name: "Azure Foundry", icon: Cloud },
       { name: "Gemini, GPT, Claude", icon: Bot },
+      { name: "Meta Llama", icon: Bot },
+      { name: "DeepSeek", icon: Bot },
+      { name: "Qwen", icon: Bot },
       { name: "Hugging Face Models", icon: Bot },
     ],
   },
@@ -218,7 +222,6 @@ export const skillCategories: SkillCategory[] = [
       { name: "AWS Glue / Kinesis", icon: Workflow },
       { name: "AWS Redshift", icon: Database },
       { name: "Azure DataBricks / Spark", icon: Sparkles },
-      { name: "Azure Data Factory / Synapse / Datalake", icon: CloudCog },
     ],
   },
   {
@@ -357,5 +360,7 @@ export const socialLinks = [
 
 
 
+
+    
 
     
