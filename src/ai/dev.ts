@@ -9,3 +9,4 @@ import '@/ai/flows/iskylar-search-flow.ts';
 import '@/ai/flows/affirmation-generator.ts';
 import '@/ai/flows/tech-expert-flow.ts';
 import '@/ai/flows/openai-tts-flow.ts';
+import '@/ai/flows/ichancellor-flow.ts';

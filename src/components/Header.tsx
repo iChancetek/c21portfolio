@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, MessageCircle } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, MessageCircle, Heart } from 'lucide-react';
 import { Button } from './ui/button';
 import { navLinks } from '@/lib/data';
 import { useState } from 'react';
@@ -99,12 +99,20 @@ export default function Header() {
             </div>
           </NavLink>
           {user && (
+            <>
              <NavLink href="/dashboard" isProjectLink>
                 <div className="flex items-center gap-2">
                     <LayoutDashboard className="h-4 w-4" />
                     Dashboard
                 </div>
              </NavLink>
+             <NavLink href="/healthy-living" isProjectLink>
+                <div className="flex items-center gap-2">
+                    <Heart className="h-4 w-4" />
+                    Healthy Living
+                </div>
+             </NavLink>
+            </>
           )}
           {isAdmin && (
              <NavLink href="/admin" isProjectLink>
@@ -152,7 +160,10 @@ export default function Header() {
                 <nav className="flex flex-col gap-6 text-lg">
                     <NavLink href="/projects" isProjectLink>Projects</NavLink>
                      {user && (
-                        <NavLink href="/dashboard" isProjectLink>Dashboard</NavLink>
+                        <>
+                          <NavLink href="/dashboard" isProjectLink>Dashboard</NavLink>
+                          <NavLink href="/healthy-living" isProjectLink>Healthy Living</NavLink>
+                        </>
                      )}
                      {isAdmin && (
                         <NavLink href="/admin" isProjectLink>Admin</NavLink>
