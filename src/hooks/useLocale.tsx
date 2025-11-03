@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
@@ -9,7 +10,7 @@ type Locale = 'en' | 'es';
 interface LocaleContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
-  t: (key: string) => string;
+  t: (key: string, values?: Record<string, string | number>) => string;
 }
 
 const translations: Record<Locale, Record<string, string>> = { en, es };
@@ -37,8 +38,17 @@ export const LocaleProvider = ({ children }: { children: ReactNode }) => {
     document.documentElement.lang = newLocale;
   };
 
-  const t = useCallback((key: string): string => {
-    return translations[locale][key] || key;
+  const t = useCallback((key: string, values?: Record<string, string | number>): string => {
+    let translation = translations[locale][key] || key;
+
+    if (values) {
+      Object.keys(values).forEach(valueKey => {
+        const regex = new RegExp(`{${valueKey}}`, 'g');
+        translation = translation.replace(regex, String(values[valueKey]));
+      });
+    }
+
+    return translation;
   }, [locale]);
 
   return (
