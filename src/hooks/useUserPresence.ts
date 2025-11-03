@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -38,8 +37,7 @@ export function useUserPresence() {
 
     // Function to set user status to 'offline'
     const goOffline = () => {
-      if (!isOnlineRef.current) return;
-      isOnlineRef.current = false;
+      // No need to check isOnlineRef here, always attempt to set offline on unload
       setDoc(userStatusDocRef, {
         status: 'offline',
         lastSeen: serverTimestamp(),
@@ -56,7 +54,8 @@ export function useUserPresence() {
     // --- Handling Page Visibility Changes ---
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
-        goOffline();
+        // We don't call goOffline here anymore to avoid flicker when changing tabs.
+        // The beforeunload event is more reliable for session ends.
       } else {
         goOnline();
       }
@@ -64,11 +63,8 @@ export function useUserPresence() {
     
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Cleanup function to remove listeners and set status to offline
+    // Cleanup function to remove listeners
     return () => {
-      // This offline call might not always succeed on component unmount,
-      // but 'beforeunload' is the primary mechanism.
-      goOffline();
       window.removeEventListener('beforeunload', goOffline);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
