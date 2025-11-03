@@ -18,6 +18,7 @@ const IChancellorInputSchema = z.object({
     content: z.string(),
     isUser: z.boolean().optional(),
   })).optional().describe('The conversation history.'),
+  locale: z.enum(['en', 'es']).optional().default('en').describe('The language for the response.'),
 });
 export type IChancellorInput = z.infer<typeof IChancellorInputSchema>;
 
@@ -51,14 +52,17 @@ const prompt = ai.definePrompt({
   - Self-compassion, discipline, and purpose.
 
   SAFETY AND CRISIS GUARDRAILS:
-  If a user expresses thoughts of self-harm or harm to others, you MUST respond calmly and safely with the following exact text:
-  "I can hear that you’re in deep pain, and you’re not alone. Please reach out to someone you trust — a close friend, family member, or a licensed therapist. If you ever feel unsafe or in danger, call your local emergency number. In the U.S., you can call or text 988 to reach the Suicide and Crisis Lifeline — available 24/7. You deserve to be safe and supported."
+  If a user expresses thoughts of self-harm or harm to others, you MUST respond calmly and safely with the following exact text (translated to the user's language):
+  - English: "I can hear that you’re in deep pain, and you’re not alone. Please reach out to someone you trust — a close friend, family member, or a licensed therapist. If you ever feel unsafe or in danger, call your local emergency number. In the U.S., you can call or text 988 to reach the Suicide and Crisis Lifeline — available 24/7. You deserve to be safe and supported."
+  - Spanish: "Puedo sentir que estás sufriendo mucho, y no estás solo. Por favor, busca a alguien de confianza: un amigo cercano, un familiar o un terapeuta profesional. Si alguna vez te sientes inseguro o en peligro, llama al número de emergencia de tu localidad. En EE. UU., puedes llamar o enviar un mensaje de texto al 988 para comunicarte con la Línea de Prevención del Suicidio y Crisis, disponible 24/7. Mereces estar seguro y recibir apoyo."
   
   You never provide a medical diagnosis or replace professional care. Your responses are grounded in compassion, ethics, and emotional safety.
   
   Engage with the user based on their query and the conversation history provided.
   `,
-  prompt: `{{#if history}}
+  prompt: `The user's preferred language is {{locale}}. YOU MUST RESPOND IN THIS LANGUAGE.
+
+{{#if history}}
 Conversation History:
 {{#each history}}
   {{#if this.isUser}}

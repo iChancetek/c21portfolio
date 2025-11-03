@@ -17,6 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { useLocale } from '@/hooks/useLocale';
 
 
 interface Message {
@@ -30,10 +31,12 @@ type Mode = 'chat' | 'meditation';
 export default function HealthyLivingPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
+  const { locale, t } = useLocale();
+  
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello, I'm iChancellor. I'm here to support you on your path to wellness. How can I help you today? We can discuss mindfulness, healthy habits, or begin a guided meditation.",
+      content: t('iChancellorWelcome'),
     },
   ]);
   const [input, setInput] = useState('');
@@ -56,7 +59,6 @@ export default function HealthyLivingPage() {
   const [isMeditating, setIsMeditating] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [playMusic, setPlayMusic] = useState(true);
-  const [musicSrc, setMusicSrc] = useState('https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3');
   
   const { toast } = useToast();
 
@@ -67,13 +69,15 @@ export default function HealthyLivingPage() {
     }
   }, [user, isUserLoading, router]);
 
-  // Speak the initial welcome message when the component mounts
+  // Speak the initial welcome message when the component mounts or locale changes
   useEffect(() => {
     if (messages.length === 1 && messages[0].role === 'assistant') {
-      speak(messages[0].content);
+       // Update welcome message if locale changes
+      setMessages([{ role: 'assistant', content: t('iChancellorWelcome') }]);
+      speak(t('iChancellorWelcome'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [t]);
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -97,8 +101,8 @@ export default function HealthyLivingPage() {
     };
 
     if (isMeditating) {
-      if (playMusic && musicEl && musicSrc) {
-          musicEl.src = musicSrc;
+      if (playMusic && musicEl) {
+          musicEl.src = 'https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3';
           musicEl.addEventListener('canplaythrough', playMusicWhenReady, { once: true });
           musicEl.load(); 
       }
@@ -111,7 +115,7 @@ export default function HealthyLivingPage() {
             setIsMeditating(false);
             if (musicEl) {
                 musicEl.pause();
-                musicEl.removeAttribute('src'); // Clean up the source
+                musicEl.removeAttribute('src'); 
                 musicEl.load();
             }
             playEndSound();
@@ -133,7 +137,7 @@ export default function HealthyLivingPage() {
             musicEl.removeEventListener('canplaythrough', playMusicWhenReady);
         }
     };
-  }, [isMeditating, playMusic, musicSrc]);
+  }, [isMeditating, playMusic]);
 
   const playEndSound = () => {
     // Simple browser-based sound to signify end of session
@@ -254,7 +258,6 @@ export default function HealthyLivingPage() {
       audioRef.current.pause();
     }
     setIsSpeaking(false);
-    // Don't clear audioSrc here, as it might be needed if paused/resumed
   };
 
   const handleInteraction = async (query: string) => {
@@ -284,7 +287,7 @@ export default function HealthyLivingPage() {
     startTransition(async () => {
         try {
             const history = messages.map(msg => ({ content: msg.content, role: msg.role, isUser: msg.role === 'user' }));
-            const response = await iChancellor({ query, history });
+            const response = await iChancellor({ query, history, locale });
             const assistantMessage: Message = { role: 'assistant', content: response.answer };
             setMessages((prev) => [...prev, assistantMessage]);
             await speak(response.answer);

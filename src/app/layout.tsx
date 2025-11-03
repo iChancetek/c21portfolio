@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { UserPresenceProvider } from '@/hooks/UserPresenceProvider';
+import { LocaleProvider } from '@/hooks/useLocale';
 
 export const metadata: Metadata = {
   title: 'Chancellor Minus | AI Engineer & Full-Stack Developer Portfolio',
@@ -34,10 +35,12 @@ export default function RootLayout({
         >
           <FirebaseClientProvider>
             <UserPresenceProvider>
-              <Header />
-              <main className="flex-1 container">{children}</main>
-              <Footer />
-              <Toaster />
+              <LocaleProvider>
+                <Header />
+                <main className="flex-1 container">{children}</main>
+                <Footer />
+                <Toaster />
+              </LocaleProvider>
             </UserPresenceProvider>
           </FirebaseClientProvider>
         </ThemeProvider>

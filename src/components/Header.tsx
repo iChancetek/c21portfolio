@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import SettingsDialog from './SettingsDialog';
+import { useLocale } from '@/hooks/useLocale';
 
 
 export default function Header() {
@@ -30,6 +31,7 @@ export default function Header() {
   const auth = useAuth();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const router = useRouter();
+  const { t } = useLocale();
 
   const handleSignOut = async () => {
     if (auth) {
@@ -65,20 +67,20 @@ export default function Header() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setIsSettingsOpen(true)}>
-              <SettingsIcon className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-            </DropdownMenuItem>
-             <DropdownMenuItem onClick={() => router.push('/profile')}>
+            <DropdownMenuItem onClick={() => router.push('/profile')}>
               <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
+              <span>{t('profile')}</span>
+            </DropdownMenuItem>
+             <DropdownMenuItem onClick={() => setIsSettingsOpen(true)}>
+              <SettingsIcon className="mr-2 h-4 w-4" />
+              <span>{t('settings')}</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
               <LogOut className="mr-2 h-4 w-4" />
-              <span>Log Out</span>
+              <span>{t('logOut')}</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -86,7 +88,7 @@ export default function Header() {
     }
     return (
       <Button asChild className="bg-primary-gradient">
-        <Link href="/login">Login</Link>
+        <Link href="/login">{t('login')}</Link>
       </Button>
     );
   };
@@ -99,20 +101,20 @@ export default function Header() {
       return (
          <div className='flex flex-col gap-2'>
             <Button asChild className="w-full">
-              <Link href="/profile">Profile</Link>
+              <Link href="/profile">{t('profile')}</Link>
             </Button>
              <Button onClick={() => { setIsSettingsOpen(true); setIsMenuOpen(false); }} variant='outline' className="w-full">
-                Settings
+                {t('settings')}
             </Button>
             <Button onClick={handleSignOut} variant='outline' className="w-full">
-                Sign Out
+                {t('logOut')}
             </Button>
         </div>
       );
     }
     return (
        <Button asChild className="w-full mt-8 bg-primary-gradient">
-          <Link href="/login">Login</Link>
+          <Link href="/login">{t('login')}</Link>
       </Button>
     )
   }
@@ -129,7 +131,7 @@ export default function Header() {
           <NavLink href="/projects" isProjectLink>
             <div className="flex items-center gap-2">
               <Briefcase className="h-4 w-4" />
-              Projects
+              {t('projects')}
             </div>
           </NavLink>
           {user && (
@@ -137,13 +139,13 @@ export default function Header() {
              <NavLink href="/dashboard" isProjectLink>
                 <div className="flex items-center gap-2">
                     <LayoutDashboard className="h-4 w-4" />
-                    Tech Insight
+                    {t('techInsight')}
                 </div>
              </NavLink>
              <NavLink href="/healthy-living" isProjectLink>
                 <div className="flex items-center gap-2">
                     <Heart className="h-4 w-4" />
-                    Healthy Living
+                    {t('healthyLiving')}
                 </div>
              </NavLink>
             </>
@@ -156,19 +158,9 @@ export default function Header() {
                 </div>
              </NavLink>
           )}
-          {navLinks.map((link) => {
-            let Icon;
-            if (link.name === "AI Assistant") Icon = MessageCircle;
-            
-            return (
-              <NavLink key={link.href} href={link.href} isProjectLink>
-                <div className="flex items-center gap-2">
-                  {Icon && <Icon className="h-4 w-4" />}
-                  {link.name}
-                </div>
-              </NavLink>
-            )
-          })}
+          <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
+          <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
+          <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
         </nav>
         <div className="flex flex-1 items-center justify-end gap-2">
             <ModeToggle />
@@ -192,19 +184,19 @@ export default function Header() {
                   <span className="font-bold">Chancellor Minus</span>
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
-                    <NavLink href="/projects" isProjectLink>Projects</NavLink>
+                    <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>
                      {user && (
                         <>
-                          <NavLink href="/dashboard" isProjectLink>Tech Insight</NavLink>
-                          <NavLink href="/healthy-living" isProjectLink>Healthy Living</NavLink>
+                          <NavLink href="/dashboard" isProjectLink>{t('techInsight')}</NavLink>
+                          <NavLink href="/healthy-living" isProjectLink>{t('healthyLiving')}</NavLink>
                         </>
                      )}
                      {isAdmin && (
                         <NavLink href="/admin" isProjectLink>Admin</NavLink>
                      )}
-                    {navLinks.map((link) => (
-                        <NavLink key={link.href} href={link.href} isProjectLink>{link.name}</NavLink>
-                    ))}
+                    <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
+                    <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
+                    <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
                 </nav>
                 <div className="mt-8">
                   <MobileAuthButtons />

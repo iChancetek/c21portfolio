@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useLocale } from '@/hooks/useLocale';
 
 interface SettingsDialogProps {
   isOpen: boolean;
@@ -36,11 +37,11 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
   const { user } = useUser();
   const auth = useAuth();
   const { toast } = useToast();
+  const { locale, setLocale, t } = useLocale();
   
   const [newDisplayName, setNewDisplayName] = useState(user?.displayName || '');
   const [isSavingName, setIsSavingName] = useState(false);
   const [isSendingReset, setIsSendingReset] = useState(false);
-  const [language, setLanguage] = useState('en');
 
   const handleDisplayNameUpdate = async () => {
     if (!user || newDisplayName.trim() === user.displayName) {
@@ -50,14 +51,13 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
     try {
       await updateProfile(user, { displayName: newDisplayName.trim() });
       toast({
-        title: 'Success',
-        description: 'Your display name has been updated.',
+        title: t('success'),
+        description: t('displayNameUpdated'),
       });
-      // No need to close dialog, user might want to change other settings
     } catch (error) {
       const authError = error as AuthError;
       toast({
-        title: 'Error',
+        title: t('error'),
         description: authError.message,
         variant: 'destructive',
       });
@@ -69,8 +69,8 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
   const handlePasswordReset = async () => {
     if (!user?.email) {
       toast({
-          title: 'Error',
-          description: 'No email address found for this account.',
+          title: t('error'),
+          description: t('noEmailAddress'),
           variant: 'destructive',
       });
       return;
@@ -79,14 +79,13 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
     try {
         await sendPasswordResetEmail(auth, user.email);
         toast({
-            title: 'Password Reset Email Sent',
-            description: 'Please check your inbox for instructions to reset your password.',
+            title: t('passwordResetEmailSent'),
+            description: t('checkYourInbox'),
         });
-        onOpenChange(false);
     } catch (error) {
         const authError = error as AuthError;
         toast({
-            title: 'Error Sending Reset Email',
+            title: t('errorSendingResetEmail'),
             description: authError.message,
             variant: 'destructive',
         });
@@ -99,68 +98,68 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Settings</DialogTitle>
+          <DialogTitle>{t('settings')}</DialogTitle>
           <DialogDescription>
-            Manage your account and site preferences.
+            {t('settingsDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-6 py-4">
           
           <div className="space-y-2">
-            <Label htmlFor="displayName">Display Name</Label>
+            <Label htmlFor="displayName">{t('displayName')}</Label>
             <div className="flex gap-2">
                 <Input 
                     id="displayName"
                     value={newDisplayName}
                     onChange={(e) => setNewDisplayName(e.target.value)}
-                    placeholder="Your display name"
+                    placeholder={t('yourDisplayName')}
                 />
                 <Button onClick={handleDisplayNameUpdate} disabled={isSavingName || newDisplayName === user?.displayName}>
                     {isSavingName && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Save
+                    {t('save')}
                 </Button>
             </div>
           </div>
           
           <div className="space-y-2">
-            <Label>Change Password</Label>
-            <p className="text-sm text-muted-foreground">Reset your password for your chancellorminus.com account.</p>
+            <Label>{t('changePassword')}</Label>
+            <p className="text-sm text-muted-foreground">{t('resetYourPassword')}</p>
             <Button variant="outline" className="w-full" onClick={handlePasswordReset} disabled={isSendingReset}>
                 {isSendingReset && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Send Password Reset Email
+                {t('sendPasswordResetEmail')}
             </Button>
           </div>
 
           <Separator />
 
           <div className="space-y-2">
-            <Label>Site Mode</Label>
+            <Label>{t('siteMode')}</Label>
             <div className="flex gap-2">
                 <Button variant={theme === 'light' ? 'default' : 'outline'} onClick={() => setTheme('light')} className="w-full">
-                    <Sun className="mr-2 h-4 w-4" /> Light
+                    <Sun className="mr-2 h-4 w-4" /> {t('light')}
                 </Button>
                 <Button variant={theme === 'dark' ? 'default' : 'outline'} onClick={() => setTheme('dark')} className="w-full">
-                    <Moon className="mr-2 h-4 w-4" /> Dark
+                    <Moon className="mr-2 h-4 w-4" /> {t('dark')}
                 </Button>
             </div>
           </div>
 
            <div className="space-y-2">
-            <Label htmlFor="language">Language Preference</Label>
-            <Select value={language} onValueChange={setLanguage}>
+            <Label htmlFor="language">{t('languagePreference')}</Label>
+            <Select value={locale} onValueChange={(value) => setLocale(value as 'en' | 'es')}>
               <SelectTrigger id="language">
                 <SelectValue placeholder="Select a language" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="es">Español (Spanish)</SelectItem>
+                <SelectItem value="en">{t('english')}</SelectItem>
+                <SelectItem value="es">{t('spanish')}</SelectItem>
               </SelectContent>
             </Select>
-            <p className="text-xs text-muted-foreground">Site content and AI interactions will use your preferred language.</p>
+            <p className="text-xs text-muted-foreground">{t('languageDescription')}</p>
           </div>
         </div>
         <DialogFooter>
-            <Button variant="outline" onClick={() => onOpenChange(false)}>Close</Button>
+            <Button onClick={() => onOpenChange(false)}>{t('applyAndClose')}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
