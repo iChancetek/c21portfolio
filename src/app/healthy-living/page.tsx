@@ -66,18 +66,16 @@ export default function HealthyLivingPage() {
     }
   }, [user, isUserLoading, router]);
 
-  // Set initial welcome message and speak it when the locale changes
+  // Set initial welcome message
   useEffect(() => {
     const welcomeMessage = t('iChancellorWelcome');
-    const hasMessages = messages.length > 0;
-
-    if (mode === 'chat' && (!hasMessages || (hasMessages && messages[0].content !== welcomeMessage))) {
-        setMessages([{ role: 'assistant', content: welcomeMessage }]);
-        if(mode === 'chat') {
-            speak(welcomeMessage);
-        }
+    if (mode === 'chat' && messages.length === 0) {
+      setMessages([{ role: 'assistant', content: welcomeMessage }]);
+      if (!isMuted) {
+          speak(welcomeMessage);
+      }
     }
-  }, [t, locale, mode]);
+  }, [mode, t, isMuted]);
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -133,7 +131,8 @@ export default function HealthyLivingPage() {
     return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const handleStartMeditation = () => {
+  const handleStartMeditation = async () => {
+    if (isMeditating) return;
     setTimer(meditationDuration);
     setIsMeditating(true);
   };
