@@ -206,8 +206,9 @@ export default function HealthyLivingPage() {
             const assistantMessage: Message = { role: 'assistant', content: response.answer };
             setMessages((prev) => [...prev, assistantMessage]);
             await speak(response.answer);
-        } catch (error) {
-            const errorMessage: Message = { role: 'assistant', content: "I'm sorry, I'm having trouble connecting right now." };
+        } catch (error: any) {
+            const errorMessageContent = `Error: ${error.message || "I'm having trouble connecting right now. Please try again."}`;
+            const errorMessage: Message = { role: 'assistant', content: errorMessageContent };
             setMessages((prev) => [...prev, errorMessage]);
         }
     });
@@ -308,3 +309,5 @@ export default function HealthyLivingPage() {
     </div>
   );
 }
+
+    
