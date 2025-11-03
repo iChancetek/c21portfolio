@@ -168,6 +168,20 @@ function dotProduct(a: number[], b: number[]) {
 
 async function semanticSearch(query: string): Promise<Venture[]> {
     try {
+        // Use the AI assistant to get a contextual answer.
+        const assistantResponse = await getAIAssistantResponse(query);
+        
+        // Now, we'll find which projects are mentioned or relevant to the assistant's answer.
+        // This is a simple implementation. A more advanced one might use embeddings on the response too.
+        const relevantVentures = allVentures.filter(venture => 
+            assistantResponse.toLowerCase().includes(venture.name.toLowerCase())
+        );
+
+        if (relevantVentures.length > 0) {
+            return relevantVentures;
+        }
+
+        // Fallback to original embedding search if no direct mentions
         const projectContent = allVentures.map(v => `Project Name: ${v.name}, Description: ${v.description}`);
 
         const [queryEmbedding, projectEmbeddings] = await Promise.all([
@@ -209,32 +223,21 @@ export async function handleSemanticSearch(query: string): Promise<Venture[]> {
         return allVentures;
     }
     
-    // 1. Handle command-like queries
     const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
     if(commandQueries.includes(lowercasedQuery)) {
         return allVentures;
     }
 
-    // 2. Exact and partial text search first
-    const textSearchResults = allVentures.filter(venture => 
-        venture.name.toLowerCase().includes(lowercasedQuery) || 
-        venture.description.toLowerCase().includes(lowercasedQuery)
-    );
-
-    if (textSearchResults.length > 0) {
-        return textSearchResults;
-    }
-
-    // 3. Fallback to AI-powered semantic search
+    // Directly use the new RAG-powered semantic search
     try {
         const semanticResults = await semanticSearch(query);
-        const rankedVentures = semanticResults
-            .map(result => allVentures.find(v => v.id === result.id))
-            .filter((v): v is Venture => !!v); 
-
-        return rankedVentures;
+        return semanticResults;
     } catch (error) {
         console.error("Semantic search failed:", error);
-        return [];
+        // Fallback to simple text search on error
+        return allVentures.filter(venture => 
+            venture.name.toLowerCase().includes(lowercasedQuery) || 
+            venture.description.toLowerCase().includes(lowercasedQuery)
+        );
     }
 }
