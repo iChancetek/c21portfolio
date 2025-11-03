@@ -18,6 +18,13 @@ import { useToast } from '@/hooks/use-toast';
 import { updateProfile, sendPasswordResetEmail, AuthError } from 'firebase/auth';
 import { Moon, Sun, Loader2 } from 'lucide-react';
 import { Separator } from './ui/separator';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface SettingsDialogProps {
   isOpen: boolean;
@@ -33,6 +40,7 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
   const [newDisplayName, setNewDisplayName] = useState(user?.displayName || '');
   const [isSavingName, setIsSavingName] = useState(false);
   const [isSendingReset, setIsSendingReset] = useState(false);
+  const [language, setLanguage] = useState('en');
 
   const handleDisplayNameUpdate = async () => {
     if (!user || newDisplayName.trim() === user.displayName) {
@@ -45,7 +53,7 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
         title: 'Success',
         description: 'Your display name has been updated.',
       });
-      onOpenChange(false); // Optionally close dialog on success
+      // No need to close dialog, user might want to change other settings
     } catch (error) {
       const authError = error as AuthError;
       toast({
@@ -135,6 +143,20 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
                     <Moon className="mr-2 h-4 w-4" /> Dark
                 </Button>
             </div>
+          </div>
+
+           <div className="space-y-2">
+            <Label htmlFor="language">Language Preference</Label>
+            <Select value={language} onValueChange={setLanguage}>
+              <SelectTrigger id="language">
+                <SelectValue placeholder="Select a language" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en">English</SelectItem>
+                <SelectItem value="es">Español (Spanish)</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">Site content and AI interactions will use your preferred language.</p>
           </div>
         </div>
         <DialogFooter>
