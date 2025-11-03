@@ -44,8 +44,8 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
   const [isSendingReset, setIsSendingReset] = useState(false);
 
   const handleDisplayNameUpdate = async () => {
-    if (!user || newDisplayName.trim() === user.displayName) {
-      return;
+    if (!user || !newDisplayName.trim() || newDisplayName.trim() === user.displayName) {
+      return; // No change, no need to update
     }
     setIsSavingName(true);
     try {
@@ -54,6 +54,8 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
         title: t('success'),
         description: t('displayNameUpdated'),
       });
+      // Force a reload to reflect the change everywhere
+      window.location.reload();
     } catch (error) {
       const authError = error as AuthError;
       toast({
@@ -94,6 +96,11 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
     }
   };
 
+  const handleApplyAndClose = async () => {
+    await handleDisplayNameUpdate();
+    onOpenChange(false);
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
@@ -114,10 +121,6 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
                     onChange={(e) => setNewDisplayName(e.target.value)}
                     placeholder={t('yourDisplayName')}
                 />
-                <Button onClick={handleDisplayNameUpdate} disabled={isSavingName || newDisplayName === user?.displayName}>
-                    {isSavingName && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    {t('save')}
-                </Button>
             </div>
           </div>
           
@@ -159,7 +162,10 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
           </div>
         </div>
         <DialogFooter>
-            <Button onClick={() => onOpenChange(false)}>{t('applyAndClose')}</Button>
+            <Button onClick={handleApplyAndClose} disabled={isSavingName}>
+              {isSavingName && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {t('applyAndClose')}
+            </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
