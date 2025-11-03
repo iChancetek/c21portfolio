@@ -40,8 +40,8 @@
   "landingSearchPlaceholder": "qué proyectos hay en ChancellorMinus.com",
   "aiSearch": "Búsqueda con IA",
   "searchResults": "Resultados de Búsqueda",
-  "showingResultsFor": "Mostrando resultados para: \"{searchQuery}\"",
-  "noProjectsFound": "No se encontraron proyectos para \"{searchQuery}\". Intenta otra búsqueda.",
+  "showingResultsFor": "Mostrando resultados para: \\"{searchQuery}\\"",
+  "noProjectsFound": "No se encontraron proyectos para \\"{searchQuery}\\". Intenta otra búsqueda.",
   "aiDeepDive": "Análisis Profundo con IA",
   "demo": "Demostración",
   "ctaTitle": "Desbloquea Tu Futuro Más Saludable",
@@ -129,11 +129,11 @@
   "toastSuccess": "¡Éxito!",
   "toastError": "Error",
   "footerText": "© {year} Chancellor Minus. Todos los derechos reservados.",
-  "healthyLivingTitle": "iChancellor - Guía de Bienestar con IA",
+  "healthyLivingTitle": "iChancellor - Guía de Bienestar IA",
   "healthyLivingDescription": "Tu compañero en mindfulness, salud y crecimiento personal.",
   "chat": "Chat",
   "meditation": "Meditación",
-  "askForGuidance": "Pide orientación o di 'para'...",
+  "askForGuidance": "Pide orientación o di 'parar'...",
   "meditationSession": "Sesión de Meditación",
   "endSession": "Terminar Sesión",
   "startSession": "Iniciar Sesión",
@@ -143,10 +143,10 @@
   "playMusic": "Poner Música:",
   "listening": "Escuchando...",
   "processing": "Procesando...",
-  "transcriptionFailed": "Falló la transcripción",
+  "transcriptionFailed": "La transcripción falló",
   "micDenied": "Acceso al micrófono denegado",
   "audioFailed": "No se pudo generar el audio.",
-  "stopCommandConfirmation": "Ok, deteniéndome.",
+  "stopCommandConfirmation": "Entendido, deteniéndome.",
   "skillsTitle": "Habilidades y Experiencia",
   "skillsDescription": "Un vistazo a las tecnologías con las que trabajo para dar vida a las ideas, desde el frontend hasta el despliegue.",
   "transcriberTitle": "Transcriptor de Audio",
@@ -164,5 +164,3 @@
   "admin": "Administración",
   "meditationSettings": "Ajustes de Meditación"
 }
-
-    
