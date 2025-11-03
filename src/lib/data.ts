@@ -258,6 +258,7 @@ export const skillCategories: SkillCategory[] = [
         { name: "MLOps / DevOps", icon: ServerCog },
         { name: "Amazon Route 53", icon: Route },
         { name: "Azure DNS", icon: Network },
+        { name: "Azure Front Door", icon: Network },
         { name: "Azure Traffic Manager", icon: ServerCrash },
         { name: "Application Load Balancer", icon: ServerCog },
     ],
@@ -355,3 +356,6 @@ export const socialLinks = [
 
 
 
+
+
+    
