@@ -76,7 +76,9 @@ export default function HealthyLivingPage() {
 
     if (mode === 'chat' && (!hasMessages || (hasMessages && messages[0].content !== welcomeMessage))) {
         setMessages([{ role: 'assistant', content: welcomeMessage }]);
-        speak(welcomeMessage);
+        if(mode === 'chat') {
+            speak(welcomeMessage);
+        }
     }
   }, [t, locale, mode]);
 
@@ -92,14 +94,16 @@ export default function HealthyLivingPage() {
   
   // Timer logic for meditation
   useEffect(() => {
+    const musicEl = musicAudioRef.current;
+
     if (isMeditating) {
       timerIntervalRef.current = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
-            if (musicAudioRef.current) {
-              musicAudioRef.current.pause();
+            if (musicEl) {
+              musicEl.pause();
             }
             playEndSound();
             return 0;
@@ -111,9 +115,9 @@ export default function HealthyLivingPage() {
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
       }
-      if (musicAudioRef.current) {
-        musicAudioRef.current.pause();
-        musicAudioRef.current.currentTime = 0;
+      if (musicEl) {
+        musicEl.pause();
+        musicEl.currentTime = 0;
       }
     }
 
@@ -142,28 +146,22 @@ export default function HealthyLivingPage() {
   };
 
   const handleStartMeditation = () => {
-    // 1. Immediately try to play music on user click to satisfy browser policy
-    if (playMusic && musicAudioRef.current) {
-      musicAudioRef.current.volume = 0.2;
-      const playPromise = musicAudioRef.current.play();
+    const musicEl = musicAudioRef.current;
+    if (playMusic && musicEl) {
+      musicEl.src = "https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3";
+      musicEl.load();
+      musicEl.volume = 0.2;
+      const playPromise = musicEl.play();
 
       if (playPromise !== undefined) {
         playPromise.catch(error => {
-          // Autoplay was prevented.
           console.error("Music autoplay was prevented:", error);
-          // Don't show a toast here as it can be annoying if the user intended not to play.
-          // The UI will still update to the meditating state.
         });
       }
     }
   
-    // 2. Set meditating state and timer
     setTimer(meditationDuration);
     setIsMeditating(true);
-  
-    // 3. Fetch AI guidance concurrently
-    const prompt = `Start a guided meditation session for ${meditationDuration / 60} minutes in ${locale === 'es' ? 'Spanish' : 'English'}. Begin with a short welcome and then guide me through settling in.`;
-    handleInteraction(prompt);
   };
   
   const stopMeditation = () => {
@@ -364,7 +362,7 @@ export default function HealthyLivingPage() {
     <>
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
-        <audio ref={musicAudioRef} loop src="https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3" preload="auto" />
+        <audio ref={musicAudioRef} loop preload="auto" />
         <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
             <CardHeader>
                 <div className="flex justify-between items-center">
