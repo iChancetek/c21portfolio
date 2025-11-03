@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useRef, useEffect, useTransition } from 'react';
+import { useState, useRef, useEffect, useTransition, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Bot, Send, User, Loader2, BrainCircuit, Mic, Pause, Play, Settings, Timer, Volume2, VolumeX } from 'lucide-react';
+import { Bot, Send, User, Loader2, BrainCircuit, Mic, Pause, Play, Settings, Timer } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { iChancellor } from '@/ai/flows/ichancellor-flow';
@@ -45,7 +45,7 @@ export default function HealthyLivingPage() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isVoiceEnabled, setIsVoiceEnabled] = useState(true);
   
   // Settings state
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -59,6 +59,14 @@ export default function HealthyLivingPage() {
   
   const { toast } = useToast();
 
+  const stopPlayback = useCallback(() => {
+    if (audioRef.current && !audioRef.current.paused) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0; // Reset audio
+    }
+    setIsSpeaking(false);
+  }, []);
+
   // Redirect if not logged in
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -66,16 +74,27 @@ export default function HealthyLivingPage() {
     }
   }, [user, isUserLoading, router]);
 
+  const speak = useCallback(async (text: string) => {
+    if (!isVoiceEnabled || isSpeaking) return;
+    stopPlayback(); // Stop any currently playing speech
+    setIsSpeaking(true);
+    try {
+      const { audioDataUri } = await textToSpeech({ text, voice: 'alloy' });
+      setAudioSrc(audioDataUri);
+    } catch (error) {
+      toast({ title: 'Could not generate audio.', variant: 'destructive' });
+      setIsSpeaking(false);
+    }
+  }, [isVoiceEnabled, isSpeaking, stopPlayback, toast]);
+
   // Set initial welcome message
   useEffect(() => {
-    const welcomeMessage = t('iChancellorWelcome');
     if (mode === 'chat' && messages.length === 0) {
+      const welcomeMessage = t('iChancellorWelcome');
       setMessages([{ role: 'assistant', content: welcomeMessage }]);
-      if (!isMuted) {
-          speak(welcomeMessage);
-      }
+      speak(welcomeMessage);
     }
-  }, [mode, t, isMuted]);
+  }, [mode, t, messages.length, speak]);
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -197,22 +216,9 @@ export default function HealthyLivingPage() {
     }
   };
 
-  const speak = async (text: string) => {
-    if (isMuted || isSpeaking) return;
-    stopPlayback(); // Stop any currently playing speech
-    setIsSpeaking(true);
-    try {
-      const { audioDataUri } = await textToSpeech({ text, voice: 'alloy' });
-      setAudioSrc(audioDataUri);
-    } catch (error) {
-      toast({ title: 'Could not generate audio.', variant: 'destructive' });
-      setIsSpeaking(false);
-    }
-  };
-
   useEffect(() => {
     if (audioSrc && audioRef.current) {
-        if (isMuted) {
+        if (!isVoiceEnabled) {
           stopPlayback();
           return;
         }
@@ -229,15 +235,7 @@ export default function HealthyLivingPage() {
             setAudioSrc(null); // Clear src after playing
         };
     }
-  }, [audioSrc, isMuted]);
-  
-  const stopPlayback = () => {
-    if (audioRef.current && !audioRef.current.paused) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0; // Reset audio
-    }
-    setIsSpeaking(false);
-  };
+  }, [audioSrc, isVoiceEnabled, stopPlayback]);
 
   const handleInteraction = async (query: string) => {
     const trimmedQuery = query.trim().toLowerCase();
@@ -279,10 +277,10 @@ export default function HealthyLivingPage() {
   };
   
   useEffect(() => {
-    if (isMuted) {
+    if (!isVoiceEnabled) {
       stopPlayback();
     }
-  }, [isMuted]);
+  }, [isVoiceEnabled, stopPlayback]);
 
   if (isUserLoading || !user) {
     return <div className="container flex items-center justify-center py-24"><Loader2 className="h-16 w-16 animate-spin text-primary" /></div>;
@@ -330,10 +328,6 @@ export default function HealthyLivingPage() {
                   <div className="flex items-center gap-1">
                     <Button variant={mode === 'chat' ? 'secondary' : 'ghost'} size="sm" onClick={() => setMode('chat')}>{t('chat')}</Button>
                     <Button variant={mode === 'meditation' ? 'secondary' : 'ghost'} size="sm" onClick={() => { setMode('meditation'); stopPlayback(); }}>{t('meditation')}</Button>
-                    <Button variant="ghost" size="icon" onClick={() => setIsMuted(m => !m)}>
-                      {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-                      <span className="sr-only">Mute</span>
-                    </Button>
                     <Button variant="ghost" size="icon" onClick={() => setIsSettingsOpen(true)}>
                         <Settings className="h-4 w-4" />
                         <span className="sr-only">{t('settings')}</span>
@@ -366,6 +360,10 @@ export default function HealthyLivingPage() {
                 </CardContent>
                 <CardFooter>
                     <form onSubmit={(e) => { e.preventDefault(); handleInteraction(input); }} className="flex w-full items-center space-x-2">
+                        <Button type="button" size="icon" variant={isVoiceEnabled ? 'default' : 'outline'} onClick={() => setIsVoiceEnabled(v => !v)}>
+                            {isVoiceEnabled ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                             <span className="sr-only">Toggle AI Voice</span>
+                        </Button>
                         <Button type="button" size="icon" variant={isRecording ? 'destructive' : 'outline'} onClick={handleMicClick} disabled={isResponding}>
                             <Mic className="h-4 w-4" />
                         </Button>
