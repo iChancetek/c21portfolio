@@ -40,14 +40,6 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
     if (projects.length === 0 && !searchQuery) { // Don't show anything if no search has been made
         return null;
     }
-    
-    if (projects.length === 0 && searchQuery) {
-        return (
-             <div className="text-center col-span-full mt-8 text-muted-foreground">
-                <p>{t('noProjectsFound', { searchQuery })}</p>
-            </div>
-        )
-    }
 
 
   return (
