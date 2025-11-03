@@ -12,12 +12,13 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { iChancellor } from '@/ai/flows/ichancellor-flow';
 import { transcribeAudio } from '@/ai/flows/whisper-flow';
-import { textToSpeech } from '@/ai/flows/openai-tts-flow';
+import { textToSpeech, type TTSVoice } from '@/ai/flows/openai-tts-flow';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useLocale } from '@/hooks/useLocale';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 
 interface Message {
@@ -27,6 +28,7 @@ interface Message {
 }
 
 type Mode = 'chat' | 'meditation';
+const ttsVoices: TTSVoice[] = ['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer'];
 
 export default function HealthyLivingPage() {
   const { user, isUserLoading } = useUser();
@@ -51,6 +53,7 @@ export default function HealthyLivingPage() {
   const musicAudioRef = useRef<HTMLAudioElement | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
+  const [selectedVoice, setSelectedVoice] = useState<TTSVoice>('alloy');
   
   // Meditation state
   const [mode, setMode] = useState<Mode>('chat');
@@ -234,7 +237,7 @@ export default function HealthyLivingPage() {
     if (isSpeaking) return;
     setIsSpeaking(true);
     try {
-      const { audioDataUri } = await textToSpeech({ text });
+      const { audioDataUri } = await textToSpeech({ text, voice: selectedVoice });
       setAudioSrc(audioDataUri);
     } catch (error) {
       toast({ title: 'Could not generate audio.', variant: 'destructive' });
@@ -305,6 +308,28 @@ export default function HealthyLivingPage() {
   
   const anyLoading = isResponding || isRecording;
 
+  const SettingsContent = () => (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+          <Label htmlFor="play-music" className="flex-grow">Play Music:</Label>
+          <Switch id="play-music" checked={playMusic} onCheckedChange={setPlayMusic} disabled={isMeditating} />
+      </div>
+      <div className="flex items-center justify-between">
+          <Label htmlFor="voice" className="flex-grow">Voice:</Label>
+          <Select value={selectedVoice} onValueChange={(val) => setSelectedVoice(val as TTSVoice)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select voice" />
+            </SelectTrigger>
+            <SelectContent>
+              {ttsVoices.map(voice => (
+                <SelectItem key={voice} value={voice} className="capitalize">{voice}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
@@ -319,6 +344,17 @@ export default function HealthyLivingPage() {
                   <div className="flex items-center gap-2">
                     <Button variant={mode === 'chat' ? 'secondary' : 'ghost'} size="sm" onClick={() => setMode('chat')}>Chat</Button>
                     <Button variant={mode === 'meditation' ? 'secondary' : 'ghost'} size="sm" onClick={() => { setMode('meditation'); stopPlayback(); }}>Meditation</Button>
+                    
+                     {mode === 'chat' && (
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button variant="ghost" size="icon"><Settings className="h-4 w-4" /></Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-80">
+                               <SettingsContent />
+                            </PopoverContent>
+                        </Popover>
+                    )}
                   </div>
                 </div>
                 <CardDescription>Your partner in mindfulness, health, and personal growth.</CardDescription>
@@ -374,7 +410,7 @@ export default function HealthyLivingPage() {
                           </Button>
                       )}
                   </div>
-                  <div className="space-y-4">
+                  <div className="space-y-4 p-4 border rounded-lg">
                     <div className="flex items-center gap-2">
                         <Label htmlFor="duration" className="w-24 text-right">Duration:</Label>
                         <Select value={String(meditationDuration / 60)} onValueChange={(val) => setMeditationDuration(Number(val) * 60)} disabled={isMeditating}>
@@ -390,10 +426,7 @@ export default function HealthyLivingPage() {
                         </SelectContent>
                         </Select>
                     </div>
-                     <div className="flex items-center gap-2">
-                        <Label htmlFor="play-music" className="w-24 text-right">Play Music:</Label>
-                        <Switch id="play-music" checked={playMusic} onCheckedChange={setPlayMusic} disabled={isMeditating} />
-                    </div>
+                     <SettingsContent />
                   </div>
               </CardContent>
             )}

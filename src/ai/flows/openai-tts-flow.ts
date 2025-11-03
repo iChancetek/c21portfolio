@@ -13,8 +13,12 @@ import { z } from 'zod';
 import { openAI } from 'genkitx-openai';
 import fetch from 'node-fetch';
 
+const TTSVoices = z.enum(['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer']);
+export type TTSVoice = z.infer<typeof TTSVoices>;
+
 const TextToSpeechInputSchema = z.object({
   text: z.string().describe('The text to convert to speech.'),
+  voice: TTSVoices.optional().default('alloy').describe('The voice to use for the speech.'),
 });
 export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
 
@@ -43,7 +47,7 @@ const speechFlow = ai.defineFlow(
         body: JSON.stringify({
             model: 'tts-1',
             input: input.text,
-            voice: 'alloy',
+            voice: input.voice,
         }),
     });
 
