@@ -292,8 +292,10 @@ export const skillCategories: SkillCategory[] = [
       { name: "LangSmith", icon: TestTubeDiagonal },
       { name: "Flowise AI", icon: Workflow },
       { name: "Postman / Insomnia", icon: TestTubeDiagonal },
+      { name: "Make.com", icon: Workflow },
+      { name: "Zapier", icon: Workflow },
+      { name: "N8N", icon: Workflow },
       { name: "Loveable", icon: HeartPulse },
-      { name: "Make.com, Zapier, N8N", icon: Workflow },
     ],
   },
   {
