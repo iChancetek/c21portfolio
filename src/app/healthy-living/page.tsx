@@ -77,7 +77,6 @@ export default function HealthyLivingPage() {
         setMessages([{ role: 'assistant', content: welcomeMessage }]);
         speak(welcomeMessage);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t, locale]);
 
   // Scroll to bottom of chat
@@ -92,33 +91,14 @@ export default function HealthyLivingPage() {
   
   // Timer logic for meditation
   useEffect(() => {
-    const musicEl = musicAudioRef.current;
-
     if (isMeditating) {
-      if (playMusic && musicEl) {
-        musicEl.load();
-        const playPromise = musicEl.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(error => {
-            console.error("Music autoplay was prevented:", error);
-            toast({
-              title: "Music playback blocked",
-              description: "Your browser prevented music from starting automatically. Please interact with the page and try again.",
-              variant: "destructive"
-            });
-          }).then(() => {
-            if(musicEl) musicEl.volume = 0.2;
-          })
-        }
-      }
-      
       timerIntervalRef.current = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
-            if (musicEl) {
-                musicEl.pause();
+            if (musicAudioRef.current) {
+                musicAudioRef.current.pause();
             }
             playEndSound();
             return 0;
@@ -130,9 +110,9 @@ export default function HealthyLivingPage() {
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
       }
-      if (musicEl) {
-        musicEl.pause();
-        musicEl.currentTime = 0;
+      if (musicAudioRef.current) {
+        musicAudioRef.current.pause();
+        musicAudioRef.current.currentTime = 0;
       }
     }
     return () => {
@@ -140,7 +120,7 @@ export default function HealthyLivingPage() {
             clearInterval(timerIntervalRef.current);
         }
     };
-  }, [isMeditating, playMusic]);
+  }, [isMeditating]);
 
   const playEndSound = () => {
     // Simple browser-based sound to signify end of session
@@ -162,6 +142,24 @@ export default function HealthyLivingPage() {
   const handleStartMeditation = () => {
     setTimer(meditationDuration);
     setIsMeditating(true);
+  
+    // Start music immediately on user gesture
+    if (playMusic && musicAudioRef.current) {
+      musicAudioRef.current.volume = 0.2;
+      const playPromise = musicAudioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error("Music autoplay was prevented:", error);
+          toast({
+            title: "Music playback blocked",
+            description: "Your browser prevented music from starting automatically.",
+            variant: "destructive"
+          });
+        });
+      }
+    }
+  
+    // Fetch AI guidance concurrently
     const prompt = `Start a guided meditation session for ${meditationDuration / 60} minutes in ${locale === 'es' ? 'Spanish' : 'English'}.`;
     handleInteraction(prompt);
   };
@@ -334,7 +332,7 @@ export default function HealthyLivingPage() {
     <>
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
-        <audio ref={musicAudioRef} loop src="https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3" />
+        <audio ref={musicAudioRef} loop src="https://cdn.pixabay.com/audio/2022/02/12/audio_4db2b59152.mp3" preload="auto" />
         <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
             <CardHeader>
                 <div className="flex justify-between items-center">
@@ -415,3 +413,5 @@ export default function HealthyLivingPage() {
     </>
   );
 }
+
+    
