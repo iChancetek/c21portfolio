@@ -35,12 +35,7 @@ export default function HealthyLivingPage() {
   const router = useRouter();
   const { locale, t } = useLocale();
   
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: t('iChancellorWelcome'),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isResponding, startTransition] = useTransition();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -72,15 +67,13 @@ export default function HealthyLivingPage() {
     }
   }, [user, isUserLoading, router]);
 
-  // Speak the initial welcome message when the component mounts or locale changes
+  // Set initial welcome message and speak it when the locale changes
   useEffect(() => {
-    if (messages.length === 1 && messages[0].role === 'assistant') {
-       // Update welcome message if locale changes
-      setMessages([{ role: 'assistant', content: t('iChancellorWelcome') }]);
-      speak(t('iChancellorWelcome'));
-    }
+    const welcomeMessage = t('iChancellorWelcome');
+    setMessages([{ role: 'assistant', content: welcomeMessage }]);
+    speak(welcomeMessage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t]);
+  }, [t, locale]);
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -339,11 +332,11 @@ export default function HealthyLivingPage() {
                 <div className="flex justify-between items-center">
                   <CardTitle className="flex items-center gap-3">
                       <BrainCircuit className="text-primary" />
-                      iChancellor - AI Wellness Guide
+                      {t('healthyLivingTitle')}
                   </CardTitle>
                   <div className="flex items-center gap-2">
-                    <Button variant={mode === 'chat' ? 'secondary' : 'ghost'} size="sm" onClick={() => setMode('chat')}>Chat</Button>
-                    <Button variant={mode === 'meditation' ? 'secondary' : 'ghost'} size="sm" onClick={() => { setMode('meditation'); stopPlayback(); }}>Meditation</Button>
+                    <Button variant={mode === 'chat' ? 'secondary' : 'ghost'} size="sm" onClick={() => setMode('chat')}>{t('chat')}</Button>
+                    <Button variant={mode === 'meditation' ? 'secondary' : 'ghost'} size="sm" onClick={() => { setMode('meditation'); stopPlayback(); }}>{t('meditation')}</Button>
                     
                      {mode === 'chat' && (
                         <Popover>
@@ -357,7 +350,7 @@ export default function HealthyLivingPage() {
                     )}
                   </div>
                 </div>
-                <CardDescription>Your partner in mindfulness, health, and personal growth.</CardDescription>
+                <CardDescription>{t('healthyLivingDescription')}</CardDescription>
             </CardHeader>
             
             {mode === 'chat' ? (
@@ -375,7 +368,7 @@ export default function HealthyLivingPage() {
                         {isResponding && (
                         <div className="flex items-start gap-3">
                             <Avatar className="h-8 w-8"><AvatarFallback className="bg-primary text-primary-foreground"><Bot size={20} /></AvatarFallback></Avatar>
-                            <div className="bg-secondary text-secondary-foreground rounded-lg p-3 text-sm flex items-center"><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Thinking...</div>
+                            <div className="bg-secondary text-secondary-foreground rounded-lg p-3 text-sm flex items-center"><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('thinking')}</div>
                         </div>
                         )}
                     </div>
@@ -386,7 +379,7 @@ export default function HealthyLivingPage() {
                         <Button type="button" size="icon" variant={isRecording ? 'destructive' : 'outline'} onClick={handleMicClick} disabled={isResponding}>
                             <Mic className="h-4 w-4" />
                         </Button>
-                        <Input id="message" placeholder="Ask for guidance or say 'stop'..." value={input} onChange={(e) => setInput(e.target.value)} disabled={anyLoading} autoComplete="off" />
+                        <Input id="message" placeholder={t('askForGuidance')} value={input} onChange={(e) => setInput(e.target.value)} disabled={anyLoading} autoComplete="off" />
                         <Button type="submit" size="icon" disabled={anyLoading || !input.trim()}>
                             {isResponding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                         </Button>
@@ -397,32 +390,32 @@ export default function HealthyLivingPage() {
               <CardContent className="flex-grow flex flex-col items-center justify-center gap-6 text-center">
                   <div className="relative">
                     <p className="text-8xl font-bold font-mono text-primary-gradient">{formatTime(timer)}</p>
-                    <p className="text-muted-foreground">Meditation Session</p>
+                    <p className="text-muted-foreground">{t('meditationSession')}</p>
                   </div>
                   <div className="flex items-center gap-4">
                       {isMeditating ? (
                           <Button size="lg" variant="destructive" onClick={stopMeditation}>
-                            <Pause className="mr-2 h-5 w-5"/> End Session
+                            <Pause className="mr-2 h-5 w-5"/> {t('endSession')}
                           </Button>
                       ) : (
                           <Button size="lg" className="bg-primary-gradient" onClick={handleStartMeditation}>
-                            <Play className="mr-2 h-5 w-5"/> Start Session
+                            <Play className="mr-2 h-5 w-5"/> {t('startSession')}
                           </Button>
                       )}
                   </div>
                   <div className="space-y-4 p-4 border rounded-lg">
                     <div className="flex items-center gap-2">
-                        <Label htmlFor="duration" className="w-24 text-right">Duration:</Label>
+                        <Label htmlFor="duration" className="w-24 text-right">{t('duration')}</Label>
                         <Select value={String(meditationDuration / 60)} onValueChange={(val) => setMeditationDuration(Number(val) * 60)} disabled={isMeditating}>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select duration" />
+                            <SelectValue placeholder={t('selectDuration')} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="5">5 minutes</SelectItem>
-                            <SelectItem value="10">10 minutes</SelectItem>
-                            <SelectItem value="15">15 minutes</SelectItem>
-                            <SelectItem value="20">20 minutes</SelectItem>
-                            <SelectItem value="30">30 minutes</SelectItem>
+                            <SelectItem value="5">5 {t('minutes', { count: 5 })}</SelectItem>
+                            <SelectItem value="10">10 {t('minutes', { count: 10 })}</SelectItem>
+                            <SelectItem value="15">15 {t('minutes', { count: 15 })}</SelectItem>
+                            <SelectItem value="20">20 {t('minutes', { count: 20 })}</SelectItem>
+                            <SelectItem value="30">30 {t('minutes', { count: 30 })}</SelectItem>
                         </SelectContent>
                         </Select>
                     </div>
