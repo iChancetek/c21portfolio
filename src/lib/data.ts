@@ -151,6 +151,9 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Frontend",
     skills: [
+      { name: "HTML", icon: Code },
+      { name: "CSS", icon: Code },
+      { name: "JavaScript", icon: Code },
       { name: "React", icon: Code },
       { name: "Next.js", icon: Code },
       { name: "TypeScript", icon: Code },
@@ -167,7 +170,12 @@ export const skillCategories: SkillCategory[] = [
       { name: "R", icon: Code },
       { name: "APIs / REST APIs", icon: Puzzle },
       { name: "API Gateway", icon: Puzzle },
-      { name: "Firebase", icon: Code },
+      { name: "Firebase Authentication", icon: Code },
+      { name: "Firebase Database", icon: Database },
+      { name: "Firebase Functions", icon: CloudCog },
+      { name: "Firebase Hosting", icon: Cloud },
+      { name: "Firebase Storage", icon: ServerCog },
+      { name: "Clerk", icon: Users },
       { name: "Supabase", icon: Database },
       { name: "MySQL / PostgreSQL", icon: Database },
       { name: "Stripe", icon: CreditCard },
@@ -222,11 +230,6 @@ export const skillCategories: SkillCategory[] = [
         { name: "PyTorch", icon: BrainCircuit },
         { name: "TensorFlow", icon: BrainCircuit },
         { name: "Data Structures", icon: GitCommit },
-    ]
-  },
-  {
-    title: "Machine Learning Algorithms",
-    skills: [
         { name: "Linear Regression", icon: FunctionSquare },
         { name: "Logistic Regression", icon: FunctionSquare },
         { name: "Decision Trees", icon: GitCommit },
@@ -333,6 +336,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
