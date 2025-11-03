@@ -125,7 +125,7 @@ export default function LoginPage() {
                 id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.targe.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={anyLoading}
                 className="bg-black/20 backdrop-blur-sm border-white/10 h-12"
