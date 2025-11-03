@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/firebase';
-import { createUserWithEmailAndPassword, updateProfile, AuthError } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, AuthError } from 'firebase/auth';
 import { Loader2, Eye, EyeOff } from 'lucide-react';
 import { useLocale } from '@/hooks/useLocale';
 
@@ -44,7 +44,9 @@ export default function SignupPage() {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName });
-      toast({ title: t('success'), description: t('createAccount') });
+      await sendEmailVerification(userCredential.user);
+      
+      toast({ title: t('success'), description: t('createAccountAndVerify') });
       router.push('/login');
     } catch (err) {
       const error = err as AuthError;

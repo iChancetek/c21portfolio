@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,11 +9,12 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/firebase';
-import { signInWithEmailAndPassword, AuthError, GoogleAuthProvider, signInWithPopup, UserCredential } from 'firebase/auth';
+import { signInWithEmailAndPassword, AuthError, GoogleAuthProvider, signInWithPopup, UserCredential, User } from 'firebase/auth';
 import { Loader2, Eye, EyeOff } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { logAuditEvent } from '@/app/actions';
 import { useLocale } from '@/hooks/useLocale';
+import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -34,16 +35,42 @@ export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
   const { t } = useLocale();
-  
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const anyLoading = isLoading || isGoogleLoading;
+
+  const playWelcomeAudio = async (text: string) => {
+    try {
+      const { audioDataUri } = await textToSpeech({ text, voice: 'nova' });
+      if (audioRef.current) {
+        audioRef.current.src = audioDataUri;
+        audioRef.current.play().catch(e => console.error("Audio playback failed", e));
+      }
+    } catch (e) {
+      console.error("Failed to generate welcome audio:", e);
+    }
+  };
 
   const handleSuccessfulLogin = (userCredential: UserCredential) => {
     const user = userCredential.user;
+
     logAuditEvent({
         eventType: 'USER_LOGIN',
         actor: { uid: user.uid, email: user.email || 'N/A' },
         details: `User logged in via ${userCredential.providerId || 'email'}.`
     });
+
+    const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
+    
+    let welcomeMessage: string;
+    if (isNewUser) {
+      welcomeMessage = t('welcomeNewUser', { name: user.displayName || 'friend' });
+    } else {
+      welcomeMessage = t('welcomeBack');
+    }
+    
+    playWelcomeAudio(welcomeMessage);
+
     toast({ title: t('success'), description: t('login') });
     router.push('/dashboard');
   };
@@ -85,6 +112,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-150px)] py-12 px-4">
+      <audio ref={audioRef} />
       <Card className="w-full max-w-md bg-black/30 backdrop-blur-sm border-white/10 shadow-2xl shadow-primary/10">
         <CardHeader className="text-center">
           <h1 className="text-3xl font-bold tracking-tighter mb-2 text-primary-gradient">

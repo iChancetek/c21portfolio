@@ -94,6 +94,9 @@
   "venturesTitle": "Emprendimientos e Innovaciones",
   "venturesDescription": "Una muestra de empresas y productos impulsados por IA que he construido.",
   "createAccount": "Crear Cuenta",
+  "createAccountAndVerify": "¡Tu cuenta ha sido creada! Por favor, revisa tu correo para verificar tu cuenta.",
+  "welcomeNewUser": "¡Bienvenido {name} a la plataforma de Chancellor Minus!",
+  "welcomeBack": "¡Bienvenido de vuelta!",
   "createAccountDescription": "Regístrate para comenzar.",
   "confirmPassword": "Confirmar Contraseña",
   "haveAccount": "¿Ya tienes una cuenta? ",
@@ -164,4 +167,3 @@
   "admin": "Administración",
   "meditationSettings": "Ajustes de Meditación"
 }
-    
