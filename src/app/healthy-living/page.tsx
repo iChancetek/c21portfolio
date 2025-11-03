@@ -71,12 +71,13 @@ export default function HealthyLivingPage() {
   // Set initial welcome message and speak it when the locale changes
   useEffect(() => {
     const welcomeMessage = t('iChancellorWelcome');
-    // Set message only if it's the first message or the locale has changed
-    if (messages.length <= 1) {
+    const hasMessages = messages.length > 0;
+
+    if (!hasMessages || (hasMessages && messages[0].content !== welcomeMessage)) {
         setMessages([{ role: 'assistant', content: welcomeMessage }]);
         speak(welcomeMessage);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [t, locale]);
 
   // Scroll to bottom of chat
@@ -95,7 +96,6 @@ export default function HealthyLivingPage() {
 
     if (isMeditating) {
       if (playMusic && musicEl) {
-        // Ensure the audio is loaded before playing
         musicEl.load();
         const playPromise = musicEl.play();
         if (playPromise !== undefined) {
@@ -112,7 +112,6 @@ export default function HealthyLivingPage() {
         }
       }
       
-      // Start countdown timer
       timerIntervalRef.current = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
@@ -128,13 +127,12 @@ export default function HealthyLivingPage() {
         });
       }, 1000);
     } else {
-      // Cleanup when not meditating
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
       }
       if (musicEl) {
         musicEl.pause();
-        musicEl.currentTime = 0; // Reset music to the beginning
+        musicEl.currentTime = 0;
       }
     }
     return () => {
@@ -142,7 +140,7 @@ export default function HealthyLivingPage() {
             clearInterval(timerIntervalRef.current);
         }
     };
-  }, [isMeditating, playMusic, toast]);
+  }, [isMeditating, playMusic]);
 
   const playEndSound = () => {
     // Simple browser-based sound to signify end of session
@@ -417,5 +415,3 @@ export default function HealthyLivingPage() {
     </>
   );
 }
-
-    
