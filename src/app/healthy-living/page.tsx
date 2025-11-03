@@ -17,8 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useLocale } from '@/hooks/useLocale';
-import SettingsDialog from '@/components/SettingsDialog';
-
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -89,12 +88,14 @@ export default function HealthyLivingPage() {
 
   // Set initial welcome message
   useEffect(() => {
-    if (mode === 'chat' && messages.length === 0) {
+    if (mode === 'chat' && messages.length === 0 && !isResponding) {
       const welcomeMessage = t('iChancellorWelcome');
       setMessages([{ role: 'assistant', content: welcomeMessage }]);
-      speak(welcomeMessage);
+      if (isVoiceEnabled) {
+          speak(welcomeMessage);
+      }
     }
-  }, [mode, t, messages.length, speak]);
+  }, [mode, t, messages.length, speak, isVoiceEnabled, isResponding]);
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -251,7 +252,7 @@ export default function HealthyLivingPage() {
         const confirmationMessage: Message = { role: 'assistant', content: t('stopCommandConfirmation') };
         setMessages((prev) => [...prev, stopMessage, confirmationMessage]);
         setInput('');
-        speak(confirmationMessage.content); // Speak the confirmation
+        if(isVoiceEnabled) speak(confirmationMessage.content);
         return;
     }
     
@@ -267,7 +268,7 @@ export default function HealthyLivingPage() {
             const response = await iChancellor({ query, history, locale });
             const assistantMessage: Message = { role: 'assistant', content: response.answer };
             setMessages((prev) => [...prev, assistantMessage]);
-            await speak(response.answer);
+            if (isVoiceEnabled) await speak(response.answer);
         } catch (error: any) {
             const errorMessageContent = `Error: ${error.message || "I'm having trouble connecting right now. Please try again."}`;
             const errorMessage: Message = { role: 'assistant', content: errorMessageContent };
@@ -287,32 +288,6 @@ export default function HealthyLivingPage() {
   }
   
   const anyLoading = isResponding || isRecording;
-
-  const MeditationSettingsContent = () => (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2">
-        <Label htmlFor="duration" className="w-24 text-right">
-          {t('duration')}
-        </Label>
-        <Select
-          value={String(meditationDuration / 60)}
-          onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
-          disabled={isMeditating}
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder={t('selectDuration')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="5">5 minutes</SelectItem>
-            <SelectItem value="10">10 minutes</SelectItem>
-            <SelectItem value="15">15 minutes</SelectItem>
-            <SelectItem value="20">20 minutes</SelectItem>
-            <SelectItem value="30">30 minutes</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    </div>
-  );
 
   return (
     <>
@@ -361,7 +336,7 @@ export default function HealthyLivingPage() {
                 <CardFooter>
                     <form onSubmit={(e) => { e.preventDefault(); handleInteraction(input); }} className="flex w-full items-center space-x-2">
                         <Button type="button" size="icon" variant={isVoiceEnabled ? 'default' : 'outline'} onClick={() => setIsVoiceEnabled(v => !v)}>
-                            {isVoiceEnabled ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                            {isVoiceEnabled ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
                              <span className="sr-only">Toggle AI Voice</span>
                         </Button>
                         <Button type="button" size="icon" variant={isRecording ? 'destructive' : 'outline'} onClick={handleMicClick} disabled={isResponding}>
@@ -391,15 +366,44 @@ export default function HealthyLivingPage() {
                           </Button>
                       )}
                   </div>
-                   <div className="space-y-4 p-4 border rounded-lg w-full max-w-sm">
-                    <h4 className="font-medium text-center">{t('meditationSettings')}</h4>
-                    <MeditationSettingsContent />
-                  </div>
               </CardContent>
             )}
         </Card>
     </div>
-    {user && <SettingsDialog isOpen={isSettingsOpen} onOpenChange={setIsSettingsOpen} />}
+    <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>{t('meditationSettings')}</DialogTitle>
+          <DialogDescription>
+            {t('settingsDescription')}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-6 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="duration">{t('duration')}</Label>
+            <Select
+              value={String(meditationDuration / 60)}
+              onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
+              disabled={isMeditating}
+            >
+              <SelectTrigger id="duration" className="w-full">
+                <SelectValue placeholder={t('selectDuration')} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="5">5 minutes</SelectItem>
+                <SelectItem value="10">10 minutes</SelectItem>
+                <SelectItem value="15">15 minutes</SelectItem>
+                <SelectItem value="20">20 minutes</SelectItem>
+                <SelectItem value="30">30 minutes</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <DialogFooter>
+            <Button onClick={() => setIsSettingsOpen(false)}>{t('applyAndClose')}</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
     </>
   );
 }
