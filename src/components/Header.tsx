@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -127,7 +128,7 @@ export default function Header() {
             if (link.name === "AI Assistant") Icon = MessageCircle;
             
             return (
-              <NavLink key={link.href} href={link.href} isProjectLink={link.name === 'AI Assistant'}>
+              <NavLink key={link.href} href={link.href} isProjectLink>
                 <div className="flex items-center gap-2">
                   {Icon && <Icon className="h-4 w-4" />}
                   {link.name}
@@ -169,7 +170,7 @@ export default function Header() {
                         <NavLink href="/admin" isProjectLink>Admin</NavLink>
                      )}
                     {navLinks.map((link) => (
-                        <NavLink key={link.href} href={link.href}>{link.name}</NavLink>
+                        <NavLink key={link.href} href={link.href} isProjectLink>{link.name}</NavLink>
                     ))}
                 </nav>
                 <div className="mt-8">
