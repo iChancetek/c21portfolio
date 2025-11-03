@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useTransition } from 'react';
@@ -19,7 +20,7 @@ import { useLocale } from '@/hooks/useLocale';
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
-function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQuery: string; }) {
+function SearchResults({ projects, searchQuery, isSearching }: { projects: Venture[]; searchQuery: string; isSearching: boolean; }) {
     const { t } = useLocale();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<Venture | null>(null);
@@ -28,6 +29,11 @@ function SearchResults({ projects, searchQuery }: { projects: Venture[]; searchQ
         setSelectedProject(project);
         setIsModalOpen(true);
     };
+
+    if (isSearching) {
+        // Don't show "no results" while actively searching
+        return null;
+    }
 
     if (searchQuery && projects.length === 0) {
         return (
@@ -188,7 +194,7 @@ export default function LandingPage() {
         </form>
       </motion.div>
       <div className="w-full mt-16">
-        <SearchResults projects={projects} searchQuery={searchQuery} />
+        <SearchResults projects={projects} searchQuery={searchQuery} isSearching={isSearching} />
       </div>
       <SignUpCta />
     </div>
