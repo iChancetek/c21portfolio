@@ -97,7 +97,7 @@ export default function LandingPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [projects, setProjects] = useState<Venture[]>(allVentures);
   const [isSearching, startSearchTransition] = useTransition();
-  const [aiSuggestion, setAiSuggestion] = useState("e.g., 'What projects use Firebase?'");
+  const [aiSuggestion, setAiSuggestion] = useState("what projects are on ChancellorMinus.com");
   
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
