@@ -78,13 +78,14 @@ export default function HealthyLivingPage() {
     stopPlayback(); // Stop any currently playing speech
     setIsSpeaking(true);
     try {
-      const { audioDataUri } = await textToSpeech({ text, voice: 'alloy' });
+      // Pass the current locale to the textToSpeech function
+      const { audioDataUri } = await textToSpeech({ text, locale });
       setAudioSrc(audioDataUri);
     } catch (error) {
       toast({ title: t('audioFailed'), variant: 'destructive' });
       setIsSpeaking(false);
     }
-  }, [isMuted, isSpeaking, stopPlayback, toast, t]);
+  }, [isMuted, isSpeaking, stopPlayback, toast, t, locale]);
 
   // Set initial welcome message and handle language changes
   useEffect(() => {
@@ -100,8 +101,7 @@ export default function HealthyLivingPage() {
             }
         }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, t, isMuted]); // Rerunning speak() here would cause loops.
+  }, [mode, t, isMuted, speak, messages]); // Rerunning speak() here would cause loops.
 
 
   // Scroll to bottom of chat
@@ -331,7 +331,7 @@ export default function HealthyLivingPage() {
                             </div>
                              {message.role === 'assistant' && (
                                 <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => speak(message.content)} disabled={isSpeaking}>
-                                    <RefreshCw className="h-4 w-4" />
+                                    <Play className="h-4 w-4" />
                                 </Button>
                             )}
                             {message.role === 'user' && <Avatar className="h-8 w-8"><AvatarFallback><User size={20} /></AvatarFallback></Avatar>}

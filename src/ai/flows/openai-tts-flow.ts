@@ -10,8 +10,8 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
-import { openAI } from 'genkitx-openai';
 import fetch from 'node-fetch';
+import { useLocale } from '@/hooks/useLocale';
 
 const TTSVoices = z.enum(['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer']);
 export type TTSVoice = z.infer<typeof TTSVoices>;
@@ -19,6 +19,7 @@ export type TTSVoice = z.infer<typeof TTSVoices>;
 const TextToSpeechInputSchema = z.object({
   text: z.string().describe('The text to convert to speech.'),
   voice: TTSVoices.optional().describe('The voice to use for the speech.'),
+  locale: z.enum(['en', 'es']).optional().default('en').describe('The language for the response.'),
 });
 export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
 
@@ -38,6 +39,15 @@ const speechFlow = ai.defineFlow(
     outputSchema: TextToSpeechOutputSchema,
   },
   async (input) => {
+    
+    // Determine the voice based on locale if not explicitly provided
+    let voice: TTSVoice = input.voice || 'alloy';
+    if (!input.voice) {
+        if (input.locale === 'es') {
+            voice = 'nova'; // 'nova' and 'echo' support Spanish
+        }
+    }
+    
     const response = await fetch('https://api.openai.com/v1/audio/speech', {
         method: 'POST',
         headers: {
@@ -47,7 +57,7 @@ const speechFlow = ai.defineFlow(
         body: JSON.stringify({
             model: 'tts-1',
             input: input.text,
-            voice: input.voice || 'alloy',
+            voice: voice,
         }),
     });
 
