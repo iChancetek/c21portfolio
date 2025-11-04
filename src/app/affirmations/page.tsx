@@ -3,17 +3,18 @@
 import { useState, useTransition, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2, Volume2, Play, Pause, Bot } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Volume2, Play, Pause, Bot, Globe } from 'lucide-react';
 import { generateAffirmation } from '@/ai/flows/affirmation-generator';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useLocale } from '@/hooks/useLocale';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 type ViewState = 'affirmation' | 'deepDive';
 
 export default function AffirmationsPage() {
-  const { t, locale } = useLocale();
+  const { t, locale, setLocale } = useLocale();
   const [affirmation, setAffirmation] = useState(t('affirmationsInitialText'));
   const [deepDiveContent, setDeepDiveContent] = useState('');
   const [viewState, setViewState] = useState<ViewState>('affirmation');
@@ -34,6 +35,11 @@ export default function AffirmationsPage() {
         audioRef.current.currentTime = 0;
     }
   }, [affirmation]);
+  
+  // When locale changes, regenerate initial text
+  useEffect(() => {
+    setAffirmation(t('affirmationsInitialText'));
+  }, [locale, t]);
 
   const handleGenerate = () => {
     startGenerationTransition(async () => {
@@ -158,7 +164,20 @@ export default function AffirmationsPage() {
         </CardContent>
       </Card>
       
-      <div className="mt-8 flex flex-col sm:flex-row gap-4">
+       <div className="mt-6 flex items-center gap-2">
+          <Globe className="h-5 w-5 text-muted-foreground" />
+          <Select value={locale} onValueChange={(value) => setLocale(value as 'en' | 'es')}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select Language" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="en">{t('english')}</SelectItem>
+              <SelectItem value="es">{t('spanish')}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row gap-4">
         <Button size="lg" onClick={handleGenerate} disabled={anyLoading} className="bg-primary-gradient">
             {isGenerating ? (
             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
