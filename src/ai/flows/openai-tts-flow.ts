@@ -18,7 +18,7 @@ export type TTSVoice = z.infer<typeof TTSVoices>;
 
 const TextToSpeechInputSchema = z.object({
   text: z.string().describe('The text to convert to speech.'),
-  voice: TTSVoices.optional().default('alloy').describe('The voice to use for the speech.'),
+  voice: TTSVoices.optional().describe('The voice to use for the speech.'),
 });
 export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
 
@@ -47,7 +47,7 @@ const speechFlow = ai.defineFlow(
         body: JSON.stringify({
             model: 'tts-1',
             input: input.text,
-            voice: input.voice,
+            voice: input.voice || 'alloy',
         }),
     });
 
