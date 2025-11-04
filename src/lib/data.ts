@@ -1,6 +1,6 @@
 
 import { Project, SkillCategory, Venture, VentureIcon } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -316,6 +316,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Microsoft 365", icon: Globe },
       { name: "Teams / SharePoint / Exchange", icon: Share2 },
       { name: "AutoPilot / InTune", icon: Building },
+      { name: "Power Automate", icon: Workflow },
     ]
   }
 ];
@@ -350,7 +351,7 @@ export const navLinks = [
 
 export const socialLinks = [
     { name: "GitHub", href: "#", icon: Github },
-    { name: "LinkedIn", href: "#", icon: Linkedin },
+    { name: "Instagram", href: "https://www.instagram.com/chancetek/", icon: Instagram },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
 
