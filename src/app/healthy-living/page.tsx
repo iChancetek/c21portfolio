@@ -74,7 +74,7 @@ export default function HealthyLivingPage() {
   }, [user, isUserLoading, router]);
 
   const speak = useCallback(async (text: string) => {
-    if (isMuted || isSpeaking) return;
+    if (isMuted) return;
     stopPlayback(); // Stop any currently playing speech
     setIsSpeaking(true);
     try {
@@ -85,23 +85,20 @@ export default function HealthyLivingPage() {
       toast({ title: t('audioFailed'), variant: 'destructive' });
       setIsSpeaking(false);
     }
-  }, [isMuted, isSpeaking, stopPlayback, toast, t, locale]);
+  }, [isMuted, stopPlayback, toast, t, locale]);
 
   // Set initial welcome message and handle language changes
   useEffect(() => {
-    const welcomeMessageContent = t('iChancellorWelcome');
-    const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
-
-    if (mode === 'chat') {
-        // If the current welcome message is different, update it and speak.
-        if (messages.length === 0 || messages[0].content !== welcomeMessageContent) {
-            setMessages([welcomeMessage]);
-            if (!isMuted) {
-                speak(welcomeMessageContent);
-            }
+    if (mode === 'chat' && user) {
+        const welcomeMessageContent = t('iChancellorWelcome');
+        const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
+        setMessages([welcomeMessage]);
+        if (!isMuted) {
+            speak(welcomeMessageContent);
         }
     }
-  }, [mode, t, isMuted, speak, messages]); // Rerunning speak() here would cause loops.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, locale, user, t]); // Rerunning speak() here would cause loops if it wasn't for useCallback
 
 
   // Scroll to bottom of chat
