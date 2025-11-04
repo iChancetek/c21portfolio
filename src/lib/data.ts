@@ -266,6 +266,7 @@ export const skillCategories: SkillCategory[] = [
         { name: "Docker Hub", icon: Box },
         { name: "Docker Desktop", icon: Monitor },
         { name: "Kubernetes (EKS, AKS, GKE)", icon: ServerCog },
+        { name: "Helm", icon: Package },
         { name: "Serverless (Lambda, Functions, Cloud Run)", icon: CloudCog },
         { name: "Terraform", icon: Code },
         { name: "Powershell", icon: Code },
@@ -291,6 +292,8 @@ export const skillCategories: SkillCategory[] = [
         { name: "Minikube", icon: Box },
         { name: "Monday.com", icon: Package },
         { name: "Trello", icon: Package },
+        { name: "UV (Python Package Manager)", icon: Package },
+        { name: "Semgrep", icon: ShieldCheck },
     ],
   },
   {
@@ -356,5 +359,7 @@ export const socialLinks = [
     { name: "Instagram", href: "https://www.instagram.com/chancetek/", icon: Instagram },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
+
+    
 
     
