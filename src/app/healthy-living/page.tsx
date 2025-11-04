@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Bot, Send, User, Loader2, BrainCircuit, Mic, Settings, Timer, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Bot, Send, User, Loader2, BrainCircuit, Mic, Settings, Timer, Play, Pause, Volume2, VolumeX, RefreshCw } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { iChancellor } from '@/ai/flows/ichancellor-flow';
@@ -92,14 +92,16 @@ export default function HealthyLivingPage() {
     const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
 
     if (mode === 'chat') {
-        if (messages.length === 0 || (messages.length > 0 && messages[0].content !== welcomeMessageContent)) {
+        // If the current welcome message is different, update it and speak.
+        if (messages.length === 0 || messages[0].content !== welcomeMessageContent) {
             setMessages([welcomeMessage]);
             if (!isMuted) {
                 speak(welcomeMessageContent);
             }
         }
     }
-  }, [mode, t, speak, isMuted]); // Rerun when locale (via t) or mode changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, t, isMuted]); // Rerunning speak() here would cause loops.
 
 
   // Scroll to bottom of chat
@@ -324,7 +326,14 @@ export default function HealthyLivingPage() {
                         {messages.map((message, index) => (
                         <div key={index} className={cn('flex items-start gap-3', {'justify-end': message.role === 'user'})}>
                             {message.role === 'assistant' && <Avatar className="h-8 w-8"><AvatarFallback className="bg-primary text-primary-foreground"><Bot size={20} /></AvatarFallback></Avatar>}
-                            <div className={cn('rounded-lg p-3 text-sm max-w-[85%]', {'bg-secondary text-secondary-foreground': message.role === 'assistant', 'bg-primary text-primary-foreground': message.role === 'user'})}>{message.content}</div>
+                            <div className={cn('rounded-lg p-3 text-sm max-w-[85%]', {'bg-secondary text-secondary-foreground': message.role === 'assistant', 'bg-primary text-primary-foreground': message.role === 'user'})}>
+                                {message.content}
+                            </div>
+                             {message.role === 'assistant' && (
+                                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => speak(message.content)} disabled={isSpeaking}>
+                                    <RefreshCw className="h-4 w-4" />
+                                </Button>
+                            )}
                             {message.role === 'user' && <Avatar className="h-8 w-8"><AvatarFallback><User size={20} /></AvatarFallback></Avatar>}
                         </div>
                         ))}
