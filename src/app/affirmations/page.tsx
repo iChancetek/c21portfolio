@@ -83,7 +83,7 @@ export default function AffirmationsPage() {
         tempDiv.innerHTML = textToRead;
         const textContent = tempDiv.textContent || tempDiv.innerText || "";
         
-        const { audioDataUri } = await textToSpeech({ text: textContent });
+        const { audioDataUri } = await textToSpeech({ text: textContent, locale });
         setAudioSrc(audioDataUri);
       } catch (error) {
         console.error('Failed to generate speech:', error);
