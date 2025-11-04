@@ -17,6 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { useLocale } from '@/hooks/useLocale';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -25,11 +26,11 @@ interface Message {
 }
 
 type Mode = 'chat' | 'meditation';
-type Locale = 'en' | 'es';
 
 export default function HealthyLivingPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
+  const { t, locale, setLocale } = useLocale();
   
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -44,7 +45,6 @@ export default function HealthyLivingPage() {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(false);
-  const [language, setLanguage] = useState<Locale>('en');
   
   // Settings state
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -57,69 +57,6 @@ export default function HealthyLivingPage() {
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
   const { toast } = useToast();
-
-  const t = (key: string) => {
-    const translations: Record<Locale, Record<string, string>> = {
-      en: {
-        healthyLivingTitle: "iChancellor - AI Wellness Guide",
-        healthyLivingDescription: "Your partner in mindfulness, health, and personal growth.",
-        chat: "Chat",
-        meditation: "Meditation",
-        settings: "Settings",
-        iChancellorWelcome: "Hello, I'm iChancellor. I'm here to support you on your path to wellness. How can I help you today? We can discuss mindfulness, healthy habits, or begin a guided meditation.",
-        thinking: "Thinking...",
-        askForGuidance: "Ask for guidance or say 'stop'...",
-        meditationSession: "Meditation Session",
-        startSession: "Start Session",
-        endSession: "End Session",
-        stopCommandConfirmation: "Okay, stopping.",
-        listening: "Listening...",
-        processing: "Processing...",
-        transcriptionFailed: "Transcription failed",
-        micDenied: "Microphone access denied",
-        audioFailed: "Could not generate audio.",
-        meditationSettings: "Meditation Settings",
-        settingsDescription: "Adjust your session preferences.",
-        duration: "Duration:",
-        selectDuration: "Select duration",
-        applyAndClose: "Apply & Close",
-        languagePreference: "Language Preference",
-        languageDescription: "The AI voice will respond in your chosen language.",
-        english: "English",
-        spanish: "Español (Spanish)"
-      },
-      es: {
-        healthyLivingTitle: "iChancellor - Guía de Bienestar IA",
-        healthyLivingDescription: "Tu compañero en mindfulness, salud y crecimiento personal.",
-        chat: "Chat",
-        meditation: "Meditación",
-        settings: "Ajustes",
-        iChancellorWelcome: "Hola, soy iChancellor. Estoy aquí para apoyarte en tu camino hacia el bienestar. ¿Cómo puedo ayudarte hoy? Podemos hablar de mindfulness, hábitos saludables o empezar una meditación guiada.",
-        thinking: "Pensando...",
-        askForGuidance: "Pide orientación o di 'parar'...",
-        meditationSession: "Sesión de Meditación",
-        startSession: "Iniciar Sesión",
-        endSession: "Finalizar Sesión",
-        stopCommandConfirmation: "Entendido, deteniéndome.",
-        listening: "Escuchando...",
-        processing: "Procesando...",
-        transcriptionFailed: "La transcripción falló",
-        micDenied: "Acceso al micrófono denegado",
-        audioFailed: "No se pudo generar el audio.",
-        meditationSettings: "Ajustes de Meditación",
-        settingsDescription: "Ajusta las preferencias de tu sesión.",
-        duration: "Duración:",
-        selectDuration: "Seleccionar duración",
-        applyAndClose: "Aplicar y Cerrar",
-        languagePreference: "Preferencia de Idioma",
-        languageDescription: "La voz de la IA responderá en el idioma que elijas.",
-        english: "English (Inglés)",
-        spanish: "Español"
-      },
-    };
-    return translations[language][key] || key;
-  };
-
 
   const stopPlayback = useCallback(() => {
     if (audioRef.current && !audioRef.current.paused) {
@@ -149,16 +86,20 @@ export default function HealthyLivingPage() {
     }
   }, [isMuted, isSpeaking, stopPlayback, toast, t]);
 
-  // Set initial welcome message
+  // Set initial welcome message and handle language changes
   useEffect(() => {
-    if (mode === 'chat' && messages.length === 0 && !isResponding) {
-      const welcomeMessage = t('iChancellorWelcome');
-      setMessages([{ role: 'assistant', content: welcomeMessage }]);
-      if (!isMuted) {
-          speak(welcomeMessage);
-      }
+    const welcomeMessageContent = t('iChancellorWelcome');
+    const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
+
+    if (mode === 'chat') {
+        if (messages.length === 0 || (messages.length > 0 && messages[0].content !== welcomeMessageContent)) {
+            setMessages([welcomeMessage]);
+            if (!isMuted) {
+                speak(welcomeMessageContent);
+            }
+        }
     }
-  }, [mode, t, messages.length, speak, isMuted, isResponding]);
+  }, [mode, t, speak, isMuted]); // Rerun when locale (via t) or mode changes
 
 
   // Scroll to bottom of chat
@@ -328,7 +269,7 @@ export default function HealthyLivingPage() {
     startTransition(async () => {
         try {
             const history = messages.map(msg => ({ content: msg.content, role: msg.role, isUser: msg.role === 'user' }));
-            const response = await iChancellor({ query, history, locale: language });
+            const response = await iChancellor({ query, history, locale: locale });
             const assistantMessage: Message = { role: 'assistant', content: response.answer };
             setMessages((prev) => [...prev, assistantMessage]);
             if (!isMuted) await speak(response.answer);
@@ -463,7 +404,7 @@ export default function HealthyLivingPage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="language">{t('languagePreference')}</Label>
-            <Select value={language} onValueChange={(value) => setLanguage(value as Locale)}>
+            <Select value={locale} onValueChange={(value) => setLocale(value as 'en' | 'es')}>
               <SelectTrigger id="language">
                 <SelectValue placeholder="Select a language" />
               </SelectTrigger>
