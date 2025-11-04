@@ -308,6 +308,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Zapier", icon: Workflow },
       { name: "N8N", icon: Workflow },
       { name: "Loveable", icon: HeartPulse },
+      { name: "MCP - Model Context Protocol", icon: Code },
     ],
   },
   {
