@@ -309,6 +309,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "N8N", icon: Workflow },
       { name: "Loveable", icon: HeartPulse },
       { name: "MCP - Model Context Protocol", icon: Code },
+      { name: "OpenAI Agent SDK", icon: Code },
     ],
   },
   {
