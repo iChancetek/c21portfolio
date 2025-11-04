@@ -350,7 +350,7 @@ export const navLinks = [
 ];
 
 export const socialLinks = [
-    { name: "GitHub", href: "#", icon: Github },
+    { name: "GitHub", href: "https://github.com/iChancetek", icon: Github },
     { name: "Instagram", href: "https://www.instagram.com/chancetek/", icon: Instagram },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
