@@ -171,7 +171,7 @@ export default function LandingPage() {
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
           <span className="text-primary-gradient">{t('landingTitle')}</span>
         </h1>
-        <p className="text-lg sm:text-xl text-primary-gradient mb-10">
+        <p className="text-lg sm:text-xl text-muted-foreground mb-10">
           {t('landingSubtitle')}
         </p>
 
