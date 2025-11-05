@@ -73,4 +73,69 @@
   .text-primary-gradient {
     @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
   }
+  .ticker-container {
+      width: 100%;
+      overflow: hidden;
+      padding: 2rem 0;
+      position: relative;
+    }
+
+    .ticker-container::before,
+    .ticker-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 100px;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .ticker-container::before {
+      left: 0;
+      background: linear-gradient(to right, hsl(var(--background)), transparent);
+    }
+
+    .ticker-container::after {
+      right: 0;
+      background: linear-gradient(to left, hsl(var(--background)), transparent);
+    }
+
+    .ticker-track {
+      display: flex;
+      width: fit-content;
+      animation: scroll 40s linear infinite;
+    }
+    
+    .ticker-container:hover .ticker-track {
+        animation-play-state: paused;
+    }
+
+    .ticker-item {
+      flex-shrink: 0;
+      width: auto;
+      padding: 0 2.5rem; /* Increased padding */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem; /* Larger font size */
+      font-weight: 600;
+      color: hsl(var(--muted-foreground));
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+    
+    .ticker-item:hover {
+        color: hsl(var(--foreground));
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
 }

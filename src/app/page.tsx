@@ -18,6 +18,7 @@ import { ventures } from '@/lib/data';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { useLocale } from '@/hooks/useLocale';
+import Ticker from '@/components/Ticker';
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
@@ -197,6 +198,7 @@ export default function LandingPage() {
       <div className="w-full mt-16">
         <SearchResults projects={projects} searchQuery={searchQuery} isSearching={isSearching} />
       </div>
+      <Ticker />
       <SignUpCta />
     </div>
   );

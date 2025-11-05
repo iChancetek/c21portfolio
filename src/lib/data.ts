@@ -146,6 +146,16 @@ export const ventureIcons: VentureIcon[] = [
     { name: "The Potluxe", icon: ShoppingCart }
 ];
 
+export const partnerCompanies = [
+  { name: "Condé Nast" },
+  { name: "Advance" },
+  { name: "SIMON" },
+  { name: "Braiva Capital" },
+  { name: "Couristan" },
+  { name: "Brexa Bio Inc." },
+  { name: "Nama Harlem" },
+];
+
 
 export const skillCategories: SkillCategory[] = [
   {

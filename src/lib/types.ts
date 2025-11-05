@@ -35,3 +35,7 @@ export interface VentureIcon {
     name: string;
     icon: LucideIcon;
 }
+
+export interface PartnerCompany {
+    name: string;
+}
