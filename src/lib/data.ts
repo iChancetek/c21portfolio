@@ -192,10 +192,11 @@ export const skillCategories: SkillCategory[] = [
     title: "AI Platforms & Models",
     skills: [
       { name: "GCP Vertex AI", icon: BrainCircuit },
-      { name: "AWS Bedrock / SageMaker", icon: BrainCircuit },
+      { name: "AWS Bedrock / SageMaker AI", icon: BrainCircuit },
       { name: "Azure Machine Learning", icon: BrainCircuit },
       { name: "Azure Foundry", icon: Factory },
       { name: "Gemini, GPT, Claude", icon: Bot },
+      { name: "Claude Code", icon: Code },
       { name: "Meta Llama", icon: Bot },
       { name: "DeepSeek", icon: Bot },
       { name: "Qwen", icon: Bot },
@@ -223,6 +224,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Vector Databases", icon: Database },
       { name: "Pinecone", icon: Database },
       { name: "Chroma", icon: Database },
+      { name: "AWS S3 Vector", icon: Database },
     ],
   },
    {
