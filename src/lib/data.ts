@@ -154,6 +154,7 @@ export const partnerCompanies = [
   { name: "Couristan" },
   { name: "Brexa Bio Inc." },
   { name: "Nama Harlem" },
+  { name: "WNDR" },
 ];
 
 
@@ -371,6 +372,8 @@ export const socialLinks = [
     { name: "Instagram", href: "https://www.instagram.com/chancetek/", icon: Instagram },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
+
+    
 
     
 
