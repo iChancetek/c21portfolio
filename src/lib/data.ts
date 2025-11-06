@@ -155,6 +155,8 @@ export const partnerCompanies = [
   { name: "Brexa Bio Inc." },
   { name: "Nama Harlem" },
   { name: "WNDR" },
+  { name: "Alpharma Pharmaceuticals" },
+  { name: "Novartis Pharmaceuticals" },
 ];
 
 
@@ -372,6 +374,8 @@ export const socialLinks = [
     { name: "Instagram", href: "https://www.instagram.com/chancetek/", icon: Instagram },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
+
+    
 
     
 
