@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Bot, Send, User, Loader2, BrainCircuit, Mic, Settings, Timer, Play, Pause, Volume2, VolumeX, RefreshCw } from 'lucide-react';
+import { Bot, Send, User, Loader2, BrainCircuit, Mic, Settings, Timer, Play, Pause, Volume2, VolumeX, RefreshCw, Square } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { iChancellor } from '@/ai/flows/ichancellor-flow';
@@ -55,6 +55,7 @@ export default function HealthyLivingPage() {
   const [meditationDuration, setMeditationDuration] = useState(10 * 60); // 10 minutes in seconds
   const [timer, setTimer] = useState(meditationDuration);
   const [isMeditating, setIsMeditating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [wasMeditating, setWasMeditating] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
@@ -99,7 +100,9 @@ export default function HealthyLivingPage() {
         speak(welcomeMessageContent);
       }
     }
-  }, [user, mode, locale, t, isMuted, messages.length, speak]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, mode, locale, t]); // Rerunning speak() here would cause loops if it wasn't for useCallback
+
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -119,7 +122,7 @@ export default function HealthyLivingPage() {
   
   // Timer logic for meditation
   useEffect(() => {
-    if (isMeditating) {
+    if (isMeditating && !isPaused) {
       timerIntervalRef.current = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
@@ -141,7 +144,7 @@ export default function HealthyLivingPage() {
             clearInterval(timerIntervalRef.current);
         }
     };
-  }, [isMeditating]);
+  }, [isMeditating, isPaused]);
 
   // Effect to play the sound after meditation ends
   useEffect(() => {
@@ -167,11 +170,13 @@ export default function HealthyLivingPage() {
   const handleStartMeditation = async () => {
     if (isMeditating) return;
     setTimer(meditationDuration);
+    setIsPaused(false);
     setIsMeditating(true);
   };
   
   const stopMeditation = () => {
     setIsMeditating(false);
+    setIsPaused(false);
     setTimer(meditationDuration);
     stopPlayback();
   };
@@ -377,9 +382,15 @@ export default function HealthyLivingPage() {
                   </div>
                   <div className="flex flex-col items-center gap-4">
                       {isMeditating ? (
-                          <Button size="lg" variant="destructive" onClick={stopMeditation}>
-                            <Pause className="mr-2 h-5 w-5"/> {t('endSession')}
-                          </Button>
+                           <div className="flex gap-4">
+                                <Button size="lg" variant="outline" onClick={() => setIsPaused(!isPaused)}>
+                                    {isPaused ? <Play className="mr-2 h-5 w-5" /> : <Pause className="mr-2 h-5 w-5" />}
+                                    {isPaused ? t('resume') : t('pause')}
+                                </Button>
+                                <Button size="lg" variant="destructive" onClick={stopMeditation}>
+                                    <Square className="mr-2 h-5 w-5" /> {t('endSession')}
+                                </Button>
+                            </div>
                       ) : (
                         <>
                           <Button size="lg" className="bg-primary-gradient" onClick={handleStartMeditation}>
@@ -441,7 +452,3 @@ export default function HealthyLivingPage() {
     </>
   );
 }
-
-    
-
-    
