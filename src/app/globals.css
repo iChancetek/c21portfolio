@@ -119,7 +119,7 @@
       justify-content: center;
       @apply font-body;
       font-size: 1.5rem;
-      font-weight: 600;
+      font-weight: 700;
       color: hsl(var(--muted-foreground));
       opacity: 0.8;
       transition: all 0.3s ease;
@@ -142,3 +142,4 @@
 }
 
     
+
