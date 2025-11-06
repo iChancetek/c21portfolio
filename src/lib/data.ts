@@ -157,6 +157,8 @@ export const partnerCompanies = [
   { name: "WNDR" },
   { name: "Alpharma Pharmaceuticals" },
   { name: "Novartis Pharmaceuticals" },
+  { name: "Manhattan College" },
+  { name: "Cayenne Pepper Productions" },
 ];
 
 
