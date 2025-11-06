@@ -11,8 +11,19 @@ import de from '@/locales/de.json';
 import pt from '@/locales/pt.json';
 import ko from '@/locales/ko.json';
 import ja from '@/locales/ja.json';
+import sw from '@/locales/sw.json';
+import yo from '@/locales/yo.json';
+import ha from '@/locales/ha.json';
+import zu from '@/locales/zu.json';
+import am from '@/locales/am.json';
+import ig from '@/locales/ig.json';
+import so from '@/locales/so.json';
+import sn from '@/locales/sn.json';
+import af from '@/locales/af.json';
+import mg from '@/locales/mg.json';
 
-type Locale = 'en' | 'es' | 'fr' | 'zh' | 'hi' | 'ar' | 'de' | 'pt' | 'ko' | 'ja';
+
+type Locale = 'en' | 'es' | 'fr' | 'zh' | 'hi' | 'ar' | 'de' | 'pt' | 'ko' | 'ja' | 'sw' | 'yo' | 'ha' | 'zu' | 'am' | 'ig' | 'so' | 'sn' | 'af' | 'mg';
 
 const locales: Record<Locale, string> = {
   en: 'English',
@@ -25,6 +36,16 @@ const locales: Record<Locale, string> = {
   pt: 'Português (Brasil)',
   ko: '한국어',
   ja: '日本語',
+  sw: 'Kiswahili',
+  yo: 'Yorùbá',
+  ha: 'Hausa',
+  zu: 'isiZulu',
+  am: 'አማርኛ',
+  ig: 'Igbo',
+  so: 'Soomaali',
+  sn: 'chiShona',
+  af: 'Afrikaans',
+  mg: 'Malagasy',
 };
 
 interface LocaleContextType {
@@ -34,7 +55,7 @@ interface LocaleContextType {
   locales: Record<Locale, string>;
 }
 
-const translations: Record<Locale, Record<string, string>> = { en, es, fr, zh, hi, ar, de, pt, ko, ja };
+const translations: Record<Locale, Record<string, string>> = { en, es, fr, zh, hi, ar, de, pt, ko, ja, sw, yo, ha, zu, am, ig, so, sn, af, mg };
 
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 

@@ -19,7 +19,7 @@ export type TTSVoice = z.infer<typeof TTSVoices>;
 const TextToSpeechInputSchema = z.object({
   text: z.string().describe('The text to convert to speech.'),
   voice: TTSVoices.optional().describe('The voice to use for the speech.'),
-  locale: z.enum(['en', 'es', 'fr', 'zh', 'hi', 'ar', 'de', 'pt', 'ko', 'ja']).optional().default('en').describe('The language for the response.'),
+  locale: z.enum(['en', 'es', 'fr', 'zh', 'hi', 'ar', 'de', 'pt', 'ko', 'ja', 'sw', 'yo', 'ha', 'zu', 'am', 'ig', 'so', 'sn', 'af', 'mg']).optional().default('en').describe('The language for the response.'),
 });
 export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
 
