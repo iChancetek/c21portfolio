@@ -37,7 +37,7 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
   const { user } = useUser();
   const auth = useAuth();
   const { toast } = useToast();
-  const { locale, setLocale, t } = useLocale();
+  const { locale, setLocale, t, locales } = useLocale();
   
   const [newDisplayName, setNewDisplayName] = useState(user?.displayName || '');
   const [isSavingName, setIsSavingName] = useState(false);
@@ -149,13 +149,14 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
 
            <div className="space-y-2">
             <Label htmlFor="language">{t('languagePreference')}</Label>
-            <Select value={locale} onValueChange={(value) => setLocale(value as 'en' | 'es')}>
+            <Select value={locale} onValueChange={(value) => setLocale(value as any)}>
               <SelectTrigger id="language">
                 <SelectValue placeholder="Select a language" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="en">{t('english')}</SelectItem>
-                <SelectItem value="es">{t('spanish')}</SelectItem>
+                 {Object.entries(locales).map(([code, name]) => (
+                    <SelectItem key={code} value={code}>{name}</SelectItem>
+                  ))}
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">{t('languageDescription')}</p>

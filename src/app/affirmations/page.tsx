@@ -14,7 +14,7 @@ type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 type ViewState = 'affirmation' | 'deepDive';
 
 export default function AffirmationsPage() {
-  const { t, locale, setLocale } = useLocale();
+  const { t, locale, setLocale, locales } = useLocale();
   const [affirmation, setAffirmation] = useState(t('affirmationsInitialText'));
   const [deepDiveContent, setDeepDiveContent] = useState('');
   const [viewState, setViewState] = useState<ViewState>('affirmation');
@@ -182,13 +182,14 @@ export default function AffirmationsPage() {
       
        <div className="mt-6 flex items-center gap-2">
           <Globe className="h-5 w-5 text-muted-foreground" />
-          <Select value={locale} onValueChange={(value) => setLocale(value as 'en' | 'es')}>
+          <Select value={locale} onValueChange={(value) => setLocale(value as any)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select Language" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="en">{t('english')}</SelectItem>
-              <SelectItem value="es">{t('spanish')}</SelectItem>
+              {Object.entries(locales).map(([code, name]) => (
+                <SelectItem key={code} value={code}>{name}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

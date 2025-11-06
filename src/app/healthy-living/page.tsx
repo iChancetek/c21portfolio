@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect, useTransition, useCallback } from 'react';
@@ -31,7 +30,7 @@ type Mode = 'chat' | 'meditation';
 export default function HealthyLivingPage() {
   const { user, isUserLoading } = useUser();
   const router = useRouter();
-  const { t, locale, setLocale } = useLocale();
+  const { t, locale, setLocale, locales } = useLocale();
   
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -101,7 +100,7 @@ export default function HealthyLivingPage() {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, mode, locale, t]); // Rerunning speak() here would cause loops if it wasn't for useCallback
+  }, [user, mode, locale, t]);
 
 
   // Scroll to bottom of chat
@@ -392,29 +391,29 @@ export default function HealthyLivingPage() {
                                 </Button>
                             </div>
                       ) : (
-                        <>
-                          <Button size="lg" className="bg-primary-gradient" onClick={handleStartMeditation}>
-                            <Play className="mr-2 h-5 w-5"/> {t('startSession')}
-                          </Button>
-                          <div className="w-64 space-y-2">
-                              <Label htmlFor="duration" className="text-muted-foreground">{t('duration')}</Label>
-                              <Select
-                                  value={String(meditationDuration / 60)}
-                                  onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
-                              >
-                                  <SelectTrigger id="duration" className="w-full">
-                                      <SelectValue placeholder={t('selectDuration')} />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                      <SelectItem value="5">5 minutes</SelectItem>
-                                      <SelectItem value="10">10 minutes</SelectItem>
-                                      <SelectItem value="15">15 minutes</SelectItem>
-                                      <SelectItem value="20">20 minutes</SelectItem>
-                                      <SelectItem value="30">30 minutes</SelectItem>
-                                  </SelectContent>
-                              </Select>
-                          </div>
-                        </>
+                        <div className="flex flex-col items-center gap-4">
+                            <Button size="lg" className="bg-primary-gradient" onClick={handleStartMeditation}>
+                                <Play className="mr-2 h-5 w-5"/> {t('startSession')}
+                            </Button>
+                            <div className="w-64 space-y-2">
+                                <Label htmlFor="duration" className="text-muted-foreground">{t('duration')}</Label>
+                                <Select
+                                    value={String(meditationDuration / 60)}
+                                    onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
+                                >
+                                    <SelectTrigger id="duration" className="w-full">
+                                        <SelectValue placeholder={t('selectDuration')} />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="5">5 minutes</SelectItem>
+                                        <SelectItem value="10">10 minutes</SelectItem>
+                                        <SelectItem value="15">15 minutes</SelectItem>
+                                        <SelectItem value="20">20 minutes</SelectItem>
+                                        <SelectItem value="30">30 minutes</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
                       )}
                   </div>
               </CardContent>
@@ -432,13 +431,14 @@ export default function HealthyLivingPage() {
         <div className="space-y-6 py-4">
           <div className="space-y-2">
             <Label htmlFor="language">{t('languagePreference')}</Label>
-            <Select value={locale} onValueChange={(value) => setLocale(value as 'en' | 'es')}>
+            <Select value={locale} onValueChange={(value) => setLocale(value as any)}>
               <SelectTrigger id="language">
                 <SelectValue placeholder="Select a language" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="en">{t('english')}</SelectItem>
-                <SelectItem value="es">{t('spanish')}</SelectItem>
+                 {Object.entries(locales).map(([code, name]) => (
+                    <SelectItem key={code} value={code}>{name}</SelectItem>
+                  ))}
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">{t('languageDescription')}</p>

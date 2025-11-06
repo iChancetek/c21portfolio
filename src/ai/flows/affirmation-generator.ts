@@ -14,7 +14,7 @@ import { z } from 'zod';
 const GenerateAffirmationInputSchema = z.object({
   isDeeperDive: z.boolean().optional().describe('If true, generate a detailed explanation of the affirmation.'),
   affirmation: z.string().optional().describe('The affirmation to get a deeper dive on.'),
-  locale: z.enum(['en', 'es']).optional().default('en').describe('The language for the response.'),
+  locale: z.enum(['en', 'es', 'fr', 'zh', 'hi', 'ar', 'de', 'pt', 'ko', 'ja']).optional().default('en').describe('The language for the response.'),
 });
 export type GenerateAffirmationInput = z.infer<typeof GenerateAffirmationInputSchema>;
 
