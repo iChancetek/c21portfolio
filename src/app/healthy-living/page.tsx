@@ -87,28 +87,18 @@ export default function HealthyLivingPage() {
     }
   }, [isMuted, stopPlayback, toast, t, locale]);
 
-  // Set initial welcome message and handle language changes
+  // Set initial welcome message and speak it once.
   useEffect(() => {
-      if (mode === 'chat' && user) {
-          const welcomeMessageContent = t('iChancellorWelcome');
-          const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
-          setMessages([welcomeMessage]);
-          if (!isMuted) {
-              // We defer the speaking part to another effect to avoid state updates during render
-          }
+    if (user && mode === 'chat' && messages.length === 0) {
+      const welcomeMessageContent = t('iChancellorWelcome');
+      const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
+      setMessages([welcomeMessage]);
+      if (!isMuted) {
+        speak(welcomeMessageContent);
       }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, locale, user, t]);
-
-  // This effect handles speaking the initial welcome message AFTER the component has rendered.
-  useEffect(() => {
-    const firstMessage = messages[0];
-    if (user && mode === 'chat' && messages.length === 1 && firstMessage?.role === 'assistant' && !isMuted) {
-      speak(firstMessage.content);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages, user, mode, isMuted]); // Note: 'speak' is not included to avoid re-triggering on its own changes.
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, mode, locale, t]); // isMuted, speak, messages.length are intentionally omitted to prevent re-triggering
 
   // Scroll to bottom of chat
   useEffect(() => {
