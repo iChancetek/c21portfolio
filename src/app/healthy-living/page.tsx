@@ -55,6 +55,7 @@ export default function HealthyLivingPage() {
   const [meditationDuration, setMeditationDuration] = useState(10 * 60); // 10 minutes in seconds
   const [timer, setTimer] = useState(meditationDuration);
   const [isMeditating, setIsMeditating] = useState(false);
+  const [wasMeditating, setWasMeditating] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
   const { toast } = useToast();
@@ -111,7 +112,7 @@ export default function HealthyLivingPage() {
     }
   }, [messages]);
 
-    const playEndSound = useCallback(async () => {
+  const playEndSound = useCallback(async () => {
     if (isMuted) return;
     const endMessage = "You are amazing. Have a beautiful day!";
     await speak(endMessage, 'nova'); // Use 'nova' for an enthusiastic voice
@@ -125,6 +126,7 @@ export default function HealthyLivingPage() {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
+            setWasMeditating(true); // Signal that meditation has just finished
             return 0;
           }
           return prev - 1;
@@ -144,13 +146,11 @@ export default function HealthyLivingPage() {
 
   // Effect to play sound when timer finishes
   useEffect(() => {
-    if (timer === 0 && !isMeditating) {
-      const wasMeditating = (meditationDuration > 0 && isMeditating); // Check if it was meditating
-      if (wasMeditating) {
-         playEndSound();
-      }
+    if (wasMeditating) {
+      playEndSound();
+      setWasMeditating(false); // Reset the signal
     }
-  }, [timer, isMeditating, playEndSound, meditationDuration]);
+  }, [wasMeditating, playEndSound]);
   
   // Effect to update the timer display when duration is changed
   useEffect(() => {
