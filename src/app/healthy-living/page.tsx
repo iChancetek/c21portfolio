@@ -35,6 +35,7 @@ export default function HealthyLivingPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isResponding, startTransition] = useTransition();
+  const [mode, setMode] = useState<Mode>('chat');
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   // Voice state
