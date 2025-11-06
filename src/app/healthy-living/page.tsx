@@ -89,14 +89,23 @@ export default function HealthyLivingPage() {
     }
   }, [isMuted, stopPlayback, toast, t, locale]);
 
-  // Set initial welcome message once.
+  // Set or update the initial welcome message when locale changes.
   useEffect(() => {
-    if (user && mode === 'chat' && messages.length === 0) {
+    if (user && mode === 'chat') {
       const welcomeMessageContent = t('iChancellorWelcome');
       const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
-      setMessages([welcomeMessage]);
-      // Do not auto-play the welcome message to comply with browser policies.
-      // The user can click the play button to hear it.
+
+      setMessages(prevMessages => {
+        // If there are no messages yet, start with the welcome message.
+        if (prevMessages.length === 0) {
+          return [welcomeMessage];
+        }
+        
+        // If messages exist, create a new array and replace the first message (the greeting).
+        const updatedMessages = [...prevMessages];
+        updatedMessages[0] = welcomeMessage;
+        return updatedMessages;
+      });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, mode, locale, t]);
