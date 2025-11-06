@@ -107,7 +107,6 @@ export default function HealthyLivingPage() {
         return updatedMessages;
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, mode, locale, t]);
 
 
@@ -449,9 +448,11 @@ export default function HealthyLivingPage() {
                 <SelectValue placeholder="Select a language" />
               </SelectTrigger>
               <SelectContent>
-                 {Object.entries(locales).map(([code, name]) => (
-                    <SelectItem key={code} value={code}>{name}</SelectItem>
-                  ))}
+                 <ScrollArea className="h-72">
+                    {Object.entries(locales).map(([code, name]) => (
+                        <SelectItem key={code} value={code}>{name}</SelectItem>
+                    ))}
+                  </ScrollArea>
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">{t('languageDescription')}</p>

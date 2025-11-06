@@ -187,9 +187,11 @@ export default function AffirmationsPage() {
               <SelectValue placeholder="Select Language" />
             </SelectTrigger>
             <SelectContent>
-              {Object.entries(locales).map(([code, name]) => (
-                <SelectItem key={code} value={code}>{name}</SelectItem>
-              ))}
+              <ScrollArea className="h-72">
+                {Object.entries(locales).map(([code, name]) => (
+                  <SelectItem key={code} value={code}>{name}</SelectItem>
+                ))}
+              </ScrollArea>
             </SelectContent>
           </Select>
         </div>
