@@ -119,13 +119,13 @@
       justify-content: center;
       font-size: 1.25rem; /* Larger font size */
       font-weight: 600;
-      color: hsl(var(--muted-foreground));
+      color: hsl(var(--primary));
       opacity: 0.8;
       transition: all 0.3s ease;
     }
     
     .ticker-item:hover {
-        color: hsl(var(--foreground));
+        color: hsl(var(--accent));
         opacity: 1;
         transform: scale(1.1);
     }
