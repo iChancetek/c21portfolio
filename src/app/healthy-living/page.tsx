@@ -12,7 +12,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { iChancellor } from '@/ai/flows/ichancellor-flow';
 import { transcribeAudio } from '@/ai/flows/whisper-flow';
-import { textToSpeech } from '@/ai/flows/openai-tts-flow';
+import { textToSpeech, type TTSVoice } from '@/ai/flows/openai-tts-flow';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -73,13 +73,13 @@ export default function HealthyLivingPage() {
     }
   }, [user, isUserLoading, router]);
 
-  const speak = useCallback(async (text: string) => {
+  const speak = useCallback(async (text: string, voice: TTSVoice = 'alloy') => {
     if (isMuted) return;
     stopPlayback(); // Stop any currently playing speech
     setIsSpeaking(true);
     try {
       // Pass the current locale to the textToSpeech function
-      const { audioDataUri } = await textToSpeech({ text, locale });
+      const { audioDataUri } = await textToSpeech({ text, locale, voice });
       setAudioSrc(audioDataUri);
     } catch (error) {
       toast({ title: t('audioFailed'), variant: 'destructive' });
@@ -110,6 +110,12 @@ export default function HealthyLivingPage() {
       });
     }
   }, [messages]);
+
+    const playEndSound = useCallback(async () => {
+    if (isMuted) return;
+    const endMessage = "You are amazing. Have a beautiful day!";
+    await speak(endMessage, 'nova'); // Use 'nova' for an enthusiastic voice
+  }, [speak, isMuted]);
   
   // Timer logic for meditation
   useEffect(() => {
@@ -136,17 +142,8 @@ export default function HealthyLivingPage() {
             clearInterval(timerIntervalRef.current);
         }
     };
-  }, [isMeditating]);
+  }, [isMeditating, playEndSound]);
 
-  const playEndSound = () => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A4 note
-    oscillator.connect(audioContext.destination);
-    oscillator.start();
-    setTimeout(() => oscillator.stop(), 500);
-  };
   
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
