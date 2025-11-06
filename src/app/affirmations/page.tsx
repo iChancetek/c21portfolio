@@ -69,32 +69,48 @@ export default function AffirmationsPage() {
   const handleReadAloud = async () => {
     const textToRead = viewState === 'deepDive' ? deepDiveContent : affirmation;
     if (!textToRead || textToRead.includes('Click the button')) return;
-    
+
     if (audioState === 'playing') {
-      audioRef.current?.pause();
-      setAudioState('paused');
-      return;
+        audioRef.current?.pause();
+        setAudioState('paused');
+        return;
     }
-    
+
     if (audioState === 'paused' && audioRef.current) {
-      audioRef.current.play();
-      setAudioState('playing');
-      return;
+        audioRef.current.play();
+        setAudioState('playing');
+        return;
     }
-    
+
     if (audioState === 'idle') {
-      setAudioState('loading');
-      try {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = textToRead;
-        const textContent = tempDiv.textContent || tempDiv.innerText || "";
-        
-        const { audioDataUri } = await textToSpeech({ text: textContent, locale });
-        setAudioSrc(audioDataUri);
-      } catch (error) {
-        console.error('Failed to generate speech:', error);
-        setAudioState('idle');
-      }
+        setAudioState('loading');
+        try {
+            // Get current date and time
+            const now = new Date();
+            const dateTimeString = now.toLocaleString(locale, {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric'
+            });
+
+            // Extract only the text content from the affirmation/deep dive (which might contain HTML)
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = textToRead;
+            const textContent = tempDiv.textContent || tempDiv.innerText || "";
+            
+            // Prepend the date and time to the text that will be spoken
+            const textForSpeech = `${dateTimeString}. ${textContent}`;
+
+            const { audioDataUri } = await textToSpeech({ text: textForSpeech, locale });
+            setAudioSrc(audioDataUri);
+        } catch (error) {
+            console.error('Failed to generate speech:', error);
+            setAudioState('idle');
+        }
     }
   };
 
