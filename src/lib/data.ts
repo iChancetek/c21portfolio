@@ -148,7 +148,7 @@ export const ventureIcons: VentureIcon[] = [
 
 export const partnerCompanies = [
   { name: "Condé Nast" },
-  { name: "Advance" },
+  { name: "ADVANCE" },
   { name: "SIMON" },
   { name: "Braiva Capital" },
   { name: "Couristan" },
