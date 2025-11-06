@@ -9,7 +9,7 @@ const Ticker = () => {
     return (
         <section className="w-full py-12">
             <div className="container mx-auto">
-                 <h3 className="text-center text-3xl font-bold text-primary-gradient mb-8">
+                 <h3 className="text-center text-4xl font-bold tracking-tighter text-primary-gradient mb-8">
                     Trusted by Leading Companies & Partners
                 </h3>
                 <div className="ticker-container">
