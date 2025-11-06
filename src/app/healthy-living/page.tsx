@@ -145,14 +145,20 @@ export default function HealthyLivingPage() {
   // Effect to play sound when timer finishes
   useEffect(() => {
     if (timer === 0 && !isMeditating) {
-      // This condition ensures it only plays when the timer just finished
-      const wasMeditating = (meditationDuration > 0);
+      const wasMeditating = (meditationDuration > 0 && isMeditating); // Check if it was meditating
       if (wasMeditating) {
          playEndSound();
       }
     }
   }, [timer, isMeditating, playEndSound, meditationDuration]);
   
+  // Effect to update the timer display when duration is changed
+  useEffect(() => {
+    if (!isMeditating) {
+      setTimer(meditationDuration);
+    }
+  }, [meditationDuration, isMeditating]);
+
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
