@@ -8,6 +8,7 @@ import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { UserPresenceProvider } from '@/hooks/UserPresenceProvider';
 import { LocaleProvider, useLocale } from '@/hooks/useLocale';
+import SiteReader from '@/components/SiteReader';
 
 // This is a new component to handle metadata within the provider context
 const PageMetadata: React.FC = () => {
@@ -44,9 +45,10 @@ export default function RootLayout({
             <UserPresenceProvider>
               <LocaleProvider>
                 <Header />
-                <main className="flex-1 container">{children}</main>
+                <main id="main-content" className="flex-1 container">{children}</main>
                 <Footer />
                 <Toaster />
+                <SiteReader />
               </LocaleProvider>
             </UserPresenceProvider>
           </FirebaseClientProvider>
