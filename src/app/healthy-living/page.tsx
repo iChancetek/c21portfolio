@@ -89,15 +89,14 @@ export default function HealthyLivingPage() {
     }
   }, [isMuted, stopPlayback, toast, t, locale]);
 
-  // Set initial welcome message and speak it once.
+  // Set initial welcome message once.
   useEffect(() => {
     if (user && mode === 'chat' && messages.length === 0) {
       const welcomeMessageContent = t('iChancellorWelcome');
       const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
       setMessages([welcomeMessage]);
-      if (!isMuted) {
-        speak(welcomeMessageContent);
-      }
+      // Do not auto-play the welcome message to comply with browser policies.
+      // The user can click the play button to hear it.
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, mode, locale, t]);
@@ -127,7 +126,7 @@ export default function HealthyLivingPage() {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
-            setWasMeditating(true);
+            setWasMeditating(true); // Signal that meditation just finished
             return 0;
           }
           return prev - 1;
@@ -147,10 +146,10 @@ export default function HealthyLivingPage() {
 
   // Effect to play the sound after meditation ends
   useEffect(() => {
-      if (wasMeditating) {
-          playEndSound();
-          setWasMeditating(false); // Reset for next session
-      }
+    if (wasMeditating) {
+        playEndSound();
+        setWasMeditating(false); // Reset for next session
+    }
   }, [wasMeditating, playEndSound]);
   
   // Effect to update the timer display when duration is changed
@@ -179,6 +178,10 @@ export default function HealthyLivingPage() {
     setTimer(meditationDuration);
     stopPlayback();
   };
+  
+  const handleTogglePause = () => {
+      setIsPaused(!isPaused);
+  }
 
   const handleMicClick = () => {
     if (isRecording) {
@@ -382,7 +385,7 @@ export default function HealthyLivingPage() {
                   <div className="flex flex-col items-center gap-4">
                       {isMeditating ? (
                            <div className="flex gap-4">
-                                <Button size="lg" variant="outline" onClick={() => setIsPaused(!isPaused)}>
+                                <Button size="lg" variant="outline" onClick={handleTogglePause}>
                                     {isPaused ? <Play className="mr-2 h-5 w-5" /> : <Pause className="mr-2 h-5 w-5" />}
                                     {isPaused ? t('resume') : t('pause')}
                                 </Button>
@@ -395,26 +398,27 @@ export default function HealthyLivingPage() {
                             <Button size="lg" className="bg-primary-gradient" onClick={handleStartMeditation}>
                                 <Play className="mr-2 h-5 w-5"/> {t('startSession')}
                             </Button>
-                            <div className="w-64 space-y-2">
-                                <Label htmlFor="duration" className="text-muted-foreground">{t('duration')}</Label>
-                                <Select
-                                    value={String(meditationDuration / 60)}
-                                    onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
-                                >
-                                    <SelectTrigger id="duration" className="w-full">
-                                        <SelectValue placeholder={t('selectDuration')} />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="5">5 minutes</SelectItem>
-                                        <SelectItem value="10">10 minutes</SelectItem>
-                                        <SelectItem value="15">15 minutes</SelectItem>
-                                        <SelectItem value="20">20 minutes</SelectItem>
-                                        <SelectItem value="30">30 minutes</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
                         </div>
                       )}
+                      <div className="w-64 space-y-2 mt-4">
+                          <Label htmlFor="duration" className="text-muted-foreground">{t('duration')}</Label>
+                          <Select
+                              value={String(meditationDuration / 60)}
+                              onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
+                              disabled={isMeditating}
+                          >
+                              <SelectTrigger id="duration" className="w-full">
+                                  <SelectValue placeholder={t('selectDuration')} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                  <SelectItem value="5">5 minutes</SelectItem>
+                                  <SelectItem value="10">10 minutes</SelectItem>
+                                  <SelectItem value="15">15 minutes</SelectItem>
+                                  <SelectItem value="20">20 minutes</SelectItem>
+                                  <SelectItem value="30">30 minutes</SelectItem>
+                              </SelectContent>
+                          </Select>
+                      </div>
                   </div>
               </CardContent>
             )}
