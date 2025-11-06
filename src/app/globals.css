@@ -118,8 +118,8 @@
       align-items: center;
       justify-content: center;
       @apply font-body;
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 1.125rem;
+      font-weight: 400;
       color: hsl(var(--muted-foreground));
       opacity: 0.8;
       transition: all 0.3s ease;
