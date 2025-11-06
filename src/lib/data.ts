@@ -152,7 +152,7 @@ export const partnerCompanies = [
   { name: "SIMON" },
   { name: "Braiva Capital" },
   { name: "Couristan" },
-  { name: "Brexa Bio Inc." },
+  { name: "tBrexa Bio Inc." },
   { name: "Nama Harlem" },
   { name: "WNDR" },
   { name: "Alpharma Pharmaceuticals" },
