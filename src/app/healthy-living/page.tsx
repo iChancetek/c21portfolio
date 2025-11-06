@@ -50,7 +50,6 @@ export default function HealthyLivingPage() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // Meditation state
-  const [mode, setMode] = useState<Mode>('chat');
   const [meditationDuration, setMeditationDuration] = useState(10 * 60); // 10 minutes in seconds
   const [timer, setTimer] = useState(meditationDuration);
   const [isMeditating, setIsMeditating] = useState(false);
@@ -362,7 +361,7 @@ export default function HealthyLivingPage() {
                     <p className="text-8xl font-bold font-mono text-primary-gradient">{formatTime(timer)}</p>
                     <p className="text-muted-foreground">{t('meditationSession')}</p>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-col items-center gap-4">
                       {isMeditating ? (
                           <Button size="lg" variant="destructive" onClick={stopMeditation}>
                             <Pause className="mr-2 h-5 w-5"/> {t('endSession')}
@@ -372,6 +371,26 @@ export default function HealthyLivingPage() {
                             <Play className="mr-2 h-5 w-5"/> {t('startSession')}
                           </Button>
                       )}
+                      {!isMeditating && (
+                        <div className="w-64 space-y-2">
+                            <Label htmlFor="duration" className="text-muted-foreground">{t('duration')}</Label>
+                            <Select
+                                value={String(meditationDuration / 60)}
+                                onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
+                            >
+                                <SelectTrigger id="duration" className="w-full">
+                                    <SelectValue placeholder={t('selectDuration')} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="5">5 minutes</SelectItem>
+                                    <SelectItem value="10">10 minutes</SelectItem>
+                                    <SelectItem value="15">15 minutes</SelectItem>
+                                    <SelectItem value="20">20 minutes</SelectItem>
+                                    <SelectItem value="30">30 minutes</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                      )}
                   </div>
               </CardContent>
             )}
@@ -380,31 +399,12 @@ export default function HealthyLivingPage() {
     <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{t('meditationSettings')}</DialogTitle>
+          <DialogTitle>{t('settings')}</DialogTitle>
           <DialogDescription>
             {t('settingsDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-6 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="duration">{t('duration')}</Label>
-            <Select
-              value={String(meditationDuration / 60)}
-              onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
-              disabled={isMeditating}
-            >
-              <SelectTrigger id="duration" className="w-full">
-                <SelectValue placeholder={t('selectDuration')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="5">5 minutes</SelectItem>
-                <SelectItem value="10">10 minutes</SelectItem>
-                <SelectItem value="15">15 minutes</SelectItem>
-                <SelectItem value="20">20 minutes</SelectItem>
-                <SelectItem value="30">30 minutes</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
           <div className="space-y-2">
             <Label htmlFor="language">{t('languagePreference')}</Label>
             <Select value={locale} onValueChange={(value) => setLocale(value as 'en' | 'es')}>
