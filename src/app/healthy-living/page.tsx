@@ -89,16 +89,25 @@ export default function HealthyLivingPage() {
 
   // Set initial welcome message and handle language changes
   useEffect(() => {
-    if (mode === 'chat' && user) {
-        const welcomeMessageContent = t('iChancellorWelcome');
-        const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
-        setMessages([welcomeMessage]);
-        if (!isMuted) {
-            speak(welcomeMessageContent);
-        }
+      if (mode === 'chat' && user) {
+          const welcomeMessageContent = t('iChancellorWelcome');
+          const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
+          setMessages([welcomeMessage]);
+          if (!isMuted) {
+              // We defer the speaking part to another effect to avoid state updates during render
+          }
+      }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, locale, user, t]);
+
+  // This effect handles speaking the initial welcome message AFTER the component has rendered.
+  useEffect(() => {
+    const firstMessage = messages[0];
+    if (user && mode === 'chat' && messages.length === 1 && firstMessage?.role === 'assistant' && !isMuted) {
+      speak(firstMessage.content);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode, locale, user, t]); // Rerunning speak() here would cause loops if it wasn't for useCallback
+  }, [messages, user, mode, isMuted]); // Note: 'speak' is not included to avoid re-triggering on its own changes.
 
 
   // Scroll to bottom of chat
@@ -368,29 +377,29 @@ export default function HealthyLivingPage() {
                             <Pause className="mr-2 h-5 w-5"/> {t('endSession')}
                           </Button>
                       ) : (
+                        <>
                           <Button size="lg" className="bg-primary-gradient" onClick={handleStartMeditation}>
                             <Play className="mr-2 h-5 w-5"/> {t('startSession')}
                           </Button>
-                      )}
-                      {!isMeditating && (
-                        <div className="w-64 space-y-2">
-                            <Label htmlFor="duration" className="text-muted-foreground">{t('duration')}</Label>
-                            <Select
-                                value={String(meditationDuration / 60)}
-                                onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
-                            >
-                                <SelectTrigger id="duration" className="w-full">
-                                    <SelectValue placeholder={t('selectDuration')} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="5">5 minutes</SelectItem>
-                                    <SelectItem value="10">10 minutes</SelectItem>
-                                    <SelectItem value="15">15 minutes</SelectItem>
-                                    <SelectItem value="20">20 minutes</SelectItem>
-                                    <SelectItem value="30">30 minutes</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
+                          <div className="w-64 space-y-2">
+                              <Label htmlFor="duration" className="text-muted-foreground">{t('duration')}</Label>
+                              <Select
+                                  value={String(meditationDuration / 60)}
+                                  onValueChange={(val) => setMeditationDuration(Number(val) * 60)}
+                              >
+                                  <SelectTrigger id="duration" className="w-full">
+                                      <SelectValue placeholder={t('selectDuration')} />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                      <SelectItem value="5">5 minutes</SelectItem>
+                                      <SelectItem value="10">10 minutes</SelectItem>
+                                      <SelectItem value="15">15 minutes</SelectItem>
+                                      <SelectItem value="20">20 minutes</SelectItem>
+                                      <SelectItem value="30">30 minutes</SelectItem>
+                                  </SelectContent>
+                              </Select>
+                          </div>
+                        </>
                       )}
                   </div>
               </CardContent>
