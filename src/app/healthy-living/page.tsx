@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, useTransition, useCallback } from 'react';
@@ -98,7 +99,7 @@ export default function HealthyLivingPage() {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, mode, locale, t]); // isMuted, speak, messages.length are intentionally omitted to prevent re-triggering
+  }, [user, mode, locale, t]); 
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -124,7 +125,6 @@ export default function HealthyLivingPage() {
           if (prev <= 1) {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
-            playEndSound();
             return 0;
           }
           return prev - 1;
@@ -135,14 +135,23 @@ export default function HealthyLivingPage() {
         clearInterval(timerIntervalRef.current);
       }
     }
-
     return () => {
         if(timerIntervalRef.current) {
             clearInterval(timerIntervalRef.current);
         }
     };
-  }, [isMeditating, playEndSound]);
+  }, [isMeditating]);
 
+  // Effect to play sound when timer finishes
+  useEffect(() => {
+    if (timer === 0 && !isMeditating) {
+      // This condition ensures it only plays when the timer just finished
+      const wasMeditating = (meditationDuration > 0);
+      if (wasMeditating) {
+         playEndSound();
+      }
+    }
+  }, [timer, isMeditating, playEndSound, meditationDuration]);
   
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -427,3 +436,5 @@ export default function HealthyLivingPage() {
     </>
   );
 }
+
+    
