@@ -183,5 +183,10 @@
   "noAudio": "Kò sí Ohùn",
   "noAudioDescription": "Jọ̀wọ́ gba ohùn sílẹ̀ tàbí gbé fáìlì ohùn sókè ní àkọ́kọ́.",
   "admin": "Aláṣẹ",
-  "meditationSettings": "Ètò Ìṣàṣàrò"
+  "meditationSettings": "Ètò Ìṣàṣàrò",
+  "greeting_morning": "Ẹ kú àárọ̀, {name}.",
+  "greeting_afternoon": "Ẹ kú ọ̀sán, {name}.",
+  "greeting_evening": "Ẹ kú ìrọ̀lẹ́, {name}.",
+  "myFriend": "ọ̀rẹ́ mi",
+  "affirmationPrompt": "Jẹ́ kí a dá àwọn ìdánilójú òní láti fi ọkàn rẹ sí àárín àti láti fún ara rẹ tí ó dára jùlọ ní ìwúrí."
 }

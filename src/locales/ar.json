@@ -173,5 +173,10 @@
   "noAudio": "لا يوجد صوت",
   "noAudioDescription": "يرجى تسجيل أو تحميل ملف صوتي أولاً.",
   "admin": "المسؤول",
-  "meditationSettings": "إعدادات التأمل"
+  "meditationSettings": "إعدادات التأمل",
+  "greeting_morning": "صباح الخير، {name}.",
+  "greeting_afternoon": "مساء الخير، {name}.",
+  "greeting_evening": "مساء الخير، {name}.",
+  "myFriend": "يا صديقي",
+  "affirmationPrompt": "لنقم بإنشاء تأكيدات اليوم لتركيز عقلك وإلهام أفضل ما فيك."
 }

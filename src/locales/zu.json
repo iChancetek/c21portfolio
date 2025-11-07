@@ -183,5 +183,10 @@
   "noAudio": "Awukho Umsindo",
   "noAudioDescription": "Sicela urekhode noma ulayishe ifayela lomsindo kuqala.",
   "admin": "Umphathi",
-  "meditationSettings": "Izilungiselelo Zokuzindla"
+  "meditationSettings": "Izilungiselelo Zokuzindla",
+  "greeting_morning": "Sawubona, {name}.",
+  "greeting_afternoon": "Sawubona ntambama, {name}.",
+  "greeting_evening": "Sawubona kusihlwa, {name}.",
+  "myFriend": "mngane wami",
+  "affirmationPrompt": "Ake sidale iziqinisekiso zanamuhla ukuze sigxilise ingqondo yakho futhi sikhuthaze ubuntu bakho obungcono kakhulu."
 }

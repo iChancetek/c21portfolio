@@ -173,5 +173,10 @@
   "noAudio": "Kein Audio",
   "noAudioDescription": "Bitte nehmen Sie zuerst eine Audiodatei auf oder laden Sie sie hoch.",
   "admin": "Admin",
-  "meditationSettings": "Meditationseinstellungen"
+  "meditationSettings": "Meditationseinstellungen",
+  "greeting_morning": "Guten Morgen, {name}.",
+  "greeting_afternoon": "Guten Tag, {name}.",
+  "greeting_evening": "Guten Abend, {name}.",
+  "myFriend": "mein Freund",
+  "affirmationPrompt": "Lassen Sie uns die heutigen Affirmationen erstellen, um Ihren Geist zu zentrieren und Ihr bestes Selbst zu inspirieren."
 }

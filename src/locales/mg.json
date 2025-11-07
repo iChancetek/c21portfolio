@@ -183,5 +183,10 @@
   "noAudio": "Tsy misy Feo",
   "noAudioDescription": "Azafady, raketo na ampidiro rakitra feo aloha.",
   "admin": "Admin",
-  "meditationSettings": "Fandrindrana Fisaintsainana"
+  "meditationSettings": "Fandrindrana Fisaintsainana",
+  "greeting_morning": "Salama, {name}.",
+  "greeting_afternoon": "Tonga soa, {name}.",
+  "greeting_evening": "Tonga soa, {name}.",
+  "myFriend": "ry namako",
+  "affirmationPrompt": "Andao hamorona ny fanamarinana anio mba hampifantoka ny sainao sy hanome aingam-panahy ny tenanao tsara indrindra."
 }

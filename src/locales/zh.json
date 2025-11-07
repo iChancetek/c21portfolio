@@ -173,5 +173,10 @@
   "noAudio": "无音频",
   "noAudioDescription": "请先录制或上传音频文件。",
   "admin": "管理员",
-  "meditationSettings": "冥想设置"
+  "meditationSettings": "冥想设置",
+  "greeting_morning": "早上好，{name}。",
+  "greeting_afternoon": "下午好，{name}。",
+  "greeting_evening": "晚上好，{name}。",
+  "myFriend": "我的朋友",
+  "affirmationPrompt": "让我们来创造今天的肯定语，让您的心灵集中，并激发您最好的一面。"
 }

@@ -183,5 +183,10 @@
   "noAudio": "Enweghị Ọdịyo",
   "noAudioDescription": "Biko buru ụzọ dekọọ ma ọ bụ bulite faịlụ ọdịyo.",
   "admin": "Onye nchịkwa",
-  "meditationSettings": "Ntọala Ntụgharị uche"
+  "meditationSettings": "Ntọala Ntụgharị uche",
+  "greeting_morning": "Ụtụtụ ọma, {name}.",
+  "greeting_afternoon": "Ehihie ọma, {name}.",
+  "greeting_evening": "Mgbede ọma, {name}.",
+  "myFriend": "enyi m",
+  "affirmationPrompt": "Ka anyị mepụta nkwenye taa iji lekwasị anya n'uche gị ma kpalie onwe gị kachasị mma."
 }

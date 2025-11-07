@@ -183,5 +183,10 @@
   "noAudio": "Hakuna Sauti",
   "noAudioDescription": "Tafadhali rekodi au pakia faili ya sauti kwanza.",
   "admin": "Msimamizi",
-  "meditationSettings": "Mipangilio ya Tafakari"
+  "meditationSettings": "Mipangilio ya Tafakari",
+  "greeting_morning": "Habari za asubuhi, {name}.",
+  "greeting_afternoon": "Habari za mchana, {name}.",
+  "greeting_evening": "Habari za jioni, {name}.",
+  "myFriend": "rafiki yangu",
+  "affirmationPrompt": "Hebu tuunde uthibitisho wa leo ili kuweka akili yako katikati na kuhamasisha ubora wako."
 }

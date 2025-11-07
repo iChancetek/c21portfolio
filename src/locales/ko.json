@@ -173,5 +173,10 @@
   "noAudio": "오디오 없음",
   "noAudioDescription": "먼저 오디오 파일을 녹음하거나 업로드하십시오.",
   "admin": "관리자",
-  "meditationSettings": "명상 설정"
+  "meditationSettings": "명상 설정",
+  "greeting_morning": "좋은 아침입니다, {name}님.",
+  "greeting_afternoon": "좋은 오후입니다, {name}님.",
+  "greeting_evening": "좋은 저녁입니다, {name}님.",
+  "myFriend": "내 친구",
+  "affirmationPrompt": "오늘의 긍정 확언을 만들어 마음을 집중시키고 최고의 자신을 고무시켜 봅시다."
 }

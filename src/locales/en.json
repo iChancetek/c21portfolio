@@ -164,5 +164,10 @@
   "noAudio": "No Audio",
   "noAudioDescription": "Please record or upload an audio file first.",
   "admin": "Admin",
-  "meditationSettings": "Meditation Settings"
+  "meditationSettings": "Meditation Settings",
+  "greeting_morning": "Good morning, {name}.",
+  "greeting_afternoon": "Good afternoon, {name}.",
+  "greeting_evening": "Good evening, {name}.",
+  "myFriend": "my friend",
+  "affirmationPrompt": "Let’s create today’s affirmations to center your mind and inspire your best self."
 }

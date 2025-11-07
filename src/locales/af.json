@@ -183,5 +183,10 @@
   "noAudio": "Geen Oudio",
   "noAudioDescription": "Neem asseblief eers 'n oudiolêer op of laai dit op.",
   "admin": "Admin",
-  "meditationSettings": "Meditasie-instellings"
+  "meditationSettings": "Meditasie-instellings",
+  "greeting_morning": "Goeiemôre, {name}.",
+  "greeting_afternoon": "Goeiemiddag, {name}.",
+  "greeting_evening": "Goeienaand, {name}.",
+  "myFriend": "my vriend",
+  "affirmationPrompt": "Kom ons skep vandag se bevestigings om jou gedagtes te sentreer en jou beste self te inspireer."
 }

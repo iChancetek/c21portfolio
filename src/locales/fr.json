@@ -173,5 +173,10 @@
   "noAudio": "Aucun audio",
   "noAudioDescription": "Veuillez d'abord enregistrer ou télécharger un fichier audio.",
   "admin": "Admin",
-  "meditationSettings": "Paramètres de méditation"
+  "meditationSettings": "Paramètres de méditation",
+  "greeting_morning": "Bonjour, {name}.",
+  "greeting_afternoon": "Bon après-midi, {name}.",
+  "greeting_evening": "Bonsoir, {name}.",
+  "myFriend": "mon ami(e)",
+  "affirmationPrompt": "Créons les affirmations d'aujourd'hui pour centrer votre esprit et inspirer le meilleur de vous-même."
 }

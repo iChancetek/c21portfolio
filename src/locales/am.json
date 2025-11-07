@@ -183,5 +183,10 @@
   "noAudio": "ምንም ኦዲዮ የለም",
   "noAudioDescription": "እባክዎ መጀመሪያ የድምጽ ፋйл ይቅረጹ ወይም ይስቀሉ።",
   "admin": "አስተዳዳሪ",
-  "meditationSettings": "የማሰላሰል ቅንብሮች"
+  "meditationSettings": "የማሰላሰል ቅንብሮች",
+  "greeting_morning": "እንደምን አደሩ, {name}።",
+  "greeting_afternoon": "እንደምን ዋሉ, {name}።",
+  "greeting_evening": "እንደምን አመሹ, {name}።",
+  "myFriend": "ወዳጄ",
+  "affirmationPrompt": "የዛሬውን ማረጋገጫዎች እንፍጠር፤ አእምሮዎን ለማተኮር እና ምርጥ ማንነትዎን ለማነሳሳት።"
 }

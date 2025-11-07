@@ -173,5 +173,10 @@
   "noAudio": "音声がありません",
   "noAudioDescription": "最初に音声ファイルを録音またはアップロードしてください。",
   "admin": "管理者",
-  "meditationSettings": "瞑想設定"
+  "meditationSettings": "瞑想設定",
+  "greeting_morning": "おはようございます、{name}さん。",
+  "greeting_afternoon": "こんにちは、{name}さん。",
+  "greeting_evening": "こんばんは、{name}さん。",
+  "myFriend": "友よ",
+  "affirmationPrompt": "今日のアファメーションを作成して、心を集中させ、最高の自分を鼓舞しましょう。"
 }

@@ -9,13 +9,16 @@ import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useLocale } from '@/hooks/useLocale';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useUser } from '@/firebase';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 type ViewState = 'affirmation' | 'deepDive';
 
 export default function AffirmationsPage() {
   const { t, locale, setLocale, locales } = useLocale();
-  const [affirmation, setAffirmation] = useState(t('affirmationsInitialText'));
+  const { user } = useUser();
+  const [greeting, setGreeting] = useState('');
+  const [affirmation, setAffirmation] = useState('');
   const [deepDiveContent, setDeepDiveContent] = useState('');
   const [viewState, setViewState] = useState<ViewState>('affirmation');
   const [isGenerating, startGenerationTransition] = useTransition();
@@ -23,6 +26,49 @@ export default function AffirmationsPage() {
   const [audioState, setAudioState] = useState<AudioState>('idle');
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const getGreeting = () => {
+        const hour = new Date().getHours();
+        let timeOfDay;
+        if (hour >= 5 && hour < 12) {
+            timeOfDay = 'morning';
+        } else if (hour >= 12 && hour < 18) {
+            timeOfDay = 'afternoon';
+        } else {
+            timeOfDay = 'evening';
+        }
+
+        const userName = user?.displayName?.split(' ')[0] || t('myFriend');
+        const greetingText = t(`greeting_${timeOfDay}`, { name: userName });
+        const fullGreeting = `${greetingText} ${t('affirmationPrompt')}`;
+        
+        setGreeting(fullGreeting);
+        
+        // Speak the greeting
+        handleSpeak(fullGreeting);
+    };
+
+    // We only want to run this once on mount, or when the user/locale changes.
+    // The user object might take a moment to load.
+    getGreeting();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, locale, t]);
+
+
+  const handleSpeak = async (text: string) => {
+    if (!text || text === t('affirmationsInitialText')) return;
+    
+    setAudioState('loading');
+    try {
+        const { audioDataUri } = await textToSpeech({ text, locale });
+        setAudioSrc(audioDataUri);
+    } catch (error) {
+        console.error('Failed to generate speech:', error);
+        setAudioState('idle');
+    }
+  };
+
 
   // When a new affirmation is generated, reset the audio and deep dive state.
   useEffect(() => {
@@ -118,7 +164,10 @@ export default function AffirmationsPage() {
   useEffect(() => {
     if (audioSrc && audioRef.current) {
       audioRef.current.src = audioSrc;
-      audioRef.current.play();
+      audioRef.current.play().catch(err => {
+        console.error("Audio playback failed, user interaction might be required.", err);
+        setAudioState('idle');
+      });
       setAudioState('playing');
     }
   }, [audioSrc]);
@@ -155,27 +204,37 @@ export default function AffirmationsPage() {
       <h1 className="text-4xl sm:text-5xl font-bold tracking-tighter mb-4 text-primary-gradient">
         {t('affirmationsTitle')}
       </h1>
-      <p className="max-w-2xl mx-auto text-lg text-muted-foreground mb-10">
+      <p className="max-w-2xl mx-auto text-lg text-muted-foreground mb-4">
         {t('affirmationsDescription')}
       </p>
+
+       {greeting && (
+        <p className="max-w-2xl mx-auto text-md text-muted-foreground mb-10 italic">
+          &ldquo;{greeting}&rdquo;
+        </p>
+      )}
 
       <Card className="w-full max-w-2xl min-h-[250px] flex flex-col p-8 bg-black/20 backdrop-blur-sm border-white/10">
         <CardContent className="p-0 flex-grow flex items-center justify-center">
           {isGenerating ? (
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          ) : viewState === 'affirmation' ? (
+          ) : viewState === 'affirmation' && affirmation ? (
             <p className="text-2xl font-medium text-center">
               &ldquo;{affirmation}&rdquo;
             </p>
           ) : isDeeperDiveLoading ? (
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          ) : (
+          ) : deepDiveContent ? (
              <ScrollArea className="h-[200px] sm:h-[300px] w-full pr-4 text-left">
                 <div
                     className="prose prose-sm sm:prose-base max-w-none prose-invert"
                     dangerouslySetInnerHTML={{ __html: deepDiveContent }}
                 />
               </ScrollArea>
+          ) : (
+             <p className="text-2xl font-medium text-center">
+                &ldquo;{t('affirmationsInitialText')}&rdquo;
+            </p>
           )}
         </CardContent>
       </Card>

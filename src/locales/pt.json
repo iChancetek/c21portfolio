@@ -173,5 +173,10 @@
   "noAudio": "Nenhum Áudio",
   "noAudioDescription": "Por favor, grave ou envie um arquivo de áudio primeiro.",
   "admin": "Admin",
-  "meditationSettings": "Configurações de Meditação"
+  "meditationSettings": "Configurações de Meditação",
+  "greeting_morning": "Bom dia, {name}.",
+  "greeting_afternoon": "Boa tarde, {name}.",
+  "greeting_evening": "Boa noite, {name}.",
+  "myFriend": "meu amigo",
+  "affirmationPrompt": "Vamos criar as afirmações de hoje para centrar sua mente e inspirar seu melhor eu."
 }

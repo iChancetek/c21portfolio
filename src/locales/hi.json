@@ -108,7 +108,7 @@
   "createAccountDescription": "शुरू करने के लिए साइन अप करें।",
   "confirmPassword": "पासवर्ड की पुष्टि करें",
   "haveAccount": "पहले से खाता है? ",
-  "aiAssistantWelcome": "नमस्ते! मैं चांसलर का AI सहायक हूँ। मुझसे उसकी Fähigkeiten और अनुभव کے بارے میں کچھ بھی پوچھیں۔",
+  "aiAssistantWelcome": "नमस्ते! मैं चांसलर का AI सहायक हूँ। मुझसे उसकी Fähigkeiten और अनुभव के بارے में कुछ भी पूछें।",
   "thinking": "सोच रहा हूँ...",
   "aiAssistantPlaceholder": "उदा., उसकी बैकएंड अनुभव क्या है?",
   "send": "भेजें",
@@ -132,7 +132,7 @@
   "caseStudyDescription": "यह तकनीकी केस स्टडी एक AI सहायक द्वारा उत्पन्न की गई थी।",
   "generatingDeepDive": "गहन विश्लेषण उत्पन्न हो रहा है...",
   "contactTitle": "संपर्क में रहें",
-  "contactDescription": "क्या आपका کوئی سوال ہے یا آپ ساتھ کام کرنا چاہتے ہیں؟ مجھے ایک پیغام بھیجیں۔",
+  "contactDescription": "क्या आपका कोई سوال ہے या آپ ساتھ کام کرنا چاہتے ہیں؟ मुझे एक پیغام بھیجیں۔",
   "yourName": "आपका नाम",
   "yourEmail": "your@email.com",
   "yourMessage": "आपका संदेश...",
@@ -173,5 +173,10 @@
   "noAudio": "कोई ऑडियो नहीं",
   "noAudioDescription": "कृपया पहले एक ऑडियो फ़ाइल रिकॉर्ड करें या अपलोड करें।",
   "admin": "एडमिन",
-  "meditationSettings": "ध्यान सेटिंग्स"
+  "meditationSettings": "ध्यान सेटिंग्स",
+  "greeting_morning": "सुप्रभात, {name}।",
+  "greeting_afternoon": "शुभ दोपहर, {name}।",
+  "greeting_evening": "शुभ संध्या, {name}।",
+  "myFriend": "मेरे दोस्त",
+  "affirmationPrompt": "आइए आज के सकारात्मक कथन बनाएं ताकि आपका मन केंद्रित हो और आपका सर्वश्रेष्ठ स्वयं प्रेरित हो।"
 }

@@ -183,5 +183,10 @@
   "noAudio": "Ma jiro Cod",
   "noAudioDescription": "Fadlan diiwaan geli ama soo geli fayl cod ah marka hore.",
   "admin": "Maamule",
-  "meditationSettings": "Dejinta Fekerka"
+  "meditationSettings": "Dejinta Fekerka",
+  "greeting_morning": "Subax wanaagsan, {name}.",
+  "greeting_afternoon": "Galab wanaagsan, {name}.",
+  "greeting_evening": "Habeen wanaagsan, {name}.",
+  "myFriend": "saaxiibkay",
+  "affirmationPrompt": "Aan abuurno xaqiijinta maanta si aan maskaxdaada u mideyno oo aan u dhiirigelino naftaada ugu fiican."
 }

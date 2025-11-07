@@ -183,5 +183,10 @@
   "noAudio": "Hapana Odhiyo",
   "noAudioDescription": "Ndapota rekodha kana kurodha faira reodhiyo kutanga.",
   "admin": "Admin",
-  "meditationSettings": "Zvirongwa zveKufungisisa"
+  "meditationSettings": "Zvirongwa zveKufungisisa",
+  "greeting_morning": "Mangwanani akanaka, {name}.",
+  "greeting_afternoon": "Masikati akanaka, {name}.",
+  "greeting_evening": "Manheru akanaka, {name}.",
+  "myFriend": "shamwari yangu",
+  "affirmationPrompt": "Ngatigadzire zvisimbiso zvanhasi kuti tipfungwa dzako dziite pakati uye tikurudzire zvakanakisisa zvako."
 }

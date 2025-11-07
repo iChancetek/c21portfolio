@@ -183,5 +183,10 @@
   "noAudio": "Babu Sauti",
   "noAudioDescription": "Da fatan za a yi rikodin ko loda fayil na sauti da farko.",
   "admin": "Admin",
-  "meditationSettings": "Saitunan Tunani"
+  "meditationSettings": "Saitunan Tunani",
+  "greeting_morning": "Barka da safiya, {name}.",
+  "greeting_afternoon": "Barka da rana, {name}.",
+  "greeting_evening": "Barka da yamma, {name}.",
+  "myFriend": "abokina",
+  "affirmationPrompt": "Bari mu samar da tabbatarwa ta yau don mayar da hankalinka da kuma karfafa mafi kyawun kanka."
 }
