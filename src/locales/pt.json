@@ -103,7 +103,7 @@
   "venturesDescription": "Uma vitrine de empresas e produtos movidos a IA que eu construí.",
   "createAccount": "Criar Conta",
   "createAccountAndVerify": "Sua conta foi criada! Por favor, verifique seu e-mail para verificar sua conta.",
-  "welcomeNewUser": "Bem-vindo {name} à plataforma Chancellor Minus!",
+  "welcomeNewUser": "Bem-vindo, {name}. Eu sou o iChancellor, seu companheiro inteligente de bem-estar. Vamos começar sua jornada em direção ao equilíbrio e clareza.",
   "welcomeBack": "Bem-vindo de volta!",
   "createAccountDescription": "Inscreva-se para começar.",
   "confirmPassword": "Confirmar Senha",
@@ -178,5 +178,9 @@
   "greeting_afternoon": "Boa tarde, {name}.",
   "greeting_evening": "Boa noite, {name}.",
   "myFriend": "meu amigo",
-  "affirmationPrompt": "Vamos criar as afirmações de hoje para centrar sua mente e inspirar seu melhor eu."
+  "affirmationPrompt": "Vamos criar as afirmações de hoje para centrar sua mente e inspirar seu melhor eu.",
+  "greeting_morning_return": "Bom dia, {name}. É ótimo vê-lo novamente. Vamos começar o dia com atenção e foco.",
+  "greeting_afternoon_return": "Boa tarde, {name}. Espero que seu dia tenha sido bom. Vamos tirar um momento de atenção plena juntos.",
+  "greeting_evening_return": "Boa noite, {name}. Você se saiu bem hoje. Vamos relaxar e respirar juntos.",
+  "meditationEnd": "Você é incrível. Tenha um belo dia!"
 }

@@ -103,7 +103,7 @@
   "venturesDescription": "我构建的 AI 驱动的公司和产品展示。",
   "createAccount": "创建账户",
   "createAccountAndVerify": "您的账户已创建！请检查您的电子邮件以验证您的账户。",
-  "welcomeNewUser": "欢迎{name}来到 Chancellor Minus 平台！",
+  "welcomeNewUser": "欢迎，{name}。我是 iChancellor，您的智能健康伴侣。让我们开始您的平衡与清晰之旅。",
   "welcomeBack": "欢迎回来！",
   "createAccountDescription": "注册以开始。",
   "confirmPassword": "确认密码",
@@ -178,5 +178,9 @@
   "greeting_afternoon": "下午好，{name}。",
   "greeting_evening": "晚上好，{name}。",
   "myFriend": "我的朋友",
-  "affirmationPrompt": "让我们来创造今天的肯定语，让您的心灵集中，并激发您最好的一面。"
+  "affirmationPrompt": "让我们来创造今天的肯定语，让您的心灵集中，并激发您最好的一面。",
+  "greeting_morning_return": "早上好，{name}。很高兴再次见到您。让我们以正念和专注开始新的一天。",
+  "greeting_afternoon_return": "下午好，{name}。希望您今天过得愉快。让我们一起度过一个正念的时刻。",
+  "greeting_evening_return": "晚上好，{name}。您今天做得很好。让我们一起放松和呼吸。",
+  "meditationEnd": "你太棒了。祝你有美好的一天！"
 }

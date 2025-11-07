@@ -103,7 +103,7 @@
   "venturesDescription": "제가 구축한 AI 기반 회사 및 제품 쇼케이스입니다.",
   "createAccount": "계정 만들기",
   "createAccountAndVerify": "계정이 생성되었습니다! 계정을 확인하려면 이메일을 확인하십시오.",
-  "welcomeNewUser": "{name}님, 챈슬러 마이너스 플랫폼에 오신 것을 환영합니다!",
+  "welcomeNewUser": "환영합니다, {name}님. 저는 iChancellor, 당신의 지능형 웰빙 동반자입니다. 균형과 명확성을 향한 여정을 시작합시다.",
   "welcomeBack": "다시 오신 것을 환영합니다!",
   "createAccountDescription": "시작하려면 가입하세요.",
   "confirmPassword": "비밀번호 확인",
@@ -178,5 +178,9 @@
   "greeting_afternoon": "좋은 오후입니다, {name}님.",
   "greeting_evening": "좋은 저녁입니다, {name}님.",
   "myFriend": "내 친구",
-  "affirmationPrompt": "오늘의 긍정 확언을 만들어 마음을 집중시키고 최고의 자신을 고무시켜 봅시다."
+  "affirmationPrompt": "오늘의 긍정 확언을 만들어 마음을 집중시키고 최고의 자신을 고무시켜 봅시다.",
+  "greeting_morning_return": "좋은 아침입니다, {name}님. 다시 만나서 반갑습니다. 마음챙김과 집중으로 하루를 시작합시다.",
+  "greeting_afternoon_return": "좋은 오후입니다, {name}님. 오늘 하루가 당신에게 친절했기를 바랍니다. 함께 마음챙김의 순간을 가져봅시다.",
+  "greeting_evening_return": "좋은 저녁입니다, {name}님. 오늘 잘 하셨습니다. 함께 긴장을 풀고 숨을 쉽시다.",
+  "meditationEnd": "당신은 정말 멋져요. 아름다운 하루 보내세요!"
 }

@@ -44,7 +44,11 @@ export default function LoginPage() {
       const { audioDataUri } = await textToSpeech({ text, voice: 'nova' });
       if (audioRef.current) {
         audioRef.current.src = audioDataUri;
-        audioRef.current.play().catch(e => console.error("Audio playback failed", e));
+        // Storing promise to avoid unhandled promise rejection error
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(e => console.error("Audio playback failed", e));
+        }
       }
     } catch (e) {
       console.error("Failed to generate welcome audio:", e);
@@ -62,17 +66,12 @@ export default function LoginPage() {
 
     const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
     
-    let welcomeMessage: string;
-    if (isNewUser) {
-      welcomeMessage = t('welcomeNewUser', { name: user.displayName || 'friend' });
-    } else {
-      welcomeMessage = t('welcomeBack');
-    }
-    
-    playWelcomeAudio(welcomeMessage);
+    // Store in session storage to be read by the healthy-living page
+    sessionStorage.setItem('loginStatus', isNewUser ? 'newUser' : 'returningUser');
+    sessionStorage.setItem('userName', user.displayName || 'my friend');
 
     toast({ title: t('success'), description: t('login') });
-    router.push('/dashboard');
+    router.push('/healthy-living');
   };
 
   const handleLogin = async (e: React.FormEvent) => {

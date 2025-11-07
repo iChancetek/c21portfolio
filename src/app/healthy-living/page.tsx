@@ -89,25 +89,39 @@ export default function HealthyLivingPage() {
     }
   }, [isMuted, stopPlayback, toast, t, locale]);
 
-  // Set or update the initial welcome message when locale changes.
+  // Set or update the initial welcome message when locale or user changes.
   useEffect(() => {
     if (user && mode === 'chat') {
-      const welcomeMessageContent = t('iChancellorWelcome');
-      const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
-
-      setMessages(prevMessages => {
-        // If there are no messages yet, start with the welcome message.
-        if (prevMessages.length === 0) {
-          return [welcomeMessage];
+        const loginStatus = sessionStorage.getItem('loginStatus');
+        const userName = sessionStorage.getItem('userName') || user.displayName || 'my friend';
+        
+        let greetingKey = '';
+        if (loginStatus === 'newUser') {
+            greetingKey = 'welcomeNewUser';
+        } else {
+            const hour = new Date().getHours();
+            if (hour >= 5 && hour < 12) {
+                greetingKey = 'greeting_morning_return';
+            } else if (hour >= 12 && hour < 18) {
+                greetingKey = 'greeting_afternoon_return';
+            } else {
+                greetingKey = 'greeting_evening_return';
+            }
         }
         
-        // If messages exist, create a new array and replace the first message (the greeting).
-        const updatedMessages = [...prevMessages];
-        updatedMessages[0] = welcomeMessage;
-        return updatedMessages;
-      });
+        const welcomeMessageContent = t(greetingKey, { name: userName });
+        const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
+
+        setMessages([welcomeMessage]);
+        
+        // Speak the greeting, but only if it's the first time after login
+        if (loginStatus) {
+            speak(welcomeMessageContent);
+            sessionStorage.removeItem('loginStatus');
+            sessionStorage.removeItem('userName');
+        }
     }
-  }, [user, mode, locale, t]);
+}, [user, mode, locale, t, speak]);
 
 
   // Scroll to bottom of chat
@@ -122,9 +136,9 @@ export default function HealthyLivingPage() {
 
   const playEndSound = useCallback(async () => {
     if (isMuted) return;
-    const endMessage = "You are amazing. Have a beautiful day!";
+    const endMessage = t('meditationEnd');
     await speak(endMessage, 'nova'); // Use 'nova' for an enthusiastic voice
-  }, [speak, isMuted]);
+  }, [speak, isMuted, t]);
   
   // Timer logic for meditation
   useEffect(() => {

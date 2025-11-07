@@ -103,7 +103,7 @@
   "venturesDescription": "عرض للشركات والمنتجات التي تعتمد على الذكاء الاصطناعي والتي قمت ببنائها.",
   "createAccount": "إنشاء حساب",
   "createAccountAndVerify": "تم إنشاء حسابك! يرجى التحقق من بريدك الإلكتروني لتفعيل حسابك.",
-  "welcomeNewUser": "أهلاً بك {name} في منصة تشانسلر ماينس!",
+  "welcomeNewUser": "أهلاً بك، {name}. أنا iChancellor، رفيقك الذكي للعافية. لنبدأ رحلتك نحو التوازن والوضوح.",
   "welcomeBack": "أهلاً بعودتك!",
   "createAccountDescription": "سجل للبدء.",
   "confirmPassword": "تأكيد كلمة المرور",
@@ -178,5 +178,9 @@
   "greeting_afternoon": "مساء الخير، {name}.",
   "greeting_evening": "مساء الخير، {name}.",
   "myFriend": "يا صديقي",
-  "affirmationPrompt": "لنقم بإنشاء تأكيدات اليوم لتركيز عقلك وإلهام أفضل ما فيك."
+  "affirmationPrompt": "لنقم بإنشاء تأكيدات اليوم لتركيز عقلك وإلهام أفضل ما فيك.",
+  "greeting_morning_return": "صباح الخير، {name}. سعيد برؤيتك مرة أخرى. لنبدأ اليوم بيقظة وتركيز.",
+  "greeting_afternoon_return": "مساء الخير، {name}. آمل أن يكون يومك لطيفًا. لنأخذ لحظة يقظة معًا.",
+  "greeting_evening_return": "مساء الخير، {name}. لقد أحسنت صنعًا اليوم. لنسترخ ونتنفس معًا.",
+  "meditationEnd": "أنت رائع. أتمنى لك يومًا جميلًا!"
 }

@@ -103,7 +103,7 @@
   "venturesDescription": "私が構築したAI主導の企業と製品のショーケース。",
   "createAccount": "アカウントを作成",
   "createAccountAndVerify": "アカウントが作成されました！アカウントを確認するためにメールを確認してください。",
-  "welcomeNewUser": "チャンセラー・マイナスプラットフォームへようこそ、{name}さん！",
+  "welcomeNewUser": "ようこそ、{name}さん。私はiChancellor、あなたのインテリジェントなウェルネスコンパニオンです。バランスと明晰さへの旅を始めましょう。",
   "welcomeBack": "おかえりなさい！",
   "createAccountDescription": "始めるにはサインアップしてください。",
   "confirmPassword": "パスワードを確認",
@@ -178,5 +178,9 @@
   "greeting_afternoon": "こんにちは、{name}さん。",
   "greeting_evening": "こんばんは、{name}さん。",
   "myFriend": "友よ",
-  "affirmationPrompt": "今日のアファメーションを作成して、心を集中させ、最高の自分を鼓舞しましょう。"
+  "affirmationPrompt": "今日のアファメーションを作成して、心を集中させ、最高の自分を鼓舞しましょう。",
+  "greeting_morning_return": "おはようございます、{name}さん。またお会いできて嬉しいです。マインドフルに集中して一日を始めましょう。",
+  "greeting_afternoon_return": "こんにちは、{name}さん。今日一日があなたにとって良いものでありますように。一緒にマインドフルなひとときを過ごしましょう。",
+  "greeting_evening_return": "こんばんは、{name}さん。今日も一日お疲れ様でした。一緒にリラックスして呼吸しましょう。",
+  "meditationEnd": "あなたは素晴らしいです。素敵な一日を！"
 }

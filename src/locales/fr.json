@@ -103,7 +103,7 @@
   "venturesDescription": "Une vitrine des entreprises et produits basés sur l'IA que j'ai construits.",
   "createAccount": "Créer un compte",
   "createAccountAndVerify": "Votre compte a été créé ! Veuillez vérifier votre e-mail pour vérifier votre compte.",
-  "welcomeNewUser": "Bienvenue {name} sur la plateforme Chancellor Minus !",
+  "welcomeNewUser": "Bienvenue, {name}. Je suis iChancellor, votre compagnon de bien-être intelligent. Commençons votre voyage vers l'équilibre et la clarté.",
   "welcomeBack": "Content de vous revoir !",
   "createAccountDescription": "Inscrivez-vous pour commencer.",
   "confirmPassword": "Confirmer le mot de passe",
@@ -114,7 +114,7 @@
   "send": "Envoyer",
   "activeUsersDescription": "Voir les utilisateurs actuellement actifs sur le site.",
   "loadingActiveUsers": "Chargement des utilisateurs actifs...",
-  "noActiveUsers": "Aucun utilisateur n'est actuellement actif.",
+  "noActiveUsers": "Aucun utilisateur n'est currently actif.",
   "user": "Utilisateur",
   "status": "Statut",
   "lastSeen": "Dernière visite",
@@ -178,5 +178,9 @@
   "greeting_afternoon": "Bon après-midi, {name}.",
   "greeting_evening": "Bonsoir, {name}.",
   "myFriend": "mon ami(e)",
-  "affirmationPrompt": "Créons les affirmations d'aujourd'hui pour centrer votre esprit et inspirer le meilleur de vous-même."
+  "affirmationPrompt": "Créons les affirmations d'aujourd'hui pour centrer votre esprit et inspirer le meilleur de vous-même.",
+  "greeting_morning_return": "Bonjour, {name}. C'est un plaisir de vous revoir. Commençons la journée en pleine conscience et concentrés.",
+  "greeting_afternoon_return": "Bon après-midi, {name}. J'espère que votre journée a été agréable. Prenons un moment de pleine conscience ensemble.",
+  "greeting_evening_return": "Bonsoir, {name}. Vous avez bien travaillé aujourd'hui. Détendez-vous et respirez avec moi.",
+  "meditationEnd": "Vous êtes incroyable. Passez une belle journée !"
 }

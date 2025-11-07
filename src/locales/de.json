@@ -103,7 +103,7 @@
   "venturesDescription": "Eine Präsentation von KI-gesteuerten Unternehmen und Produkten, die ich entwickelt habe.",
   "createAccount": "Konto erstellen",
   "createAccountAndVerify": "Ihr Konto wurde erstellt! Bitte überprüfen Sie Ihre E-Mail, um Ihr Konto zu verifizieren.",
-  "welcomeNewUser": "Willkommen {name} auf der Chancellor Minus Plattform!",
+  "welcomeNewUser": "Willkommen, {name}. Ich bin iChancellor, Ihr intelligenter Wellness-Begleiter. Beginnen wir Ihre Reise zu Gleichgewicht und Klarheit.",
   "welcomeBack": "Willkommen zurück!",
   "createAccountDescription": "Registrieren Sie sich, um loszulegen.",
   "confirmPassword": "Passwort bestätigen",
@@ -178,5 +178,9 @@
   "greeting_afternoon": "Guten Tag, {name}.",
   "greeting_evening": "Guten Abend, {name}.",
   "myFriend": "mein Freund",
-  "affirmationPrompt": "Lassen Sie uns die heutigen Affirmationen erstellen, um Ihren Geist zu zentrieren und Ihr bestes Selbst zu inspirieren."
+  "affirmationPrompt": "Lassen Sie uns die heutigen Affirmationen erstellen, um Ihren Geist zu zentrieren und Ihr bestes Selbst zu inspirieren.",
+  "greeting_morning_return": "Guten Morgen, {name}. Schön, Sie wiederzusehen. Beginnen wir den Tag achtsam und konzentriert.",
+  "greeting_afternoon_return": "Guten Tag, {name}. Ich hoffe, Ihr Tag war bisher angenehm. Nehmen wir uns einen achtsamen Moment zusammen.",
+  "greeting_evening_return": "Guten Abend, {name}. Sie haben heute gute Arbeit geleistet. Lassen Sie uns entspannen und zusammen atmen.",
+  "meditationEnd": "Du bist großartig. Hab einen schönen Tag!"
 }
