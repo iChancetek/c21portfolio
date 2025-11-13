@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview Dynamic case study generator.
  *
@@ -10,7 +11,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'zod';
-import { ventures } from '@/lib/data';
+import { allVentures } from '@/lib/data';
 import type { Venture } from '@/lib/types';
 
 const GenerateDeepDiveInputSchema = z.object({
@@ -22,8 +23,6 @@ const GenerateDeepDiveOutputSchema = z.object({
   deepDive: z.string().describe('The detailed technical deep-dive for the project.'),
 });
 export type GenerateDeepDiveOutput = z.infer<typeof GenerateDeepDiveOutputSchema>;
-
-const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 const getProjectDetails = ai.defineTool(
   {
@@ -40,7 +39,7 @@ const getProjectDetails = ai.defineTool(
   },
   async (input) => {
     console.log(`Calling getProjectDetails tool for projectId: ${input.projectId}`);
-    const project = allVentures.find(v => v.id === input.projectId);
+    const project = allVentures.find(v => v.id === input.projectId || v.name.toLowerCase() === input.projectId.toLowerCase());
     
     if (!project) {
         throw new Error(`Project with ID ${input.projectId} not found.`);
@@ -94,3 +93,5 @@ const generateDeepDiveFlow = ai.defineFlow(
     };
   }
 );
+
+    

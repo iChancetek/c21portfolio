@@ -7,13 +7,11 @@ import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import { getTechInsight } from '@/ai/flows/tech-expert-flow';
 import type { Venture } from '@/lib/types';
 import { Resend } from 'resend';
-import { ventures, techTopics, navLinks, skillCategories } from '@/lib/data';
+import { allVentures, techTopics, navLinks, skillCategories } from '@/lib/data';
 import { embed } from 'genkit';
 import { ai } from '@/ai/genkit';
 import { initializeServerApp } from '@/firebase/server-config';
 
-
-const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -248,3 +246,5 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         return { projects: filteredProjects };
     }
 }
+
+    

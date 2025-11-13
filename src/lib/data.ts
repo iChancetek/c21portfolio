@@ -131,6 +131,9 @@ export const ventures: Omit<Venture, 'id'>[] = [
     }
 ];
 
+export const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
+
+
 export const ventureIcons: VentureIcon[] = [
     { name: "iChanceTEK", icon: Briefcase },
     { name: "ChanceTEK Health", icon: HeartPulse },
@@ -389,3 +392,4 @@ export const socialLinks = [
 
     
 
+    

@@ -1,14 +1,12 @@
+
 'use client';
 
 import Contact from '@/components/Contact';
 import Skills from '@/components/Skills';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import ProjectShowcase from '@/components/ProjectShowcase';
-import { ventures } from '@/lib/data';
-import type { Venture } from '@/lib/types';
+import { allVentures } from '@/lib/data';
 import { Suspense } from 'react';
-
-const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 function ProjectsPageContent() {
   return (
@@ -28,3 +26,5 @@ export default function ProjectsPage() {
         </Suspense>
     )
 }
+
+    

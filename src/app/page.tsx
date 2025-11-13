@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { useState, useTransition } from 'react';
@@ -11,16 +10,14 @@ import { Loader2, Wand2, ExternalLink, Bot, Sparkles, RefreshCw } from 'lucide-r
 import { handleSearch } from '@/app/actions';
 import type { Venture } from '@/lib/types';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ventureIcons, navLinks } from '@/lib/data';
+import { ventureIcons, navLinks, allVentures } from '@/lib/data';
 import { Users } from 'lucide-react';
 import CaseStudyModal from '@/components/CaseStudyModal';
-import { ventures } from '@/lib/data';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { useLocale } from '@/hooks/useLocale';
 import Ticker from '@/components/Ticker';
 
-const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 function SearchResults({ projects, searchQuery, isSearching, answer }: { projects: Venture[]; searchQuery: string; isSearching: boolean; answer?: string; }) {
     const { t } = useLocale();
@@ -218,3 +215,5 @@ export default function LandingPage() {
     </div>
   );
 }
+
+    

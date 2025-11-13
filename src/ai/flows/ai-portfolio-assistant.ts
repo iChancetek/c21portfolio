@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview A chat interface providing answers to user questions about Chancellor's experience and skills using Retrieval-Augmented Generation (RAG).
  *
@@ -10,10 +11,8 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'zod';
-import { ventures } from '@/lib/data';
+import { allVentures } from '@/lib/data';
 import type { Venture } from '@/lib/types';
-
-const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
 const AIPortfolioAssistantInputSchema = z.object({
   query: z.string().describe("The user's question about Chancellor's skills and experience."),
@@ -94,3 +93,5 @@ const aiPortfolioAssistantFlow = ai.defineFlow(
     return output!;
   }
 );
+
+    
