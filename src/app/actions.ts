@@ -222,41 +222,25 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         return { projects: allVentures };
     }
     
-    // First, check for exact match navigation keywords
     const directNavLink = navLinks.find(link => link.keywords.includes(lowercasedQuery));
     if (directNavLink) {
         return { projects: [], navPath: directNavLink.href };
     }
 
-    // If no direct match, use AI to check for misspelled nav keywords AND to search
     try {
-        const assistantNavResponse = await aiPortfolioAssistant({ query: lowercasedQuery, isNavQuery: true });
-        
-        // Check if the AI corrected a navigational term
-        if (assistantNavResponse.navKeyword) {
-            const correctedLower = assistantNavResponse.navKeyword.toLowerCase();
-            const navLink = navLinks.find(link => link.keywords.includes(correctedLower));
-            if (navLink) {
-                return { projects: [], navPath: navLink.href };
-            }
-        }
-        
         const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
         if(commandQueries.includes(lowercasedQuery)) {
             return { projects: allVentures };
         }
         
-        // If not a nav query, proceed with semantic search to build context
         const { projects: semanticProjects, context } = await semanticSearch(lowercasedQuery);
         
-        // Now call the AI with the retrieved context
         const finalAnswer = await getAIAssistantResponse(query, context);
 
         return { projects: semanticProjects, answer: finalAnswer };
 
     } catch (error) {
         console.error("AI Search handler failed:", error);
-        // Fallback to simple text search on error
         const filteredProjects = allVentures.filter(venture => 
             venture.name.toLowerCase().includes(lowercasedQuery) || 
             venture.description.toLowerCase().includes(lowercasedQuery)

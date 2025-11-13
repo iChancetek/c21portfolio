@@ -18,13 +18,11 @@ const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`
 const AIPortfolioAssistantInputSchema = z.object({
   query: z.string().describe("The user's question about Chancellor's skills and experience."),
   context: z.string().optional().describe("Retrieved context from a vector search to help answer the query."),
-  isNavQuery: z.boolean().optional().describe("Set to true if the primary goal is to check for a navigational keyword."),
 });
 export type AIPortfolioAssistantInput = z.infer<typeof AIPortfolioAssistantInputSchema>;
 
 const AIPortfolioAssistantOutputSchema = z.object({
   answer: z.string().describe('The answer to the user query.'),
-  navKeyword: z.string().optional().describe("If the user's query is a misspelled navigational keyword, this field will contain the corrected keyword (e.g., 'Projects', 'Skills', 'Contact', 'Affirmations')."),
 });
 export type AIPortfolioAssistantOutput = z.infer<typeof AIPortfolioAssistantOutputSchema>;
 
@@ -66,22 +64,16 @@ const prompt = ai.definePrompt({
   input: {schema: AIPortfolioAssistantInputSchema},
   output: {schema: AIPortfolioAssistantOutputSchema},
   tools: [getProjectDetails],
-  system: `You are a helpful and friendly AI assistant for a software engineer named Chancellor. 
-           Your goal is to answer questions about his skills, projects, and experience.
+  system: `You are a helpful and friendly AI assistant for a software engineer named Chancellor. Your goal is to answer questions about his skills, projects, and experience.
 
-           **CRITICAL INSTRUCTION: If the user's query is about a specific project (e.g., "What is iSkylar?", "Tell me about WoundiQ"), you MUST use the 'getProjectDetails' tool to fetch the project's information.**
-           Do not try to answer from the general context. Once you have the details from the tool, use them to formulate a helpful and comprehensive answer. Elaborate on the information and provide it in a clear, engaging way.
+**CRITICAL INSTRUCTION: If the user's query is about a specific project (e.g., "What is iSkylar?", "Tell me about WoundiQ"), you MUST use the 'getProjectDetails' tool to fetch the project's information.**
+Do not try to answer from the general context. Once you have the details from the tool, use them to formulate a helpful and comprehensive answer. Elaborate on the information and provide it in a clear, engaging way.
 
-           If 'isNavQuery' is true, your absolute first priority is to check if the user's query is a misspelled version of a navigational keyword.
-           The valid navigational keywords are: "Projects", "Skills", "Contact", "Affirmations".
-           If it is a misspelled keyword, set the 'navKeyword' field to the corrected keyword and provide a very short, confirmatory answer (e.g., "Redirecting to Skills...").
-           If it is not a navigational keyword, leave 'navKeyword' empty and proceed with answering the question as per the rules above.
-           
-           For general questions about skills or experience that are NOT about a specific project, use the context provided below.
-           
-           If the user's query contains spelling errors, try to infer their intent and answer based on the corrected query.
-           Keep your answers concise, professional, and directly related to the provided information. 
-           Do not go off-topic or provide information not found in the tools or context.`,
+For general questions about skills or experience that are NOT about a specific project, use the context provided below.
+
+If the user's query contains spelling errors, try to infer their intent and answer based on the corrected query.
+Keep your answers concise, professional, and directly related to the provided information. 
+Do not go off-topic or provide information not found in the tools or context.`,
   prompt: `Use the following context (if available) to answer the user's question.
 
   ## CONTEXT 
