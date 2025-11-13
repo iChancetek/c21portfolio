@@ -7,7 +7,7 @@ import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import { getTechInsight } from '@/ai/flows/tech-expert-flow';
 import type { Venture } from '@/lib/types';
 import { Resend } from 'resend';
-import { ventures, techTopics, navLinks } from '@/lib/data';
+import { ventures, techTopics, navLinks, skillCategories } from '@/lib/data';
 import { embed } from 'genkit';
 import { ai } from '@/ai/genkit';
 import { initializeServerApp } from '@/firebase/server-config';
@@ -125,9 +125,9 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   };
 }
 
-export async function getAIAssistantResponse(query: string) {
+export async function getAIAssistantResponse(query: string, context?: string) {
     try {
-        const response = await aiPortfolioAssistant({ query });
+        const response = await aiPortfolioAssistant({ query, context });
         return response.answer;
     } catch (error: any) {
         console.error("AI assistant failed:", error);
@@ -164,57 +164,58 @@ function dotProduct(a: number[], b: number[]): number {
 }
 
 
-async function semanticSearch(query: string): Promise<Venture[]> {
+async function semanticSearch(query: string): Promise<{ projects: Venture[], context: string }> {
     try {
-        // Use the AI assistant to get a contextual answer.
-        const assistantResponse = await getAIAssistantResponse(query);
-        
-        // Now, we'll find which projects are mentioned or relevant to the assistant's answer.
-        // This is a simple implementation. A more advanced one might use embeddings on the response too.
-        const relevantVentures = allVentures.filter(venture => 
-            assistantResponse.toLowerCase().includes(venture.name.toLowerCase())
-        );
-
-        if (relevantVentures.length > 0) {
-            return relevantVentures;
-        }
-
-        // Fallback to original embedding search if no direct mentions
         const projectContent = allVentures.map(v => `Project Name: ${v.name}, Description: ${v.description}`);
+        const skillsContent = skillCategories.map(c => `Skill Category: ${c.title}, Skills: ${c.skills.map(s => s.name).join(', ')}`);
+        const allContent = [...projectContent, ...skillsContent];
 
-        const [queryEmbedding, projectEmbeddings] = await Promise.all([
+        const [queryEmbedding, contentEmbeddings] = await Promise.all([
             embed({
                 embedder: ai.embedder,
                 content: query,
             }),
             embed({
                 embedder: ai.embedder,
-                content: projectContent,
+                content: allContent,
             }),
         ]);
 
-        const similarities = projectEmbeddings.map((projectEmbedding, i) => ({
+        const similarities = contentEmbeddings.map((embedding, i) => ({
             index: i,
-            similarity: dotProduct(queryEmbedding, projectEmbedding),
+            similarity: dotProduct(queryEmbedding, embedding),
         }));
 
         similarities.sort((a, b) => b.similarity - a.similarity);
 
-        const topK = 5; // Return top 5 results
+        const topK = 5; 
         const topResults = similarities
             .slice(0, topK)
-            .filter(result => result.similarity > 0.75) // Threshold to avoid irrelevant results
-            .map(result => allVentures[result.index]);
-        
-        return topResults;
+            .filter(result => result.similarity > 0.75);
+            
+        const relevantProjects = new Set<Venture>();
+        let context = '';
+
+        topResults.forEach(result => {
+            if (result.index < allVentures.length) {
+                const project = allVentures[result.index];
+                relevantProjects.add(project);
+                context += `Project: ${project.name} - ${project.description}\n`;
+            } else {
+                const skillIndex = result.index - allVentures.length;
+                context += `Skills: ${skillsContent[skillIndex]}\n`;
+            }
+        });
+
+        return { projects: Array.from(relevantProjects), context };
     } catch (error) {
         console.error("Semantic search AI flow failed:", error);
-        return [];
+        return { projects: [], context: '' };
     }
 }
 
 
-export async function handleSearch(query: string): Promise<{ projects: Venture[]; navPath?: string; }> {
+export async function handleSearch(query: string): Promise<{ projects: Venture[]; navPath?: string; answer?: string }> {
     const lowercasedQuery = query.toLowerCase().trim();
 
     if (!lowercasedQuery) {
@@ -229,25 +230,29 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
 
     // If no direct match, use AI to check for misspelled nav keywords AND to search
     try {
-        const assistantResponse = await aiPortfolioAssistant({ query: lowercasedQuery, isNavQuery: true });
+        const assistantNavResponse = await aiPortfolioAssistant({ query: lowercasedQuery, isNavQuery: true });
         
         // Check if the AI corrected a navigational term
-        if (assistantResponse.navKeyword) {
-            const correctedLower = assistantResponse.navKeyword.toLowerCase();
+        if (assistantNavResponse.navKeyword) {
+            const correctedLower = assistantNavResponse.navKeyword.toLowerCase();
             const navLink = navLinks.find(link => link.keywords.includes(correctedLower));
             if (navLink) {
                 return { projects: [], navPath: navLink.href };
             }
         }
         
-        // If not a nav query, proceed with semantic search for projects
         const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
         if(commandQueries.includes(lowercasedQuery)) {
             return { projects: allVentures };
         }
+        
+        // If not a nav query, proceed with semantic search to build context
+        const { projects: semanticProjects, context } = await semanticSearch(lowercasedQuery);
+        
+        // Now call the AI with the retrieved context
+        const finalAnswer = await getAIAssistantResponse(query, context);
 
-        const semanticResults = await semanticSearch(lowercasedQuery);
-        return { projects: semanticResults };
+        return { projects: semanticProjects, answer: finalAnswer };
 
     } catch (error) {
         console.error("AI Search handler failed:", error);

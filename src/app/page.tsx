@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Loader2, Wand2, ExternalLink, Bot, Sparkles, RefreshCw } from 'lucide-react';
 import { handleSearch } from '@/app/actions';
 import type { Venture } from '@/lib/types';
-import { Card } from '@/components/ui/card';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ventureIcons, navLinks } from '@/lib/data';
 import { Users } from 'lucide-react';
 import CaseStudyModal from '@/components/CaseStudyModal';
@@ -22,7 +22,7 @@ import Ticker from '@/components/Ticker';
 
 const allVentures: Venture[] = ventures.map((v, i) => ({...v, id: `venture-${i}`}));
 
-function SearchResults({ projects, searchQuery, isSearching }: { projects: Venture[]; searchQuery: string; isSearching: boolean; }) {
+function SearchResults({ projects, searchQuery, isSearching, answer }: { projects: Venture[]; searchQuery: string; isSearching: boolean; answer?: string; }) {
     const { t } = useLocale();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<Venture | null>(null);
@@ -37,7 +37,7 @@ function SearchResults({ projects, searchQuery, isSearching }: { projects: Ventu
         return null;
     }
 
-    if (searchQuery && projects.length === 0) {
+    if (searchQuery && projects.length === 0 && !answer) {
         return (
             <div className="text-center col-span-full mt-8 text-muted-foreground">
                 <p>{t('noProjectsFound', { searchQuery })}</p>
@@ -45,7 +45,7 @@ function SearchResults({ projects, searchQuery, isSearching }: { projects: Ventu
         );
     }
     
-    if (projects.length === 0 && !searchQuery) { // Don't show anything if no search has been made
+    if (projects.length === 0 && !searchQuery && !answer) { // Don't show anything if no search has been made
         return null;
     }
 
@@ -60,36 +60,47 @@ function SearchResults({ projects, searchQuery, isSearching }: { projects: Ventu
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => {
-                const iconData = ventureIcons.find(icon => icon.name === project.name);
-                const Icon = iconData ? iconData.icon : Users;
-                return (
-                    <Card key={project.id} className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
-                        <div className="flex-grow p-6">
-                            <div className="mb-4">
-                                <Icon className="w-10 h-10 text-primary transition-all duration-300 group-hover:text-accent" />
+            {answer && (
+                 <Card className="mb-8 bg-secondary/30">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2"><Bot className="text-primary"/> AI Assistant's Answer</CardTitle>
+                        <CardDescription className="pt-2 text-base text-foreground/80">{answer}</CardDescription>
+                    </CardHeader>
+                </Card>
+            )}
+
+            {projects.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {projects.map((project) => {
+                    const iconData = ventureIcons.find(icon => icon.name === project.name);
+                    const Icon = iconData ? iconData.icon : Users;
+                    return (
+                        <Card key={project.id} className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
+                            <div className="flex-grow p-6">
+                                <div className="mb-4">
+                                    <Icon className="w-10 h-10 text-primary transition-all duration-300 group-hover:text-accent" />
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-50 transition-colors duration-300 group-hover:text-primary-gradient">{project.name}</h3>
+                                <p className="mt-2 text-sm text-slate-400">{project.description}</p>
                             </div>
-                            <h3 className="text-xl font-bold text-slate-50 transition-colors duration-300 group-hover:text-primary-gradient">{project.name}</h3>
-                            <p className="mt-2 text-sm text-slate-400">{project.description}</p>
-                        </div>
-                        <div className="p-6 pt-0 mt-auto">
-                            <div className="flex w-full flex-col sm:flex-row gap-2">
-                                <Button className="w-full" onClick={() => openModal(project)}>
-                                    <Bot className="mr-2 h-4 w-4" />
-                                    {t('aiDeepDive')}
-                                </Button>
-                                <Button variant="outline" asChild className="w-full">
-                                    <a href={project.href} target="_blank" rel="noopener noreferrer">
-                                        <ExternalLink className="mr-2 h-4 w-4" /> {t('demo')}
-                                    </a>
-                                </Button>
+                            <div className="p-6 pt-0 mt-auto">
+                                <div className="flex w-full flex-col sm:flex-row gap-2">
+                                    <Button className="w-full" onClick={() => openModal(project)}>
+                                        <Bot className="mr-2 h-4 w-4" />
+                                        {t('aiDeepDive')}
+                                    </Button>
+                                    <Button variant="outline" asChild className="w-full">
+                                        <a href={project.href} target="_blank" rel="noopener noreferrer">
+                                            <ExternalLink className="mr-2 h-4 w-4" /> {t('demo')}
+                                        </a>
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
-                    </Card>
-                );
-            })}
-            </div>
+                        </Card>
+                    );
+                })}
+                </div>
+            )}
         </div>
         {selectedProject && isModalOpen && (
             <CaseStudyModal 
@@ -129,6 +140,7 @@ export default function LandingPage() {
   const [query, setQuery] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [projects, setProjects] = useState<Venture[]>([]);
+  const [answer, setAnswer] = useState<string | undefined>('');
   const [isSearching, startSearchTransition] = useTransition();
   const router = useRouter();
   const { t } = useLocale();
@@ -140,6 +152,7 @@ export default function LandingPage() {
     if (!currentQuery) {
         setProjects(allVentures);
         setSearchQuery('');
+        setAnswer(undefined);
         return;
     }
     
@@ -151,6 +164,7 @@ export default function LandingPage() {
           router.push(result.navPath);
       } else {
           setProjects(result.projects);
+          setAnswer(result.answer);
       }
     });
   };
@@ -159,6 +173,7 @@ export default function LandingPage() {
     setQuery('');
     setSearchQuery('');
     setProjects([]);
+    setAnswer(undefined);
   };
 
   return (
@@ -196,7 +211,7 @@ export default function LandingPage() {
         </form>
       </motion.div>
       <div className="w-full mt-16">
-        <SearchResults projects={projects} searchQuery={searchQuery} isSearching={isSearching} />
+        <SearchResults projects={projects} searchQuery={searchQuery} isSearching={isSearching} answer={answer} />
       </div>
       <Ticker />
       <SignUpCta />
