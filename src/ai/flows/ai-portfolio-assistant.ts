@@ -97,7 +97,6 @@ Do not go off-topic. If the user's query contains spelling errors, infer their i
     const toolOutput = llmResponse.toolOutput(toolResponse.name);
     if(toolOutput) {
         // Here, we need to generate a *new* response with the tool's output.
-        // For now, we'll format it, but a follow-up prompt would be better.
         const followupResponse = await ai.generate({
           prompt: `The user asked about a project and I have retrieved the following details. Please formulate a polished, professional answer based on this information.
           
