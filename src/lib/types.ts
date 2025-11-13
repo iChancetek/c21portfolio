@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon, LucideProps } from "lucide-react";
 
 export interface Project {
   id: string;
@@ -16,7 +16,7 @@ export interface Project {
 
 export interface Skill {
   name: string;
-  icon: LucideIcon | (({ className }: { className?: string }) => JSX.Element);
+  icon: LucideIcon | (({ className }: { className?: string }) => JSX.Element) | React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>;
 }
 
 export interface SkillCategory {

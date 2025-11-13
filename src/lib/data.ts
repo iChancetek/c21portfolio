@@ -1,6 +1,6 @@
 
 import { Project, SkillCategory, Venture, VentureIcon } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -199,7 +199,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "MongoDB Atlas", icon: Cloud },
       { name: "Snowflake", icon: Database },
       { name: "Cosmos DB", icon: Database },
-      { name: "Kafka", icon: Layers },
+      { name: "Apache Kafka", icon: Layers },
       { name: "RabbitMQ", icon: MessageCircle },
     ],
   },
@@ -222,6 +222,7 @@ export const skillCategories: SkillCategory[] = [
     title: "AI Agent Engineering",
     skills: [
       { name: "AI Engineering", icon: Bot },
+      { name: "Context Engineering", icon: Book },
       { name: "Prompt Engineering", icon: Lightbulb },
       { name: "Agentic Workflows", icon: Bot },
       { name: "AI Agents", icon: Bot },
@@ -246,6 +247,7 @@ export const skillCategories: SkillCategory[] = [
     title: "Data Engineering",
     skills: [
       { name: "ETL / ELT", icon: Filter },
+      { name: "Data Pipelines", icon: Workflow },
       { name: "Dataframe", icon: Database },
       { name: "Microsoft Fabric", icon: Building },
       { name: "AWS Glue / Kinesis", icon: Workflow },
@@ -317,6 +319,8 @@ export const skillCategories: SkillCategory[] = [
     title: "AI Dev Tools",
     skills: [
       { name: "Firebase Studio AI", icon: Code },
+      { name: "GitHub Copilot", icon: Github },
+      { name: "Code Rabbit", icon: Rabbit },
       { name: "Vibe Coding", icon: Code },
       { name: "Cursor AI / Replit", icon: Monitor },
       { name: "Genkit / CrewAI", icon: Users },
@@ -384,3 +388,4 @@ export const socialLinks = [
     
 
     
+
