@@ -33,7 +33,7 @@ const getProjectDetails = ai.defineTool(
     name: 'getProjectDetails',
     description: 'Retrieves details for a specific project when the user asks a question about it.',
     inputSchema: z.object({
-      projectId: z.string().describe('The ID of the project to retrieve, extracted from the user query.'),
+      projectId: z.string().describe('The ID or name of the project to retrieve, extracted from the user query.'),
     }),
     outputSchema: z.object({
       name: z.string().describe('The name of the project.'),
