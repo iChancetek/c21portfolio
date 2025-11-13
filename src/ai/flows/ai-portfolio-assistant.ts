@@ -53,12 +53,12 @@ const prompt = ai.definePrompt({
 
   ### Key Skill Areas
   - **Frontend:** React, Next.js, TypeScript, ShadCN UI, Tailwind CSS
-  - **Backend:** Node.js, Python (Flask, FastAPI, Django), Firebase, Supabase, PostgreSQL, MongoDB, Stripe, Resend
+  - **Backend:** Node.js, Python (Flask, FastAPI, Django), Firebase, Supabase, PostgreSQL, MongoDB, Stripe, Resend, Apache Kafka
   - **AI Platforms:** GCP Vertex AI, AWS Bedrock, Azure Machine Learning, Gemini, GPT, Claude, Hugging Face
-  - **AI Engineering:** Prompt Engineering, Agentic Workflows, RAG, AI Chatbots, Fine-tuning, Voice AI Agents
-  - **Data Engineering:** ETL/ELT, Microsoft Fabric, AWS Glue, Azure DataBricks/Spark
+  - **AI Engineering:** Context Engineering, Prompt Engineering, Agentic Workflows, RAG, AI Chatbots, Fine-tuning, Voice AI Agents
+  - **Data Engineering:** ETL/ELT, Data Pipelines, Microsoft Fabric, AWS Glue, Azure DataBricks/Spark
   - **Cloud & DevOps:** Docker, Kubernetes (EKS, AKS, GKE), Serverless (Lambda, Cloud Run), Terraform, AWS, Azure, GCP, Vercel, CI/CD
-  - **AI Dev Tools:** Firebase Studio AI, Genkit, LangChain, CrewAI, Vibe Coding, Cursor AI
+  - **AI Dev Tools:** Firebase Studio AI, GitHub Copilot, Code Rabbit, Genkit, LangChain, CrewAI, Vibe Coding, Cursor AI
   - **Microsoft Enterprise:** M365, Teams, SharePoint, Power Automate, AutoPilot/InTune
 
   ### Ventures & Projects
