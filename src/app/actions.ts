@@ -235,19 +235,19 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         
         const finalAnswer = await getAIAssistantResponse(query, context);
 
-        // If the AI finds a specific project, ensure that project's card is displayed.
-        // This is a simple heuristic: if one project was found by semantic search, we assume it's the main subject.
-        if (semanticProjects.length === 1) {
+        // If semantic search finds projects, return them with the answer.
+        if (semanticProjects.length > 0) {
              return { projects: semanticProjects, answer: finalAnswer };
         }
         
-        // If the query matches a project name exactly, return that project and the answer.
+        // If no semantic results, check for a direct name match.
         const directProjectMatch = allVentures.find(v => v.name.toLowerCase() === lowercasedQuery);
         if (directProjectMatch) {
             return { projects: [directProjectMatch], answer: finalAnswer };
         }
-
-        return { projects: semanticProjects, answer: finalAnswer };
+        
+        // If no projects are found by any method, just return the answer.
+        return { projects: [], answer: finalAnswer };
 
     } catch (error) {
         console.error("AI Search handler failed:", error);
