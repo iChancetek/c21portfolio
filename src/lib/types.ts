@@ -1,3 +1,4 @@
+
 import type { LucideIcon, LucideProps } from "lucide-react";
 
 export interface Project {
@@ -38,4 +39,5 @@ export interface VentureIcon {
 
 export interface PartnerCompany {
     name: string;
+    description?: string;
 }
