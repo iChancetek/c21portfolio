@@ -2,10 +2,25 @@
 
 import { useState } from 'react';
 import { Button } from './ui/button';
-import { Bot, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import AIAssistant from './AIAssistant';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+
+const RobotFaceIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    {/* Head */}
+    <rect x="15" y="15" width="70" height="70" rx="10" ry="10" fill="currentColor" stroke="none" />
+    
+    {/* Eyes */}
+    <circle cx="35" cy="40" r="8" fill="hsl(var(--background))" />
+    <circle cx="65" cy="40" r="8" fill="hsl(var(--background))" />
+    
+    {/* Mouth */}
+    <rect x="30" y="65" width="40" height="5" rx="2.5" fill="hsl(var(--background))" />
+  </svg>
+);
+
 
 export default function FloatingAIAssistant() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,10 +57,10 @@ export default function FloatingAIAssistant() {
             >
                 <Button
                 size="lg"
-                className="rounded-full w-16 h-16 bg-primary-gradient shadow-2xl shadow-primary/30"
+                className="rounded-full w-16 h-16 bg-primary-gradient shadow-2xl shadow-primary/30 text-primary-foreground"
                 onClick={() => setIsOpen(!isOpen)}
                 >
-                {isOpen ? <X className="h-8 w-8" /> : <Bot className="h-8 w-8" />}
+                {isOpen ? <X className="h-8 w-8" /> : <RobotFaceIcon className="h-8 w-8" />}
                 <span className="sr-only">Toggle AI Assistant</span>
                 </Button>
             </motion.div>
