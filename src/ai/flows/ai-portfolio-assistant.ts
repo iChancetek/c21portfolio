@@ -39,7 +39,7 @@ const getProjectDetails = ai.defineTool(
     }),
   },
   async (input) => {
-    const project = allVentures.find(v => v.id === input.projectId || v.name.toLowerCase() === input.projectId.toLowerCase());
+    const project = allVentures.find(v => v.id.toLowerCase() === input.projectId.toLowerCase() || v.name.toLowerCase() === input.projectId.toLowerCase());
     
     if (!project) {
         throw new Error(`Project with ID or name '${input.projectId}' not found.`);
@@ -55,43 +55,42 @@ const getProjectDetails = ai.defineTool(
 
 
 export async function aiPortfolioAssistant(input: AIPortfolioAssistantInput): Promise<AIPortfolioAssistantOutput> {
-  return aiPortfolioAssistantFlow(input);
-}
+  const llmResponse = await ai.generate({
+    prompt: `Use the following context (if available) to answer the user's question.
 
-const prompt = ai.definePrompt({
-  name: 'aiPortfolioAssistantPrompt',
-  input: {schema: AIPortfolioAssistantInputSchema},
-  output: {schema: AIPortfolioAssistantOutputSchema},
-  tools: [getProjectDetails],
-  system: `You are a helpful and friendly AI assistant for a software engineer named Chancellor. Your goal is to answer questions about his skills, projects, and experience.
-
-**CRITICAL INSTRUCTION: If the user's query is about a specific project (e.g., "What is iSkylar?", "Tell me about WoundiQ"), you MUST use the 'getProjectDetails' tool to fetch the project's information.**
-Do not try to answer from the general context. Once you have the details from the tool, use them to formulate a helpful and comprehensive answer. Elaborate on the information and provide it in a clear, engaging way.
-
-For general questions about skills or experience that are NOT about a specific project, use the context provided below.
-
-If the user's query contains spelling errors, try to infer their intent and answer based on the corrected query.
-Keep your answers concise, professional, and directly related to the provided information. 
-Do not go off-topic or provide information not found in the tools or context.`,
-  prompt: `Use the following context (if available) to answer the user's question.
-
-  ## CONTEXT 
-  {{{context}}}
-  
-  Question: {{{query}}}
-  `,
-});
-
-const aiPortfolioAssistantFlow = ai.defineFlow(
-  {
-    name: 'aiPortfolioAssistantFlow',
-    inputSchema: AIPortfolioAssistantInputSchema,
-    outputSchema: AIPortfolioAssistantOutputSchema,
-  },
-  async input => {
-    const {output} = await prompt(input);
-    return output!;
-  }
-);
-
+    ## CONTEXT 
+    ${input.context || 'No context provided.'}
     
+    ## QUESTION
+    ${input.query}`,
+    model: 'openai/gpt-4o',
+    tools: [getProjectDetails],
+    system: `You are a helpful and friendly AI assistant for a software engineer named Chancellor. Your goal is to answer questions about his skills, projects, and experience.
+
+**CRITICAL INSTRUCTIONS:**
+1.  **For Project-Specific Questions:** If the user's query is about a specific project (e.g., "What is iSkylar?", "Tell me about WoundiQ"), you **MUST** use the 'getProjectDetails' tool to fetch the project's information. Do not answer from the general context. Once you have the details from the tool, formulate a helpful and comprehensive answer. Elaborate on the information and provide it in a clear, engaging way.
+
+2.  **For Skill-Based Questions:** If the user asks about a specific skill (e.g., "What is Context Engineering?") and the context provided only lists that skill, you must **explain what that skill is** in the context of modern software and AI engineering. Acknowledge that it's one of Chancellor's skills and then provide a helpful definition and its importance.
+
+3.  **For General Questions:** For general questions about skills or experience that are NOT about a specific project or a single skill, use the context provided to formulate your answer.
+
+Keep your answers concise, professional, and directly related to the provided information. 
+Do not go off-topic. If the user's query contains spelling errors, try to infer their intent and answer based on the corrected query.`,
+  });
+
+  const text = llmResponse.text;
+  if (text) {
+      return { answer: text };
+  }
+
+  // Handle cases where a tool is used and there's no direct text response
+  const toolResponse = llmResponse.toolRequest;
+  if(toolResponse) {
+    const toolOutput = llmResponse.toolOutput(toolResponse.name);
+    if(toolOutput) {
+        return { answer: `I found some information about that: ${JSON.stringify(toolOutput, null, 2)}` };
+    }
+  }
+  
+  return { answer: "I'm sorry, I couldn't find a direct answer to your question." };
+}
