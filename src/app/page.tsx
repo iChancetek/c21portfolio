@@ -1,12 +1,13 @@
 
+
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2, Wand2, ExternalLink, Bot, Sparkles, RefreshCw } from 'lucide-react';
+import { Loader2, Wand2, ExternalLink, Bot, Sparkles, RefreshCw, Volume2, Play, Pause, StopCircle } from 'lucide-react';
 import { handleSearch } from '@/app/actions';
 import type { Venture } from '@/lib/types';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,16 +18,102 @@ import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { useLocale } from '@/hooks/useLocale';
 import Ticker from '@/components/Ticker';
+import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 
+
+type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
 function SearchResults({ projects, searchQuery, isSearching, answer }: { projects: Venture[]; searchQuery: string; isSearching: boolean; answer?: string; }) {
-    const { t } = useLocale();
+    const { t, locale } = useLocale();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<Venture | null>(null);
+
+    const [audioState, setAudioState] = useState<AudioState>('idle');
+    const [audioSrc, setAudioSrc] = useState<string | null>(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const openModal = (project: Venture) => {
         setSelectedProject(project);
         setIsModalOpen(true);
+    };
+
+    const stopPlayback = useCallback(() => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+        }
+        setAudioState('idle');
+        setAudioSrc(null);
+    }, []);
+
+    const handleReadAloud = async () => {
+        if (!answer) return;
+
+        if (audioState === 'playing') {
+            audioRef.current?.pause();
+            setAudioState('paused');
+            return;
+        }
+
+        if (audioState === 'paused') {
+            audioRef.current?.play();
+            setAudioState('playing');
+            return;
+        }
+
+        if (audioState === 'idle') {
+            stopPlayback();
+            setAudioState('loading');
+            try {
+                const { audioDataUri } = await textToSpeech({ text: answer, locale });
+                setAudioSrc(audioDataUri);
+            } catch (error) {
+                console.error("Failed to generate speech:", error);
+                stopPlayback();
+            }
+        }
+    };
+    
+    // Effect to play audio once source is set
+    useEffect(() => {
+        if (audioSrc && audioRef.current) {
+            audioRef.current.src = audioSrc;
+            audioRef.current.play().catch(err => {
+                console.error("Audio playback failed:", err);
+                stopPlayback();
+            });
+            setAudioState('playing');
+        }
+    }, [audioSrc, stopPlayback]);
+    
+    // Effect to reset audio state when answer changes
+    useEffect(() => {
+        stopPlayback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [answer]);
+
+    // Cleanup audio on component unmount
+    useEffect(() => {
+        const audioElement = audioRef.current;
+        const onEnded = () => {
+            setAudioState('idle');
+            setAudioSrc(null);
+        };
+        audioElement?.addEventListener('ended', onEnded);
+        return () => {
+            stopPlayback();
+            audioElement?.removeEventListener('ended', onEnded);
+        };
+    }, [stopPlayback]);
+
+
+    const getAudioIcon = () => {
+        switch (audioState) {
+            case 'loading': return <Loader2 className="h-4 w-4 animate-spin" />;
+            case 'playing': return <Pause className="h-4 w-4" />;
+            case 'paused': return <Play className="h-4 w-4" />;
+            default: return <Volume2 className="h-4 w-4" />;
+        }
     };
 
     if (isSearching) {
@@ -49,6 +136,7 @@ function SearchResults({ projects, searchQuery, isSearching, answer }: { project
 
   return (
     <>
+        <audio ref={audioRef} />
         <div id="results" className="w-full relative z-10 mt-12">
              <div className="flex flex-col items-center text-center space-y-4 mb-12">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">{t('searchResults')}</h2>
@@ -60,7 +148,34 @@ function SearchResults({ projects, searchQuery, isSearching, answer }: { project
             {answer && (
                  <Card className="mb-8 bg-secondary/30">
                     <CardHeader>
-                        <CardTitle className="flex items-center gap-2"><Bot className="text-primary"/> AI Assistant's Answer</CardTitle>
+                        <CardTitle className="flex items-center justify-between gap-2">
+                           <div className="flex items-center gap-2">
+                             <Bot className="text-primary"/> AI Assistant's Answer
+                           </div>
+                           <div className="flex items-center gap-2">
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 text-muted-foreground"
+                                    onClick={handleReadAloud}
+                                    disabled={audioState === 'loading'}
+                                >
+                                    {getAudioIcon()}
+                                    <span className="sr-only">Read aloud</span>
+                                </Button>
+                                {audioState !== 'idle' && (
+                                   <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 text-muted-foreground"
+                                    onClick={stopPlayback}
+                                  >
+                                    <StopCircle className="h-4 w-4" />
+                                     <span className="sr-only">Stop</span>
+                                  </Button>
+                                )}
+                           </div>
+                        </CardTitle>
                         <CardDescription className="pt-2 text-base text-foreground/80">{answer}</CardDescription>
                     </CardHeader>
                 </Card>
