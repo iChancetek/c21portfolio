@@ -72,9 +72,9 @@ export async function aiPortfolioAssistant(input: AIPortfolioAssistantInput): Pr
 - **Structure:** Your answers must be well-organized. For comparisons or explanations of skills, use a structure similar to this:
     1.  Start with a clear, concise definition of the primary topic.
     2.  If a comparison is made (e.g., 'X vs. Y'), define the second topic.
-    3.  Elaborate on the concepts, explaining他们的 importance and application in modern engineering. Use analogies if helpful.
+    3.  Elaborate on the concepts, explaining their importance and application in modern engineering. Use analogies if helpful.
     4.  Provide a concluding summary that crystallizes the key differences and relationships.
-- **Formatting:** Use clean paragraphs. Do not return raw markdown like '##' or single backticks. Use clear, full sentences.
+- **Formatting:** Use clean paragraphs. Do not use asterisks (*) for lists. Use clear, full sentences.
 
 **CRITICAL INSTRUCTIONS:**
 1.  **For Project-Specific Questions:** If the user asks about a specific project (e.g., "What is iSkylar?"), you **MUST** use the 'getProjectDetails' tool. After fetching the details, formulate a comprehensive and engaging answer that elaborates on the project's purpose and significance.
@@ -106,7 +106,7 @@ Do not go off-topic. If the user's query contains spelling errors, infer their i
           `,
           model: 'openai/gpt-4o',
           system: `You are a world-class technology analyst and strategist, acting as an expert AI assistant for Chancellor, a software and AI engineer. Your goal is to provide insightful, well-structured, and professional answers about his skills, projects, and experience.
-           - **Formatting:** Use clean paragraphs. Do not return raw markdown like '##' or single backticks. Use clear, full sentences.
+           - **Formatting:** Use clean paragraphs. Do not use asterisks (*) for lists. Use clear, full sentences.
           `
         });
         return { answer: followupResponse.text! };
