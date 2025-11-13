@@ -28,21 +28,21 @@ export type AIPortfolioAssistantOutput = z.infer<typeof AIPortfolioAssistantOutp
 const getProjectDetails = ai.defineTool(
   {
     name: 'getProjectDetails',
-    description: 'Retrieves details for a specific project when the user asks a question about it.',
+    description: 'Retrieves details for a specific project or company when the user asks a question about it. Use this tool even for broad, single-word queries like "Simon" or "Condé Nast".',
     inputSchema: z.object({
-      projectId: z.string().describe("The ID or name of the project to retrieve, extracted from the user's query. It can be a project name like 'iSkylar' or 'WoundiQ'."),
+      projectId: z.string().describe("The ID or name of the project or company to retrieve, extracted from the user's query. It can be a project name like 'iSkylar' or a company name like 'SIMON'."),
     }),
     outputSchema: z.object({
       name: z.string().describe('The name of the project.'),
       description: z.string().describe('A detailed description of the project.'),
-      href: z.string().describe('Link to the live demo'),
+      href: z.string().describe('Link to the live demo or website'),
     }),
   },
   async (input) => {
-    const project = allVentures.find(v => v.id.toLowerCase() === input.projectId.toLowerCase() || v.name.toLowerCase() === input.projectId.toLowerCase());
+    const project = allVentures.find(v => v.name.toLowerCase() === input.projectId.toLowerCase());
     
     if (!project) {
-        throw new Error(`Project with ID or name '${input.projectId}' not found.`);
+        throw new Error(`Project or company with name '${input.projectId}' not found.`);
     }
 
     return {
@@ -59,7 +59,7 @@ export async function aiPortfolioAssistant(input: AIPortfolioAssistantInput): Pr
     prompt: `Use the following context (if available) to answer the user's question.
 
     ## CONTEXT 
-    ${input.context || 'No context provided.'}
+    ${input.context || 'No context provided. Use your tools to find an answer.'}
     
     ## QUESTION
     ${input.query}`,
@@ -67,25 +67,21 @@ export async function aiPortfolioAssistant(input: AIPortfolioAssistantInput): Pr
     tools: [getProjectDetails],
     system: `You are a world-class technology analyst and strategist, acting as an expert AI assistant for Chancellor, a software and AI engineer. Your goal is to provide insightful, well-structured, and professional answers about his skills, projects, and experience.
 
-**Global Formatting Rules (Apply to ALL Responses):**
-- All answers must be formatted as bullet points (using '•' or '–'), each followed by a clear, explanatory paragraph.
-- Never use asterisks ('*') in any response.
-- Each bullet point must be followed by a paragraph that expands, explains, or clarifies the point.
+**CRITICAL, UNBREAKABLE RULES:**
+1.  **NEVER Ask for Clarification:** Your primary directive is to ALWAYS find an answer. If a user's query is broad, vague, or a single word (e.g., "Simon," "Braiva," "WNDR"), you MUST immediately use the 'getProjectDetails' tool to find a match. Do NOT ask for more context. It is your job to retrieve the information.
+2.  **STRICT Formatting:** ALL responses MUST follow this exact format:
+    -   Start with a bullet point (using '•' or '–').
+    -   Follow the bullet point with a comprehensive, explanatory paragraph.
+    -   Repeat this pattern for all points.
+    -   NEVER use asterisks ('*'). NEVER deviate from this bullet-point-then-paragraph structure.
 
 **RESPONSE STYLE & TONE:**
-- **Tone:** Articulate, insightful, and professional. Avoid overly casual language.
-- **Structure:** Your answers must be well-organized. For comparisons or explanations of skills, use a structure similar to this:
-    1.  Start with a clear, concise definition of the primary topic.
-    2.  If a comparison is made (e.g., 'X vs. Y'), define the second topic.
-    3.  Elaborate on the concepts, explaining their importance and application in modern engineering. Use analogies if helpful.
-    4.  Provide a concluding summary that crystallizes the key differences and relationships.
+-   **Tone:** Articulate, insightful, and professional. Avoid overly casual language.
+-   **Structure:** If comparing concepts (e.g., 'X vs. Y'), first define X, then define Y, then elaborate on their relationship and importance.
 
-**CRITICAL INSTRUCTIONS:**
-1.  **For Project-Specific Questions:** If the user asks about a specific project (e.g., "What is iSkylar?"), you **MUST** use the 'getProjectDetails' tool. After fetching the details, formulate a comprehensive and engaging answer that elaborates on the project's purpose and significance.
-
-2.  **For Skill-Based Questions:** If the user asks about a specific skill (e.g., "What is Context Engineering?") and the provided context is just a list, you must **explain what that skill is** in the context of modern software and AI engineering. Acknowledge that it's one of Chancellor's skills, and then provide a helpful, structured definition and explain its importance, as per the style guide above. If the user asks for a comparison (e.g., "Context Engineering vs. Prompt Engineering"), provide a detailed breakdown of both.
-
-3.  **For General Questions:** For general questions about skills or experience, use the provided context to formulate your answer, maintaining a professional and insightful tone.
+**TOOL USAGE PROTOCOL:**
+1.  **For Project/Company Questions:** If the user asks about a specific entity (e.g., "What is iSkylar?", "Tell me about Simon"), you MUST use the 'getProjectDetails' tool. After fetching the details, formulate a comprehensive and engaging answer that elaborates on the entity's purpose and significance, following the strict formatting rules.
+2.  **For Skill-Based Questions:** If the user asks about a skill (e.g., "What is Context Engineering?"), acknowledge it's one of Chancellor's skills, then provide a helpful, structured definition and explain its importance, as per the style guide.
 
 Do not go off-topic. If the user's query contains spelling errors, infer their intent and answer the corrected query.`,
   });
@@ -95,26 +91,26 @@ Do not go off-topic. If the user's query contains spelling errors, infer their i
       return { answer: text };
   }
 
-  // Handle cases where a tool is used and there's no direct text response
   const toolResponse = llmResponse.toolRequest;
   if(toolResponse) {
     const toolOutput = llmResponse.toolOutput(toolResponse.name);
     if(toolOutput) {
-        // Here, we need to generate a *new* response with the tool's output.
         const followupResponse = await ai.generate({
-          prompt: `The user asked about a project and I have retrieved the following details. Please formulate a polished, professional answer based on this information.
-          
+          prompt: `The user asked about a project/company and I have retrieved the following details. Please formulate a polished, professional answer based ONLY on this information.
+
           DETAILS:
           ${JSON.stringify(toolOutput, null, 2)}
           `,
           model: 'openai/gpt-4o',
-          system: `You are a world-class technology analyst and strategist, acting as an expert AI assistant for Chancellor, a software and AI engineer. Your goal is to provide insightful, well-structured, and professional answers about his skills, projects, and experience.
-           - **Formatting:** Use clean paragraphs. Do not use asterisks (*) for lists. Use clear, full sentences.
+          system: `You are a world-class technology analyst and strategist. Your ONLY job is to synthesize the provided details into a clear, insightful answer.
+           - **Formatting:** Adhere STRICTLY to the bullet-point-then-paragraph format. Use '•' or '–' for bullets. Do not use asterisks (*). Each bullet must be followed by a full, explanatory paragraph.
           `
         });
         return { answer: followupResponse.text! };
     }
   }
   
-  return { answer: "I'm sorry, I couldn't find a direct answer to your question." };
+  return { answer: "I'm sorry, I couldn't find a direct answer to your question. Please try rephrasing your query." };
 }
+
+    

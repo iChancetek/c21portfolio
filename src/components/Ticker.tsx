@@ -1,8 +1,9 @@
 'use client';
 
-import { partnerCompanies } from '@/lib/data';
+import { allVentures } from '@/lib/data';
 
 const Ticker = () => {
+    const partnerCompanies = allVentures.filter(v => v.description.length > 100);
     // Duplicate the array to create a seamless loop
     const extendedPartners = [...partnerCompanies, ...partnerCompanies];
 
@@ -27,3 +28,5 @@ const Ticker = () => {
 };
 
 export default Ticker;
+
+    
