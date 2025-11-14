@@ -94,7 +94,7 @@ export const allVentures: Venture[] = [
         id: 'venture-4',
         name: "MediScribe",
         description: "AI medical documentation assistant with live transcription, SOAP notes, and EHR integration.",
-        href: "https://mediscribe.ai",
+        href: "https://mediscribe.us",
         hasDemo: true,
     },
     {
