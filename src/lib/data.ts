@@ -68,7 +68,7 @@ export const projects: Project[] = [
   },
 ];
 
-const ventures: Omit<Venture, 'id' | 'href'>[] = [
+const ventures: Omit<Venture, 'id' | 'href' | 'hasDemo'>[] = [
     {
         name: "iChanceTEK",
         description: "AI systems and digital transformation consultancy specializing in intelligent automation and enterprise cloud integrations."
@@ -119,7 +119,7 @@ const ventures: Omit<Venture, 'id' | 'href'>[] = [
     }
 ];
 
-const partnerCompanies: Omit<Venture, 'id'>[] = [
+const partnerCompanies: Omit<Venture, 'id' | 'hasDemo'>[] = [
     {
       name: "Condé Nast",
       description: "Condé Nast is a premier global media company known for producing world-renowned magazines, digital platforms, and branded experiences. The company oversees iconic publications such as Vogue, GQ, Vanity Fair, Wired, Condé Nast Traveler, and The New Yorker. With a large international presence, Condé Nast blends journalism, fashion, culture, technology, and multimedia storytelling. It serves millions of readers worldwide through print, digital, video, and social channels while shaping trends in fashion, luxury, lifestyle, and entertainment.",
@@ -189,12 +189,14 @@ export const allVentures: Venture[] = [
     ...ventures.map((v, i) => ({
         ...v,
         id: `venture-${i}`,
-        href: generateHref(v.name)
+        href: generateHref(v.name),
+        hasDemo: true,
     })),
     ...partnerCompanies.map((p, i) => ({
         ...p,
         id: `partner-${i}`,
-        href: p.href || generateHref(p.name)
+        href: p.href || generateHref(p.name),
+        hasDemo: false,
     }))
 ];
 
@@ -431,5 +433,3 @@ export const socialLinks = [
     { name: "Instagram", href: "https://www.instagram.com/chancetek/", icon: Instagram },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
-
-    

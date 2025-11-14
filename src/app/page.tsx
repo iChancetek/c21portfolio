@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { useState, useTransition, useRef, useEffect, useCallback } from 'react';
@@ -19,6 +18,7 @@ import { Separator } from '@/components/ui/separator';
 import { useLocale } from '@/hooks/useLocale';
 import Ticker from '@/components/Ticker';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
+import { cn } from '@/lib/utils';
 
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
@@ -196,16 +196,18 @@ function SearchResults({ projects, searchQuery, isSearching, answer }: { project
                                 <p className="mt-2 text-sm text-slate-400">{project.description}</p>
                             </div>
                             <div className="p-6 pt-0 mt-auto">
-                                <div className="flex w-full flex-col sm:flex-row gap-2">
+                                <div className={cn("flex w-full gap-2", project.hasDemo ? "flex-col sm:flex-row" : "flex-col")}>
                                     <Button className="w-full" onClick={() => openModal(project)}>
                                         <Bot className="mr-2 h-4 w-4" />
                                         {t('aiDeepDive')}
                                     </Button>
-                                    <Button variant="outline" asChild className="w-full">
-                                        <a href={project.href} target="_blank" rel="noopener noreferrer">
-                                            <ExternalLink className="mr-2 h-4 w-4" /> {t('demo')}
-                                        </a>
-                                    </Button>
+                                    {project.hasDemo && (
+                                        <Button variant="outline" asChild className="w-full">
+                                            <a href={project.href} target="_blank" rel="noopener noreferrer">
+                                                <ExternalLink className="mr-2 h-4 w-4" /> {t('demo')}
+                                            </a>
+                                        </Button>
+                                    )}
                                 </div>
                             </div>
                         </Card>
@@ -330,5 +332,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    

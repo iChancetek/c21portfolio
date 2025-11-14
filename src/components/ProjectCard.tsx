@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -6,6 +7,7 @@ import { Button } from './ui/button';
 import { ExternalLink, Bot, type LucideIcon } from 'lucide-react';
 import type { Venture } from '@/lib/types';
 import CaseStudyModal from './CaseStudyModal';
+import { cn } from '@/lib/utils';
 
 interface ProjectCardProps {
   project: Venture;
@@ -26,16 +28,18 @@ export default function ProjectCard({ project, Icon }: ProjectCardProps) {
           <p className="mt-2 text-sm text-slate-400">{project.description}</p>
         </div>
         <div className="p-6 pt-0 mt-auto">
-            <div className="flex w-full flex-col sm:flex-row gap-2">
+            <div className={cn("flex w-full gap-2", project.hasDemo ? "flex-col sm:flex-row" : "flex-col")}>
                 <Button className="w-full" onClick={() => setIsModalOpen(true)}>
                     <Bot className="mr-2 h-4 w-4" />
                     AI Deep-Dive
                 </Button>
-                <Button variant="outline" asChild className="w-full">
-                    <a href={project.href} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="mr-2 h-4 w-4" /> Demo
-                    </a>
-                </Button>
+                {project.hasDemo && (
+                    <Button variant="outline" asChild className="w-full">
+                        <a href={project.href} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="mr-2 h-4 w-4" /> Demo
+                        </a>
+                    </Button>
+                )}
             </div>
         </div>
       </Card>
