@@ -115,7 +115,7 @@ export const allVentures: Venture[] = [
         id: 'venture-7',
         name: "WoundiQ",
         description: "AI wound care management system with image analysis, SOAP generation, and role-based nurse/admin dashboards.",
-        href: "https://woundiq.com",
+        href: "https://woundiq.us",
         hasDemo: true,
     },
     {
@@ -477,6 +477,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
