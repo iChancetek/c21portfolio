@@ -87,7 +87,7 @@ export const allVentures: Venture[] = [
         id: 'venture-3',
         name: "iQMarketing",
         description: "AI-driven marketing analytics and personalized campaign management suite.",
-        href: "https://iqmarketing.ai",
+        href: "https://iqmarketing.us/",
         hasDemo: true,
     },
     {
@@ -473,5 +473,7 @@ export const socialLinks = [
     { name: "Instagram", href: "https://www.instagram.com/chancetek/", icon: Instagram },
     { name: "Twitter", href: "#", icon: Twitter },
 ]
+
+    
 
     
