@@ -80,7 +80,7 @@ export const allVentures: Venture[] = [
         id: 'venture-2',
         name: "ChanceTEK Health",
         description: "Healthcare automation platform focusing on smart referrals, patient intake, and digital consent capture.",
-        href: "https://chancetek.health",
+        href: "https://chancetekhealth.us/",
         hasDemo: true,
     },
     {
