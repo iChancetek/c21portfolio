@@ -122,35 +122,35 @@ export const allVentures: Venture[] = [
         id: 'venture-8',
         name: "iSydney",
         description: "Conversational AI voice companion for therapeutic and lifestyle engagement.",
-        href: "https://isydney.ai",
+        href: "https://iSydney.us",
         hasDemo: true,
     },
     {
         id: 'venture-9',
         name: "iHailey",
         description: "AI-driven emotional support and mental wellness companion with natural voice interaction.",
-        href: "https://ihailey.ai",
+        href: "https://iHailey.us",
         hasDemo: true,
     },
     {
         id: 'venture-10',
         name: "iSkylar",
         description: "AI Voice Therapist combining generative empathy models and therapeutic dialogue systems.",
-        href: "https://iskylar.com",
+        href: "https://iSkylar.us",
         hasDemo: true,
     },
     {
         id: 'venture-11',
         name: "Nesto Banks",
         description: "Fintech and digital banking platform enhanced with AI-based fraud detection and risk analytics.",
-        href: "https://nestobanks.com",
+        href: "https://NestoBanks.com",
         hasDemo: true,
     },
     {
         id: 'venture-12',
         name: "The Potluxe",
         description: "AI-powered luxury product marketplace and social commerce platform.",
-        href: "https://thepotluxe.com",
+        href: "https://ThePotluxe.com",
         hasDemo: true,
     },
     {
@@ -477,6 +477,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
