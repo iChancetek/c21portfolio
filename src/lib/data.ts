@@ -101,7 +101,7 @@ export const allVentures: Venture[] = [
         id: 'venture-5',
         name: "MemoiQ",
         description: "Personal AI memory and journaling assistant with long-term context understanding.",
-        href: "https://memoiq.com",
+        href: "https://memoiq.us/",
         hasDemo: true,
     },
     {
@@ -477,3 +477,4 @@ export const socialLinks = [
     
 
     
+
