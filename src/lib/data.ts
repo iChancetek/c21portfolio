@@ -108,7 +108,7 @@ export const allVentures: Venture[] = [
         id: 'venture-6',
         name: "ModeliQ",
         description: "AI model training and deployment automation for custom LLM fine-tuning and inference.",
-        href: "https://modeliq.ai",
+        href: "https://modeliq.us",
         hasDemo: true,
     },
     {
@@ -477,4 +477,6 @@ export const socialLinks = [
     
 
     
+
+
 
