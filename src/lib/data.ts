@@ -68,165 +68,175 @@ export const projects: Project[] = [
   },
 ];
 
-const ventures: Omit<Venture, 'id'>[] = [
+export const allVentures: Venture[] = [
     {
+        id: 'venture-1',
         name: "iChanceTEK",
         description: "AI systems and digital transformation consultancy specializing in intelligent automation and enterprise cloud integrations.",
         href: "https://ichancetek.com",
         hasDemo: true,
     },
     {
+        id: 'venture-2',
         name: "ChanceTEK Health",
         description: "Healthcare automation platform focusing on smart referrals, patient intake, and digital consent capture.",
         href: "https://chancetek.health",
         hasDemo: true,
     },
     {
+        id: 'venture-3',
         name: "iQMarketing",
         description: "AI-driven marketing analytics and personalized campaign management suite.",
         href: "https://iqmarketing.ai",
         hasDemo: true,
     },
     {
+        id: 'venture-4',
         name: "MediScribe",
         description: "AI medical documentation assistant with live transcription, SOAP notes, and EHR integration.",
         href: "https://mediscribe.ai",
         hasDemo: true,
     },
     {
+        id: 'venture-5',
         name: "MemoiQ",
         description: "Personal AI memory and journaling assistant with long-term context understanding.",
         href: "https://memoiq.com",
         hasDemo: true,
     },
     {
+        id: 'venture-6',
         name: "ModeliQ",
         description: "AI model training and deployment automation for custom LLM fine-tuning and inference.",
         href: "https://modeliq.ai",
         hasDemo: true,
     },
     {
+        id: 'venture-7',
         name: "WoundiQ",
         description: "AI wound care management system with image analysis, SOAP generation, and role-based nurse/admin dashboards.",
         href: "https://woundiq.com",
         hasDemo: true,
     },
     {
+        id: 'venture-8',
         name: "iSydney",
         description: "Conversational AI voice companion for therapeutic and lifestyle engagement.",
         href: "https://isydney.ai",
         hasDemo: true,
     },
     {
+        id: 'venture-9',
         name: "iHailey",
         description: "AI-driven emotional support and mental wellness companion with natural voice interaction.",
         href: "https://ihailey.ai",
         hasDemo: true,
     },
     {
+        id: 'venture-10',
         name: "iSkylar",
         description: "AI Voice Therapist combining generative empathy models and therapeutic dialogue systems.",
         href: "https://iskylar.com",
         hasDemo: true,
     },
     {
+        id: 'venture-11',
         name: "Nesto Banks",
         description: "Fintech and digital banking platform enhanced with AI-based fraud detection and risk analytics.",
         href: "https://nestobanks.com",
         hasDemo: true,
     },
     {
+        id: 'venture-12',
         name: "The Potluxe",
         description: "AI-powered luxury product marketplace and social commerce platform.",
         href: "https://thepotluxe.com",
         hasDemo: true,
-    }
-];
-
-const partnerCompanies: Omit<Venture, 'id'>[] = [
+    },
     {
+      id: 'partner-0',
       name: "Condé Nast",
       description: "Condé Nast is a premier global media company known for producing world-renowned magazines, digital platforms, and branded experiences. The company oversees iconic publications such as Vogue, GQ, Vanity Fair, Wired, Condé Nast Traveler, and The New Yorker. With a large international presence, Condé Nast blends journalism, fashion, culture, technology, and multimedia storytelling. It serves millions of readers worldwide through print, digital, video, and social channels while shaping trends in fashion, luxury, lifestyle, and entertainment.",
       href: "https://www.condenast.com",
       hasDemo: false,
     },
     {
+      id: 'partner-1',
       name: "Advance",
       description: "Advance is a diversified global media and technology company and parent organization of Condé Nast. Founded in 1922, it holds investments in media, data analytics, technology, and entertainment companies. Its portfolio includes stakes in Reddit, Discovery, and American City Business Journals. Advance also owns newspapers, digital publications, and various media groups. The company is known for long-term strategic investment and innovation across content, data, and global media industries.",
       href: "https://www.advance.com",
       hasDemo: false,
     },
     {
+      id: 'partner-2',
       name: "SIMON",
       description: "Simon Property Group is one of the world’s largest real estate companies and the leading owner and operator of shopping malls in the United States. The company manages premier retail, dining, entertainment, and mixed-use destinations, including iconic malls, lifestyle centers, and outlets. Simon’s properties attract millions of visitors annually, serving as major commercial hubs for retailers, restaurants, and experiential brands. The company is publicly traded and recognized for large-scale real estate development and high-end retail environments.",
       href: "https://www.simon.com",
       hasDemo: false,
     },
     {
+      id: 'partner-3',
       name: "Braiva Capital",
       description: "Braiva Capital is a private investment firm focused on strategic financial growth, venture funding, and partnership development. The company invests in emerging technologies, consumer markets, and high-potential business ventures. Braiva Capital is known for its data-driven strategy, portfolio-building approach, and long-term value creation. Through capital deployment and advisory support, the firm helps early-stage and growth-stage companies scale effectively.",
       href: "#",
       hasDemo: false,
     },
     {
+      id: 'partner-4',
       name: "Couristan",
       description: "Founded in 1926, Couristan is a leading global manufacturer and importer of high-end area rugs, residential carpeting, and custom floor coverings. The company supplies luxury products to retailers, interior designers, and hospitality clients. Known for craftsmanship, premium materials, and innovative designs, Couristan has built a strong reputation in the textile and flooring industries. It serves commercial and residential markets across the United States and internationally.",
       href: "https://www.couristan.com",
       hasDemo: false,
     },
     {
+      id: 'partner-5',
       name: "tBrexa Bio Inc.",
       description: "tBrexa Bio Inc. is a biotechnology company focused on innovative solutions in life sciences, pharmaceuticals, and medical technology. The company specializes in research, development, and commercialization of advanced therapeutic initiatives. Its mission centers on improving global health outcomes through scientific innovation, data-driven drug development, and biotech advancement. tBrexa Bio collaborates with scientific institutions and healthcare partners to accelerate results in biotechnology and medical research.",
       href: "#",
       hasDemo: false,
     },
     {
+        id: 'partner-6',
         name: "Nama Harlem",
         description: "(New Amsterdam Musical Association)\nFounded in 1904, the New Amsterdam Musical Association (NAMA) is the oldest African-American musical organization in the United States. Created during a time when African-American musicians were excluded from the American Federation of Musicians Local 310, NAMA became the first Black music union. The association provided performance opportunities, training, and community support for Black musicians throughout New York City. Located in Harlem, NAMA remains a historic cultural institution dedicated to preserving jazz, blues, and African-American musical heritage.",
         href: "https://www.namaharlem.org",
         hasDemo: false,
     },
     {
+      id: 'partner-7',
       name: "WNDR",
       description: "WNDR is a modern cloud-gaming and user-generated content platform founded by Borris Bazelais. The company aims to become a major hub for interactive entertainment, often described as the next major evolution of social gaming. Prior to founding WNDR, Bazelais worked in film, television, and music, bringing creative and technical expertise into the gaming industry. His earlier browser-based flash game achieved over 23 million plays, demonstrating his ability to scale user engagement. WNDR focuses on cloud gaming, creator tools, and next-generation gaming experiences.",
       href: "#",
       hasDemo: false,
     },
     {
+      id: 'partner-8',
       name: "Alpharma Pharmaceuticals",
       description: "Alpharma Pharmaceuticals was a global specialty pharmaceutical company known for developing and producing pharmaceutical products across human and animal health sectors. It operated in areas such as antimicrobial drugs, pain management, active pharmaceutical ingredients, and generic medications. Alpharma developed widely used therapies and was recognized for advancing pharmaceutical manufacturing standards. The company was later acquired, integrating its portfolio into a larger global pharmaceutical network.",
       href: "#",
       hasDemo: false,
     },
     {
+      id: 'partner-9',
       name: "Novartis Pharmaceuticals",
       description: "Novartis is one of the world’s largest and most respected pharmaceutical companies, known for developing innovative medicines across oncology, cardiovascular health, immunology, neuroscience, and gene therapy. Headquartered in Switzerland, Novartis focuses heavily on research and development, precision medicine, and humanitarian access to treatments worldwide. With a global footprint, the company aims to transform patient outcomes through advanced scientific discovery and medical innovation.",
       href: "https://www.novartis.com",
       hasDemo: false,
     },
     {
+      id: 'partner-10',
       name: "Manhattan College",
       description: "Manhattan College is a private Catholic liberal arts college located in Riverdale, New York. Founded in 1853, the school is known for strong academic programs in engineering, business, education, the sciences, and the humanities. The institution emphasizes values-based learning, community engagement, and leadership development. Manhattan College has a long history of producing graduates who contribute significantly to engineering, public service, research, and the arts.",
       href: "https://manhattan.edu",
       hasDemo: false,
     },
     {
+      id: 'partner-11',
       name: "Cayenne Pepper Productions",
       description: "Cayenne Pepper Productions is a creative media and production company specializing in film, television, advertising, and branded content. Known for storytelling, visual design, and multimedia production, the company collaborates with brands, networks, and creators to develop engaging media projects. Its work spans digital video, commercial campaigns, music-related content, and film-focused creative development.",
       href: "#",
       hasDemo: false,
     }
-];
-
-export const allVentures: Venture[] = [
-    ...ventures.map((v, i) => ({
-        ...v,
-        id: `venture-${i}`,
-    })),
-    ...partnerCompanies.map((p, i) => ({
-        ...p,
-        id: `partner-${i}`,
-    }))
 ];
 
 export const ventureIcons: VentureIcon[] = [
