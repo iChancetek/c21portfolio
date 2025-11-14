@@ -17,7 +17,7 @@ const PageMetadata: React.FC = () => {
 };
 
 export const metadata: Metadata = {
-  title: 'Chancellor Minus | Entrepreneur, AI Engineer & Full-Stack Developer',
+  title: 'Chancellor Minus | Entrepreneur • AI & Data Engineer • DevOps & MLOps Specialist • Full-Stack Developer',
   description: 'A full stack AI-powered portfolio showcasing the projects and skills of Chancellor Minus.',
 };
 
