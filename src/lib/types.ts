@@ -30,7 +30,7 @@ export interface Venture {
     name: string;
     href: string;
     description: string;
-    hasDemo?: boolean;
+    hasDemo: boolean;
 }
 
 export interface VentureIcon {
@@ -42,3 +42,6 @@ export interface PartnerCompany {
     name: string;
     description?: string;
 }
+
+
+    
