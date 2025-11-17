@@ -44,13 +44,12 @@ function FavoriteAffirmations() {
     return query(
       collection(firestore, 'userInteractions'),
       where('userId', '==', user.uid),
+      where('interaction', '==', 'favorite'),
       orderBy('timestamp', 'desc')
     );
   }, [firestore, user]);
 
-  const { data: interactions, isLoading } = useCollection<Interaction>(favoritesQuery);
-  
-  const favorites = interactions?.filter(item => item.interaction === 'favorite');
+  const { data: favorites, isLoading } = useCollection<Interaction>(favoritesQuery);
 
   const handleDelete = async (favoriteId: string) => {
     if (!firestore) return;
