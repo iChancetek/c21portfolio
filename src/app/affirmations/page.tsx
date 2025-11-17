@@ -5,7 +5,7 @@ import { useState, useTransition, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2, Volume2, Play, Pause, Bot, Globe, ThumbsUp, ThumbsDown, Star, LogIn } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Volume2, Play, Pause, Bot, Globe, ThumbsUp, ThumbsDown, Star, LogIn, Download } from 'lucide-react';
 import { generateAffirmation } from '@/ai/flows/affirmation-generator';
 import type { UserAffirmationInteraction } from '@/lib/types';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
@@ -303,6 +303,21 @@ export default function AffirmationsPage() {
     }
   };
 
+  const handleDownload = () => {
+    if (!currentAffirmation || !currentAffirmation.text || currentAffirmation.text === t('affirmationsInitialText')) return;
+    
+    const textToDownload = viewState === 'deepDive' && deepDiveContent ? deepDiveContent : currentAffirmation.text;
+    const blob = new Blob([textToDownload], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'affirmation.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const anyLoading = isGenerating || isDeeperDiveLoading;
   const showInteractionButtons = currentAffirmation && !currentAffirmation.text.includes('Click the button');
 
@@ -391,6 +406,10 @@ export default function AffirmationsPage() {
             {isDeeperDiveLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Bot className="mr-2 h-5 w-5" />}
             {viewState === 'deepDive' ? t('showAffirmation') : t('deeperDive')}
         </Button>
+         <Button size="lg" onClick={handleDownload} disabled={!currentAffirmation || currentAffirmation.text === t('affirmationsInitialText')} variant="outline">
+            <Download className="mr-2 h-5 w-5" />
+            Download
+        </Button>
       </div>
 
        <AlertDialog open={isLoginPromptOpen} onOpenChange={setIsLoginPromptOpen}>
@@ -415,4 +434,3 @@ export default function AffirmationsPage() {
   );
 }
 
-    
