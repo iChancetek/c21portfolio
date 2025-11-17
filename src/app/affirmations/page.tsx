@@ -46,7 +46,7 @@ export default function AffirmationsPage() {
     if (!firestore || !user) return null;
     return query(collection(firestore, 'userInteractions'), where('userId', '==', user.uid));
   }, [firestore, user]);
-  const { data: pastInteractions } = useCollection<UserAffirmationInteraction>(interactionsQuery);
+  const { data: pastInteractions } = useCollection<UserAffirmationInteraction & { id: string }>(interactionsQuery);
 
   const isFavorite = (affirmationText: string) => {
     return !!pastInteractions?.some(i => i.affirmation === affirmationText && i.interaction === 'favorite');
@@ -198,46 +198,49 @@ export default function AffirmationsPage() {
   const handleInteraction = async (type: InteractionType) => {
     if (!user || !firestore || !currentAffirmation) return;
     setInteractionLoading(type);
-
-    const interactionRef = doc(firestore, 'userInteractions', `${user.uid}_${currentAffirmation.id}`);
-    
+  
     try {
-        // Special handling for 'favorite': it's a toggle
-        if (type === 'favorite') {
-            if (isFavorite(currentAffirmation.text)) {
-                // If it's already a favorite, unfavorite it by deleting the doc
-                // We need to find the original doc ID to delete it.
-                const existingFav = pastInteractions?.find(i => i.affirmation === currentAffirmation.text && i.interaction === 'favorite');
-                if (existingFav) {
-                    await deleteDoc(doc(firestore, 'userInteractions', existingFav.id));
-                    toast({ title: "Removed from Favorites" });
-                }
-            } else {
-                // If not a favorite, add it.
-                const interactionData: UserAffirmationInteraction = {
-                    userId: user.uid,
-                    affirmation: currentAffirmation.text,
-                    interaction: 'favorite',
-                    timestamp: serverTimestamp(),
-                };
-                await setDoc(interactionRef, interactionData);
-                 toast({ title: "Added to Favorites" });
-            }
+      if (type === 'favorite') {
+        const existingFav = pastInteractions?.find(i => i.affirmation === currentAffirmation.text && i.interaction === 'favorite');
+        if (existingFav) {
+          await deleteDoc(doc(firestore, 'userInteractions', existingFav.id));
+          toast({ title: "Removed from Favorites" });
         } else {
-             // For 'like' and 'dislike', we just set the interaction
-            const interactionData: UserAffirmationInteraction = {
-                userId: user.uid,
-                affirmation: currentAffirmation.text,
-                interaction: type,
-                timestamp: serverTimestamp(),
-            };
-            await setDoc(interactionRef, interactionData, { merge: true });
+          const interactionData: UserAffirmationInteraction = {
+            userId: user.uid,
+            affirmation: currentAffirmation.text,
+            interaction: 'favorite',
+            timestamp: serverTimestamp(),
+          };
+          await setDoc(doc(collection(firestore, 'userInteractions')), interactionData);
+          toast({ title: "Added to Favorites" });
         }
-        
-    } catch(err) {
-        toast({ variant: 'destructive', title: "Interaction failed", description: "Could not save your feedback."})
+      } else if (type === 'liked') {
+        const existingLike = pastInteractions?.find(i => i.affirmation === currentAffirmation.text && i.interaction === 'liked');
+        if (existingLike) {
+          await deleteDoc(doc(firestore, 'userInteractions', existingLike.id));
+        } else {
+          const interactionData: UserAffirmationInteraction = {
+            userId: user.uid,
+            affirmation: currentAffirmation.text,
+            interaction: 'liked',
+            timestamp: serverTimestamp(),
+          };
+          await setDoc(doc(collection(firestore, 'userInteractions')), interactionData);
+        }
+      } else { // For 'dislike'
+        const interactionData: UserAffirmationInteraction = {
+          userId: user.uid,
+          affirmation: currentAffirmation.text,
+          interaction: type,
+          timestamp: serverTimestamp(),
+        };
+        await setDoc(doc(collection(firestore, 'userInteractions')), interactionData);
+      }
+    } catch (err) {
+      toast({ variant: 'destructive', title: "Interaction failed", description: "Could not save your feedback." });
     } finally {
-        setInteractionLoading(null);
+      setInteractionLoading(null);
     }
   };
 
