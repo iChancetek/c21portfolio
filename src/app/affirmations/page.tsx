@@ -11,7 +11,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useLocale } from '@/hooks/useLocale';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
-import { collection, doc, setDoc, serverTimestamp, query, where } from 'firebase/firestore';
+import { collection, doc, setDoc, serverTimestamp, query, where, deleteDoc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
@@ -50,6 +50,10 @@ export default function AffirmationsPage() {
 
   const isFavorite = (affirmationText: string) => {
     return !!pastInteractions?.some(i => i.affirmation === affirmationText && i.interaction === 'favorite');
+  };
+  
+  const isLiked = (affirmationText: string) => {
+      return !!pastInteractions?.some(i => i.affirmation === affirmationText && i.interaction === 'liked');
   };
 
   useEffect(() => {
@@ -198,20 +202,38 @@ export default function AffirmationsPage() {
     const interactionRef = doc(firestore, 'userInteractions', `${user.uid}_${currentAffirmation.id}`);
     
     try {
-        const interactionData: UserAffirmationInteraction = {
-            userId: user.uid,
-            affirmation: currentAffirmation.text,
-            interaction: type,
-            timestamp: serverTimestamp(),
-        };
-        await setDoc(interactionRef, interactionData, { merge: true });
-        
+        // Special handling for 'favorite': it's a toggle
         if (type === 'favorite') {
-             toast({
-                title: isFavorite(currentAffirmation.text) ? "Removed from Favorites" : "Added to Favorites",
-                description: `"${currentAffirmation.text}"`,
-             });
+            if (isFavorite(currentAffirmation.text)) {
+                // If it's already a favorite, unfavorite it by deleting the doc
+                // We need to find the original doc ID to delete it.
+                const existingFav = pastInteractions?.find(i => i.affirmation === currentAffirmation.text && i.interaction === 'favorite');
+                if (existingFav) {
+                    await deleteDoc(doc(firestore, 'userInteractions', existingFav.id));
+                    toast({ title: "Removed from Favorites" });
+                }
+            } else {
+                // If not a favorite, add it.
+                const interactionData: UserAffirmationInteraction = {
+                    userId: user.uid,
+                    affirmation: currentAffirmation.text,
+                    interaction: 'favorite',
+                    timestamp: serverTimestamp(),
+                };
+                await setDoc(interactionRef, interactionData);
+                 toast({ title: "Added to Favorites" });
+            }
+        } else {
+             // For 'like' and 'dislike', we just set the interaction
+            const interactionData: UserAffirmationInteraction = {
+                userId: user.uid,
+                affirmation: currentAffirmation.text,
+                interaction: type,
+                timestamp: serverTimestamp(),
+            };
+            await setDoc(interactionRef, interactionData, { merge: true });
         }
+        
     } catch(err) {
         toast({ variant: 'destructive', title: "Interaction failed", description: "Could not save your feedback."})
     } finally {
@@ -292,7 +314,7 @@ export default function AffirmationsPage() {
       {showInteractionButtons && (
         <div className="mt-6 flex items-center justify-center gap-2">
             <Button variant="ghost" size="icon" onClick={() => handleInteraction('liked')} disabled={!!interactionLoading}>
-                {interactionLoading === 'liked' ? <Loader2 className="h-6 w-6 animate-spin"/> : <ThumbsUp className="h-6 w-6 text-green-500"/>}
+                {interactionLoading === 'liked' ? <Loader2 className="h-6 w-6 animate-spin"/> : <ThumbsUp className={cn("h-6 w-6 text-green-500", isLiked(currentAffirmation.text) && "fill-green-500")}/>}
             </Button>
             <Button variant="ghost" size="icon" onClick={() => handleInteraction('disliked')} disabled={!!interactionLoading}>
                 {interactionLoading === 'disliked' ? <Loader2 className="h-6 w-6 animate-spin"/> : <ThumbsDown className="h-6 w-6 text-red-500"/>}
