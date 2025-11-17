@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useUser, useAuth, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -43,13 +43,19 @@ function FavoriteAffirmations() {
     if (!firestore || !user) return null;
     return query(
       collection(firestore, 'userInteractions'),
-      where('userId', '==', user.uid),
-      where('interaction', '==', 'favorite'),
-      orderBy('timestamp', 'desc')
+      where('userId', '==', user.uid)
     );
   }, [firestore, user]);
 
-  const { data: favorites, isLoading } = useCollection<Interaction>(favoritesQuery);
+  const { data: interactions, isLoading } = useCollection<Interaction>(favoritesQuery);
+  
+  const favorites = useMemo(() => {
+    return interactions?.filter(i => i.interaction === 'favorite').sort((a, b) => {
+        if (!a.timestamp || !b.timestamp) return 0;
+        return b.timestamp.seconds - a.timestamp.seconds;
+    }) || [];
+  }, [interactions]);
+
 
   const handleDelete = async (favoriteId: string) => {
     if (!firestore) return;
@@ -65,7 +71,7 @@ function FavoriteAffirmations() {
     return <div className="flex justify-center items-center p-8"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>;
   }
   
-  if (!favorites || favorites.length === 0) {
+  if (favorites.length === 0) {
       return <p className="text-muted-foreground text-center p-8">{t('noFavoritesSaved')}</p>
   }
 
