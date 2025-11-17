@@ -1,5 +1,6 @@
 
 import type { LucideIcon, LucideProps } from "lucide-react";
+import { z } from 'zod';
 
 export interface Project {
   id: string;
@@ -42,6 +43,14 @@ export interface PartnerCompany {
     name: string;
     description?: string;
 }
+
+export const UserAffirmationInteractionSchema = z.object({
+  userId: z.string().describe("The user's unique ID."),
+  affirmation: z.string().describe('The content of the affirmation.'),
+  interaction: z.enum(['liked', 'disliked', 'favorite']).describe('The type of interaction.'),
+  timestamp: z.any().describe('The server timestamp of the interaction.'),
+});
+export type UserAffirmationInteraction = z.infer<typeof UserAffirmationInteractionSchema>;
 
 
     

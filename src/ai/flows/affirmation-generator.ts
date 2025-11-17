@@ -4,34 +4,20 @@
  * - generateAffirmation - A function that returns a positive affirmation, potentially based on user history.
  * - GenerateAffirmationInput - The input type for the generateAffirmation function.
  * - GenerateAffirmationOutput - The return type for the generateAffirmation function.
- * - UserAffirmationInteraction - The type for user interaction data.
  */
 
 'use server';
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
-import { serverTimestamp } from 'firebase/firestore';
-
-
-export const UserAffirmationInteractionSchema = z.object({
-  userId: z.string().describe("The user's unique ID."),
-  affirmation: z.string().describe('The content of the affirmation.'),
-  interaction: z.enum(['liked', 'disliked', 'favorite']).describe('The type of interaction.'),
-  timestamp: z.any().describe('The server timestamp of the interaction.'),
-});
-export type UserAffirmationInteraction = z.infer<typeof UserAffirmationInteractionSchema>;
+import { UserAffirmationInteractionSchema, type UserAffirmationInteraction } from '@/lib/types';
 
 
 const GenerateAffirmationInputSchema = z.object({
   isDeeperDive: z.boolean().optional().describe('If true, generate a detailed explanation of the affirmation.'),
   affirmation: z.string().optional().describe('The affirmation to get a deeper dive on.'),
   locale: z.enum(['en', 'es', 'fr', 'zh', 'hi', 'ar', 'de', 'pt', 'ko', 'ja', 'sw', 'yo', 'ha', 'zu', 'am', 'ig', 'so', 'sn', 'af', 'mg']).optional().default('en').describe('The language for the response.'),
-  history: z.array(z.object({
-      affirmation: z.string(),
-      interaction: z.enum(['liked', 'disliked', 'favorite']),
-      timestamp: z.any(),
-  })).optional().describe("A history of the user's past interactions to guide personalization."),
+  history: z.array(UserAffirmationInteractionSchema.omit({ userId: true })).optional().describe("A history of the user's past interactions to guide personalization."),
 });
 export type GenerateAffirmationInput = z.infer<typeof GenerateAffirmationInputSchema>;
 
