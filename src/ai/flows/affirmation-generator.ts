@@ -10,14 +10,18 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
-import { UserAffirmationInteractionSchema } from '@/lib/types';
 
+const InteractionHistorySchema = z.object({
+  affirmation: z.string(),
+  interaction: z.enum(['liked', 'disliked', 'favorite']),
+  timestamp: z.string().describe('The ISO 8601 timestamp of when the interaction occurred.'),
+});
 
 const GenerateAffirmationInputSchema = z.object({
   isDeeperDive: z.boolean().optional().describe('If true, generate a detailed explanation of the affirmation.'),
   affirmation: z.string().optional().describe('The affirmation to get a deeper dive on.'),
   locale: z.enum(['en', 'es', 'fr', 'zh', 'hi', 'ar', 'de', 'pt', 'ko', 'ja', 'sw', 'yo', 'ha', 'zu', 'am', 'ig', 'so', 'sn', 'af', 'mg']).optional().default('en').describe('The language for the response.'),
-  history: z.array(UserAffirmationInteractionSchema.omit({ userId: true })).optional().describe("A history of the user's past interactions to guide personalization."),
+  history: z.array(InteractionHistorySchema).optional().describe("A history of the user's past interactions to guide personalization."),
 });
 export type GenerateAffirmationInput = z.infer<typeof GenerateAffirmationInputSchema>;
 

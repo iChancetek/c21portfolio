@@ -11,7 +11,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useLocale } from '@/hooks/useLocale';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
-import { collection, doc, setDoc, serverTimestamp, query, where, deleteDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, serverTimestamp, query, where, deleteDoc, Timestamp } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
@@ -46,7 +46,7 @@ export default function AffirmationsPage() {
     if (!firestore || !user) return null;
     return query(collection(firestore, 'userInteractions'), where('userId', '==', user.uid));
   }, [firestore, user]);
-  const { data: pastInteractions } = useCollection<UserAffirmationInteraction & { id: string }>(interactionsQuery);
+  const { data: pastInteractions } = useCollection<UserAffirmationInteraction & { id: string; timestamp: Timestamp }>(interactionsQuery);
 
   const isFavorite = (affirmationText: string) => {
     return !!pastInteractions?.some(i => i.affirmation === affirmationText && i.interaction === 'favorite');
@@ -63,7 +63,7 @@ export default function AffirmationsPage() {
         if (hour >= 5 && hour < 12) {
             timeOfDay = 'morning';
         } else if (hour >= 12 && hour < 18) {
-            timeOfDay = 'afternoon';
+            timeOfDay = 'evening';
         } else {
             timeOfDay = 'evening';
         }
@@ -130,7 +130,11 @@ export default function AffirmationsPage() {
   const handleGenerate = () => {
     startGenerationTransition(async () => {
       try {
-        const history = pastInteractions?.map(i => ({ affirmation: i.affirmation, interaction: i.interaction, timestamp: i.timestamp })) || [];
+        const history = pastInteractions?.map(i => ({ 
+            affirmation: i.affirmation, 
+            interaction: i.interaction, 
+            timestamp: i.timestamp.toDate().toISOString() 
+        })) || [];
         const result = await generateAffirmation({ locale, history });
         setAffirmation(result.affirmation);
       } catch (error) {
@@ -204,9 +208,9 @@ export default function AffirmationsPage() {
         const existingFav = pastInteractions?.find(i => i.affirmation === currentAffirmation.text && i.interaction === 'favorite');
         if (existingFav) {
           await deleteDoc(doc(firestore, 'userInteractions', existingFav.id));
-          toast({ title: "Removed from Favorites" });
+          toast({ title: t('removedFromFavorites') });
         } else {
-          const interactionData: UserAffirmationInteraction = {
+          const interactionData: Omit<UserAffirmationInteraction, 'timestamp'> & { timestamp: any } = {
             userId: user.uid,
             affirmation: currentAffirmation.text,
             interaction: 'favorite',
@@ -220,7 +224,7 @@ export default function AffirmationsPage() {
         if (existingLike) {
           await deleteDoc(doc(firestore, 'userInteractions', existingLike.id));
         } else {
-          const interactionData: UserAffirmationInteraction = {
+          const interactionData: Omit<UserAffirmationInteraction, 'timestamp'> & { timestamp: any } = {
             userId: user.uid,
             affirmation: currentAffirmation.text,
             interaction: 'liked',
@@ -229,7 +233,7 @@ export default function AffirmationsPage() {
           await setDoc(doc(collection(firestore, 'userInteractions')), interactionData);
         }
       } else { // For 'dislike'
-        const interactionData: UserAffirmationInteraction = {
+        const interactionData: Omit<UserAffirmationInteraction, 'timestamp'> & { timestamp: any } = {
           userId: user.uid,
           affirmation: currentAffirmation.text,
           interaction: type,
