@@ -105,12 +105,12 @@ export default function ProfilePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { t } = useLocale();
-  const [activeTab, setActiveTab] = useState('profile');
+  const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'profile');
   
   useEffect(() => {
       const tab = searchParams.get('tab');
-      if(tab === 'favorites') {
-          setActiveTab('favorites');
+      if(tab) {
+          setActiveTab(tab);
       }
   }, [searchParams]);
 
