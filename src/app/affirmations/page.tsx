@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useTransition, useRef, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Loader2, Sparkles, Wand2, Volume2, Play, Pause, Bot, Globe, ThumbsUp, ThumbsDown, Star } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Volume2, Play, Pause, Bot, Globe, ThumbsUp, ThumbsDown, Star, LogIn } from 'lucide-react';
 import { generateAffirmation } from '@/ai/flows/affirmation-generator';
 import type { UserAffirmationInteraction } from '@/lib/types';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
@@ -14,6 +15,17 @@ import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebas
 import { collection, doc, setDoc, serverTimestamp, query, where, deleteDoc, Timestamp } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 type ViewState = 'affirmation' | 'deepDive';
@@ -28,6 +40,7 @@ export default function AffirmationsPage() {
   const { t, locale, setLocale, locales } = useLocale();
   const { user } = useUser();
   const firestore = useFirestore();
+  const router = useRouter();
   const { toast } = useToast();
   
   const [greeting, setGreeting] = useState('');
@@ -40,6 +53,7 @@ export default function AffirmationsPage() {
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [interactionLoading, setInteractionLoading] = useState<InteractionType | null>(null);
+  const [isLoginPromptOpen, setIsLoginPromptOpen] = useState(false);
 
   // Fetch user's past interactions
   const interactionsQuery = useMemoFirebase(() => {
@@ -200,7 +214,18 @@ export default function AffirmationsPage() {
   };
 
   const handleInteraction = async (type: InteractionType) => {
-    if (!user || !firestore || !currentAffirmation) return;
+    if (!user && type === 'favorite') {
+        setIsLoginPromptOpen(true);
+        return;
+    }
+
+    if (!user || !firestore || !currentAffirmation) {
+        // For anonymous users, we can just show feedback visually without persisting.
+        if (type === 'liked') toast({ title: "You liked this affirmation!" });
+        if (type === 'disliked') toast({ title: "Thanks for the feedback." });
+        return;
+    }
+
     setInteractionLoading(type);
   
     try {
@@ -278,7 +303,7 @@ export default function AffirmationsPage() {
   };
 
   const anyLoading = isGenerating || isDeeperDiveLoading;
-  const showInteractionButtons = user && currentAffirmation && !currentAffirmation.text.includes('Click the button');
+  const showInteractionButtons = currentAffirmation && !currentAffirmation.text.includes('Click the button');
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] text-center py-12">
@@ -321,13 +346,13 @@ export default function AffirmationsPage() {
       {showInteractionButtons && (
         <div className="mt-6 flex items-center justify-center gap-2">
             <Button variant="ghost" size="icon" onClick={() => handleInteraction('liked')} disabled={!!interactionLoading}>
-                {interactionLoading === 'liked' ? <Loader2 className="h-6 w-6 animate-spin"/> : <ThumbsUp className={cn("h-6 w-6 text-green-500", isLiked(currentAffirmation.text) && "fill-green-500")}/>}
+                {interactionLoading === 'liked' ? <Loader2 className="h-6 w-6 animate-spin"/> : <ThumbsUp className={cn("h-6 w-6 text-green-500", user && isLiked(currentAffirmation.text) && "fill-green-500")}/>}
             </Button>
             <Button variant="ghost" size="icon" onClick={() => handleInteraction('disliked')} disabled={!!interactionLoading}>
                 {interactionLoading === 'disliked' ? <Loader2 className="h-6 w-6 animate-spin"/> : <ThumbsDown className="h-6 w-6 text-red-500"/>}
             </Button>
             <Button variant="ghost" size="icon" onClick={() => handleInteraction('favorite')} disabled={!!interactionLoading}>
-                {interactionLoading === 'favorite' ? <Loader2 className="h-6 w-6 animate-spin"/> : <Star className={cn("h-6 w-6 text-yellow-500", isFavorite(currentAffirmation.text) && "fill-yellow-500")}/>}
+                {interactionLoading === 'favorite' ? <Loader2 className="h-6 w-6 animate-spin"/> : <Star className={cn("h-6 w-6 text-yellow-500", user && isFavorite(currentAffirmation.text) && "fill-yellow-500")}/>}
             </Button>
         </div>
       )}
@@ -366,6 +391,25 @@ export default function AffirmationsPage() {
             {viewState === 'deepDive' ? t('showAffirmation') : t('deeperDive')}
         </Button>
       </div>
+
+       <AlertDialog open={isLoginPromptOpen} onOpenChange={setIsLoginPromptOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{"Create an Account to Save Favorites"}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {"Saving your favorite affirmations requires an account. Sign up or log in to continue."}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{"Cancel"}</AlertDialogCancel>
+            <AlertDialogAction onClick={() => router.push('/login')}>
+              <LogIn className="mr-2 h-4 w-4" />
+              {"Login or Sign Up"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
     </div>
   );
 }
