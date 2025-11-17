@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useTransition, useRef, useEffect, useCallback } from 'react';
@@ -413,3 +414,5 @@ export default function AffirmationsPage() {
     </div>
   );
 }
+
+    
