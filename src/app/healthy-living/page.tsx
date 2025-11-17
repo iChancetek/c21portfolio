@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, useTransition, useCallback } from 'react';
@@ -18,6 +19,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useLocale } from '@/hooks/useLocale';
+import { meditationSounds } from '@/lib/data';
+import { Slider } from '@/components/ui/slider';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -49,7 +52,7 @@ export default function HealthyLivingPage() {
   
   // Settings state
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-
+  
   // Meditation state
   const [meditationDuration, setMeditationDuration] = useState(10 * 60); // 10 minutes in seconds
   const [timer, setTimer] = useState(meditationDuration);
@@ -58,6 +61,11 @@ export default function HealthyLivingPage() {
   const [wasMeditating, setWasMeditating] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
+  // Background music state
+  const musicAudioRef = useRef<HTMLAudioElement>(null);
+  const [selectedSound, setSelectedSound] = useState<string>('');
+  const [musicVolume, setMusicVolume] = useState(0.5);
+
   const { toast } = useToast();
 
   const stopPlayback = useCallback(() => {
@@ -149,6 +157,7 @@ export default function HealthyLivingPage() {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
             setWasMeditating(true); // Signal that meditation just finished
+            if (musicAudioRef.current) musicAudioRef.current.pause();
             return 0;
           }
           return prev - 1;
@@ -181,6 +190,29 @@ export default function HealthyLivingPage() {
     }
   }, [meditationDuration, isMeditating]);
 
+  // Handle background music
+  useEffect(() => {
+    const musicAudio = musicAudioRef.current;
+    if (musicAudio) {
+        if (selectedSound && isMeditating && !isPaused) {
+            const sound = meditationSounds.find(s => s.value === selectedSound);
+            if (sound && musicAudio.src !== sound.url) {
+                musicAudio.src = sound.url;
+            }
+            musicAudio.play();
+        } else {
+            musicAudio.pause();
+        }
+    }
+  }, [selectedSound, isMeditating, isPaused]);
+  
+  // Update music volume
+  useEffect(() => {
+      if (musicAudioRef.current) {
+          musicAudioRef.current.volume = musicVolume;
+      }
+  }, [musicVolume]);
+
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -199,9 +231,14 @@ export default function HealthyLivingPage() {
     setIsPaused(false);
     setTimer(meditationDuration);
     stopPlayback();
+    if (musicAudioRef.current) musicAudioRef.current.pause();
   };
   
   const handleTogglePause = () => {
+      if (musicAudioRef.current) {
+        if (isPaused) musicAudioRef.current.play();
+        else musicAudioRef.current.pause();
+      }
       setIsPaused(!isPaused);
   }
 
@@ -324,6 +361,18 @@ export default function HealthyLivingPage() {
       stopPlayback();
     }
   }, [isMuted, stopPlayback]);
+  
+  useEffect(() => {
+    const musicEl = musicAudioRef.current;
+    if (mode === 'chat' && musicEl) {
+      musicEl.pause();
+    }
+    return () => {
+      if (musicEl) {
+        musicEl.pause();
+      }
+    }
+  }, [mode]);
 
   if (isUserLoading || !user) {
     return <div className="container flex items-center justify-center py-24"><Loader2 className="h-16 w-16 animate-spin text-primary" /></div>;
@@ -335,6 +384,7 @@ export default function HealthyLivingPage() {
     <>
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
+        <audio ref={musicAudioRef} loop />
         <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
             <CardHeader>
                 <div className="flex justify-between items-center">
@@ -433,13 +483,27 @@ export default function HealthyLivingPage() {
                                   <SelectValue placeholder={t('selectDuration')} />
                               </SelectTrigger>
                               <SelectContent>
-                                  <SelectItem value="5">5 minutes</SelectItem>
-                                  <SelectItem value="10">10 minutes</SelectItem>
-                                  <SelectItem value="15">15 minutes</SelectItem>
-                                  <SelectItem value="20">20 minutes</SelectItem>
-                                  <SelectItem value="30">30 minutes</SelectItem>
+                                  <SelectItem value="5">5 {t('minutes', {count: 5})}</SelectItem>
+                                  <SelectItem value="10">10 {t('minutes', {count: 10})}</SelectItem>
+                                  <SelectItem value="15">15 {t('minutes', {count: 15})}</SelectItem>
+                                  <SelectItem value="20">20 {t('minutes', {count: 20})}</SelectItem>
+                                  <SelectItem value="30">30 {t('minutes', {count: 30})}</SelectItem>
                               </SelectContent>
                           </Select>
+                      </div>
+                      <div className="w-64 space-y-2 mt-2">
+                        <Label htmlFor="sound" className="text-muted-foreground">{t('playMusic')}</Label>
+                        <Select value={selectedSound} onValueChange={setSelectedSound} disabled={isMeditating && !isPaused}>
+                          <SelectTrigger id="sound">
+                            <SelectValue placeholder="Select Sound" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="">None</SelectItem>
+                            {meditationSounds.map(sound => (
+                              <SelectItem key={sound.value} value={sound.value}>{sound.name}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                   </div>
               </CardContent>
@@ -471,6 +535,18 @@ export default function HealthyLivingPage() {
             </Select>
             <p className="text-xs text-muted-foreground">{t('languageDescription')}</p>
           </div>
+           <div className="space-y-2">
+            <Label htmlFor="music-volume">Music Volume</Label>
+            <Slider
+                id="music-volume"
+                min={0}
+                max={1}
+                step={0.1}
+                value={[musicVolume]}
+                onValueChange={(value) => setMusicVolume(value[0])}
+            />
+            <p className="text-xs text-muted-foreground">Adjust the volume of the background music.</p>
+           </div>
         </div>
         <DialogFooter>
             <Button onClick={() => setIsSettingsOpen(false)}>{t('applyAndClose')}</Button>

@@ -445,6 +445,13 @@ export const skillCategories: SkillCategory[] = [
   }
 ];
 
+export const meditationSounds = [
+  { name: 'Gentle Rain', value: 'rain', url: 'https://cdn.pixabay.com/download/audio/2022/10/18/audio_b2538051b8.mp3' },
+  { name: 'Ocean Waves', value: 'ocean', url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_2d81a9f147.mp3' },
+  { name: 'Flowing Water', value: 'water', url: 'https://cdn.pixabay.com/download/audio/2022/05/23/audio_75f410757d.mp3' },
+  { name: 'Ambient Tones', value: 'ambient', url: 'https://cdn.pixabay.com/download/audio/2022/08/04/audio_354c46c24c.mp3' },
+];
+
 export const techTopics = [
   'GenAI',
   'Data Science',
@@ -482,6 +489,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
