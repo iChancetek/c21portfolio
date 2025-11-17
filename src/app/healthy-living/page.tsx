@@ -134,16 +134,17 @@ export default function HealthyLivingPage() {
         const welcomeMessageContent = t(greetingKey, { name: userName });
         const welcomeMessage: Message = { role: 'assistant', content: welcomeMessageContent };
 
-        setMessages([welcomeMessage]);
-        
-        speak(welcomeMessageContent, 'alloy', true);
+        if (messages.length === 0 || messages[0].content !== welcomeMessageContent) {
+          setMessages([welcomeMessage]);
+          speak(welcomeMessageContent, 'alloy', true);
+        }
 
         if (loginStatus) {
             sessionStorage.removeItem('loginStatus');
             sessionStorage.removeItem('userName');
         }
     }
-}, [user, mode, locale, t, speak]);
+}, [user, mode, locale, t, speak, messages]);
 
 
   // Scroll to bottom of chat
@@ -433,11 +434,11 @@ export default function HealthyLivingPage() {
                                   <SelectValue placeholder={t('selectDuration')} />
                               </SelectTrigger>
                               <SelectContent>
-                                  <SelectItem value="5">{t('minutes', {count: 5})}</SelectItem>
-                                  <SelectItem value="10">{t('minutes', {count: 10})}</SelectItem>
-                                  <SelectItem value="15">{t('minutes', {count: 15})}</SelectItem>
-                                  <SelectItem value="20">{t('minutes', {count: 20})}</SelectItem>
-                                  <SelectItem value="30">{t('minutes', {count: 30})}</SelectItem>
+                                  <SelectItem value="5">5 minutes</SelectItem>
+                                  <SelectItem value="10">10 minutes</SelectItem>
+                                  <SelectItem value="15">15 minutes</SelectItem>
+                                  <SelectItem value="20">20 minutes</SelectItem>
+                                  <SelectItem value="30">30 minutes</SelectItem>
                               </SelectContent>
                           </Select>
                       </div>
@@ -480,4 +481,3 @@ export default function HealthyLivingPage() {
     </>
   );
 }
-
