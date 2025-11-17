@@ -59,7 +59,7 @@ const prompt = ai.definePrompt({
     -   Analyze liked/favorited affirmations to understand the user's preferred themes (e.g., self-worth, abundance, peace, career success). Generate new affirmations that align with these themes but are distinctly original.
     -   Analyze disliked affirmations to identify and avoid themes or phrasing the user doesn't connect with.
     -   Crucially, DO NOT repeat affirmations that appear in the user's history. Your goal is to provide a novel and evolving experience.
-4.  **DEEPER DIVE MODE:** When `isDeeperDive` is true, provide an insightful, multi-paragraph explanation of the given affirmation, formatted as clean HTML. Explore its psychological and philosophical underpinnings and offer practical advice for application.`,
+4.  **DEEPER DIVE MODE:** When isDeeperDive is true, provide an insightful, multi-paragraph explanation of the given affirmation, formatted as clean HTML. Explore its psychological and philosophical underpinnings and offer practical advice for application.`,
   prompt: `The user's preferred language is {{locale}}. YOU MUST RESPOND IN THIS LANGUAGE.
 
 {{#if history}}
