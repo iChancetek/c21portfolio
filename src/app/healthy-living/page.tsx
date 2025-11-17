@@ -19,7 +19,6 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useLocale } from '@/hooks/useLocale';
-import { meditationSounds } from '@/lib/data';
 import { Slider } from '@/components/ui/slider';
 
 interface Message {
@@ -59,11 +58,6 @@ export default function HealthyLivingPage() {
   const [isPaused, setIsPaused] = useState(false);
   const [wasMeditating, setWasMeditating] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  
-  const [musicUrl, setMusicUrl] = useState<string | null>(null);
-  const musicAudioRef = useRef<HTMLAudioElement>(null);
-  const [selectedSound, setSelectedSound] = useState<string>('none');
-  const [musicVolume, setMusicVolume] = useState(0.5);
 
   const { toast } = useToast();
 
@@ -82,8 +76,15 @@ export default function HealthyLivingPage() {
     }
   }, [user, isUserLoading, router]);
 
-  const speak = useCallback(async (text: string, voice: TTSVoice = 'alloy') => {
+  const speak = useCallback(async (text: string, voice: TTSVoice = 'alloy', isGreeting = false) => {
     if (isMuted) return;
+
+    if (isGreeting) {
+      const hasBeenGreeted = sessionStorage.getItem('healthyLivingGreeted');
+      if (hasBeenGreeted) return;
+      sessionStorage.setItem('healthyLivingGreeted', 'true');
+    }
+
     stopPlayback(); // Stop any currently playing speech
     setIsSpeaking(true);
     try {
@@ -135,9 +136,9 @@ export default function HealthyLivingPage() {
 
         setMessages([welcomeMessage]);
         
-        // Speak the greeting, but only if it's the first time after login
+        speak(welcomeMessageContent, 'alloy', true);
+
         if (loginStatus) {
-            speak(welcomeMessageContent);
             sessionStorage.removeItem('loginStatus');
             sessionStorage.removeItem('userName');
         }
@@ -170,7 +171,6 @@ export default function HealthyLivingPage() {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
             setWasMeditating(true); // Signal that meditation just finished
-            setMusicUrl(null);
             return 0;
           }
           return prev - 1;
@@ -203,32 +203,6 @@ export default function HealthyLivingPage() {
     }
   }, [meditationDuration, isMeditating]);
 
-  useEffect(() => {
-    const sound = meditationSounds.find(s => s.value === selectedSound);
-    if (sound) {
-        setMusicUrl(sound.url);
-    } else {
-        setMusicUrl(null);
-    }
-  }, [selectedSound]);
-
-  useEffect(() => {
-    if (musicAudioRef.current) {
-        if (isMeditating && !isPaused && musicUrl) {
-            musicAudioRef.current.play().catch(e => console.error("Music playback failed", e));
-        } else {
-            musicAudioRef.current.pause();
-        }
-    }
-  }, [isMeditating, isPaused, musicUrl]);
-  
-  // Update music volume
-  useEffect(() => {
-      if (musicAudioRef.current) {
-          musicAudioRef.current.volume = musicVolume;
-      }
-  }, [musicVolume]);
-
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -247,7 +221,6 @@ export default function HealthyLivingPage() {
     setIsPaused(false);
     setTimer(meditationDuration);
     stopPlayback();
-    setMusicUrl(null);
   };
   
   const handleTogglePause = () => {
@@ -351,12 +324,6 @@ export default function HealthyLivingPage() {
       stopPlayback();
     }
   }, [isMuted, stopPlayback]);
-  
-  useEffect(() => {
-    if (mode === 'chat' && musicAudioRef.current) {
-      musicAudioRef.current.pause();
-    }
-  }, [mode]);
 
   if (isUserLoading || !user) {
     return <div className="container flex items-center justify-center py-24"><Loader2 className="h-16 w-16 animate-spin text-primary" /></div>;
@@ -368,7 +335,6 @@ export default function HealthyLivingPage() {
     <>
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
-        {musicUrl && <audio ref={musicAudioRef} src={musicUrl} loop />}
         <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
             <CardHeader>
                 <div className="flex justify-between items-center">
@@ -475,20 +441,6 @@ export default function HealthyLivingPage() {
                               </SelectContent>
                           </Select>
                       </div>
-                      <div className="w-64 space-y-2 mt-2">
-                        <Label htmlFor="sound" className="text-muted-foreground">{t('playMusic')}</Label>
-                        <Select value={selectedSound} onValueChange={setSelectedSound} disabled={isMeditating && !isPaused}>
-                          <SelectTrigger id="sound">
-                            <SelectValue placeholder="Select Sound" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="none">None</SelectItem>
-                            {meditationSounds.map(sound => (
-                              <SelectItem key={sound.value} value={sound.value}>{sound.name}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
                   </div>
               </CardContent>
             )}
@@ -519,18 +471,6 @@ export default function HealthyLivingPage() {
             </Select>
             <p className="text-xs text-muted-foreground">{t('languageDescription')}</p>
           </div>
-           <div className="space-y-2">
-            <Label htmlFor="music-volume">Music Volume</Label>
-            <Slider
-                id="music-volume"
-                min={0}
-                max={1}
-                step={0.1}
-                value={[musicVolume]}
-                onValueChange={(value) => setMusicVolume(value[0])}
-            />
-            <p className="text-xs text-muted-foreground">Adjust the volume of the background music.</p>
-           </div>
         </div>
         <DialogFooter>
             <Button onClick={() => setIsSettingsOpen(false)}>{t('applyAndClose')}</Button>
@@ -541,4 +481,3 @@ export default function HealthyLivingPage() {
   );
 }
 
-    

@@ -71,6 +71,26 @@ export default function AffirmationsPage() {
       return !!pastInteractions?.some(i => i.affirmation === affirmationText && i.interaction === 'liked');
   };
 
+  const handleSpeak = useCallback(async (text: string, isGreeting = false) => {
+    if (!text || text === t('affirmationsInitialText')) return;
+    
+    // Don't auto-play greeting speech unless it's the first visit in a session.
+    if (isGreeting) {
+      const hasBeenGreeted = sessionStorage.getItem('affirmationGreeted');
+      if (hasBeenGreeted) return;
+      sessionStorage.setItem('affirmationGreeted', 'true');
+    }
+
+    setAudioState('loading');
+    try {
+        const { audioDataUri } = await textToSpeech({ text, locale });
+        setAudioSrc(audioDataUri);
+    } catch (error) {
+        console.error('Failed to generate speech:', error);
+        setAudioState('idle');
+    }
+  }, [locale, t]);
+
   useEffect(() => {
     const getGreeting = () => {
         const hour = new Date().getHours();
@@ -100,26 +120,8 @@ export default function AffirmationsPage() {
        setAffirmation(t('affirmationsInitialText'));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, locale, t]);
+  }, [user, locale, t, handleSpeak]);
 
-
-  const handleSpeak = useCallback(async (text: string, isGreeting = false) => {
-    if (!text || text === t('affirmationsInitialText')) return;
-    
-    // Don't auto-play greeting speech unless it's the first visit.
-    const hasVisited = sessionStorage.getItem('hasVisitedAffirmations');
-    if (isGreeting && hasVisited) return;
-    if (isGreeting) sessionStorage.setItem('hasVisitedAffirmations', 'true');
-
-    setAudioState('loading');
-    try {
-        const { audioDataUri } = await textToSpeech({ text, locale });
-        setAudioSrc(audioDataUri);
-    } catch (error) {
-        console.error('Failed to generate speech:', error);
-        setAudioState('idle');
-    }
-  }, [locale, t]);
 
   const setAffirmation = useCallback((text: string) => {
       setCurrentAffirmation({ id: new Date().toISOString(), text });
