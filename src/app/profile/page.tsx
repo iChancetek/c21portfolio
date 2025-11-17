@@ -36,6 +36,7 @@ function FavoriteAffirmations() {
   const { user } = useUser();
   const firestore = useFirestore();
   const { toast } = useToast();
+  const { t } = useLocale();
 
   const favoritesQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
@@ -53,9 +54,9 @@ function FavoriteAffirmations() {
     if (!firestore) return;
     try {
       await deleteDoc(doc(firestore, 'userInteractions', favoriteId));
-      toast({ title: "Removed from favorites." });
+      toast({ title: t('removedFromFavorites') });
     } catch (error) {
-      toast({ variant: 'destructive', title: "Failed to remove favorite." });
+      toast({ variant: 'destructive', title: t('failedToRemoveFavorite') });
     }
   };
 
@@ -64,7 +65,7 @@ function FavoriteAffirmations() {
   }
   
   if (!favorites || favorites.length === 0) {
-      return <p className="text-muted-foreground text-center p-8">You haven't saved any favorite affirmations yet.</p>
+      return <p className="text-muted-foreground text-center p-8">{t('noFavoritesSaved')}</p>
   }
 
   return (
@@ -79,14 +80,14 @@ function FavoriteAffirmations() {
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                      <AlertDialogTitle>{t('areYouSure')}</AlertDialogTitle>
                       <AlertDialogDescription>
-                        This will permanently remove this affirmation from your favorites.
+                        {t('removeFavoriteConfirmation')}
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => handleDelete(fav.id)}>Delete</AlertDialogAction>
+                      <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => handleDelete(fav.id)}>{t('delete')}</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -130,8 +131,8 @@ export default function ProfilePage() {
         <div className="max-w-2xl mx-auto">
             <Tabs defaultValue="profile">
                 <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="profile">Profile</TabsTrigger>
-                    <TabsTrigger value="favorites">My Favorites</TabsTrigger>
+                    <TabsTrigger value="profile">{t('profile')}</TabsTrigger>
+                    <TabsTrigger value="favorites">{t('myFavorites')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="profile">
                     <Card>
@@ -159,7 +160,7 @@ export default function ProfilePage() {
                             <div className="mt-8 flex justify-center gap-4">
                                 <Button onClick={() => router.back()} variant="outline">
                                     <ArrowLeft className="mr-2 h-4 w-4" />
-                                    Go Back
+                                    {t('goBack')}
                                 </Button>
                                 <Button onClick={handleSignOut}>
                                     <LogOut className="mr-2 h-4 w-4" />
@@ -173,9 +174,9 @@ export default function ProfilePage() {
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 justify-center">
-                                <Star className="text-primary"/> Favorite Affirmations
+                                <Star className="text-primary"/> {t('myFavorites')}
                             </CardTitle>
-                            <CardDescription>A collection of affirmations you've saved.</CardDescription>
+                            <CardDescription>{t('myFavoritesDescription')}</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <FavoriteAffirmations />

@@ -173,5 +173,15 @@
   "greeting_morning_return": "Good morning, {name}. It’s great to see you again. Let’s start the day mindfully and focused.",
   "greeting_afternoon_return": "Good afternoon, {name}. I hope your day’s been kind to you. Let’s take a mindful moment together.",
   "greeting_evening_return": "Good evening, {name}. You’ve done well today. Let’s unwind and breathe together.",
-  "meditationEnd": "You are amazing. Have a beautiful day!"
+  "meditationEnd": "You are amazing. Have a beautiful day!",
+  "goBack": "Go Back",
+  "myFavorites": "My Favorites",
+  "myFavoritesDescription": "A collection of affirmations you've saved.",
+  "noFavoritesSaved": "You haven't saved any favorite affirmations yet.",
+  "areYouSure": "Are you sure?",
+  "removeFavoriteConfirmation": "This will permanently remove this affirmation from your favorites.",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "removedFromFavorites": "Removed from favorites.",
+  "failedToRemoveFavorite": "Failed to remove favorite."
 }
