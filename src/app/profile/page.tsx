@@ -26,9 +26,10 @@ import {
 } from "@/components/ui/alert-dialog"
 
 
-interface FavoriteAffirmation {
+interface Interaction {
     id: string;
     affirmation: string;
+    interaction: 'liked' | 'disliked' | 'favorite';
     timestamp: any;
 }
 
@@ -43,12 +44,13 @@ function FavoriteAffirmations() {
     return query(
       collection(firestore, 'userInteractions'),
       where('userId', '==', user.uid),
-      where('interaction', '==', 'favorite'),
       orderBy('timestamp', 'desc')
     );
   }, [firestore, user]);
 
-  const { data: favorites, isLoading } = useCollection<FavoriteAffirmation>(favoritesQuery);
+  const { data: interactions, isLoading } = useCollection<Interaction>(favoritesQuery);
+  
+  const favorites = interactions?.filter(item => item.interaction === 'favorite');
 
   const handleDelete = async (favoriteId: string) => {
     if (!firestore) return;
