@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useUser, useAuth, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -103,7 +103,16 @@ export default function ProfilePage() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { t } = useLocale();
+  const [activeTab, setActiveTab] = useState('profile');
+  
+  useEffect(() => {
+      const tab = searchParams.get('tab');
+      if(tab === 'favorites') {
+          setActiveTab('favorites');
+      }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -129,7 +138,7 @@ export default function ProfilePage() {
   return (
     <div className="container py-12 md:py-24">
         <div className="max-w-2xl mx-auto">
-            <Tabs defaultValue="profile">
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="profile">{t('profile')}</TabsTrigger>
                     <TabsTrigger value="favorites">{t('myFavorites')}</TabsTrigger>
