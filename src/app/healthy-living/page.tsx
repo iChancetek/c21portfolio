@@ -47,7 +47,6 @@ export default function HealthyLivingPage() {
   const audioChunksRef = useRef<Blob[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [audioSrc, setAudioSrc] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   
   // Settings state
@@ -61,9 +60,9 @@ export default function HealthyLivingPage() {
   const [wasMeditating, setWasMeditating] = useState(false);
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
-  // Background music state
+  const [musicUrl, setMusicUrl] = useState<string | null>(null);
   const musicAudioRef = useRef<HTMLAudioElement>(null);
-  const [selectedSound, setSelectedSound] = useState<string>('');
+  const [selectedSound, setSelectedSound] = useState<string>('none');
   const [musicVolume, setMusicVolume] = useState(0.5);
 
   const { toast } = useToast();
@@ -90,12 +89,26 @@ export default function HealthyLivingPage() {
     try {
       // Pass the current locale to the textToSpeech function
       const { audioDataUri } = await textToSpeech({ text, locale, voice });
-      setAudioSrc(audioDataUri);
+      if (audioRef.current) {
+        audioRef.current.src = audioDataUri;
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(err => {
+                console.error("AI speech playback failed:", err);
+                setIsSpeaking(false);
+            })
+        }
+        audioRef.current.onended = () => {
+            setIsSpeaking(false);
+        };
+      }
+
     } catch (error) {
       toast({ title: t('audioFailed'), variant: 'destructive' });
       setIsSpeaking(false);
     }
   }, [isMuted, stopPlayback, toast, t, locale]);
+
 
   // Set or update the initial welcome message when locale or user changes.
   useEffect(() => {
@@ -157,7 +170,7 @@ export default function HealthyLivingPage() {
             clearInterval(timerIntervalRef.current!);
             setIsMeditating(false);
             setWasMeditating(true); // Signal that meditation just finished
-            if (musicAudioRef.current) musicAudioRef.current.pause();
+            setMusicUrl(null);
             return 0;
           }
           return prev - 1;
@@ -190,21 +203,24 @@ export default function HealthyLivingPage() {
     }
   }, [meditationDuration, isMeditating]);
 
-  // Handle background music
   useEffect(() => {
-    const musicAudio = musicAudioRef.current;
-    if (musicAudio) {
-        if (selectedSound && isMeditating && !isPaused) {
-            const sound = meditationSounds.find(s => s.value === selectedSound);
-            if (sound && musicAudio.src !== sound.url) {
-                musicAudio.src = sound.url;
-            }
-            musicAudio.play();
+    const sound = meditationSounds.find(s => s.value === selectedSound);
+    if (sound) {
+        setMusicUrl(sound.url);
+    } else {
+        setMusicUrl(null);
+    }
+  }, [selectedSound]);
+
+  useEffect(() => {
+    if (musicAudioRef.current) {
+        if (isMeditating && !isPaused && musicUrl) {
+            musicAudioRef.current.play().catch(e => console.error("Music playback failed", e));
         } else {
-            musicAudio.pause();
+            musicAudioRef.current.pause();
         }
     }
-  }, [selectedSound, isMeditating, isPaused]);
+  }, [isMeditating, isPaused, musicUrl]);
   
   // Update music volume
   useEffect(() => {
@@ -231,14 +247,10 @@ export default function HealthyLivingPage() {
     setIsPaused(false);
     setTimer(meditationDuration);
     stopPlayback();
-    if (musicAudioRef.current) musicAudioRef.current.pause();
+    setMusicUrl(null);
   };
   
   const handleTogglePause = () => {
-      if (musicAudioRef.current) {
-        if (isPaused) musicAudioRef.current.play();
-        else musicAudioRef.current.pause();
-      }
       setIsPaused(!isPaused);
   }
 
@@ -281,7 +293,6 @@ export default function HealthyLivingPage() {
       };
       audioChunksRef.current = [];
       mediaRecorderRef.current.start();
-      setIsRecording(true);
       toast({ title: t('listening') });
     } catch (error) {
       toast({ title: t('micDenied'), variant: 'destructive' });
@@ -295,27 +306,6 @@ export default function HealthyLivingPage() {
       toast({ title: t('processing') });
     }
   };
-
-  useEffect(() => {
-    if (audioSrc && audioRef.current) {
-        if (isMuted) {
-          stopPlayback();
-          return;
-        }
-        audioRef.current.src = audioSrc;
-        const playPromise = audioRef.current.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(err => {
-                console.error("AI speech playback failed:", err);
-                setIsSpeaking(false);
-            })
-        }
-        audioRef.current.onended = () => {
-            setIsSpeaking(false);
-            setAudioSrc(null); // Clear src after playing
-        };
-    }
-  }, [audioSrc, isMuted, stopPlayback]);
 
   const handleInteraction = async (query: string) => {
     const trimmedQuery = query.trim().toLowerCase();
@@ -363,14 +353,8 @@ export default function HealthyLivingPage() {
   }, [isMuted, stopPlayback]);
   
   useEffect(() => {
-    const musicEl = musicAudioRef.current;
-    if (mode === 'chat' && musicEl) {
-      musicEl.pause();
-    }
-    return () => {
-      if (musicEl) {
-        musicEl.pause();
-      }
+    if (mode === 'chat' && musicAudioRef.current) {
+      musicAudioRef.current.pause();
     }
   }, [mode]);
 
@@ -384,7 +368,7 @@ export default function HealthyLivingPage() {
     <>
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
-        <audio ref={musicAudioRef} loop />
+        {musicUrl && <audio ref={musicAudioRef} src={musicUrl} loop />}
         <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
             <CardHeader>
                 <div className="flex justify-between items-center">
@@ -483,11 +467,11 @@ export default function HealthyLivingPage() {
                                   <SelectValue placeholder={t('selectDuration')} />
                               </SelectTrigger>
                               <SelectContent>
-                                  <SelectItem value="5">5 {t('minutes', {count: 5})}</SelectItem>
-                                  <SelectItem value="10">10 {t('minutes', {count: 10})}</SelectItem>
-                                  <SelectItem value="15">15 {t('minutes', {count: 15})}</SelectItem>
-                                  <SelectItem value="20">20 {t('minutes', {count: 20})}</SelectItem>
-                                  <SelectItem value="30">30 {t('minutes', {count: 30})}</SelectItem>
+                                  <SelectItem value="5">{t('minutes', {count: 5})}</SelectItem>
+                                  <SelectItem value="10">{t('minutes', {count: 10})}</SelectItem>
+                                  <SelectItem value="15">{t('minutes', {count: 15})}</SelectItem>
+                                  <SelectItem value="20">{t('minutes', {count: 20})}</SelectItem>
+                                  <SelectItem value="30">{t('minutes', {count: 30})}</SelectItem>
                               </SelectContent>
                           </Select>
                       </div>
@@ -498,7 +482,7 @@ export default function HealthyLivingPage() {
                             <SelectValue placeholder="Select Sound" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="">None</SelectItem>
+                            <SelectItem value="none">None</SelectItem>
                             {meditationSounds.map(sound => (
                               <SelectItem key={sound.value} value={sound.value}>{sound.name}</SelectItem>
                             ))}
@@ -556,3 +540,5 @@ export default function HealthyLivingPage() {
     </>
   );
 }
+
+    
