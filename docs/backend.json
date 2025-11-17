@@ -175,6 +175,33 @@
         }
       },
       "required": ["status", "lastSeen"]
+    },
+     "UserAffirmationInteraction": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserAffirmationInteraction",
+      "type": "object",
+      "description": "Represents a user's interaction with a generated affirmation.",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The unique identifier of the user."
+        },
+        "affirmation": {
+          "type": "string",
+          "description": "The content of the affirmation the user interacted with."
+        },
+        "interaction": {
+          "type": "string",
+          "enum": ["liked", "disliked", "favorite"],
+          "description": "The type of interaction (e.g., liked, disliked, saved as favorite)."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The server timestamp of when the interaction occurred."
+        }
+      },
+      "required": ["userId", "affirmation", "interaction", "timestamp"]
     }
   },
   "auth": {
@@ -214,6 +241,12 @@
         "$ref": "#/entities/UserStatus"
       },
       "description": "Stores real-time user presence information."
+    },
+    "/userInteractions/{interactionId}": {
+      "schema": {
+        "$ref": "#/entities/UserAffirmationInteraction"
+      },
+      "description": "Stores user interactions with affirmations, such as likes, dislikes, and favorites."
     }
   }
 }

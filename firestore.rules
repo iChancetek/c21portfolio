@@ -20,6 +20,14 @@ service cloud.firestore {
         allow create: if true;
         allow read: if isAdmin();
     }
+    
+    // Rules for user affirmation interactions
+    match /userInteractions/{interactionId} {
+      // Users can read, create, update, and delete their own interactions.
+      // The interactionId is structured as {userId}_{affirmationId}
+      allow read, write: if request.auth != null && request.auth.uid == interactionId.split('_')[0];
+    }
+
 
     // Default deny for any other collections to ensure security
     match /{document=**} {
