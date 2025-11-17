@@ -22,13 +22,13 @@ service cloud.firestore {
     }
 
     match /userInteractions/{interactionId} {
-      // Allow read/write to a specific document if the user owns it
+      // Allow a user to read or write their own single interaction document
       allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
     }
     
-    match /userInteractions/{documents=**} {
-      // Allow a user to list (query) their own interactions
-      allow list: if request.auth != null && request.query.get("userId") == request.auth.uid;
+    match /userInteractions/{document=**} {
+       // Allow a user to list their own interactions, required for querying favorites
+       allow list: if request.auth != null && request.query.get("userId") == request.auth.uid;
     }
 
 
