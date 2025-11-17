@@ -1,6 +1,6 @@
 
 import { Project, SkillCategory, Venture, VentureIcon, PartnerCompany } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, Architecture, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit, Notebook } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -346,6 +346,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "AWS Redshift", icon: Database },
       { name: "Azure DataBricks", icon: Sparkles },
       { name: "Apache Spark", icon: Sparkles },
+      { name: "Google PySpark", icon: Sparkles },
+      { name: "Apache Airflow", icon: Workflow },
       { name: "Tableau", icon: BarChart },
       { name: "Power BI", icon: BarChart },
     ],
@@ -358,6 +360,9 @@ export const skillCategories: SkillCategory[] = [
         { name: "Scikit-learn", icon: TestTubeDiagonal },
         { name: "PyTorch", icon: BrainCircuit },
         { name: "TensorFlow", icon: BrainCircuit },
+        { name: "Jupyter Notebook", icon: Notebook },
+        { name: "Google Colab", icon: Notebook },
+        { name: "Anaconda", icon: Package },
         { name: "Data Structures", icon: GitCommit },
         { name: "Linear Regression", icon: FunctionSquare },
         { name: "Logistic Regression", icon: FunctionSquare },
@@ -477,6 +482,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
