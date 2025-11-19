@@ -107,8 +107,28 @@ export default function AIAgentPage() {
             </div>
         </div>
       </section>
-
+      
       <section className="w-full py-16 md:py-24 bg-secondary/20">
+         <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
+            <div className="space-y-4">
+                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Use Cases</div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">Real-World AI Agent Examples</h2>
+                <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  These AI companions demonstrate the power of conversational AI for therapeutic and lifestyle engagement, providing emotional support and natural voice interaction.
+                </p>
+            </div>
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {iSydney && (
+                    <ProjectCard project={iSydney} Icon={ISydneyIcon} />
+                )}
+                 {iHailey && (
+                    <ProjectCard project={iHailey} Icon={IHaileyIcon} />
+                )}
+            </div>
+         </div>
+      </section>
+
+      <section className="w-full py-16 md:py-24">
          <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Instant, Intelligent Action</div>
@@ -135,14 +155,7 @@ export default function AIAgentPage() {
                     </li>
                 </ul>
             </div>
-             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {iSydney && (
-                    <ProjectCard project={iSydney} Icon={ISydneyIcon} />
-                )}
-                 {iHailey && (
-                    <ProjectCard project={iHailey} Icon={IHaileyIcon} />
-                )}
-            </div>
+            {/* The project cards were here, now moved up */}
          </div>
       </section>
 
