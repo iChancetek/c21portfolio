@@ -51,8 +51,7 @@ export default function AIAgentPage() {
          <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
          <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary opacity-20 blur-[100px]"></div>
         <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
-            <div className="flex flex-col justify-center space-y-4">
+          <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-4">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-primary-gradient">
                   Enterprise AI Agents
@@ -70,15 +69,6 @@ export default function AIAgentPage() {
                 </Button>
               </div>
             </div>
-             <Image
-              alt="Intelligent AI Robot"
-              className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
-              height="550"
-              src="https://images.unsplash.com/photo-1698668743216-93335db5f1a3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              width="550"
-              data-ai-hint="intelligent robot"
-            />
-          </div>
         </div>
       </section>
 
