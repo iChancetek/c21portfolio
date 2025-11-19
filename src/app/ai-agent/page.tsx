@@ -1,13 +1,13 @@
 
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { allVentures, ventureIcons } from "@/lib/data";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { CheckCircle, Bot, Zap, Users, ShieldCheck, Workflow, BrainCircuit } from 'lucide-react';
 import Link from 'next/link';
 import ProjectCard from "@/components/ProjectCard";
+import FloatingAIAssistant from "@/components/FloatingAIAssistant";
 
 const features = [
   {
@@ -110,7 +110,7 @@ export default function AIAgentPage() {
         </div>
       </section>
       
-      <section className="w-full py-16 md:py-24 bg-secondary/20">
+       <section className="w-full py-16 md:py-24 bg-secondary/20">
          <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
             <div className="space-y-4">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Use Cases</div>
@@ -212,7 +212,7 @@ export default function AIAgentPage() {
             </div>
         </div>
       </section>
-
+      <FloatingAIAssistant />
     </div>
   );
 }
