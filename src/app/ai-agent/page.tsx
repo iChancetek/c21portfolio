@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { CheckCircle, Bot, Zap, Users, ShieldCheck, Workflow, BrainCircuit } from 'lucide-react';
 import Link from 'next/link';
+import ProjectCard from "@/components/ProjectCard";
 
 const features = [
   {
@@ -134,28 +135,12 @@ export default function AIAgentPage() {
                     </li>
                 </ul>
             </div>
-             <div className="flex flex-col gap-4">
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {iSydney && (
-                    <Card className="w-full">
-                        <CardHeader className="flex flex-row items-center gap-4">
-                             <ISydneyIcon className="w-10 h-10 text-primary" />
-                             <div>
-                                <CardTitle>{iSydney.name}</CardTitle>
-                                <p className="text-sm text-muted-foreground">{iSydney.description}</p>
-                             </div>
-                        </CardHeader>
-                    </Card>
+                    <ProjectCard project={iSydney} Icon={ISydneyIcon} />
                 )}
                  {iHailey && (
-                    <Card className="w-full">
-                        <CardHeader className="flex flex-row items-center gap-4">
-                            <IHaileyIcon className="w-10 h-10 text-primary" />
-                             <div>
-                                <CardTitle>{iHailey.name}</CardTitle>
-                                <p className="text-sm text-muted-foreground">{iHailey.description}</p>
-                             </div>
-                        </CardHeader>
-                    </Card>
+                    <ProjectCard project={iHailey} Icon={IHaileyIcon} />
                 )}
             </div>
          </div>
@@ -214,7 +199,3 @@ export default function AIAgentPage() {
     </div>
   );
 }
-
-    
-
-    
