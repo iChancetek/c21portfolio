@@ -57,10 +57,10 @@ export default function AIAgentPage() {
           <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-4">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-primary-gradient">
-                  Enterprise AI Agents
+                  AI for Enterprise, Small Business, & Non-Profits
                 </h1>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                  Enterprise AI that works like your best employee for better customer experiences.
+                  AI that works like your best employee—for enterprise, small business, and non-profits—to create better customer experiences.
                 </p>
               </div>
               <p className="max-w-[600px] text-muted-foreground">
@@ -179,7 +179,7 @@ export default function AIAgentPage() {
                 </div>
                 <div className="grid gap-1 text-center">
                     <h3 className="text-lg font-bold">Real-Time Complex Support</h3>
-                    <p className="text-sm text-muted-foreground">Whether customers need to change an order, manage a subscription, or schedule appointments, the AI handles it instantly.</p>
+                    <p className="text-sm text-muted-foreground">Whether customers need to change an order, manage a subscription, schedule appointments, or navigate multi-step processes, the AI handles it instantly.</p>
                 </div>
                  <div className="grid gap-1 text-center">
                     <h3 className="text-lg font-bold">Adapts. Learns. Improves. Fast.</h3>
@@ -192,9 +192,9 @@ export default function AIAgentPage() {
        <section id="skills" className="w-full py-16 md:py-24 bg-secondary/20">
          <div className="container">
             <div className="flex flex-col items-center text-center space-y-4 mb-12">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">🏢 ChanceTEK — Building the Future of Enterprise AI</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">🏢 ChanceTEK — Building the Future of AI for Business</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    ChanceTEK designs next-generation enterprise software powered by Generative AI and Agentic AI for organizations across every major industry. Our technology integrates the best of the GenAI ecosystem: Google Gemini, OpenAI, Anthropic, Llama, DeepSeek, Hugging Face, and leading open-source models.
+                    ChanceTEK designs next-generation software powered by Generative AI and Agentic AI for organizations of all sizes, across every major industry.
                 </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
