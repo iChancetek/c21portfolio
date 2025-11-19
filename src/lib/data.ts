@@ -72,8 +72,8 @@ export const allVentures: Venture[] = [
     {
         id: 'venture-1',
         name: "iChanceTEK",
-        description: "AI systems and digital transformation consultancy specializing in intelligent automation and enterprise cloud integrations.",
-        href: "https://ichancetek.com",
+        description: "Chancellor Minus ✨ iChanceTEK — Enterprise AI That Works Like Your Best Employee. Better Customer Experiences. Built on iChanceTEK.",
+        href: "/ai-agent",
         hasDemo: true,
     },
     {
@@ -489,6 +489,7 @@ export const socialLinks = [
     
 
     
+
 
 
 

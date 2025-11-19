@@ -1,8 +1,9 @@
+
 'use client';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star, Bot } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
@@ -137,6 +138,12 @@ export default function Header() {
               {t('projects')}
             </div>
           </NavLink>
+           <NavLink href="/ai-agent" isProjectLink>
+            <div className="flex items-center gap-2">
+              <Bot className="h-4 w-4" />
+              AI Agent
+            </div>
+          </NavLink>
           <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
           <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
           <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
@@ -188,6 +195,7 @@ export default function Header() {
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
                     <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>
+                     <NavLink href="/ai-agent" isProjectLink>AI Agent</NavLink>
                     <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
                     <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
                     <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
