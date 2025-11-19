@@ -55,14 +55,14 @@ export default function AIAgentPage() {
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-4">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-primary-gradient">
-                  Chancellor Minus ✨ iChanceTEK
+                  Enterprise AI Agents
                 </h1>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                  Enterprise AI That Works Like Your Best Employee. Better Customer Experiences. Built on iChanceTEK.
+                  Enterprise AI that works like your best employee for better customer experiences.
                 </p>
               </div>
               <p className="max-w-[600px] text-muted-foreground">
-                iChanceTEK helps businesses deliver customer experiences that feel more human, more intelligent, and more effortless. Your iChanceTEK AI Agent doesn’t just answer questions— it takes action to solve problems, reduce handle time, and dramatically improve self-service resolution.
+                AI Agents help businesses deliver customer experiences that feel more human, more intelligent, and more effortless. Your AI Agent doesn’t just answer questions— it takes action to solve problems, reduce handle time, and dramatically improve self-service resolution.
               </p>
                <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Button asChild size="lg" className="bg-primary-gradient">
@@ -71,10 +71,10 @@ export default function AIAgentPage() {
               </div>
             </div>
              <Image
-              alt="AI Agent Robotics"
+              alt="Intelligent AI Robot"
               className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
               height="550"
-              src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="https://images.unsplash.com/photo-1698668743216-93335db5f1a3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               width="550"
               data-ai-hint="intelligent robot"
             />
@@ -123,7 +123,7 @@ export default function AIAgentPage() {
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Instant, Intelligent Action</div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">Connect to Your Systems of Record</h2>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Connect iChanceTEK to your systems of record—CRM, order management, billing, reservations, and more. Your agent can instantly take action securely and autonomously.
+                Connect the AI platform to your systems of record—CRM, order management, billing, reservations, and more. Your agent can instantly take action securely and autonomously.
                 </p>
                  <ul className="grid gap-4">
                     <li className="flex items-start gap-3">
@@ -187,7 +187,7 @@ export default function AIAgentPage() {
                 </div>
                 <div className="grid gap-1 text-center">
                     <h3 className="text-lg font-bold">Real-Time Complex Support</h3>
-                    <p className="text-sm text-muted-foreground">Whether customers need to change an order, manage a subscription, or schedule appointments, iChanceTEK handles it instantly.</p>
+                    <p className="text-sm text-muted-foreground">Whether customers need to change an order, manage a subscription, or schedule appointments, the AI handles it instantly.</p>
                 </div>
                  <div className="grid gap-1 text-center">
                     <h3 className="text-lg font-bold">Adapts. Learns. Improves. Fast.</h3>

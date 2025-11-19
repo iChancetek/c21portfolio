@@ -71,8 +71,8 @@ export const projects: Project[] = [
 export const allVentures: Venture[] = [
     {
         id: 'venture-1',
-        name: "iChanceTEK",
-        description: "Chancellor Minus ✨ iChanceTEK — Enterprise AI That Works Like Your Best Employee. Better Customer Experiences. Built on iChanceTEK.",
+        name: "Enterprise AI Agents",
+        description: "Enterprise AI that works like your best employee for better customer experiences.",
         href: "/ai-agent",
         hasDemo: true,
     },
@@ -240,7 +240,7 @@ export const allVentures: Venture[] = [
 ];
 
 export const ventureIcons: VentureIcon[] = [
-    { name: "iChanceTEK", icon: Briefcase },
+    { name: "Enterprise AI Agents", icon: Briefcase },
     { name: "ChanceTEK Health", icon: HeartPulse },
     { name: "iQMarketing", icon: Search },
     { name: "MediScribe", icon: FileText },
@@ -489,6 +489,7 @@ export const socialLinks = [
     
 
     
+
 
 
 
