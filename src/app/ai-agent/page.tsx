@@ -42,9 +42,11 @@ const specializations = [
 export default function AIAgentPage() {
     const iSydney = allVentures.find(v => v.id === 'venture-8');
     const iHailey = allVentures.find(v => v.id === 'venture-9');
+    const iSkylar = allVentures.find(v => v.id === 'venture-10');
     
     const ISydneyIcon = ventureIcons.find(icon => icon.name === iSydney?.name)?.icon || Bot;
     const IHaileyIcon = ventureIcons.find(icon => icon.name === iHailey?.name)?.icon || Bot;
+    const ISkylarIcon = ventureIcons.find(icon => icon.name === iSkylar?.name)?.icon || Bot;
 
   return (
     <div className="flex flex-col items-center justify-center py-12 md:py-24">
@@ -117,12 +119,15 @@ export default function AIAgentPage() {
                   These AI companions demonstrate the power of conversational AI for therapeutic and lifestyle engagement, providing emotional support and natural voice interaction.
                 </p>
             </div>
-             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {iSydney && (
                     <ProjectCard project={iSydney} Icon={ISydneyIcon} />
                 )}
                  {iHailey && (
                     <ProjectCard project={iHailey} Icon={IHaileyIcon} />
+                )}
+                {iSkylar && (
+                    <ProjectCard project={iSkylar} Icon={ISkylarIcon} />
                 )}
             </div>
          </div>
@@ -155,7 +160,6 @@ export default function AIAgentPage() {
                     </li>
                 </ul>
             </div>
-            {/* The project cards were here, now moved up */}
          </div>
       </section>
 
