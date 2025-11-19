@@ -82,6 +82,18 @@ export default function AIAgentPage() {
         </div>
       </section>
 
+      <section className="w-full py-16 md:py-24 text-center">
+        <div className="container max-w-4xl">
+            <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl text-primary-gradient mb-4">The Centerpiece of Modern Business</h2>
+            <p className="text-lg text-muted-foreground">
+              AI Agents are becoming the centerpiece of modern businesses—more critical than websites, apps, or static digital content. A website can only show information. An AI Agent can guide, recommend, respond, automate, learn, and personalize every experience.
+            </p>
+            <p className="mt-4 text-lg font-semibold">
+              Companies that deploy intelligent AI Agents gain a powerful advantage.
+            </p>
+        </div>
+      </section>
+
       <section id="features" className="w-full py-16 md:py-24">
         <div className="container px-4 md:px-6">
            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
