@@ -42,8 +42,8 @@ export default function AIAgentPage() {
     const iSydney = allVentures.find(v => v.id === 'venture-8');
     const iHailey = allVentures.find(v => v.id === 'venture-9');
     
-    const iSydneyIcon = ventureIcons.find(icon => icon.name === iSydney?.name)?.icon || Bot;
-    const iHaileyIcon = ventureIcons.find(icon => icon.name === iHailey?.name)?.icon || Bot;
+    const ISydneyIcon = ventureIcons.find(icon => icon.name === iSydney?.name)?.icon || Bot;
+    const IHaileyIcon = ventureIcons.find(icon => icon.name === iHailey?.name)?.icon || Bot;
 
   return (
     <div className="flex flex-col items-center justify-center py-12 md:py-24">
@@ -136,7 +136,7 @@ export default function AIAgentPage() {
                 {iSydney && (
                     <Card className="w-full">
                         <CardHeader className="flex flex-row items-center gap-4">
-                             <iSydneyIcon className="w-10 h-10 text-primary" />
+                             <ISydneyIcon className="w-10 h-10 text-primary" />
                              <div>
                                 <CardTitle>{iSydney.name}</CardTitle>
                                 <p className="text-sm text-muted-foreground">{iSydney.description}</p>
@@ -147,7 +147,7 @@ export default function AIAgentPage() {
                  {iHailey && (
                     <Card className="w-full">
                         <CardHeader className="flex flex-row items-center gap-4">
-                            <iHaileyIcon className="w-10 h-10 text-primary" />
+                            <IHaileyIcon className="w-10 h-10 text-primary" />
                              <div>
                                 <CardTitle>{iHailey.name}</CardTitle>
                                 <p className="text-sm text-muted-foreground">{iHailey.description}</p>
