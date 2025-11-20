@@ -8,6 +8,7 @@ import { CheckCircle, Bot, Zap, Users, ShieldCheck, Workflow, BrainCircuit } fro
 import Link from 'next/link';
 import ProjectCard from "@/components/ProjectCard";
 import FloatingAIAssistant from "@/components/FloatingAIAssistant";
+import Image from "next/image";
 
 const features = [
   {
@@ -98,7 +99,7 @@ export default function AIAgentPage() {
             </div>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {features.map((feature) => (
-                    <Card key={feature.title} className="bg-card border-none shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-primary/10 hover:-translate-y-1">
+                    <Card key={feature.title} className="bg-card border-none shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-primary/10 hover:-translate-y-2 hover:scale-105">
                     <CardHeader>
                         <div className="mb-4">{feature.icon}</div>
                         <CardTitle className="text-xl font-semibold text-foreground">{feature.title}</CardTitle>
@@ -107,19 +108,7 @@ export default function AIAgentPage() {
                     </Card>
                 ))}
             </div>
-        </div>
-      </section>
-      
-       <section className="w-full py-16 md:py-24 bg-secondary/20">
-         <div className="container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
-            <div className="space-y-4">
-                <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Use Cases</div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">Real-World AI Agent Examples</h2>
-                <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  These AI companions demonstrate the power of conversational AI for therapeutic and lifestyle engagement, providing emotional support and natural voice interaction.
-                </p>
-            </div>
-             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+             <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {iSydney && (
                     <ProjectCard project={iSydney} Icon={ISydneyIcon} />
                 )}
@@ -130,7 +119,7 @@ export default function AIAgentPage() {
                     <ProjectCard project={iSkylar} Icon={ISkylarIcon} />
                 )}
             </div>
-         </div>
+        </div>
       </section>
 
       <section className="w-full py-16 md:py-24">
@@ -192,7 +181,7 @@ export default function AIAgentPage() {
        <section id="skills" className="w-full py-16 md:py-24 bg-secondary/20">
          <div className="container">
             <div className="flex flex-col items-center text-center space-y-4 mb-12">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">🏢 Building the Future of AI for Business</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">Building the Future of AI for Business</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     Designing next-generation software powered by Generative AI and Agentic AI for organizations of all sizes, across every major industry.
                 </p>
@@ -201,7 +190,7 @@ export default function AIAgentPage() {
                 {specializations.map((skill) => {
                     const IconComponent = skill.icon;
                     return (
-                        <Card key={skill.name} className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm p-6">
+                        <Card key={skill.name} className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 hover:scale-105">
                            <div className="flex items-center gap-4">
                              <IconComponent className="w-8 h-8 text-primary" />
                              <h3 className="text-lg font-semibold">{skill.name}</h3>
