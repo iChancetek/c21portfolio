@@ -192,9 +192,9 @@ export default function AIAgentPage() {
        <section id="skills" className="w-full py-16 md:py-24 bg-secondary/20">
          <div className="container">
             <div className="flex flex-col items-center text-center space-y-4 mb-12">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">🏢 ChanceTEK — Building the Future of AI for Business</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">🏢 Building the Future of AI for Business</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    ChanceTEK designs next-generation software powered by Generative AI and Agentic AI for organizations of all sizes, across every major industry.
+                    Designing next-generation software powered by Generative AI and Agentic AI for organizations of all sizes, across every major industry.
                 </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
