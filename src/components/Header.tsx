@@ -141,7 +141,7 @@ export default function Header() {
            <NavLink href="/ai-agent" isProjectLink>
             <div className="flex items-center gap-2">
               <Bot className="h-4 w-4" />
-              AI Agent
+              AI Agents
             </div>
           </NavLink>
           <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
@@ -195,7 +195,7 @@ export default function Header() {
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
                     <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>
-                     <NavLink href="/ai-agent" isProjectLink>AI Agent</NavLink>
+                     <NavLink href="/ai-agent" isProjectLink>AI Agents</NavLink>
                     <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
                     <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
                     <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
