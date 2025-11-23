@@ -11,7 +11,6 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 import fetch from 'node-fetch';
-import { useLocale } from '@/hooks/useLocale';
 
 const TTSVoices = z.enum(['alloy', 'echo', 'fable', 'onyx', 'nova', 'shimmer']);
 export type TTSVoice = z.infer<typeof TTSVoices>;
@@ -41,10 +40,28 @@ const speechFlow = ai.defineFlow(
   async (input) => {
     
     // Determine the voice based on locale if not explicitly provided
-    let voice: TTSVoice = input.voice || 'alloy';
+    let voice: TTSVoice = input.voice || 'alloy'; // Default voice
     if (!input.voice) {
-        if (input.locale === 'es') {
-            voice = 'nova'; // 'nova' and 'echo' support Spanish
+        switch (input.locale) {
+            case 'es': // Spanish
+            case 'pt': // Portuguese
+                voice = 'nova'; 
+                break;
+            case 'fr': // French
+                voice = 'shimmer'; 
+                break;
+            case 'de': // German
+                voice = 'fable'; 
+                break;
+            case 'ja': // Japanese
+            case 'ko': // Korean
+            case 'zh': // Chinese
+                voice = 'echo'; 
+                break;
+            // Default 'alloy' or 'onyx' works well for English and many others
+            default:
+                voice = 'alloy';
+                break;
         }
     }
     
