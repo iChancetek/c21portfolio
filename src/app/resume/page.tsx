@@ -163,8 +163,8 @@ export default function ResumePage() {
             >
                 <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/80">{resumeData.name}</h1>
                 <div className="mt-4 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-muted-foreground">
-                    <span className="flex items-center gap-2"><Mail className="w-4 h-4" /> {resumeData.contact.email}</span>
-                    <span className="flex items-center gap-2"><Phone className="w-4 h-4" /> {resumeData.contact.phone}</span>
+                    <a href={`mailto:${resumeData.contact.email}`} className="flex items-center gap-2 hover:text-primary transition-colors"><Mail className="w-4 h-4" /> {resumeData.contact.email}</a>
+                    <a href={`tel:${resumeData.contact.phone.replace(/-/g, '')}`} className="flex items-center gap-2 hover:text-primary transition-colors"><Phone className="w-4 h-4" /> {resumeData.contact.phone}</a>
                     <span className="flex items-center gap-2"><MapPin className="w-4 h-4" /> {resumeData.contact.location}</span>
                 </div>
                 <div className="mt-4 flex justify-center items-center gap-4">
@@ -272,3 +272,5 @@ export default function ResumePage() {
     </div>
   );
 }
+
+    
