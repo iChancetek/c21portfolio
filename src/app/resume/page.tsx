@@ -1,7 +1,10 @@
 
+'use client';
+
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Briefcase, Code, Cloud, Database, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, BrainCircuit, Zap, ShieldCheck, Workflow, Server } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Briefcase, Code, Cloud, Database, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, BrainCircuit, Zap, ShieldCheck, Workflow, Server, Printer } from 'lucide-react';
 import Link from 'next/link';
 
 const resumeData = {
@@ -130,10 +133,19 @@ const Section = ({ title, children, icon: Icon }: { title: string; children: Rea
 );
 
 export default function ResumePage() {
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="py-12 md:py-24">
-      <div className="max-w-4xl mx-auto bg-card/50 rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden">
+      <div id="resume-container" className="max-w-4xl mx-auto bg-card/50 rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
         
+        <Button onClick={handlePrint} variant="outline" className="absolute top-6 right-6 print:hidden">
+          <Printer className="mr-2 h-4 w-4" />
+          Print
+        </Button>
+
         <header className="p-10 text-center bg-primary-gradient/10">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/80">{resumeData.name}</h1>
           <div className="mt-4 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-muted-foreground">
