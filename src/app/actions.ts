@@ -167,20 +167,16 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
         // Deeper, more granular knowledge base construction
         const knowledgeBase: string[] = [];
         
-        // 1. Basic Info and Summary
         knowledgeBase.push(`My name is ${resumeData.name}.`);
         knowledgeBase.push(`Professional Summary: ${resumeData.summary}`);
 
-        // 2. Core Competencies (individually)
         resumeData.coreCompetencies.forEach(c => knowledgeBase.push(`A core competency is: ${c}`));
 
-        // 3. Technical Expertise (by category and skill)
         resumeData.technicalExpertise.forEach(t => {
-            knowledgeBase.push(`In the category of ${t.title}, my expertise includes: ${t.skills}`);
+            knowledgeBase.push(`Under the technical expertise category of ${t.title}, I have the following skills: ${t.skills}`);
         });
 
-        // 4. Professional Experience (by company, and each highlight individually)
-        resumeData.experience.forEach(e => {
+        resume_experience: resumeData.experience.forEach(e => {
             const experienceIntro = `Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`;
             knowledgeBase.push(experienceIntro);
             e.highlights.forEach(h => {
@@ -188,13 +184,10 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
             });
         });
 
-        // 5. Education
         resumeData.education.forEach(e => knowledgeBase.push(`Education and Courses: ${e.course} at ${e.institution}`));
         
-        // 6. Projects/Ventures
         allVentures.forEach(v => knowledgeBase.push(`About the project or venture named ${v.name}: ${v.description}`));
 
-        // 7. Skill Categories
         skillCategories.forEach(c => {
              c.skills.forEach(s => knowledgeBase.push(`I have a skill named ${s.name} in the ${c.title} category.`))
         });
@@ -219,10 +212,10 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
 
         similarities.sort((a, b) => b.similarity - a.similarity);
 
-        const topK = 10;
+        const topK = 15;
         const topResults = similarities
             .slice(0, topK)
-            .filter(result => result.similarity > 0.6); // Stricter threshold
+            .filter(result => result.similarity > 0.6);
         
         const context = topResults.map(r => r.content).join('\n\n');
 
