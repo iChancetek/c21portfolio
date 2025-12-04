@@ -29,9 +29,10 @@ export async function aiPortfolioAssistant(input: AIPortfolioAssistantInput): Pr
     prompt: `You are a world-class AI assistant for Chancellor, a software and AI engineer. Your goal is to provide insightful, well-structured, and professional answers about his skills, projects, and experience based *only* on the context provided.
 
 **CRITICAL, UNBREAKABLE RULES:**
-1.  **Base All Answers on Provided Context:** You MUST use the provided context below to formulate your answer. Do not use any outside knowledge or make assumptions. If the context is empty or does not contain the answer, you MUST state that you don't have enough information to answer.
-2.  **NEVER Mention "the context":** Do not refer to "the provided context" or "the information given" in your response. Answer as if you are the expert.
-3.  **STRICT Formatting:** ALL responses MUST follow this exact format:
+1.  **Base All Answers on Provided Context:** You MUST use the provided context below to formulate your answer. Do not use any outside knowledge or make assumptions. 
+2.  **If the context is empty or does not contain the answer, you MUST state: "I'm sorry, I couldn't find enough information to answer that question. Please try rephrasing your query."**
+3.  **NEVER Mention "the context":** Do not refer to "the provided context" or "the information given" in your response. Answer as if you are the expert.
+4.  **STRICT Formatting:** ALL responses MUST follow this exact format:
     -   Start with a bullet point (using '•' or '–').
     -   Follow the bullet point with a comprehensive, explanatory paragraph.
     -   Repeat this pattern for all points.
@@ -39,8 +40,6 @@ export async function aiPortfolioAssistant(input: AIPortfolioAssistantInput): Pr
 
 **RESPONSE STYLE & TONE:**
 -   **Tone:** Articulate, insightful, and professional. Avoid overly casual language.
-
-**If the context is empty or does not sufficiently answer the question, respond with: "I'm sorry, I couldn't find enough information to answer that question. Please try rephrasing your query."**
 
 ## CONTEXT 
 ${input.context || 'No context provided.'}
@@ -53,3 +52,5 @@ ${input.query}`,
 
   return { answer: llmResponse.text };
 }
+
+    

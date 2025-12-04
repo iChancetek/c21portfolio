@@ -149,27 +149,38 @@ function dotProduct(a: number[], b: number[]): number {
     return a.map((val, i) => val * b[i]).reduce((sum, current) => sum + current, 0);
 }
 
+export async function handleSearch(query: string): Promise<{ projects: Venture[]; navPath?: string; answer?: string }> {
+    const lowercasedQuery = query.toLowerCase().trim();
 
-async function semanticSearch(query: string): Promise<{ projects: Venture[], context: string }> {
+    if (!lowercasedQuery) {
+        return { projects: allVentures, answer: "Here are all the projects." };
+    }
+    
+    const directNavLink = navLinks.find(link => link.keywords.includes(lowercasedQuery));
+    if (directNavLink) {
+        return { projects: [], navPath: directNavLink.href };
+    }
+
     try {
+        const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
+        if(commandQueries.includes(lowercasedQuery)) {
+            return { projects: allVentures };
+        }
+        
         // Step 1: Meticulously build the knowledge base from all data sources.
         const knowledgeBase: string[] = [];
         
-        // Add Resume Summary and Name
         knowledgeBase.push(`My name is ${resumeData.name}.`);
         knowledgeBase.push(`Professional Summary: ${resumeData.summary}`);
         
-        // Add each Core Competency individually
         resumeData.coreCompetencies.forEach(c => {
             knowledgeBase.push(`A core competency is: ${c}`);
         });
 
-        // Add each Technical Expertise skill string individually
         resumeData.technicalExpertise.forEach(t => {
             knowledgeBase.push(`Under the technical expertise category of ${t.title}, I have the following skills: ${t.skills}`);
         });
 
-        // Add each Experience highlight individually, with company context
         resumeData.experience.forEach(e => {
             knowledgeBase.push(`Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`);
             e.highlights.forEach(h => {
@@ -177,17 +188,14 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
             });
         });
         
-        // Add each Education entry
         resumeData.education.forEach(e => {
             knowledgeBase.push(`Education and Courses: ${e.course} at ${e.institution}`);
         });
         
-        // Add each Venture/Project
         allVentures.forEach(v => {
             knowledgeBase.push(`About the project or venture named ${v.name}: ${v.description}`);
         });
 
-        // Add each skill from skillCategories
         skillCategories.forEach(c => {
              c.skills.forEach(s => {
                 knowledgeBase.push(`I have a skill named ${s.name} in the ${c.title} category.`);
@@ -216,10 +224,10 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
         similarities.sort((a, b) => b.similarity - a.similarity);
 
         // Step 4: Assemble the context from the top results.
-        const topK = 15; // Increased for richer context
+        const topK = 15;
         const topResults = similarities
             .slice(0, topK)
-            .filter(result => result.similarity > 0.6); // Balanced threshold
+            .filter(result => result.similarity > 0.6); 
         
         const context = topResults.map(r => r.content).join('\n\n');
 
@@ -233,55 +241,22 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
                  }
              })
         });
-
-        return { projects: Array.from(relevantProjects), context };
-    } catch (error) {
-        console.error("Semantic search AI flow failed:", error);
-        return { projects: [], context: '' };
-    }
-}
-
-
-export async function handleSearch(query: string): Promise<{ projects: Venture[]; navPath?: string; answer?: string }> {
-    const lowercasedQuery = query.toLowerCase().trim();
-
-    if (!lowercasedQuery) {
-        return { projects: allVentures, answer: "Here are all the projects." };
-    }
-    
-    const directNavLink = navLinks.find(link => link.keywords.includes(lowercasedQuery));
-    if (directNavLink) {
-        return { projects: [], navPath: directNavLink.href };
-    }
-
-    try {
-        const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
-        if(commandQueries.includes(lowercasedQuery)) {
-            return { projects: allVentures };
-        }
         
-        const { projects: semanticProjects, context } = await semanticSearch(lowercasedQuery);
-        
-        // Pass the retrieved context to the AI assistant.
         const finalAnswer = await aiPortfolioAssistant({ query, context });
 
-        // If semantic search finds projects, return them with the answer.
         if (semanticProjects.length > 0) {
              return { projects: semanticProjects, answer: finalAnswer.answer };
         }
         
-        // If no semantic results, check for a direct name match.
         const directProjectMatch = allVentures.find(v => v.name.toLowerCase() === lowercasedQuery);
         if (directProjectMatch) {
             return { projects: [directProjectMatch], answer: finalAnswer.answer };
         }
         
-        // If no projects are found by any method, just return the answer.
-        return { projects: [], answer: finalAnswer.answer };
+        return { projects: Array.from(relevantProjects), answer: finalAnswer.answer };
 
     } catch (error) {
         console.error("AI Search handler failed:", error);
-        // Fallback to simple keyword search if AI fails
         const filteredProjects = allVentures.filter(venture => 
             venture.name.toLowerCase().includes(lowercasedQuery) || 
             venture.description.toLowerCase().includes(lowercasedQuery)
@@ -289,3 +264,5 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         return { projects: filteredProjects, answer: "I encountered an error with my AI search, but here are some projects that might match your query." };
     }
 }
+
+    
