@@ -319,7 +319,9 @@ export const skillCategories: SkillCategory[] = [
       { name: "Prompt Engineering", icon: Lightbulb },
       { name: "Agentic Workflows", icon: Bot },
       { name: "AI Agents", icon: Bot },
-      { name: "RAG / AI Chatbots", icon: MessagesSquare },
+      { name: "Vector Databases", icon: Database },
+      { name: "NLP, LLM, Computer Vision", icon: Microscope },
+      { name: "RAG", icon: MessagesSquare },
       { name: "Fine-tuning", icon: SlidersHorizontal },
       { name: "A/B Testing", icon: TestTubeDiagonal },
       { name: "Voice AI Agents", icon: MicVocal },
@@ -330,7 +332,6 @@ export const skillCategories: SkillCategory[] = [
       { name: "Hugging Face Embedding", icon: Binary },
       { name: "Document Embedding", icon: Binary },
       { name: "Retriever", icon: Search },
-      { name: "Vector Databases", icon: Database },
       { name: "Pinecone", icon: Database },
       { name: "Chroma", icon: Database },
       { name: "AWS S3 Vector", icon: Database },
@@ -438,7 +439,7 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "Microsoft Enterprise",
+    title: "Microsoft 365",
     skills: [
       { name: "Microsoft 365", icon: Globe },
       { name: "Teams / SharePoint / Exchange", icon: Share2 },
@@ -513,7 +514,7 @@ export const resumeData: ResumeData = {
     { title: '☁️ Cloud Platforms', skills: 'Multi-cloud Architecture | AWS: Networking: VPC (Virtual Private Cloud): Isolated network environments. Subnets: Segmentation of VPCs for public/private resources. Route Tables & Internet Gateways: Control traffic flow. Security Groups & NACLs: Instance-level and subnet-level traffic control. Direct Connect / VPN: Private and secure connectivity options. Compute: EC2 (Elastic Compute Cloud): Scalable virtual servers in the cloud. Governance: IAM (Identity and Access Management): Users, roles, policies. Organizations & SCPs (Service Control Policies): Centralized account governance. AWS Config & CloudTrail: Monitoring, auditing, and compliance. AWS Control Tower: Automated account setup and governance. | Azure: Networking: Virtual Network (VNet): Isolated network space. Subnets & Network Security Groups (NSGs): Segmentation and traffic control. Azure Firewall & Application Gateway: Network security and traffic routing. ExpressRoute & VPN Gateway: Private connectivity. Compute: Virtual Machines (VMs): On-demand scalable virtual servers. Governance: Azure Active Directory (AAD): Identity and access management. Management Groups & Role-Based Access Control (RBAC): Hierarchical access control. Azure Policy & Blueprints: Compliance enforcement and environment standardization. Azure Monitor & Activity Logs: Monitoring and auditing resources. | GCP (Google Cloud Platform): Networking: VPC (Virtual Private Cloud): Global, scalable networks. Subnets & Firewalls: Traffic segmentation and rules. Cloud Load Balancing & Cloud NAT: Traffic management and NAT services. VPN & Interconnect: Secure connectivity options. Compute: Compute Engine: Scalable virtual machines (VMs) on demand. Governance: Cloud IAM: Users, roles, permissions management. Organization & Folders: Hierarchical resource organization. Org Policies & Resource Manager: Enforce governance rules and compliance. Cloud Audit Logs & Security Command Center: Monitoring, auditing, and threat detection.' },
     { title: '🗄️ Databases', skills: 'MySQL, Neon PostgreSQL, MongoDB, Cosmos DB, Redis, Pinecone, Chroma, S3 Vector' },
     { title: '🛠️ AI Dev Tools', skills: 'Cursor AI, Vibe Coding, Replit, Lovable, Firebase Studio AI, LangChain, LangGraph, CrewAI, Flowise AI, N8N, Manus' },
-    { title: '🏢 Microsoft Enterprise', skills: 'Microsoft 365, Teams, SharePoint, Exchange Online, AutoPilot, InTune' }
+    { title: '🏢 Microsoft 365', skills: 'Identity and Access Management (IAM), Multi-Factor Authentication (MFA), Conditional Access policies, and identity protection capabilities to safeguard user accounts and control access. Threat protection is strengthened through the Microsoft Defender family, Microsoft Entra for identity and access security, Microsoft Intune for endpoint management, and the Microsoft Purview suite for compliance and data governance. Key solutions include Microsoft Defender XDR, Microsoft Sentinel, Microsoft Purview Compliance Manager, and Microsoft Priva for privacy and risk management.' }
   ],
   experience: [
     {
