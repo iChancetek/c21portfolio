@@ -351,6 +351,8 @@ export const skillCategories: SkillCategory[] = [
       { name: "Apache Airflow", icon: Workflow },
       { name: "Tableau", icon: BarChart },
       { name: "Power BI", icon: BarChart },
+      { name: "SQL", icon: Database },
+      { name: "Python (NumPy, Pandas)", icon: Code },
     ],
   },
   {
@@ -504,7 +506,7 @@ export const resumeData: ResumeData = {
   ],
   technicalExpertise: [
     { title: '🚀 DevOps Engineering', skills: 'CI/CD pipelines (Jenkins, GitHub Actions, GitLab, Azure DevOps), Infrastructure as Code (Terraform, Ansible, Pulumi), Kubernetes (EKS, AKS, GKE), Docker, Prometheus, Grafana, ELK' },
-    { title: '📊 Data Engineering', skills: 'ETL/ELT pipelines, Databricks, PySpark, Airflow, Delta Lakehouse, Kafka, Kinesis, Data Lakes & Warehouses, Tableau, Power BI, Microsoft Fabric' },
+    { title: '📊 Data Engineering', skills: 'ETL/ELT pipelines, Databricks, PySpark, Airflow, Delta Lakehouse, Kafka, Kinesis, Data Lakes & Warehouses, Tableau, Power BI, Microsoft Fabric, Python (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn), SQL' },
     { title: '🤖 MLOps Engineering', skills: 'Amazon SageMaker, Azure Machine Learning, Google Vertex AI, MLflow, and Apache Airflow for model training, versioning, and automated deployment on cloud GPUs' },
     { title: '🧠 AI Engineering', skills: 'NLP, LLM, Computer Vision, RAG Systems, Vector DBs, GPT, Claude, Gemini, Llama, DeepSeek, Qwen, Fairness & Bias Mitigation' },
     { title: '💻 Full-Stack Development', skills: 'React, Next.js, TypeScript, Tailwind, ShadCN UI, Python (Flask, FastAPI, Django), Node.js, REST APIs, Stripe, Clerk' },
@@ -630,3 +632,6 @@ export const resumeData: ResumeData = {
 
 
 
+
+
+    
