@@ -123,18 +123,6 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   };
 }
 
-export async function getAIAssistantResponse(query: string, context?: string) {
-    try {
-        const response = await aiPortfolioAssistant({ query, context });
-        return response.answer;
-    } catch (error: any) {
-        console.error("AI assistant failed:", error);
-        // Return the actual error message to the client for debugging.
-        const errorMessage = error.message || "An unknown error occurred.";
-        return `I'm sorry, but I'm having trouble connecting to my brain right now. Error: ${errorMessage}`;
-    }
-}
-
 export async function generateProjectDeepDive(projectId: string) {
     try {
         const response = await generateDeepDive({ projectId });
@@ -176,7 +164,7 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
             knowledgeBase.push(`Under the technical expertise category of ${t.title}, I have the following skills: ${t.skills}`);
         });
 
-        resume_experience: resumeData.experience.forEach(e => {
+        resumeData.experience.forEach(e => {
             const experienceIntro = `Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`;
             knowledgeBase.push(experienceIntro);
             e.highlights.forEach(h => {
@@ -257,21 +245,21 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         
         const { projects: semanticProjects, context } = await semanticSearch(lowercasedQuery);
         
-        const finalAnswer = await getAIAssistantResponse(query, context);
+        const finalAnswer = await aiPortfolioAssistant({ query, context });
 
         // If semantic search finds projects, return them with the answer.
         if (semanticProjects.length > 0) {
-             return { projects: semanticProjects, answer: finalAnswer };
+             return { projects: semanticProjects, answer: finalAnswer.answer };
         }
         
         // If no semantic results, check for a direct name match.
         const directProjectMatch = allVentures.find(v => v.name.toLowerCase() === lowercasedQuery);
         if (directProjectMatch) {
-            return { projects: [directProjectMatch], answer: finalAnswer };
+            return { projects: [directProjectMatch], answer: finalAnswer.answer };
         }
         
         // If no projects are found by any method, just return the answer.
-        return { projects: [], answer: finalAnswer };
+        return { projects: [], answer: finalAnswer.answer };
 
     } catch (error) {
         console.error("AI Search handler failed:", error);
@@ -282,3 +270,4 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         return { projects: filteredProjects };
     }
 }
+
