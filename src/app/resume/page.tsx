@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Briefcase, Code, Cloud, Database, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, BrainCircuit, Zap, ShieldCheck, Workflow, Server, Printer } from 'lucide-react';
+import { Briefcase, Code, Cloud, Database, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, BrainCircuit, Zap, ShieldCheck, Workflow, Server, Printer, Building } from 'lucide-react';
 import Link from 'next/link';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 
@@ -31,7 +31,8 @@ const resumeData = {
     { title: '💻 Full-Stack Development', skills: 'React, Next.js, TypeScript, Tailwind, ShadCN UI, Python (Flask, FastAPI, Django), Node.js, REST APIs, Stripe, Clerk' },
     { title: '☁️ Cloud Platforms', skills: 'AWS (EC2, S3, Lambda, EKS, SageMaker, CloudFront, ELB/ALB), Azure (AKS, ML, Databricks, CDN, Load Balancer), GCP (GKE, Vertex AI, Cloud CDN, Cloud Load Balancing), Multi-cloud Architecture' },
     { title: '🗄️ Databases', skills: 'MySQL, Neon PostgreSQL, MongoDB, Cosmos DB, Redis, Pinecone, Chroma, S3 Vector' },
-    { title: '🛠️ AI Dev Tools', skills: 'Cursor AI, Vibe Coding, Replit, Lovable, Firebase Studio AI, LangChain, LangGraph, CrewAI, Flowise AI, N8N, Manus' }
+    { title: '🛠️ AI Dev Tools', skills: 'Cursor AI, Vibe Coding, Replit, Lovable, Firebase Studio AI, LangChain, LangGraph, CrewAI, Flowise AI, N8N, Manus' },
+    { title: '🏢 Microsoft Enterprise', skills: 'Microsoft 365, Teams, SharePoint, Exchange Online, AutoPilot, InTune, Power Automate' }
   ],
   experience: [
     {
@@ -201,7 +202,17 @@ export default function ResumePage() {
 
             <Section title="Technical Expertise" icon={Code} delay={0.3}>
               <div className="grid md:grid-cols-2 gap-6">
-                  {resumeData.technicalExpertise.map(cat => (
+                  {resumeData.technicalExpertise.map(cat => {
+                      let IconComponent;
+                      switch(cat.title) {
+                        case '🏢 Microsoft Enterprise':
+                            IconComponent = Building;
+                            break;
+                        default:
+                            IconComponent = Code;
+                      }
+                      
+                      return (
                       <motion.div key={cat.title} whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
                           <Card className="bg-secondary/30 border-border/20 h-full transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30">
                               <CardHeader>
@@ -212,7 +223,7 @@ export default function ResumePage() {
                               </CardContent>
                           </Card>
                       </motion.div>
-                  ))}
+                  )})}
               </div>
             </Section>
 
