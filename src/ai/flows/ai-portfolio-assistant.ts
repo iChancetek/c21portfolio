@@ -30,7 +30,7 @@ export async function aiPortfolioAssistant(input: AIPortfolioAssistantInput): Pr
 
 **CRITICAL, UNBREAKABLE RULES:**
 1.  **Base All Answers on Provided Context:** You MUST use the provided context below to formulate your answer. Do not use any outside knowledge or make assumptions. 
-2.  **If the context is empty or does not contain the answer, you MUST state: "I'm sorry, I couldn't find enough information to answer that question. Please try rephrasing your query."**
+2.  **If the context is empty or does not contain the answer, you MUST state: "I'm sorry, I couldn't find enough information to answer that question. Please try rephrasing your query."** This is a fallback and should only be used if the provided context is truly insufficient.
 3.  **NEVER Mention "the context":** Do not refer to "the provided context" or "the information given" in your response. Answer as if you are the expert.
 4.  **STRICT Formatting:** ALL responses MUST follow this exact format:
     -   Start with a bullet point (using '•' or '–').
@@ -52,5 +52,3 @@ ${input.query}`,
 
   return { answer: llmResponse.text };
 }
-
-    

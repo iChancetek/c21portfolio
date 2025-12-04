@@ -244,8 +244,9 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         
         const finalAnswer = await aiPortfolioAssistant({ query, context });
 
-        if (semanticProjects.length > 0) {
-             return { projects: semanticProjects, answer: finalAnswer.answer };
+        // Corrected logic: Use the `relevantProjects` set.
+        if (relevantProjects.size > 0) {
+             return { projects: Array.from(relevantProjects), answer: finalAnswer.answer };
         }
         
         const directProjectMatch = allVentures.find(v => v.name.toLowerCase() === lowercasedQuery);
@@ -253,7 +254,7 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
             return { projects: [directProjectMatch], answer: finalAnswer.answer };
         }
         
-        return { projects: Array.from(relevantProjects), answer: finalAnswer.answer };
+        return { projects: [], answer: finalAnswer.answer };
 
     } catch (error) {
         console.error("AI Search handler failed:", error);
@@ -264,5 +265,3 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         return { projects: filteredProjects, answer: "I encountered an error with my AI search, but here are some projects that might match your query." };
     }
 }
-
-    
