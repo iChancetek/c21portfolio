@@ -222,7 +222,7 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
         const topK = 10;
         const topResults = similarities
             .slice(0, topK)
-            .filter(result => result.similarity > 0.70); // Stricter threshold
+            .filter(result => result.similarity > 0.6); // Stricter threshold
         
         const context = topResults.map(r => r.content).join('\n\n');
 
