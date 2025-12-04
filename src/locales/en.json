@@ -1,3 +1,4 @@
+
 {
   "myAccount": "My Account",
   "profile": "Profile",
@@ -99,7 +100,7 @@
   "createAccountDescription": "Sign up to get started.",
   "confirmPassword": "Confirm Password",
   "haveAccount": "Already have an account? ",
-  "aiAssistantWelcome": "Hello! I'm Chancellor's AI assistant. Ask me anything about his skills and experience.",
+  "aiAssistantWelcome": "Hello! I’m Chancellor’s AI assistant. I can provide detailed insights about his skills, experience, and professional background. Ask me anything, and I’ll give you the information you need.",
   "thinking": "Thinking...",
   "aiAssistantPlaceholder": "e.g., What's his backend experience?",
   "send": "Send",
@@ -185,3 +186,5 @@
   "removedFromFavorites": "Removed from favorites.",
   "failedToRemoveFavorite": "Failed to remove favorite."
 }
+
+    
