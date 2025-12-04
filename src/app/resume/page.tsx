@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Briefcase, Code, Cloud, Database, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, BrainCircuit, Zap, ShieldCheck, Workflow, Server, Printer, Building } from 'lucide-react';
 import Link from 'next/link';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
+import { ScrollArea } from '@/components/ui/scroll-area';
+
 
 const resumeData = {
   name: 'CHANCELLOR MINUS',
@@ -29,10 +31,10 @@ const resumeData = {
     { title: '🤖 MLOps Engineering', skills: 'MLflow, Model deployment & monitoring, Docker & Kubernetes ML infra, Drift detection, Automated retraining, Cloud GPUs' },
     { title: '🧠 AI Engineering', skills: 'NLP, LLM, Computer Vision, RAG Systems, Vector DBs, GPT, Claude, Gemini, Llama, DeepSeek, Qwen, Fairness & Bias Mitigation' },
     { title: '💻 Full-Stack Development', skills: 'React, Next.js, TypeScript, Tailwind, ShadCN UI, Python (Flask, FastAPI, Django), Node.js, REST APIs, Stripe, Clerk' },
-    { title: '☁️ Cloud Platforms', skills: 'Multi-cloud Architecture | AWS: Networking (VPC, Subnets, Route Tables, Security Groups, NACLs, Direct Connect/VPN), Compute (EC2), Governance (IAM, Organizations, SCPs, Config, CloudTrail, Control Tower) | Azure: Networking (VNet, Subnets, NSGs, Firewall, Application Gateway, ExpressRoute, VPN Gateway), Compute (VMs), Governance (AAD, Management Groups, RBAC, Policy, Blueprints, Monitor, Activity Logs) | GCP: Networking (VPC, Subnets, Firewalls, Cloud Load Balancing, Cloud NAT, VPN, Interconnect), Compute (Compute Engine), Governance (Cloud IAM, Organization & Folders, Org Policies, Resource Manager, Audit Logs, Security Command Center)' },
+    { title: '☁️ Cloud Platforms', skills: 'Multi-cloud Architecture | AWS: Networking: VPC (Virtual Private Cloud): Isolated network environments. Subnets: Segmentation of VPCs for public/private resources. Route Tables & Internet Gateways: Control traffic flow. Security Groups & NACLs: Instance-level and subnet-level traffic control. Direct Connect / VPN: Private and secure connectivity options. Compute: EC2 (Elastic Compute Cloud): Scalable virtual servers in the cloud. Governance: IAM (Identity and Access Management): Users, roles, policies. Organizations & SCPs (Service Control Policies): Centralized account governance. AWS Config & CloudTrail: Monitoring, auditing, and compliance. AWS Control Tower: Automated account setup and governance. | Azure: Networking: Virtual Network (VNet): Isolated network space. Subnets & Network Security Groups (NSGs): Segmentation and traffic control. Azure Firewall & Application Gateway: Network security and traffic routing. ExpressRoute & VPN Gateway: Private connectivity. Compute: Virtual Machines (VMs): On-demand scalable virtual servers. Governance: Azure Active Directory (AAD): Identity and access management. Management Groups & Role-Based Access Control (RBAC): Hierarchical access control. Azure Policy & Blueprints: Compliance enforcement and environment standardization. Azure Monitor & Activity Logs: Monitoring and auditing resources. | GCP (Google Cloud Platform): Networking: VPC (Virtual Private Cloud): Global, scalable networks. Subnets & Firewalls: Traffic segmentation and rules. Cloud Load Balancing & Cloud NAT: Traffic management and NAT services. VPN & Interconnect: Secure connectivity options. Compute: Compute Engine: Scalable virtual machines (VMs) on demand. Governance: Cloud IAM: Users, roles, permissions management. Organization & Folders: Hierarchical resource organization. Org Policies & Resource Manager: Enforce governance rules and compliance. Cloud Audit Logs & Security Command Center: Monitoring, auditing, and threat detection.' },
     { title: '🗄️ Databases', skills: 'MySQL, Neon PostgreSQL, MongoDB, Cosmos DB, Redis, Pinecone, Chroma, S3 Vector' },
     { title: '🛠️ AI Dev Tools', skills: 'Cursor AI, Vibe Coding, Replit, Lovable, Firebase Studio AI, LangChain, LangGraph, CrewAI, Flowise AI, N8N, Manus' },
-    { title: '🏢 Microsoft Enterprise', skills: 'Microsoft 365, Teams, SharePoint, Exchange Online, AutoPilot, InTune, Power Automate' }
+    { title: '🏢 Microsoft Enterprise', skills: 'Microsoft 365, Teams, SharePoint, Exchange Online, AutoPilot, InTune' }
   ],
   experience: [
     {
@@ -212,14 +214,22 @@ export default function ResumePage() {
                             IconComponent = Code;
                       }
                       
+                      const isCloudPlatform = cat.title === '☁️ Cloud Platforms';
+
                       return (
                       <motion.div key={cat.title} whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
-                          <Card className="bg-secondary/30 border-border/20 h-full transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30">
+                          <Card className="bg-secondary/30 border-border/20 h-full transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30 flex flex-col">
                               <CardHeader>
                                   <CardTitle className="text-lg text-primary">{cat.title}</CardTitle>
                               </CardHeader>
-                              <CardContent>
-                                  <p className="text-sm text-muted-foreground">{cat.skills}</p>
+                              <CardContent className="flex-grow">
+                                  {isCloudPlatform ? (
+                                    <ScrollArea className="h-32 pr-4">
+                                       <p className="text-sm text-muted-foreground">{cat.skills}</p>
+                                    </ScrollArea>
+                                  ) : (
+                                    <p className="text-sm text-muted-foreground">{cat.skills}</p>
+                                  )}
                               </CardContent>
                           </Card>
                       </motion.div>
