@@ -289,5 +289,3 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         return { projects: filteredProjects };
     }
 }
-
-    
