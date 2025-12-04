@@ -526,7 +526,7 @@ export const resumeData: ResumeData = {
         'Built full-stack AI web applications using React, Next.js, TypeScript, ShadCN UI with Clerk authentication and Stripe payment processing',
         'Leveraged modern AI development platforms including Cursor AI, Vibe Coding, Replit, Firebase Studio AI, and Manus for rapid application development',
         'Implemented MCP (Model Context Protocol) integrations for enhanced AI agent communication and orchestration',
-        'Designed and deployed MLOps pipelines with MLflow for model training, versioning, and automated deployment on cloud GPUs',
+        'Designed and deployed MLOps pipelines using Amazon SageMaker, Azure Machine Learning, Google Vertex AI, MLflow, and Apache Airflow for model training, versioning, and automated deployment on cloud GPUs',
         'Architected scalable ETL/ELT data pipelines using Databricks, PySpark, Airflow, AWS Glue, and Delta Lakehouse systems',
         'Automated infrastructure provisioning with Terraform and Pulumi across AWS, Azure, and GCP environments',
         'Orchestrated enterprise-level Microsoft 365 environments, managing Teams, SharePoint, and Exchange Online while automating business processes with Power Automate and streamlining device management with AutoPilot and InTune.',
@@ -606,6 +606,7 @@ export const resumeData: ResumeData = {
     
 
     
+
 
 
 
