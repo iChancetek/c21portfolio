@@ -156,17 +156,20 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         return { projects: allVentures, answer: "Here are all the projects." };
     }
     
+    // Check for direct navigation keywords
     const directNavLink = navLinks.find(link => link.keywords.includes(lowercasedQuery));
     if (directNavLink) {
         return { projects: [], navPath: directNavLink.href };
     }
 
+    // Check for commands
+    const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
+    if(commandQueries.includes(lowercasedQuery)) {
+        return { projects: allVentures };
+    }
+    
     try {
-        const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
-        if(commandQueries.includes(lowercasedQuery)) {
-            return { projects: allVentures };
-        }
-        
+        // 1. Build a comprehensive, flat knowledge base from all data sources
         const knowledgeBase: { content: string; venture?: Venture }[] = [];
         
         knowledgeBase.push({ content: `My name is ${resumeData.name}.`});
@@ -201,6 +204,7 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
              });
         });
 
+        // 2. Create embeddings for the query and the knowledge base
         const [queryEmbedding, contentEmbeddings] = await Promise.all([
             embed({
                 embedder: ai.embedder,
@@ -212,6 +216,7 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
             }),
         ]);
 
+        // 3. Calculate similarities and find the most relevant context
         const similarities = contentEmbeddings.map((embedding, i) => ({
             index: i,
             similarity: dotProduct(queryEmbedding, embedding),
@@ -219,7 +224,7 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         }));
 
         similarities.sort((a, b) => b.similarity - a.similarity);
-
+        
         const topK = 15;
         const topResults = similarities
             .slice(0, topK)
@@ -227,6 +232,7 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         
         const context = topResults.map(r => r.content).join('\n\n');
         
+        // 4. Identify relevant projects from the search results
         const relevantProjects = new Set<Venture>();
         topResults.forEach(result => {
              if (result.venture) {
@@ -239,6 +245,7 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
             relevantProjects.add(directProjectMatch);
         }
 
+        // 5. Call the AI assistant with the curated context
         const finalAnswer = await aiPortfolioAssistant({ query, context });
         
         return { projects: Array.from(relevantProjects), answer: finalAnswer.answer };
