@@ -214,6 +214,7 @@ export const allVentures: Venture[] = [
       name: "Alpharma Pharmaceuticals",
       description: "Alpharma Pharmaceuticals was a global specialty pharmaceutical company known for developing and producing pharmaceutical products across human and animal health sectors. It operated in areas such as antimicrobial drugs, pain management, active pharmaceutical ingredients, and generic medications. Alpharma developed widely used therapies and was recognized for advancing pharmaceutical manufacturing standards. The company was later acquired, integrating its portfolio into a larger global pharmaceutical network.",
       href: "#",
+
       hasDemo: false,
     },
     {
@@ -503,7 +504,7 @@ export const resumeData: ResumeData = {
   ],
   technicalExpertise: [
     { title: '🚀 DevOps Engineering', skills: 'CI/CD pipelines (Jenkins, GitHub Actions, GitLab, Azure DevOps), Infrastructure as Code (Terraform, Ansible, Pulumi), Kubernetes (EKS, AKS, GKE), Docker, Prometheus, Grafana, ELK' },
-    { title: '📊 Data Engineering', skills: 'ETL/ELT pipelines, Databricks, PySpark, Airflow, Delta Lakehouse, Kafka, Kinesis, Data Lakes & Warehouses, Tableau, Power BI' },
+    { title: '📊 Data Engineering', skills: 'ETL/ELT pipelines, Databricks, PySpark, Airflow, Delta Lakehouse, Kafka, Kinesis, Data Lakes & Warehouses, Tableau, Power BI, Microsoft Fabric' },
     { title: '🤖 MLOps Engineering', skills: 'MLflow, Model deployment & monitoring, Docker & Kubernetes ML infra, Drift detection, Automated retraining, Cloud GPUs' },
     { title: '🧠 AI Engineering', skills: 'NLP, LLM, Computer Vision, RAG Systems, Vector DBs, GPT, Claude, Gemini, Llama, DeepSeek, Qwen, Fairness & Bias Mitigation' },
     { title: '💻 Full-Stack Development', skills: 'React, Next.js, TypeScript, Tailwind, ShadCN UI, Python (Flask, FastAPI, Django), Node.js, REST APIs, Stripe, Clerk' },
@@ -607,6 +608,7 @@ export const resumeData: ResumeData = {
     
 
     
+
 
 
 
