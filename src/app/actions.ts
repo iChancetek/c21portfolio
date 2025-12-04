@@ -149,8 +149,14 @@ function dotProduct(a: number[], b: number[]): number {
     return a.map((val, i) => val * b[i]).reduce((sum, current) => sum + current, 0);
 }
 
-export async function handleSearch(query: string): Promise<{ projects: Venture[]; navPath?: string; answer?: string }> {
+export async function handleSearch(query: string): Promise<{ 
+  projects: Venture[]; 
+  navPath?: string; 
+  answer?: string;
+  debug?: string; // Add debug info
+}> {
     const lowercasedQuery = query.toLowerCase().trim();
+    const debugSteps: string[] = [];
 
     if (!lowercasedQuery) {
         return { projects: allVentures, answer: "Here are all the projects." };
@@ -163,13 +169,24 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
     }
 
     // Check for commands
-    const commandQueries = ['list all projects', 'show all projects', 'show me everything', 'list all', 'show all', 'list projects', 'projects list'];
+    const commandQueries = [
+      'list all projects', 
+      'show all projects', 
+      'show me everything', 
+      'list all', 
+      'show all', 
+      'list projects', 
+      'projects list'
+    ];
     if(commandQueries.includes(lowercasedQuery)) {
         return { projects: allVentures };
     }
     
     try {
-        // 1. Build a comprehensive, flat knowledge base from all data sources
+        debugSteps.push('Step 1: Starting search');
+        
+        // 1. Build knowledge base
+        debugSteps.push('Step 2: Building knowledge base');
         const knowledgeBase: { content: string; venture?: Venture }[] = [];
         
         knowledgeBase.push({ content: `My name is ${resumeData.name}.`});
@@ -180,43 +197,79 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         });
 
         resumeData.technicalExpertise.forEach(t => {
-            knowledgeBase.push({ content: `Under the technical expertise category of ${t.title}, I have the following skills: ${t.skills}`});
+            knowledgeBase.push({ 
+              content: `Under the technical expertise category of ${t.title}, I have the following skills: ${t.skills}`
+            });
         });
 
         resumeData.experience.forEach(e => {
-            knowledgeBase.push({ content: `Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`});
+            knowledgeBase.push({ 
+              content: `Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`
+            });
             e.highlights.forEach(h => {
                 knowledgeBase.push({ content: `A key highlight at ${e.company} was: ${h}`});
             });
         });
         
         resumeData.education.forEach(e => {
-            knowledgeBase.push({ content: `Education and Courses: ${e.course} at ${e.institution}`});
+            knowledgeBase.push({ 
+              content: `Education and Courses: ${e.course} at ${e.institution}`
+            });
         });
         
         allVentures.forEach(v => {
-            knowledgeBase.push({ content: `About the project or venture named ${v.name}: ${v.description}`, venture: v });
+            knowledgeBase.push({ 
+              content: `About the project or venture named ${v.name}: ${v.description}`, 
+              venture: v 
+            });
         });
 
         skillCategories.forEach(c => {
              c.skills.forEach(s => {
-                knowledgeBase.push({ content: `I have a skill named ${s.name} in the ${c.title} category.`});
+                knowledgeBase.push({ 
+                  content: `I have a skill named ${s.name} in the ${c.title} category.`
+                });
              });
         });
 
-        // 2. Create embeddings for the query and the knowledge base
-        const [queryEmbedding, contentEmbeddings] = await Promise.all([
-            embed({
+        debugSteps.push(`Step 3: Built knowledge base with ${knowledgeBase.length} entries`);
+
+        // 2. Check if ai.embedder exists
+        if (!ai.embedder) {
+            throw new Error('ai.embedder is not defined. Check your Genkit configuration.');
+        }
+        debugSteps.push('Step 4: Embedder is available');
+
+        // 3. Create embeddings with better error handling
+        debugSteps.push('Step 5: Generating query embedding');
+        let queryEmbedding: number[];
+        let contentEmbeddings: number[][];
+        
+        try {
+            queryEmbedding = await embed({
                 embedder: ai.embedder,
                 content: query,
-            }),
-            embed({
+            });
+            debugSteps.push(`Step 6: Query embedding generated (${queryEmbedding.length} dimensions)`);
+        } catch (embedError) {
+            debugSteps.push(`Step 6 FAILED: Query embedding error - ${embedError}`);
+            throw new Error(`Query embedding failed: ${embedError instanceof Error ? embedError.message : String(embedError)}`);
+        }
+
+        try {
+            debugSteps.push('Step 7: Generating content embeddings');
+            contentEmbeddings = await embed({
                 embedder: ai.embedder,
                 content: knowledgeBase.map(item => item.content),
-            }),
-        ]);
+            });
+            debugSteps.push(`Step 8: Content embeddings generated (${contentEmbeddings.length} embeddings)`);
+        } catch (embedError) {
+            debugSteps.push(`Step 8 FAILED: Content embedding error - ${embedError}`);
+            throw new Error(`Content embedding failed: ${embedError instanceof Error ? embedError.message : String(embedError)}`);
+        }
 
-        // 3. Calculate similarities and find the most relevant context
+        // 4. Calculate similarities
+        debugSteps.push('Step 9: Calculating similarities');
         const similarities = contentEmbeddings.map((embedding, i) => ({
             index: i,
             similarity: dotProduct(queryEmbedding, embedding),
@@ -228,11 +281,17 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         const topK = 15;
         const topResults = similarities
             .slice(0, topK)
-            .filter(result => result.similarity > 0.6); 
+            .filter(result => result.similarity > 0.5);
         
-        const context = topResults.length > 0 ? topResults.map(r => r.content).join('\n\n') : '';
+        debugSteps.push(`Step 10: Found ${topResults.length} relevant results (threshold: 0.5)`);
         
-        // 4. Identify relevant projects from the search results
+        const context = topResults.length > 0 
+          ? topResults.map(r => r.content).join('\n\n') 
+          : 'No specific context found. Provide a general introduction.';
+        
+        debugSteps.push(`Step 11: Context length: ${context.length} characters`);
+        
+        // 5. Identify relevant projects
         const relevantProjects = new Set<Venture>();
         topResults.forEach(result => {
              if (result.venture) {
@@ -240,23 +299,56 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
              }
         });
         
-        const directProjectMatch = allVentures.find(v => v.name.toLowerCase() === lowercasedQuery);
+        const directProjectMatch = allVentures.find(
+          v => v.name.toLowerCase() === lowercasedQuery
+        );
         if (directProjectMatch) {
             relevantProjects.add(directProjectMatch);
         }
 
-        // 5. Call the AI assistant with the curated context
-        const finalAnswer = await aiPortfolioAssistant({ query, context });
+        debugSteps.push(`Step 12: Found ${relevantProjects.size} relevant projects`);
+
+        // 6. Call AI assistant
+        debugSteps.push('Step 13: Calling AI assistant');
+        let finalAnswer: string;
         
-        return { projects: Array.from(relevantProjects), answer: finalAnswer.answer };
+        try {
+            const aiResponse = await aiPortfolioAssistant({ query, context });
+            finalAnswer = aiResponse.answer;
+            debugSteps.push(`Step 14: AI response received (${finalAnswer.length} characters)`);
+        } catch (aiError) {
+            debugSteps.push(`Step 14 FAILED: AI assistant error - ${aiError}`);
+            throw new Error(`AI assistant failed: ${aiError instanceof Error ? aiError.message : String(aiError)}`);
+        }
+        
+        console.log('Search completed successfully:', debugSteps.join(' → '));
+        
+        return { 
+          projects: Array.from(relevantProjects), 
+          answer: finalAnswer 
+        };
 
     } catch (error) {
-        console.error("AI Search handler failed:", error);
-        // Fallback to a simple string-matching search if the AI fails
+        console.error("=== AI Search Handler Failed ===");
+        console.error('Debug steps completed:', debugSteps.join(' → '));
+        console.error('Error details:', error);
+        
+        if (error instanceof Error) {
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+          console.error('Error stack:', error.stack);
+        }
+        
+        // Fallback to string matching
         const filteredProjects = allVentures.filter(venture => 
             venture.name.toLowerCase().includes(lowercasedQuery) || 
             venture.description.toLowerCase().includes(lowercasedQuery)
         );
-        return { projects: filteredProjects, answer: "I encountered an error with my AI search, but here are some projects that might match your query." };
+        
+        return { 
+          projects: filteredProjects, 
+          answer: `I encountered an error with my AI search (${error instanceof Error ? error.message : 'Unknown error'}), but here are some projects that might match your query.`,
+          debug: debugSteps.join(' → ')
+        };
     }
 }
