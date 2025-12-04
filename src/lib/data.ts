@@ -530,6 +530,7 @@ export const resumeData: ResumeData = {
         'Architected scalable ETL/ELT data pipelines using Databricks, PySpark, Airflow, AWS Glue, and Delta Lakehouse systems',
         'Automated infrastructure provisioning with Terraform and Pulumi across AWS, Azure, and GCP environments',
         'Orchestrated enterprise-level Microsoft 365 environments, managing Teams, SharePoint, and Exchange Online while automating business processes with Power Automate and streamlining device management with AutoPilot and InTune.',
+        'Skilled in Microsoft Fabric for designing and managing scalable data infrastructures to collect, process, and analyze large datasets.',
         'Implemented CI/CD pipelines using GitHub Actions and Azure DevOps for containerized microservices on Kubernetes',
         'Developed backend APIs with Python (FastAPI, Flask, Django) and Node.js for AI model integration',
         'Tested and debugged APIs using Postman and Insomnia for comprehensive validation and documentation',
@@ -606,6 +607,7 @@ export const resumeData: ResumeData = {
     
 
     
+
 
 
 
