@@ -36,8 +36,8 @@ export default function Skills() {
                             </CardHeader>
                             <CardContent className="flex flex-col flex-grow">
                                 <ul className="space-y-3 flex-grow">
-                                    {category.skills.map((skill, index) => {
-                                        const IconComponent = skill.icon || Code; // Fallback to Code icon
+                                    {category.skills.slice(0, 5).map((skill, index) => {
+                                        const IconComponent = skill.icon || Code;
                                         return (
                                             <li key={`${category.title}-${skill.name}-${index}`} className="flex items-center gap-3 text-slate-400">
                                                 <IconComponent className="w-5 h-5 text-primary/80 transition-colors duration-300 group-hover:text-accent" />
@@ -45,30 +45,45 @@ export default function Skills() {
                                             </li>
                                         );
                                     })}
+                                    {category.skills.length > 5 && (
+                                        <li className="text-slate-500 text-sm">...and {category.skills.length - 5} more.</li>
+                                    )}
                                 </ul>
-                                {category.title === "Microsoft 365" && (
-                                     <Dialog>
-                                        <DialogTrigger asChild>
-                                            <Button variant="link" className="mt-4 p-0 h-auto justify-start text-primary">
-                                                <BookOpen className="mr-2 h-4 w-4"/>
-                                                Read more...
-                                            </Button>
-                                        </DialogTrigger>
-                                        <DialogContent className="sm:max-w-xl">
-                                            <DialogHeader>
-                                                <DialogTitle className="text-2xl">Microsoft 365 Expertise</DialogTitle>
-                                                <DialogDescription>
-                                                    Detailed overview of my capabilities within the Microsoft 365 ecosystem.
-                                                </DialogDescription>
-                                            </DialogHeader>
-                                            <ScrollArea className="max-h-[60vh] pr-4">
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <Button variant="link" className="mt-4 p-0 h-auto justify-start text-primary">
+                                            <BookOpen className="mr-2 h-4 w-4"/>
+                                            Read more...
+                                        </Button>
+                                    </DialogTrigger>
+                                    <DialogContent className="sm:max-w-xl">
+                                        <DialogHeader>
+                                            <DialogTitle className="text-2xl">{t(category.title) || category.title} Expertise</DialogTitle>
+                                            <DialogDescription>
+                                                Detailed overview of my capabilities within the {t(category.title) || category.title} ecosystem.
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                        <ScrollArea className="max-h-[60vh] pr-4">
+                                             {category.title === "Microsoft 365" ? (
                                                 <p className="text-sm text-muted-foreground leading-relaxed">
                                                     {M365_DETAILS}
                                                 </p>
-                                            </ScrollArea>
-                                        </DialogContent>
-                                    </Dialog>
-                                )}
+                                            ) : (
+                                                <ul className="space-y-3">
+                                                    {category.skills.map((skill, index) => {
+                                                        const IconComponent = skill.icon || Code;
+                                                        return (
+                                                            <li key={`modal-${skill.name}-${index}`} className="flex items-center gap-3 text-sm text-muted-foreground">
+                                                                <IconComponent className="w-5 h-5 text-primary/80" />
+                                                                <span>{skill.name}</span>
+                                                            </li>
+                                                        )
+                                                    })}
+                                                </ul>
+                                            )}
+                                        </ScrollArea>
+                                    </DialogContent>
+                                </Dialog>
                             </CardContent>
                         </Card>
                     ))}
