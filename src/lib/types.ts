@@ -52,5 +52,34 @@ export const UserAffirmationInteractionSchema = z.object({
 });
 export type UserAffirmationInteraction = z.infer<typeof UserAffirmationInteractionSchema>;
 
-
+export interface ResumeData {
+  name: string;
+  contact: {
+    email: string;
+    phone: string;
+    location: string;
+    github: string;
+    portfolio: string;
+  };
+  summary: string;
+  coreCompetencies: string[];
+  technicalExpertise: {
+    title: string;
+    skills: string;
+  }[];
+  experience: {
+    title: string;
+    company: string;
+    date: string;
+    location: string;
+    description: string;
+    highlights: string[];
+  }[];
+  education: {
+    course: string;
+    institution: string;
+  }[];
+  portfolioLink: string;
+}
     
+

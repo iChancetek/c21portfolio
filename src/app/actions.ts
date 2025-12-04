@@ -7,7 +7,7 @@ import { generateDeepDive } from '@/ai/flows/dynamic-case-study-generator';
 import { getTechInsight } from '@/ai/flows/tech-expert-flow';
 import type { Venture } from '@/lib/types';
 import { Resend } from 'resend';
-import { allVentures, techTopics, navLinks, skillCategories } from '@/lib/data';
+import { allVentures, techTopics, navLinks, skillCategories, resumeData } from '@/lib/data';
 import { embed } from 'genkit';
 import { ai } from '@/ai/genkit';
 import { initializeServerApp } from '@/firebase/server-config';
@@ -164,9 +164,15 @@ function dotProduct(a: number[], b: number[]): number {
 
 async function semanticSearch(query: string): Promise<{ projects: Venture[], context: string }> {
     try {
-        const projectContent = allVentures.map(v => `Project Name: ${v.name}, Description: ${v.description}`);
-        const skillsContent = skillCategories.map(c => `Skill Category: ${c.title}, Skills: ${c.skills.map(s => s.name).join(', ')}`);
-        const allContent = [...projectContent, ...skillsContent];
+        const knowledgeBase = [
+            `Summary: ${resumeData.summary}`,
+            ...resumeData.coreCompetencies.map(c => `Core Competency: ${c}`),
+            ...resumeData.technicalExpertise.map(t => `Technical Expertise in ${t.title}: ${t.skills}`),
+            ...resumeData.experience.map(e => `Work Experience at ${e.company} as ${e.title} (${e.date}, ${e.location}): ${e.description} Highlights: ${e.highlights.join(', ')}`),
+            ...resumeData.education.map(e => `Education: ${e.course} at ${e.institution}`),
+            ...allVentures.map(v => `Project/Venture: ${v.name}, Description: ${v.description}`),
+            ...skillCategories.flatMap(c => c.skills.map(s => `Skill: ${s.name} in category ${c.title}`))
+        ];
 
         const [queryEmbedding, contentEmbeddings] = await Promise.all([
             embed({
@@ -175,34 +181,33 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
             }),
             embed({
                 embedder: ai.embedder,
-                content: allContent,
+                content: knowledgeBase,
             }),
         ]);
 
         const similarities = contentEmbeddings.map((embedding, i) => ({
             index: i,
             similarity: dotProduct(queryEmbedding, embedding),
+            content: knowledgeBase[i],
         }));
 
         similarities.sort((a, b) => b.similarity - a.similarity);
 
-        const topK = 5; 
+        const topK = 7; 
         const topResults = similarities
             .slice(0, topK)
-            .filter(result => result.similarity > 0.75);
-            
-        const relevantProjects = new Set<Venture>();
-        let context = '';
+            .filter(result => result.similarity > 0.70);
+        
+        const context = topResults.map(r => r.content).join('\n\n');
 
+        const relevantProjects = new Set<Venture>();
         topResults.forEach(result => {
-            if (result.index < allVentures.length) {
-                const project = allVentures[result.index];
-                relevantProjects.add(project);
-                context += `Project: ${project.name} - ${project.description}\n`;
-            } else {
-                const skillIndex = result.index - allVentures.length;
-                context += `Skills: ${skillsContent[skillIndex]}\n`;
-            }
+             const content = result.content.toLowerCase();
+             allVentures.forEach(venture => {
+                 if(content.includes(venture.name.toLowerCase())) {
+                     relevantProjects.add(venture);
+                 }
+             })
         });
 
         return { projects: Array.from(relevantProjects), context };
