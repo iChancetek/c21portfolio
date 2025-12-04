@@ -152,29 +152,49 @@ function dotProduct(a: number[], b: number[]): number {
 
 async function semanticSearch(query: string): Promise<{ projects: Venture[], context: string }> {
     try {
+        // Step 1: Meticulously build the knowledge base from all data sources.
         const knowledgeBase: string[] = [];
         
-        // Comprehensive data ingestion from resumeData and allVentures
+        // Add Resume Summary and Name
         knowledgeBase.push(`My name is ${resumeData.name}.`);
         knowledgeBase.push(`Professional Summary: ${resumeData.summary}`);
-        resumeData.coreCompetencies.forEach(c => knowledgeBase.push(`A core competency is: ${c}`));
+        
+        // Add each Core Competency individually
+        resumeData.coreCompetencies.forEach(c => {
+            knowledgeBase.push(`A core competency is: ${c}`);
+        });
+
+        // Add each Technical Expertise skill string individually
         resumeData.technicalExpertise.forEach(t => {
             knowledgeBase.push(`Under the technical expertise category of ${t.title}, I have the following skills: ${t.skills}`);
         });
+
+        // Add each Experience highlight individually, with company context
         resumeData.experience.forEach(e => {
-            const experienceIntro = `Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`;
-            knowledgeBase.push(experienceIntro);
+            knowledgeBase.push(`Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`);
             e.highlights.forEach(h => {
                 knowledgeBase.push(`A key highlight at ${e.company} was: ${h}`);
             });
         });
-        resumeData.education.forEach(e => knowledgeBase.push(`Education and Courses: ${e.course} at ${e.institution}`));
-        allVentures.forEach(v => knowledgeBase.push(`About the project or venture named ${v.name}: ${v.description}`));
-        skillCategories.forEach(c => {
-             c.skills.forEach(s => knowledgeBase.push(`I have a skill named ${s.name} in the ${c.title} category.`))
+        
+        // Add each Education entry
+        resumeData.education.forEach(e => {
+            knowledgeBase.push(`Education and Courses: ${e.course} at ${e.institution}`);
+        });
+        
+        // Add each Venture/Project
+        allVentures.forEach(v => {
+            knowledgeBase.push(`About the project or venture named ${v.name}: ${v.description}`);
         });
 
+        // Add each skill from skillCategories
+        skillCategories.forEach(c => {
+             c.skills.forEach(s => {
+                knowledgeBase.push(`I have a skill named ${s.name} in the ${c.title} category.`);
+             });
+        });
 
+        // Step 2: Create embeddings for the query and the entire knowledge base.
         const [queryEmbedding, contentEmbeddings] = await Promise.all([
             embed({
                 embedder: ai.embedder,
@@ -186,6 +206,7 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
             }),
         ]);
 
+        // Step 3: Calculate similarities and find the most relevant chunks.
         const similarities = contentEmbeddings.map((embedding, i) => ({
             index: i,
             similarity: dotProduct(queryEmbedding, embedding),
@@ -194,13 +215,15 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
 
         similarities.sort((a, b) => b.similarity - a.similarity);
 
-        const topK = 15;
+        // Step 4: Assemble the context from the top results.
+        const topK = 15; // Increased for richer context
         const topResults = similarities
             .slice(0, topK)
-            .filter(result => result.similarity > 0.6);
+            .filter(result => result.similarity > 0.6); // Balanced threshold
         
         const context = topResults.map(r => r.content).join('\n\n');
 
+        // Step 5: Identify relevant projects from the retrieved context.
         const relevantProjects = new Set<Venture>();
         topResults.forEach(result => {
              const content = result.content.toLowerCase();

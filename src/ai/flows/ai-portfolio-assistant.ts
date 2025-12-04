@@ -40,7 +40,7 @@ export async function aiPortfolioAssistant(input: AIPortfolioAssistantInput): Pr
 **RESPONSE STYLE & TONE:**
 -   **Tone:** Articulate, insightful, and professional. Avoid overly casual language.
 
-**If the context is empty, respond with: "I'm sorry, I couldn't find enough information to answer that question. Please try rephrasing your query."**
+**If the context is empty or does not sufficiently answer the question, respond with: "I'm sorry, I couldn't find enough information to answer that question. Please try rephrasing your query."**
 
 ## CONTEXT 
 ${input.context || 'No context provided.'}
