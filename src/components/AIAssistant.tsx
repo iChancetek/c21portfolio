@@ -8,7 +8,7 @@ import { Button } from './ui/button';
 import { Bot, Send, User, Loader2, Play, Volume2, Pause, StopCircle } from 'lucide-react';
 import { ScrollArea } from './ui/scroll-area';
 import { cn } from '@/lib/utils';
-import { getAIAssistantResponse } from '@/app/actions';
+import { handleSearch } from '@/app/actions';
 import { useLocale } from '@/hooks/useLocale';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 
@@ -113,10 +113,12 @@ export default function AIAssistant() {
     setIsLoading(true);
     const userMessage: Message = { role: 'user', content: input };
     setMessages((prev) => [...prev, userMessage]);
+    
+    const searchInput = input;
     setInput('');
 
-    const assistantResponse = await getAIAssistantResponse(input);
-    const assistantMessage: Message = { role: 'assistant', content: assistantResponse };
+    const { answer } = await handleSearch(searchInput);
+    const assistantMessage: Message = { role: 'assistant', content: answer || t('noProjectsFound', { searchQuery: searchInput }) };
     
     setMessages((prev) => [...prev, assistantMessage]);
     setIsLoading(false);
