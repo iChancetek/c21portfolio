@@ -167,42 +167,40 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
             return { projects: allVentures };
         }
         
-        // Step 1: Meticulously build the knowledge base from all data sources.
-        const knowledgeBase: string[] = [];
+        const knowledgeBase: { content: string; venture?: Venture }[] = [];
         
-        knowledgeBase.push(`My name is ${resumeData.name}.`);
-        knowledgeBase.push(`Professional Summary: ${resumeData.summary}`);
+        knowledgeBase.push({ content: `My name is ${resumeData.name}.`});
+        knowledgeBase.push({ content: `Professional Summary: ${resumeData.summary}`});
         
         resumeData.coreCompetencies.forEach(c => {
-            knowledgeBase.push(`A core competency is: ${c}`);
+            knowledgeBase.push({ content: `A core competency is: ${c}`});
         });
 
         resumeData.technicalExpertise.forEach(t => {
-            knowledgeBase.push(`Under the technical expertise category of ${t.title}, I have the following skills: ${t.skills}`);
+            knowledgeBase.push({ content: `Under the technical expertise category of ${t.title}, I have the following skills: ${t.skills}`});
         });
 
         resumeData.experience.forEach(e => {
-            knowledgeBase.push(`Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`);
+            knowledgeBase.push({ content: `Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`});
             e.highlights.forEach(h => {
-                knowledgeBase.push(`A key highlight at ${e.company} was: ${h}`);
+                knowledgeBase.push({ content: `A key highlight at ${e.company} was: ${h}`});
             });
         });
         
         resumeData.education.forEach(e => {
-            knowledgeBase.push(`Education and Courses: ${e.course} at ${e.institution}`);
+            knowledgeBase.push({ content: `Education and Courses: ${e.course} at ${e.institution}`});
         });
         
         allVentures.forEach(v => {
-            knowledgeBase.push(`About the project or venture named ${v.name}: ${v.description}`);
+            knowledgeBase.push({ content: `About the project or venture named ${v.name}: ${v.description}`, venture: v });
         });
 
         skillCategories.forEach(c => {
              c.skills.forEach(s => {
-                knowledgeBase.push(`I have a skill named ${s.name} in the ${c.title} category.`);
+                knowledgeBase.push({ content: `I have a skill named ${s.name} in the ${c.title} category.`});
              });
         });
 
-        // Step 2: Create embeddings for the query and the entire knowledge base.
         const [queryEmbedding, contentEmbeddings] = await Promise.all([
             embed({
                 embedder: ai.embedder,
@@ -210,54 +208,44 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
             }),
             embed({
                 embedder: ai.embedder,
-                content: knowledgeBase,
+                content: knowledgeBase.map(item => item.content),
             }),
         ]);
 
-        // Step 3: Calculate similarities and find the most relevant chunks.
         const similarities = contentEmbeddings.map((embedding, i) => ({
             index: i,
             similarity: dotProduct(queryEmbedding, embedding),
-            content: knowledgeBase[i],
+            ...knowledgeBase[i],
         }));
 
         similarities.sort((a, b) => b.similarity - a.similarity);
 
-        // Step 4: Assemble the context from the top results.
         const topK = 15;
         const topResults = similarities
             .slice(0, topK)
             .filter(result => result.similarity > 0.6); 
         
         const context = topResults.map(r => r.content).join('\n\n');
-
-        // Step 5: Identify relevant projects from the retrieved context.
+        
         const relevantProjects = new Set<Venture>();
         topResults.forEach(result => {
-             const content = result.content.toLowerCase();
-             allVentures.forEach(venture => {
-                 if(content.includes(venture.name.toLowerCase())) {
-                     relevantProjects.add(venture);
-                 }
-             })
+             if (result.venture) {
+                 relevantProjects.add(result.venture);
+             }
         });
-        
-        const finalAnswer = await aiPortfolioAssistant({ query, context });
-
-        // Corrected logic: Use the `relevantProjects` set.
-        if (relevantProjects.size > 0) {
-             return { projects: Array.from(relevantProjects), answer: finalAnswer.answer };
-        }
         
         const directProjectMatch = allVentures.find(v => v.name.toLowerCase() === lowercasedQuery);
         if (directProjectMatch) {
-            return { projects: [directProjectMatch], answer: finalAnswer.answer };
+            relevantProjects.add(directProjectMatch);
         }
+
+        const finalAnswer = await aiPortfolioAssistant({ query, context });
         
-        return { projects: [], answer: finalAnswer.answer };
+        return { projects: Array.from(relevantProjects), answer: finalAnswer.answer };
 
     } catch (error) {
         console.error("AI Search handler failed:", error);
+        // Fallback to a simple string-matching search if the AI fails
         const filteredProjects = allVentures.filter(venture => 
             venture.name.toLowerCase().includes(lowercasedQuery) || 
             venture.description.toLowerCase().includes(lowercasedQuery)
