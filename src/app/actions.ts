@@ -152,7 +152,6 @@ function dotProduct(a: number[], b: number[]): number {
 
 async function semanticSearch(query: string): Promise<{ projects: Venture[], context: string }> {
     try {
-        // Deeper, more granular knowledge base construction
         const knowledgeBase: string[] = [];
         
         knowledgeBase.push(`My name is ${resumeData.name}.`);
@@ -229,7 +228,7 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
     const lowercasedQuery = query.toLowerCase().trim();
 
     if (!lowercasedQuery) {
-        return { projects: allVentures };
+        return { projects: allVentures, answer: "Here are all the projects." };
     }
     
     const directNavLink = navLinks.find(link => link.keywords.includes(lowercasedQuery));
@@ -245,6 +244,7 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
         
         const { projects: semanticProjects, context } = await semanticSearch(lowercasedQuery);
         
+        // Pass the retrieved context to the AI assistant.
         const finalAnswer = await aiPortfolioAssistant({ query, context });
 
         // If semantic search finds projects, return them with the answer.
@@ -263,11 +263,11 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
 
     } catch (error) {
         console.error("AI Search handler failed:", error);
+        // Fallback to simple keyword search if AI fails
         const filteredProjects = allVentures.filter(venture => 
             venture.name.toLowerCase().includes(lowercasedQuery) || 
             venture.description.toLowerCase().includes(lowercasedQuery)
         );
-        return { projects: filteredProjects };
+        return { projects: filteredProjects, answer: "I encountered an error with my AI search, but here are some projects that might match your query." };
     }
 }
-
