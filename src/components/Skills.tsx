@@ -1,7 +1,19 @@
 import { skillCategories } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Code } from "lucide-react";
+import { Code, BookOpen } from "lucide-react";
 import { useLocale } from "@/hooks/useLocale";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "./ui/button";
+import { ScrollArea } from "./ui/scroll-area";
+
+const M365_DETAILS = "Identity and Access Management (IAM), Multi-Factor Authentication (MFA), Conditional Access policies, and identity protection capabilities to safeguard user accounts and control access. Threat protection is strengthened through the Microsoft Defender family, Microsoft Entra for identity and access security, Microsoft Intune for endpoint management, and the Microsoft Purview suite for compliance and data governance. Key solutions include Microsoft Defender XDR, Microsoft Sentinel, Microsoft Purview Compliance Manager, and Microsoft Priva for privacy and risk management.";
 
 export default function Skills() {
     const { t } = useLocale();
@@ -18,12 +30,12 @@ export default function Skills() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {skillCategories.map((category) => (
-                        <Card key={category.title} className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
+                        <Card key={category.title} className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-2xl hover:shadow-primary/20">
                             <CardHeader>
-                                <CardTitle className="text-xl text-primary transition-colors duration-300 group-hover:text-accent">{category.title}</CardTitle>
+                                <CardTitle className="text-xl text-primary transition-colors duration-300 group-hover:text-accent">{t(category.title) || category.title}</CardTitle>
                             </CardHeader>
-                            <CardContent>
-                                <ul className="space-y-3">
+                            <CardContent className="flex flex-col flex-grow">
+                                <ul className="space-y-3 flex-grow">
                                     {category.skills.map((skill, index) => {
                                         const IconComponent = skill.icon || Code; // Fallback to Code icon
                                         return (
@@ -34,6 +46,29 @@ export default function Skills() {
                                         );
                                     })}
                                 </ul>
+                                {category.title === "Microsoft 365" && (
+                                     <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button variant="link" className="mt-4 p-0 h-auto justify-start text-primary">
+                                                <BookOpen className="mr-2 h-4 w-4"/>
+                                                Read more...
+                                            </Button>
+                                        </DialogTrigger>
+                                        <DialogContent className="sm:max-w-xl">
+                                            <DialogHeader>
+                                                <DialogTitle className="text-2xl">Microsoft 365 Expertise</DialogTitle>
+                                                <DialogDescription>
+                                                    Detailed overview of my capabilities within the Microsoft 365 ecosystem.
+                                                </DialogDescription>
+                                            </DialogHeader>
+                                            <ScrollArea className="max-h-[60vh] pr-4">
+                                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                                    {M365_DETAILS}
+                                                </p>
+                                            </ScrollArea>
+                                        </DialogContent>
+                                    </Dialog>
+                                )}
                             </CardContent>
                         </Card>
                     ))}
