@@ -535,7 +535,8 @@ export const resumeData: ResumeData = {
         'Implemented CI/CD pipelines using GitHub Actions and Azure DevOps for containerized microservices on Kubernetes',
         'Developed backend APIs with Python (FastAPI, Flask, Django) and Node.js for AI model integration',
         'Tested and debugged APIs using Postman and Insomnia for comprehensive validation and documentation',
-        'Integrated streaming data solutions with Kafka and Kinesis for real-time analytics dashboards'
+        'Integrated streaming data solutions with Kafka and Kinesis for real-time analytics dashboards',
+        'Experienced in using Python libraries such as NumPy, Pandas, Matplotlib, Seaborn, and Scikit-learn for data manipulation, analysis, visualization, and machine learning'
       ]
     },
     {
@@ -608,6 +609,7 @@ export const resumeData: ResumeData = {
     
 
     
+
 
 
 
