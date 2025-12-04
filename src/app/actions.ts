@@ -164,15 +164,41 @@ function dotProduct(a: number[], b: number[]): number {
 
 async function semanticSearch(query: string): Promise<{ projects: Venture[], context: string }> {
     try {
-        const knowledgeBase = [
-            `Summary: ${resumeData.summary}`,
-            ...resumeData.coreCompetencies.map(c => `Core Competency: ${c}`),
-            ...resumeData.technicalExpertise.map(t => `Technical Expertise in ${t.title}: ${t.skills}`),
-            ...resumeData.experience.map(e => `Work Experience at ${e.company} as ${e.title} (${e.date}, ${e.location}): ${e.description} Highlights: ${e.highlights.join(', ')}`),
-            ...resumeData.education.map(e => `Education: ${e.course} at ${e.institution}`),
-            ...allVentures.map(v => `Project/Venture: ${v.name}, Description: ${v.description}`),
-            ...skillCategories.flatMap(c => c.skills.map(s => `Skill: ${s.name} in category ${c.title}`))
-        ];
+        // Deeper, more granular knowledge base construction
+        const knowledgeBase: string[] = [];
+        
+        // 1. Basic Info and Summary
+        knowledgeBase.push(`My name is ${resumeData.name}.`);
+        knowledgeBase.push(`Professional Summary: ${resumeData.summary}`);
+
+        // 2. Core Competencies (individually)
+        resumeData.coreCompetencies.forEach(c => knowledgeBase.push(`A core competency is: ${c}`));
+
+        // 3. Technical Expertise (by category and skill)
+        resumeData.technicalExpertise.forEach(t => {
+            knowledgeBase.push(`In the category of ${t.title}, my expertise includes: ${t.skills}`);
+        });
+
+        // 4. Professional Experience (by company, and each highlight individually)
+        resumeData.experience.forEach(e => {
+            const experienceIntro = `Regarding work experience at ${e.company} as a ${e.title} (${e.date} in ${e.location}), the summary is: ${e.description}.`;
+            knowledgeBase.push(experienceIntro);
+            e.highlights.forEach(h => {
+                knowledgeBase.push(`A key highlight at ${e.company} was: ${h}`);
+            });
+        });
+
+        // 5. Education
+        resumeData.education.forEach(e => knowledgeBase.push(`Education and Courses: ${e.course} at ${e.institution}`));
+        
+        // 6. Projects/Ventures
+        allVentures.forEach(v => knowledgeBase.push(`About the project or venture named ${v.name}: ${v.description}`));
+
+        // 7. Skill Categories
+        skillCategories.forEach(c => {
+             c.skills.forEach(s => knowledgeBase.push(`I have a skill named ${s.name} in the ${c.title} category.`))
+        });
+
 
         const [queryEmbedding, contentEmbeddings] = await Promise.all([
             embed({
@@ -193,10 +219,10 @@ async function semanticSearch(query: string): Promise<{ projects: Venture[], con
 
         similarities.sort((a, b) => b.similarity - a.similarity);
 
-        const topK = 7; 
+        const topK = 10;
         const topResults = similarities
             .slice(0, topK)
-            .filter(result => result.similarity > 0.70);
+            .filter(result => result.similarity > 0.70); // Stricter threshold
         
         const context = topResults.map(r => r.content).join('\n\n');
 
