@@ -53,4 +53,3 @@ ${input.query}`,
 
   return { answer: llmResponse.text };
 }
-
