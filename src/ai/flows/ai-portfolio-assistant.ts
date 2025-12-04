@@ -35,7 +35,7 @@ export async function aiPortfolioAssistant(input: AIPortfolioAssistantInput): Pr
 4.  **STRICT Formatting:** For professional or technical questions, structure your response with a bullet point (using '•' or '–') followed by a comprehensive, explanatory paragraph. For simple greetings or conversational questions, a direct and friendly paragraph is sufficient.
 
 ## CONTEXT
-${input.context || 'No context provided.'}
+${input.context || ''}
 
 ## USER QUESTION
 ${input.query}`,

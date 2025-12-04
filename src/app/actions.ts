@@ -230,7 +230,7 @@ export async function handleSearch(query: string): Promise<{ projects: Venture[]
             .slice(0, topK)
             .filter(result => result.similarity > 0.6); 
         
-        const context = topResults.map(r => r.content).join('\n\n');
+        const context = topResults.length > 0 ? topResults.map(r => r.content).join('\n\n') : '';
         
         // 4. Identify relevant projects from the search results
         const relevantProjects = new Set<Venture>();
