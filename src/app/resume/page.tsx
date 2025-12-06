@@ -5,10 +5,12 @@ import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Briefcase, Code, Cloud, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, Building, Printer } from 'lucide-react';
+import { Briefcase, Code, Cloud, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, Building, Printer, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import { resumeData } from '@/lib/data';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 
 const Section = ({ title, icon: Icon, children, delay }: { title: string; icon: React.ElementType; children: React.ReactNode; delay: number; }) => (
@@ -89,14 +91,38 @@ export default function ResumePage() {
             <Section title="Technical Expertise" icon={Code} delay={0.3}>
               <div className="grid md:grid-cols-2 gap-6">
                   {resumeData.technicalExpertise.map(cat => {
+                      const isLongContent = ["Cloud Platforms", "Microsoft 365"].includes(cat.title);
+                      const truncatedSkills = isLongContent ? cat.skills.split('|')[0] + '...' : cat.skills;
+
                       return (
                       <motion.div key={cat.title} whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
                           <Card className="bg-secondary/30 border-border/20 transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30 flex flex-col h-full">
                               <CardHeader>
                                   <CardTitle className="text-lg text-primary">{cat.title}</CardTitle>
                               </CardHeader>
-                              <CardContent className="flex-grow">
-                                  <p className="text-sm text-muted-foreground">{cat.skills}</p>
+                              <CardContent className="flex-grow flex flex-col">
+                                  <p className="text-sm text-muted-foreground flex-grow">{isLongContent ? truncatedSkills : cat.skills}</p>
+                                  {isLongContent && (
+                                      <Dialog>
+                                          <DialogTrigger asChild>
+                                              <Button variant="link" className="mt-4 p-0 h-auto justify-start text-primary">
+                                                  <BookOpen className="mr-2 h-4 w-4"/>
+                                                  Read more...
+                                              </Button>
+                                          </DialogTrigger>
+                                          <DialogContent className="sm:max-w-xl">
+                                              <DialogHeader>
+                                                  <DialogTitle className="text-2xl">{cat.title} Expertise</DialogTitle>
+                                                  <DialogDescription>
+                                                      Detailed overview of my capabilities within the {cat.title} ecosystem.
+                                                  </DialogDescription>
+                                              </DialogHeader>
+                                              <ScrollArea className="max-h-[60vh] pr-4">
+                                                  <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">{cat.skills}</p>
+                                              </ScrollArea>
+                                          </DialogContent>
+                                      </Dialog>
+                                  )}
                               </CardContent>
                           </Card>
                       </motion.div>
@@ -148,7 +174,7 @@ export default function ResumePage() {
 
              <Section title="Portfolio" icon={LinkIcon} delay={0.6}>
                   <div className="bg-secondary/30 p-6 rounded-lg border border-border/20 text-center">
-                      <p className="text-foreground/80">
+                       <p className="text-foreground/80">
                           Explore full projects, skills, AI agents, and interactive demos at: 
                           <Link href={resumeData.portfolioLink} target="_blank" className="font-semibold text-primary hover:underline ml-2">
                              Chancellor
