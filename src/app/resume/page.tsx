@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -91,7 +92,7 @@ export default function ResumePage() {
                   {resumeData.technicalExpertise.map(cat => {
                       let IconComponent;
                       switch(cat.title) {
-                        case '🏢 Microsoft Enterprise':
+                        case '🏢 Microsoft 365':
                             IconComponent = Building;
                             break;
                         default:
@@ -181,3 +182,4 @@ export default function ResumePage() {
     </>
   );
 }
+
