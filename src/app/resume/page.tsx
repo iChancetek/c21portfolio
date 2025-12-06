@@ -95,7 +95,7 @@ export default function ResumePage() {
                       const truncatedSkills = isLongContent ? cat.skills.split('|')[0].substring(0, 100) + '...' : cat.skills;
 
                       return (
-                      <motion.div key={cat.title} whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
+                      <motion.div key={cat.title} className="h-full" whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
                           <Card className="bg-secondary/30 border-border/20 transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30 flex flex-col h-full">
                               <CardHeader>
                                   <CardTitle className="text-lg text-primary">{cat.title}</CardTitle>
