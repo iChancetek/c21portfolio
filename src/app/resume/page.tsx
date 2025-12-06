@@ -91,7 +91,7 @@ export default function ResumePage() {
                   {resumeData.technicalExpertise.map(cat => {
                       return (
                       <motion.div key={cat.title} whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
-                          <Card className="bg-secondary/30 border-border/20 transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30 flex flex-col">
+                          <Card className="bg-secondary/30 border-border/20 transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30 flex flex-col h-full">
                               <CardHeader>
                                   <CardTitle className="text-lg text-primary">{cat.title}</CardTitle>
                               </CardHeader>
@@ -151,7 +151,7 @@ export default function ResumePage() {
                       <p className="text-foreground/80">
                           Explore full projects, skills, AI agents, and interactive demos at: 
                           <Link href={resumeData.portfolioLink} target="_blank" className="font-semibold text-primary hover:underline ml-2">
-                             {resumeData.portfolioLink.replace('https://','')}
+                             Chancellor
                           </Link>
                       </p>
                       <h3 className="text-xl font-bold text-primary-gradient mt-4">
