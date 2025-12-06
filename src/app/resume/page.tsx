@@ -92,7 +92,7 @@ export default function ResumePage() {
               <div className="grid md:grid-cols-2 gap-6">
                   {resumeData.technicalExpertise.map(cat => {
                       const isLongContent = ["Cloud Platforms", "Microsoft 365"].includes(cat.title);
-                      const truncatedSkills = isLongContent ? cat.skills.split('|')[0] + '...' : cat.skills;
+                      const truncatedSkills = isLongContent ? cat.skills.split('|')[0].substring(0, 100) + '...' : cat.skills;
 
                       return (
                       <motion.div key={cat.title} whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
@@ -174,9 +174,9 @@ export default function ResumePage() {
 
              <Section title="Portfolio" icon={LinkIcon} delay={0.6}>
                   <div className="bg-secondary/30 p-6 rounded-lg border border-border/20 text-center">
-                       <p className="text-foreground/80">
+                      <p className="text-foreground/80">
                           Explore full projects, skills, AI agents, and interactive demos at: 
-                          <Link href={resumeData.portfolioLink} target="_blank" className="font-semibold text-primary hover:underline ml-2">
+                          <Link href="https://chancellorminus.com" target="_blank" className="font-semibold text-primary hover:underline ml-2">
                              Chancellor
                           </Link>
                       </p>
