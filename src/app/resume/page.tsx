@@ -90,15 +90,6 @@ export default function ResumePage() {
             <Section title="Technical Expertise" icon={Code} delay={0.3}>
               <div className="grid md:grid-cols-2 gap-6">
                   {resumeData.technicalExpertise.map(cat => {
-                      let IconComponent;
-                      switch(cat.title) {
-                        case '🏢 Microsoft 365':
-                            IconComponent = Building;
-                            break;
-                        default:
-                            IconComponent = Code;
-                      }
-                      
                       const isCloudPlatform = cat.title === '☁️ Cloud Platforms';
 
                       return (
@@ -172,8 +163,14 @@ export default function ResumePage() {
                              {resumeData.portfolioLink.replace('https://','')}
                           </Link>
                       </p>
-                      <h3 className="text-xl font-bold text-primary-gradient mt-4">iChanceTEK</h3>
-                      <p className="text-muted-foreground">Your AI Solutions Partner | iChanceTEK.com</p>
+                      <h3 className="text-xl font-bold text-primary-gradient mt-4">
+                        <Link href="https://iChanceTEK.com" target="_blank" className="hover:underline">
+                            iChanceTEK
+                        </Link>
+                      </h3>
+                      <p className="text-muted-foreground">
+                        Your AI Solutions Partner | <Link href="https://iChanceTEK.com" target="_blank" className="font-semibold text-primary hover:underline">iChanceTEK.com</Link>
+                      </p>
                   </div>
               </Section>
 
@@ -184,9 +181,3 @@ export default function ResumePage() {
     </>
   );
 }
-
-
-
-
-
-    
