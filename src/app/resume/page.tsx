@@ -166,6 +166,8 @@ export default function ResumePage() {
 
              <Section title="Portfolio" icon={LinkIcon} delay={0.6}>
                   <div className="bg-secondary/30 p-6 rounded-lg border border-border/20 text-center">
+                       <h3 className="text-xl font-bold text-primary-gradient">iChanceTEK</h3>
+                        <p className="text-muted-foreground mb-4">Your AI Solutions Partner | iChanceTEK.com</p>
                       <p className="text-foreground/80">
                           Explore full projects, skills, AI agents, and interactive demos at: 
                           <Link href={resumeData.portfolioLink} target="_blank" className="font-semibold text-primary hover:underline ml-2">
@@ -182,5 +184,6 @@ export default function ResumePage() {
     </>
   );
 }
+
 
 
