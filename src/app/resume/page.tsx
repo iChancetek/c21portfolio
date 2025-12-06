@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Briefcase, Code, Cloud, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, Building, Printer } from 'lucide-react';
 import Link from 'next/link';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { resumeData } from '@/lib/data';
 
 
@@ -90,8 +89,6 @@ export default function ResumePage() {
             <Section title="Technical Expertise" icon={Code} delay={0.3}>
               <div className="grid md:grid-cols-2 gap-6">
                   {resumeData.technicalExpertise.map(cat => {
-                      const isCloudPlatform = cat.title === '☁️ Cloud Platforms';
-
                       return (
                       <motion.div key={cat.title} whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
                           <Card className="bg-secondary/30 border-border/20 transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30 flex flex-col">
@@ -99,13 +96,7 @@ export default function ResumePage() {
                                   <CardTitle className="text-lg text-primary">{cat.title}</CardTitle>
                               </CardHeader>
                               <CardContent className="flex-grow">
-                                  {isCloudPlatform ? (
-                                    <ScrollArea className="h-32 pr-4">
-                                       <p className="text-sm text-muted-foreground">{cat.skills}</p>
-                                    </ScrollArea>
-                                  ) : (
-                                    <p className="text-sm text-muted-foreground">{cat.skills}</p>
-                                  )}
+                                  <p className="text-sm text-muted-foreground">{cat.skills}</p>
                               </CardContent>
                           </Card>
                       </motion.div>
@@ -169,7 +160,7 @@ export default function ResumePage() {
                         </Link>
                       </h3>
                       <p className="text-muted-foreground">
-                        Your AI Solutions Partner | <Link href="https://iChanceTEK.com" target="_blank" className="font-semibold text-primary hover:underline">iChanceTEK.com</Link>
+                        Your AI Solutions Partner
                       </p>
                   </div>
               </Section>
