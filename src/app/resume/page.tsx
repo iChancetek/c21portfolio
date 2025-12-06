@@ -52,7 +52,7 @@ export default function ResumePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
               >
-                  <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/80">{resumeData.name}</h1>
+                  <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/80">CHANCELLOR MINUS</h1>
                   <div className="mt-4 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-muted-foreground">
                       <a href={`mailto:${resumeData.contact.email}`} className="flex items-center gap-2 hover:text-primary transition-colors"><Mail className="w-4 h-4" /> {resumeData.contact.email}</a>
                       <a href={`tel:${resumeData.contact.phone.replace(/-/g, '')}`} className="flex items-center gap-2 hover:text-primary transition-colors"><Phone className="w-4 h-4" /> {resumeData.contact.phone}</a>
@@ -92,7 +92,7 @@ export default function ResumePage() {
               <div className="grid md:grid-cols-2 gap-6">
                   {resumeData.technicalExpertise.map(cat => {
                       const isLongContent = ["Cloud Platforms", "Microsoft 365"].includes(cat.title);
-                      const truncatedSkills = isLongContent ? cat.skills.split('|')[0].substring(0, 100) + '...' : cat.skills;
+                      const truncatedSkills = isLongContent ? cat.skills.substring(0, 100) + '...' : cat.skills;
 
                       return (
                       <motion.div key={cat.title} className="h-full" whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
@@ -175,7 +175,7 @@ export default function ResumePage() {
              <Section title="Portfolio" icon={LinkIcon} delay={0.6}>
                   <div className="bg-secondary/30 p-6 rounded-lg border border-border/20 text-center">
                        <p className="text-foreground/80">
-                          Explore full projects, skills, AI agents, and interactive demos at: 
+                          Explore full projects, skills, AI agents, and interactive demos at:
                           <Link href="https://chancellorminus.com" target="_blank" className="font-semibold text-primary hover:underline ml-2">
                              Chancellor
                           </Link>
@@ -198,3 +198,5 @@ export default function ResumePage() {
     </>
   );
 }
+
+    
