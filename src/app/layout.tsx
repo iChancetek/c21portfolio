@@ -4,17 +4,8 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { FirebaseClientProvider } from '@/firebase';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import { UserPresenceProvider } from '@/hooks/UserPresenceProvider';
-import { LocaleProvider, useLocale } from '@/hooks/useLocale';
 import SiteReader from '@/components/SiteReader';
-
-// This is a new component to handle metadata within the provider context
-const PageMetadata: React.FC = () => {
-  const { t } = useLocale();
-  return null; // This component doesn't render anything, it's just for metadata access
-};
+import { Providers } from './providers';
 
 export const metadata: Metadata = {
   title: 'Chancellor Minus | Entrepreneur • AI & Data Engineer • DevOps & MLOps Specialist • Full-Stack Developer',
@@ -35,24 +26,13 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className={cn('min-h-screen bg-background font-sans antialiased flex flex-col')} suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <FirebaseClientProvider>
-            <UserPresenceProvider>
-              <LocaleProvider>
-                <Header />
-                <main id="main-content" className="flex-1 container">{children}</main>
-                <Footer />
-                <Toaster />
-                <SiteReader />
-              </LocaleProvider>
-            </UserPresenceProvider>
-          </FirebaseClientProvider>
-        </ThemeProvider>
+        <Providers>
+            <Header />
+            <main id="main-content" className="flex-1 container">{children}</main>
+            <Footer />
+            <Toaster />
+            <SiteReader />
+        </Providers>
       </body>
     </html>
   );
