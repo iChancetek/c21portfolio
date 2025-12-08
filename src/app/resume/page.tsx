@@ -135,13 +135,13 @@ export default function ResumePage() {
                 {resumeData.experience.map(job => (
                   <div key={job.company} className="relative pl-8 before:absolute before:left-3 before:top-2 before:w-px before:h-full before:bg-border last:before:h-0">
                      <div className="absolute left-[5.5px] top-2 w-3 h-3 rounded-full bg-primary ring-4 ring-background"></div>
-                     <div className="flex flex-col md:flex-row justify-between md:items-center mb-1">
+                     <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-1">
                           <h3 className="text-xl font-semibold text-foreground">{job.title}</h3>
-                          <div className="text-sm text-muted-foreground font-mono">{job.date}</div>
+                          <div className="text-sm text-muted-foreground font-mono mt-1 sm:mt-0">{job.date}</div>
                       </div>
-                      <div className="flex flex-col md:flex-row justify-between md:items-center text-muted-foreground mb-4">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-center text-muted-foreground mb-4">
                          <p className="text-primary font-semibold">{job.company}</p>
-                         <span>{job.location}</span>
+                         <span className="mt-1 sm:mt-0">{job.location}</span>
                       </div>
                       <p className="text-foreground/80 mb-4">{job.description}</p>
                        {job.highlights.length > 0 && (
@@ -198,5 +198,6 @@ export default function ResumePage() {
     </>
   );
 }
+    
 
     
