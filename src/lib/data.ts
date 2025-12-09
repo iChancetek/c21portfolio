@@ -504,11 +504,11 @@ export const resumeData: ResumeData = {
   coreCompetencies: [
     'DevOps', 'MLOps', 'Data Engineering', 'AI Engineering', 'AI Agents',
     'Full-Stack Development', 'Cloud Architecture', 'CI/CD', 'Infrastructure as Code',
-    'Vector Databases', 'RAG Systems', 'Fine-tuning', 'System Design', 'IBM AS/400 (IBM i)'
+    'Vector Databases', 'RAG Systems', 'Fine-tuning', 'System Design', 'IBM AS/400 (IBM i)', 'Microsoft 365'
   ],
   technicalExpertise: [
     { title: '🚀 DevOps Engineering', skills: 'CI/CD pipelines (Jenkins, GitHub Actions, GitLab, Azure DevOps), Infrastructure as Code (Terraform, Ansible, Pulumi), Kubernetes (EKS, AKS, GKE), Docker, Prometheus, Grafana, ELK' },
-    { title: '📊 Data Engineering', skills: 'ETL/ELT pipelines, Databricks, Data Factory, PySpark, Airflow, Delta Lakehouse, Kafka, Kinesis, Data Lakes & Warehouses, Tableau, Power BI, Microsoft Fabric, Python (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn), SQL' },
+    { title: '📊 Data Engineering', skills: 'ETL/ELT pipelines, Databricks, Data Factory, PySpark, Airflow, AWS Glue, and Delta Lakehouse systems, Kafka, Kinesis, Data Lakes & Warehouses, Tableau, Power BI, Microsoft Fabric, Python (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn), SQL' },
     { title: '🤖 MLOps Engineering', skills: 'Amazon SageMaker, Azure Machine Learning, Google Vertex AI, MLflow, and Apache Airflow for model training, versioning, and automated deployment on cloud GPUs' },
     { title: '🧠 AI Engineering', skills: 'RAG, Fine-tuning, Vector DBs, NLP, LLM, Computer Vision, GPT, Claude, Gemini, Llama, DeepSeek, Qwen, Fairness & Bias Mitigation' },
     { title: '💻 Full-Stack Development', skills: 'React, Next.js, TypeScript, Tailwind, ShadCN UI, Python (Flask, FastAPI, Django), Node.js, REST APIs, Stripe, Clerk' },
@@ -640,6 +640,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
