@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -101,11 +102,11 @@ export default function ResumePage() {
                                   <CardTitle className="text-lg text-primary">{cat.title}</CardTitle>
                               </CardHeader>
                               <CardContent className="flex-grow flex flex-col justify-between">
-                                  <p className="text-sm text-muted-foreground mb-4">{truncatedSkills}</p>
+                                  <p className="text-sm text-muted-foreground mb-4">{isLongContent ? truncatedSkills : cat.skills}</p>
                                   {isLongContent && (
                                       <Dialog>
                                           <DialogTrigger asChild>
-                                              <Button variant="link" className="p-0 h-auto justify-start text-primary self-start">
+                                              <Button variant="link" className="p-0 h-auto justify-start text-primary self-start mt-auto">
                                                   <BookOpen className="mr-2 h-4 w-4"/>
                                                   Read more...
                                               </Button>
@@ -133,7 +134,7 @@ export default function ResumePage() {
             <Section title="Professional Experience" icon={Briefcase} delay={0.4}>
               <div className="space-y-8">
                 {resumeData.experience.map((job, index) => (
-                  <div key={job.company} className="relative pl-0">
+                  <div key={job.company} className="relative">
                      <div className="bg-secondary/20 p-4 sm:p-6 rounded-lg border border-border/20 hover:border-primary/30 transition-all">
                        <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
                             <h3 className="text-lg sm:text-xl font-semibold text-foreground">{job.title}</h3>
@@ -199,3 +200,5 @@ export default function ResumePage() {
     </>
   );
 }
+
+    

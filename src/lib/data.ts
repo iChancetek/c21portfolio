@@ -73,7 +73,7 @@ export const allVentures: Venture[] = [
         id: 'venture-1',
         name: "Enterprise AI Agents",
         description: "Enterprise AI that works like your best employee for better customer experiences.",
-        href: "/ai-agent",
+        href: "/ai-agents",
         hasDemo: true,
     },
     {
@@ -220,7 +220,7 @@ export const allVentures: Venture[] = [
     {
       id: 'partner-9',
       name: "Novartis Pharmaceuticals",
-      description: "Novartis is one of the world’s largest and most respected pharmaceutical companies, known for developing innovative medicines across oncology, cardiovascular health, immunology, neuroscience, and gene therapy. Headquartered in Switzerland, Novartis focuses heavily on research and development, precision medicine, and humanitarian access to treatments worldwide. With a global footprint, the company aims to transform patient outcomes through advanced scientific discovery and medical innovation.",
+      description: "Novartis is one of the world’s largest and most respected pharmaceutical companies, known for developing innovative medicines across oncology, cardiovascular health, immunology, neuroscience, and gene therapy. Headquartered in Switzerland, Novartis focuses heavily on research and development, precision medicine, and humanitarian access to treatments worldwide. With a global footprint, a company aims to transform patient outcomes through advanced scientific discovery and medical innovation.",
       href: "https://www.novartis.com",
       hasDemo: false,
     },
@@ -531,7 +531,7 @@ export const resumeData: ResumeData = {
         'Leveraged modern AI development platforms including Cursor AI, Vibe Coding, Replit, Firebase Studio AI, and Manus for rapid application development',
         'Implemented MCP (Model Context Protocol) integrations for enhanced AI agent communication and orchestration',
         'Designed and deployed MLOps pipelines using Amazon SageMaker, Azure Machine Learning, Google Vertex AI, MLflow, and Apache Airflow for model training, versioning, and automated deployment on cloud GPUs',
-        'Architected scalable ETL/ELT data pipelines using Databricks, PySpark, Airflow, AWS Glue, and Delta Lakehouse systems',
+        'Architected scalable ETL/ELT data pipelines using Databricks, Data Factory, PySpark, Airflow, AWS Glue, and Delta Lakehouse systems',
         'Automated infrastructure provisioning with Terraform and Pulumi across AWS, Azure, and GCP environments',
         'Orchestrated enterprise-level Microsoft 365 environments, managing Teams, SharePoint, and Exchange Online while automating business processes with Power Automate and streamlining device management with AutoPilot and InTune.',
         'Skilled in Microsoft Fabric for designing and managing scalable data infrastructures to collect, process, and analyze large datasets.',
@@ -639,4 +639,7 @@ export const resumeData: ResumeData = {
 
 
     
+
+
+
 
