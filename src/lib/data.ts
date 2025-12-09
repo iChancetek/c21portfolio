@@ -198,7 +198,7 @@ export const allVentures: Venture[] = [
     {
         id: 'partner-6',
         name: "Nama Harlem",
-        description: "(New Amsterdam Musical Association)\nFounded in 1904, the New Amsterdam Musical Association (NAMA) is the oldest African-American musical organization in the United States. Created during a time when African-American musicians were excluded from the American Federation of Musicians Local 310, NAMA became the first Black music union. The association provided performance opportunities, training, and community support for Black musicians throughout New York City. Located in Harlem, NAMA remains a historic cultural institution dedicated to preserving jazz, blues, and African-American musical heritage.",
+        description: "(New Amsterdam Musical Association)\\nFounded in 1904, the New Amsterdam Musical Association (NAMA) is the oldest African-American musical organization in the United States. Created during a time when African-American musicians were excluded from the American Federation of Musicians Local 310, NAMA became the first Black music union. The association provided performance opportunities, training, and community support for Black musicians throughout New York City. Located in Harlem, NAMA remains a historic cultural institution dedicated to preserving jazz, blues, and African-American musical heritage.",
         href: "https://www.namaharlem.org",
         hasDemo: false,
     },
@@ -507,7 +507,7 @@ export const resumeData: ResumeData = {
   ],
   technicalExpertise: [
     { title: '🚀 DevOps Engineering', skills: 'CI/CD pipelines (Jenkins, GitHub Actions, GitLab, Azure DevOps), Infrastructure as Code (Terraform, Ansible, Pulumi), Kubernetes (EKS, AKS, GKE), Docker, Prometheus, Grafana, ELK' },
-    { title: '📊 Data Engineering', skills: 'ETL/ELT pipelines, Databricks, PySpark, Airflow, Delta Lakehouse, Kafka, Kinesis, Data Lakes & Warehouses, Tableau, Power BI, Microsoft Fabric, Python (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn), SQL' },
+    { title: '📊 Data Engineering', skills: 'ETL/ELT pipelines, Databricks, Data Factory, PySpark, Airflow, Delta Lakehouse, Kafka, Kinesis, Data Lakes & Warehouses, Tableau, Power BI, Microsoft Fabric, Python (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn), SQL' },
     { title: '🤖 MLOps Engineering', skills: 'Amazon SageMaker, Azure Machine Learning, Google Vertex AI, MLflow, and Apache Airflow for model training, versioning, and automated deployment on cloud GPUs' },
     { title: '🧠 AI Engineering', skills: 'RAG, Fine-tuning, Vector DBs, NLP, LLM, Computer Vision, GPT, Claude, Gemini, Llama, DeepSeek, Qwen, Fairness & Bias Mitigation' },
     { title: '💻 Full-Stack Development', skills: 'React, Next.js, TypeScript, Tailwind, ShadCN UI, Python (Flask, FastAPI, Django), Node.js, REST APIs, Stripe, Clerk' },
@@ -588,7 +588,7 @@ export const resumeData: ResumeData = {
       company: 'Couristan, Inc.',
       date: 'January 2002 - June 2013',
       location: 'Fort Lee, NJ',
-      description: 'Built and managed the enterprise LAN, WLAN, and Site-to-Site VPN infrastructure spanning 15 corporate locations. Led the administration of AS/400 systems, ERP platforms, and a high-availability VoIP network supporting over 500 users across 15 remote offices. Oversaw all IT infrastructure operations, delivering strategic guidance and reporting directly to the CEO and CFO.',
+      description: "Built and managed the enterprise LAN, WLAN, and Site-to-Site VPN infrastructure spanning 15 corporate locations. Administered IBM AS/400 (IBM i) systems supporting mission-critical ERP and business applications, and led the operation of a high-availability VoIP network serving 500+ users across 15 remote offices. Oversaw all IT infrastructure operations, providing strategic guidance and reporting directly to the CEO and CFO.",
       highlights: []
     }
   ],
@@ -639,6 +639,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
