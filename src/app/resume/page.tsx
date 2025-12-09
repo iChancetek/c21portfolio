@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from 'framer-motion';
@@ -132,28 +131,29 @@ export default function ResumePage() {
 
             <Section title="Professional Experience" icon={Briefcase} delay={0.4}>
               <div className="space-y-8">
-                {resumeData.experience.map(job => (
-                  <div key={job.company} className="relative pl-8 before:absolute before:left-3 before:top-2 before:w-px before:h-full before:bg-border last:before:h-0">
-                     <div className="absolute left-1.5 top-2 w-3 h-3 rounded-full bg-primary ring-4 ring-background"></div>
-                     <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-1">
-                          <h3 className="text-xl font-semibold text-foreground">{job.title}</h3>
-                          <div className="text-sm text-muted-foreground font-mono mt-1 sm:mt-0">{job.date}</div>
+                {resumeData.experience.map((job) => (
+                  <div key={job.company} className="flex flex-col">
+                    <div className="bg-secondary/20 p-6 rounded-lg border border-border/20 hover:border-primary/30 transition-all">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
+                        <h3 className="text-lg sm:text-xl font-semibold text-foreground">{job.title}</h3>
+                        <div className="text-xs sm:text-sm text-muted-foreground font-mono mt-1 sm:mt-0">{job.date}</div>
                       </div>
-                      <div className="flex flex-col sm:flex-row justify-between sm:items-center text-muted-foreground mb-4">
-                         <p className="text-primary font-semibold">{job.company}</p>
-                         <span className="mt-1 sm:mt-0">{job.location}</span>
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-center text-muted-foreground mb-3">
+                        <p className="text-primary font-semibold">{job.company}</p>
+                        <span className="text-sm mt-1 sm:mt-0">{job.location}</span>
                       </div>
-                      <p className="text-foreground/80 mb-4">{job.description}</p>
-                       {job.highlights.length > 0 && (
-                          <ul className="space-y-2">
-                              {job.highlights.map((h, i) => (
-                                  <li key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
-                                      <span className="text-primary font-bold mt-1">▹</span>
-                                      <span>{h}</span>
-                                  </li>
-                              ))}
-                          </ul>
+                      <p className="text-foreground/80 mb-4 text-sm sm:text-base">{job.description}</p>
+                      {job.highlights.length > 0 && (
+                        <ul className="space-y-2">
+                          {job.highlights.map((h, i) => (
+                            <li key={i} className="flex items-start gap-3 text-xs sm:text-sm text-muted-foreground">
+                              <span className="text-primary font-bold mt-1 flex-shrink-0">▹</span>
+                              <span className="flex-1">{h}</span>
+                            </li>
+                          ))}
+                        </ul>
                       )}
+                    </div>
                   </div>
                 ))}
               </div>
