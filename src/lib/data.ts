@@ -294,6 +294,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Cosmos DB", icon: Database },
       { name: "Apache Kafka", icon: Layers },
       { name: "RabbitMQ", icon: MessageCircle },
+      { name: "IBM AS/400 (IBM i)", icon: Server },
     ],
   },
   {
@@ -503,7 +504,7 @@ export const resumeData: ResumeData = {
   coreCompetencies: [
     'DevOps', 'MLOps', 'Data Engineering', 'AI Engineering', 'AI Agents',
     'Full-Stack Development', 'Cloud Architecture', 'CI/CD', 'Infrastructure as Code',
-    'Vector Databases', 'RAG Systems', 'Fine-tuning', 'System Design'
+    'Vector Databases', 'RAG Systems', 'Fine-tuning', 'System Design', 'IBM AS/400 (IBM i)'
   ],
   technicalExpertise: [
     { title: '🚀 DevOps Engineering', skills: 'CI/CD pipelines (Jenkins, GitHub Actions, GitLab, Azure DevOps), Infrastructure as Code (Terraform, Ansible, Pulumi), Kubernetes (EKS, AKS, GKE), Docker, Prometheus, Grafana, ELK' },
@@ -583,13 +584,13 @@ export const resumeData: ResumeData = {
       description: 'Responsible for developing and supporting on-premise and cloud infrastructure for 125 users across three remote sites. Managed Windows Server, Exchange, SQL Server, SharePoint, Office 365, and network infrastructure.',
       highlights: []
     },
-     {
-      title: 'IT Manager',
-      company: 'Couristan, Inc.',
-      date: 'January 2002 - June 2013',
-      location: 'Fort Lee, NJ',
-      description: "Built and managed the enterprise LAN, WLAN, and Site-to-Site VPN infrastructure spanning 15 corporate locations. Administered IBM AS/400 (IBM i) systems supporting mission-critical ERP and business applications, and led the operation of a high-availability VoIP network serving 500+ users across 15 remote offices. Oversaw all IT infrastructure operations, providing strategic guidance and reporting directly to the CEO and CFO.",
-      highlights: []
+    {
+        title: 'IT Manager',
+        company: 'Couristan, Inc.',
+        date: 'January 2002 - June 2013',
+        location: 'Fort Lee, NJ',
+        description: "Built and managed the enterprise LAN, WLAN, and Site-to-Site VPN infrastructure spanning 15 corporate locations. Administered IBM AS/400 (IBM i) systems supporting mission-critical ERP and business applications, and led the operation of a high-availability VoIP network serving 500+ users across 15 remote offices. Oversaw all IT infrastructure operations, providing strategic guidance and reporting directly to the CEO and CFO.",
+        highlights: []
     }
   ],
   education: [
@@ -639,6 +640,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
