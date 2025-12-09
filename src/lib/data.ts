@@ -588,7 +588,7 @@ export const resumeData: ResumeData = {
       company: 'Couristan, Inc.',
       date: 'January 2002 - June 2013',
       location: 'Fort Lee, NJ',
-      description: 'Built and supported corporate VPN, WLAN, AS400, ERP systems, and VOIP network for 500 users across twelve remote offices. Managed all aspects of IT infrastructure reporting to CEO and CFO.',
+      description: 'Built and managed the enterprise LAN, WLAN, and Site-to-Site VPN infrastructure spanning 15 corporate locations. Led the administration of AS/400 systems, ERP platforms, and a high-availability VoIP network supporting over 500 users across 15 remote offices. Oversaw all IT infrastructure operations, delivering strategic guidance and reporting directly to the CEO and CFO.',
       highlights: []
     }
   ],
@@ -639,3 +639,4 @@ export const resumeData: ResumeData = {
 
 
     
+
