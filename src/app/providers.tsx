@@ -12,6 +12,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       defaultTheme="dark"
       enableSystem
       disableTransitionOnChange
+      themes={['light', 'dark']}
     >
       <FirebaseClientProvider>
         <UserPresenceProvider>
