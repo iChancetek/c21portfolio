@@ -19,13 +19,13 @@ export default function ProjectCard({ project, Icon }: ProjectCardProps) {
 
   return (
     <>
-      <Card className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
+      <Card className="group relative flex flex-col h-full overflow-hidden rounded-xl transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
         <div className="flex-grow p-6">
           <div className="mb-4">
             <Icon className="w-10 h-10 text-primary transition-all duration-300 group-hover:text-accent" />
           </div>
-          <h3 className="text-xl font-bold text-slate-50 transition-colors duration-300 group-hover:text-primary-gradient">{project.name}</h3>
-          <p className="mt-2 text-sm text-slate-400">{project.description}</p>
+          <h3 className="text-xl font-bold text-foreground transition-colors duration-300 group-hover:text-primary-gradient">{project.name}</h3>
+          <p className="mt-2 text-sm text-muted-foreground">{project.description}</p>
         </div>
         <div className="p-6 pt-0 mt-auto">
             <div className={cn("flex w-full gap-2", project.hasDemo ? "flex-col sm:flex-row" : "flex-col")}>
