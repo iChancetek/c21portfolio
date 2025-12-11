@@ -112,7 +112,7 @@ export default function LoginPage() {
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-150px)] py-12 px-4">
       <audio ref={audioRef} />
-      <Card className="w-full max-w-md bg-black/30 backdrop-blur-sm border-white/10 shadow-2xl shadow-primary/10">
+      <Card className="w-full max-w-md bg-secondary/30 border-border/20 shadow-2xl shadow-primary/10">
         <CardHeader className="text-center">
           <h1 className="text-3xl font-bold tracking-tighter mb-2 text-primary-gradient">
             {t('loginWelcome')}
@@ -146,7 +146,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={anyLoading}
-                className="bg-black/20 backdrop-blur-sm border-white/10 h-12"
+                className="h-12"
               />
             </div>
             <div className="space-y-2 relative">
@@ -158,7 +158,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={anyLoading}
-                className="bg-black/20 backdrop-blur-sm border-white/10 h-12 pr-10"
+                className="h-12 pr-10"
               />
               <Button
                 type="button"

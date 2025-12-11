@@ -100,7 +100,7 @@ export default function ActiveUsers() {
   };
 
   return (
-    <Card>
+    <Card className="bg-secondary/30 border-border/20">
       <CardHeader>
         <CardTitle>{t('activeUsers')}</CardTitle>
         <CardDescription>{t('activeUsersDescription')}</CardDescription>

@@ -336,7 +336,7 @@ export default function HealthyLivingPage() {
     <>
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] py-12">
         <audio ref={audioRef} />
-        <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10">
+        <Card className="w-full max-w-2xl h-[80vh] flex flex-col shadow-2xl shadow-primary/10 bg-secondary/30 border-border/20">
             <CardHeader>
                 <div className="flex justify-between items-center">
                   <CardTitle className="flex items-center gap-3">
@@ -363,7 +363,7 @@ export default function HealthyLivingPage() {
                         {messages.map((message, index) => (
                         <div key={index} className={cn('flex items-start gap-3', {'justify-end': message.role === 'user'})}>
                             {message.role === 'assistant' && <Avatar className="h-8 w-8"><AvatarFallback className="bg-primary text-primary-foreground"><Bot size={20} /></AvatarFallback></Avatar>}
-                            <div className={cn('rounded-lg p-3 text-sm max-w-[85%]', {'bg-secondary text-secondary-foreground': message.role === 'assistant', 'bg-primary text-primary-foreground': message.role === 'user'})}>
+                            <div className={cn('rounded-lg p-3 text-sm max-w-[85%]', {'bg-background/50': message.role === 'assistant', 'bg-primary text-primary-foreground': message.role === 'user'})}>
                                 {message.content}
                             </div>
                              {message.role === 'assistant' && (
@@ -377,7 +377,7 @@ export default function HealthyLivingPage() {
                         {isResponding && (
                         <div className="flex items-start gap-3">
                             <Avatar className="h-8 w-8"><AvatarFallback className="bg-primary text-primary-foreground"><Bot size={20} /></AvatarFallback></Avatar>
-                            <div className="bg-secondary text-secondary-foreground rounded-lg p-3 text-sm flex items-center"><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('thinking')}</div>
+                            <div className="bg-background/50 rounded-lg p-3 text-sm flex items-center"><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('thinking')}</div>
                         </div>
                         )}
                     </div>

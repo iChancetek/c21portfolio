@@ -96,7 +96,7 @@ export default function AuditLogs() {
   };
 
   return (
-    <Card>
+    <Card className="bg-secondary/30 border-border/20">
       <CardHeader>
         <CardTitle>{t('auditLogs')}</CardTitle>
         <CardDescription>{t('auditLogsDescription')}</CardDescription>

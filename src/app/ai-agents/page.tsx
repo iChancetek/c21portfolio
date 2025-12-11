@@ -99,7 +99,7 @@ export default function AIAgentsPage() {
             </div>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {features.map((feature) => (
-                    <Card key={feature.title} className="bg-card border-none shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-primary/10 hover:-translate-y-2 hover:scale-105">
+                    <Card key={feature.title} className="bg-secondary/30 border-border/20 shadow-lg shadow-primary/5 transition-all duration-300 hover:shadow-primary/10 hover:-translate-y-2 hover:scale-105">
                     <CardHeader>
                         <div className="mb-4">{feature.icon}</div>
                         <CardTitle className="text-xl font-semibold text-foreground">{feature.title}</CardTitle>
@@ -190,7 +190,7 @@ export default function AIAgentsPage() {
                 {specializations.map((skill) => {
                     const IconComponent = skill.icon;
                     return (
-                        <Card key={skill.name} className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 hover:scale-105">
+                        <Card key={skill.name} className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-border/20 bg-secondary/30 p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 hover:scale-105">
                            <div className="flex items-center gap-4">
                              <IconComponent className="w-8 h-8 text-primary" />
                              <h3 className="text-lg font-semibold">{skill.name}</h3>

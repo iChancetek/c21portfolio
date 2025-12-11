@@ -135,7 +135,7 @@ export default function Transcriber() {
   return (
     <section id="transcribe" className="py-16 md:py-24 lg:py-32 bg-background">
       <div className="flex justify-center">
-        <Card className="w-full max-w-xl">
+        <Card className="w-full max-w-xl bg-secondary/30 border-border/20">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold flex items-center justify-center gap-2">
               <Mic className="w-8 h-8 text-primary" /> {t('transcriberTitle')}
@@ -157,7 +157,7 @@ export default function Transcriber() {
             </div>
             
             {audioBlob && (
-                <div className="p-4 bg-secondary rounded-lg border text-center text-sm text-muted-foreground">
+                <div className="p-4 bg-background/50 rounded-lg border text-center text-sm text-muted-foreground">
                     <p>
                         {audioBlob.type.startsWith('audio') ? t('audioReady', {size: (audioBlob.size / 1024).toFixed(2)}) : t('fileSelected', {name: audioBlob.name})}
                     </p>
@@ -179,7 +179,7 @@ export default function Transcriber() {
             {transcription && (
               <div className="mt-6">
                 <h3 className="font-semibold mb-2">{t('transcription')}</h3>
-                <Textarea value={transcription} readOnly className="min-h-[120px] bg-secondary"/>
+                <Textarea value={transcription} readOnly className="min-h-[120px] bg-background/50"/>
               </div>
             )}
           </CardContent>

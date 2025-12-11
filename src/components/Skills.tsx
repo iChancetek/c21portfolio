@@ -30,7 +30,7 @@ export default function Skills() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {skillCategories.map((category) => (
-                        <Card key={category.title} className="group relative flex flex-col h-full overflow-hidden rounded-xl border border-white/10 bg-black/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-2xl hover:shadow-primary/20">
+                        <Card key={category.title} className="group relative flex flex-col h-full overflow-hidden rounded-xl border-border/20 bg-secondary/30 transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20">
                             <CardHeader>
                                 <CardTitle className="text-xl text-primary transition-colors duration-300 group-hover:text-accent">{t(category.title) || category.title}</CardTitle>
                             </CardHeader>

@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AuditLogs from '@/components/AuditLogs';
 import ActiveUsers from '@/components/ActiveUsers';
 import { useLocale } from '@/hooks/useLocale';
+import { cn } from '@/lib/utils';
 
 function AdminDashboardPage() {
   const { isAdmin, isLoading } = useAdmin();
@@ -59,7 +60,7 @@ function AdminDashboardPage() {
             <AuditLogs />
         </TabsContent>
         <TabsContent value="reports">
-            <Card>
+            <Card className="bg-secondary/30 border-border/20">
             <CardHeader>
                 <CardTitle>{t('reporting')}</CardTitle>
                 <CardDescription>

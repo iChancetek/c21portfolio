@@ -336,7 +336,7 @@ export default function AffirmationsPage() {
         </p>
       )}
 
-      <Card className="w-full max-w-2xl min-h-[250px] flex flex-col p-8 bg-black/20 backdrop-blur-sm border-white/10">
+      <Card className="w-full max-w-2xl min-h-[250px] flex flex-col p-8 bg-secondary/30 border-border/20">
         <CardContent className="p-0 flex-grow flex items-center justify-center">
           {isGenerating ? (
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -435,4 +435,3 @@ export default function AffirmationsPage() {
     </div>
   );
 }
-

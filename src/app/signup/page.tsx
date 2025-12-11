@@ -58,7 +58,7 @@ export default function SignupPage() {
 
   return (
     <div className="container flex items-center justify-center py-24">
-      <Card className="w-full max-w-sm">
+      <Card className="w-full max-w-sm bg-secondary/30 border-border/20">
         <CardHeader>
           <CardTitle>{t('createAccount')}</CardTitle>
           <CardDescription>{t('createAccountDescription')}</CardDescription>

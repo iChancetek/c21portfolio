@@ -140,7 +140,7 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <Card className="w-full max-w-3xl mx-auto">
+      <Card className="w-full max-w-3xl mx-auto bg-secondary/30 border-border/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BrainCircuit className="text-primary" />
@@ -174,7 +174,7 @@ export default function DashboardPage() {
             </Button>
           </div>
 
-          <div className="min-h-[300px] bg-secondary rounded-lg p-4 border relative">
+          <div className="min-h-[300px] bg-background/50 rounded-lg p-4 border border-border/20 relative">
             {isGenerating ? (
               <div className="flex items-center justify-center h-full text-muted-foreground">
                 <Loader2 className="h-8 w-8 animate-spin text-primary mr-4" />

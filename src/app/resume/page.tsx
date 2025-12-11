@@ -38,7 +38,7 @@ export default function ResumePage() {
   return (
     <>
       <div className="py-12 md:py-24">
-        <div id="resume-container" className="max-w-4xl mx-auto bg-card/50 rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
+        <div id="resume-container" className="max-w-4xl mx-auto bg-secondary/30 rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
           
           <Button onClick={handlePrint} variant="outline" className="absolute top-6 right-6 print:hidden z-10">
             <Printer className="mr-2 h-4 w-4" />
@@ -73,7 +73,7 @@ export default function ResumePage() {
           <main className="p-8 md:p-12">
             
             <Section title="Professional Summary" icon={Briefcase} delay={0.1}>
-              <p className="text-foreground/80 leading-relaxed bg-secondary/30 p-6 rounded-lg border border-border/20 italic">
+              <p className="text-foreground/80 leading-relaxed bg-background/50 p-6 rounded-lg border border-border/20 italic">
                   {resumeData.summary}
               </p>
             </Section>
@@ -97,7 +97,7 @@ export default function ResumePage() {
 
                       return (
                       <motion.div key={cat.title} className="h-full" whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
-                          <Card className="bg-secondary/30 border-border/20 transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30 flex flex-col h-full">
+                          <Card className="bg-background/50 border-border/20 transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30 flex flex-col h-full">
                               <CardHeader>
                                   <CardTitle className="text-lg text-primary">{cat.title}</CardTitle>
                               </CardHeader>
@@ -135,7 +135,7 @@ export default function ResumePage() {
               <div className="space-y-8">
                 {resumeData.experience.map((job, index) => (
                   <div key={job.company} className="relative">
-                     <div className="bg-secondary/20 p-4 sm:p-6 rounded-lg border border-border/20 hover:border-primary/30 transition-all">
+                     <div className="bg-background/20 p-4 sm:p-6 rounded-lg border border-border/20 hover:border-primary/30 transition-all">
                        <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
                             <h3 className="text-lg sm:text-xl font-semibold text-foreground">{job.title}</h3>
                             <div className="text-xs sm:text-sm text-muted-foreground font-mono mt-1 sm:mt-0">{job.date}</div>
@@ -165,7 +165,7 @@ export default function ResumePage() {
               <div className="space-y-3">
                 {resumeData.education.map(edu => (
                   <motion.div key={edu.course} whileHover={{ x: 5 }} transition={{ type: 'spring', stiffness: 400, damping: 12 }}>
-                       <div className="p-4 bg-secondary/30 rounded-lg border border-border/20">
+                       <div className="p-4 bg-background/50 rounded-lg border border-border/20">
                           <p className="font-semibold text-foreground">{edu.course}</p>
                           <p className="text-sm text-muted-foreground">{edu.institution}</p>
                       </div>
@@ -175,7 +175,7 @@ export default function ResumePage() {
             </Section>
 
              <Section title="Portfolio" icon={LinkIcon} delay={0.6}>
-                  <div className="bg-secondary/30 p-6 rounded-lg border border-border/20 text-center">
+                  <div className="bg-background/50 p-6 rounded-lg border border-border/20 text-center">
                        <p className="text-foreground/80">
                           Explore full projects, skills, AI agents, and interactive demos at:
                           <Link href="https://chancellorminus.com" target="_blank" className="font-semibold text-primary hover:underline ml-2">
@@ -200,5 +200,3 @@ export default function ResumePage() {
     </>
   );
 }
-
-    

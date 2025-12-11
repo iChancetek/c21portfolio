@@ -79,7 +79,7 @@ function FavoriteAffirmations() {
     <ScrollArea className="h-72">
         <ul className="space-y-4">
         {favorites.map((fav) => (
-            <li key={fav.id} className="p-4 bg-secondary/50 rounded-lg flex justify-between items-center">
+            <li key={fav.id} className="p-4 bg-background/50 rounded-lg flex justify-between items-center border border-border/20">
                 <blockquote className="italic text-left">&ldquo;{fav.affirmation}&rdquo;</blockquote>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
@@ -150,7 +150,7 @@ function ProfileContent() {
                     <TabsTrigger value="favorites">{t('myFavorites')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="profile">
-                    <Card>
+                    <Card className="bg-secondary/30 border-border/20">
                         <CardHeader className="text-center">
                             <Avatar className="w-24 h-24 mx-auto mb-4 border-2 border-primary">
                                 <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
@@ -186,7 +186,7 @@ function ProfileContent() {
                     </Card>
                 </TabsContent>
                  <TabsContent value="favorites">
-                    <Card>
+                    <Card className="bg-secondary/30 border-border/20">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2 justify-center">
                                 <Star className="text-primary"/> {t('myFavorites')}
