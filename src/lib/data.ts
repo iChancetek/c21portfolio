@@ -1,6 +1,6 @@
 
 import type { Project, SkillCategory, Venture, VentureIcon, PartnerCompany, ResumeData } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit, Notebook } from "lucide-react";
+import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit, Notebook, GraduationCap } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -69,6 +69,20 @@ export const projects: Project[] = [
 ];
 
 export const allVentures: Venture[] = [
+    {
+        id: 'venture-14',
+        name: "iNavigateAi - Social",
+        description: "AI Powered Social Media Platform",
+        href: "https://inavigateai.us",
+        hasDemo: true,
+    },
+    {
+        id: 'venture-15',
+        name: "iNavigateAi - Math",
+        description: "AI Math Tutor Platform",
+        href: "https://inavigateai.us",
+        hasDemo: true,
+    },
     {
         id: 'venture-13',
         name: "Famio",
@@ -261,6 +275,8 @@ export const ventureIcons: VentureIcon[] = [
     { name: "Nesto Banks", icon: Users },
     { name: "The Potluxe", icon: ShoppingCart },
     { name: "Famio", icon: Users },
+    { name: "iNavigateAi - Social", icon: Share2 },
+    { name: "iNavigateAi - Math", icon: Sigma },
 ];
 
 export const skillCategories: SkillCategory[] = [
@@ -659,3 +675,6 @@ export const resumeData: ResumeData = {
 
 
 
+
+
+    
