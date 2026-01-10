@@ -158,7 +158,7 @@ export const allVentures: Venture[] = [
         name: "Famio.us",
         description: "AI Powered Social Media Platform",
         href: "/projects",
-        hasDemo: false,
+        hasDemo: true,
     },
     {
       id: 'partner-0',
@@ -648,6 +648,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
