@@ -70,8 +70,8 @@ export const projects: Project[] = [
 
 export const allVentures: Venture[] = [
     {
-        id: 'venture-15',
-        name: "iNavigateAi - Math",
+        id: 'venture-14',
+        name: "iNavigateAi",
         description: "AI Math Tutor Platform",
         href: "https://inavigateai.us",
         hasDemo: true,
@@ -268,7 +268,7 @@ export const ventureIcons: VentureIcon[] = [
     { name: "Nesto Banks", icon: Users },
     { name: "The Potluxe", icon: ShoppingCart },
     { name: "Famio", icon: Users },
-    { name: "iNavigateAi - Math", icon: Sigma },
+    { name: "iNavigateAi", icon: Sigma },
 ];
 
 export const skillCategories: SkillCategory[] = [
@@ -667,6 +667,9 @@ export const resumeData: ResumeData = {
 
 
 
+
+
+    
 
 
     
