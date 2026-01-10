@@ -70,13 +70,6 @@ export const projects: Project[] = [
 
 export const allVentures: Venture[] = [
     {
-        id: 'venture-14',
-        name: "iNavigateAi - Social",
-        description: "AI Powered Social Media Platform",
-        href: "https://inavigateai.us",
-        hasDemo: true,
-    },
-    {
         id: 'venture-15',
         name: "iNavigateAi - Math",
         description: "AI Math Tutor Platform",
@@ -275,7 +268,6 @@ export const ventureIcons: VentureIcon[] = [
     { name: "Nesto Banks", icon: Users },
     { name: "The Potluxe", icon: ShoppingCart },
     { name: "Famio", icon: Users },
-    { name: "iNavigateAi - Social", icon: Share2 },
     { name: "iNavigateAi - Math", icon: Sigma },
 ];
 
