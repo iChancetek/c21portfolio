@@ -154,6 +154,13 @@ export const allVentures: Venture[] = [
         hasDemo: true,
     },
     {
+        id: 'venture-13',
+        name: "Famio.us",
+        description: "AI Powered Social Media Platform",
+        href: "/projects",
+        hasDemo: false,
+    },
+    {
       id: 'partner-0',
       name: "Condé Nast",
       description: "Condé Nast is a premier global media company known for producing world-renowned magazines, digital platforms, and branded experiences. The company oversees iconic publications such as Vogue, GQ, Vanity Fair, Wired, Condé Nast Traveler, and The New Yorker. With a large international presence, Condé Nast blends journalism, fashion, culture, technology, and multimedia storytelling. It serves millions of readers worldwide through print, digital, video, and social channels while shaping trends in fashion, luxury, lifestyle, and entertainment.",
@@ -252,7 +259,8 @@ export const ventureIcons: VentureIcon[] = [
     { name: "iHailey", icon: HandHeart },
     { name: "iSkylar", icon: Drama },
     { name: "Nesto Banks", icon: Users },
-    { name: "The Potluxe", icon: ShoppingCart }
+    { name: "The Potluxe", icon: ShoppingCart },
+    { name: "Famio.us", icon: Users },
 ];
 
 export const skillCategories: SkillCategory[] = [
@@ -589,7 +597,7 @@ export const resumeData: ResumeData = {
         company: 'Couristan, Inc.',
         date: 'January 2002 - June 2013',
         location: 'Fort Lee, NJ',
-        description: "Built and managed the enterprise LAN, WLAN, and Site-to-Site VPN infrastructure spanning 15 corporate locations. Administered IBM AS/400 (IBM i) systems supporting mission-critical ERP and business applications, and led the operation of a high-availability VoIP network serving 500+ users across 15 remote offices. Oversaw all IT infrastructure operations, providing strategic guidance and reporting directly to the CEO and CFO.",
+        description: "Administered IBM AS/400 (IBM i) systems supporting mission-critical ERP and business applications, and led the operation of a high-availability VoIP network serving 500+ users across 15 remote offices. Oversaw all IT infrastructure operations, providing strategic guidance and reporting directly to the CEO and CFO.",
         highlights: []
     }
   ],
@@ -640,6 +648,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
