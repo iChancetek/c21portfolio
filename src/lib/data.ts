@@ -71,7 +71,7 @@ export const projects: Project[] = [
 export const allVentures: Venture[] = [
     {
         id: 'venture-13',
-        name: "Famio.us",
+        name: "Famio",
         description: "AI Powered Social Media Platform",
         href: "/projects",
         hasDemo: true,
@@ -260,7 +260,7 @@ export const ventureIcons: VentureIcon[] = [
     { name: "iSkylar", icon: Drama },
     { name: "Nesto Banks", icon: Users },
     { name: "The Potluxe", icon: ShoppingCart },
-    { name: "Famio.us", icon: Users },
+    { name: "Famio", icon: Users },
 ];
 
 export const skillCategories: SkillCategory[] = [
@@ -648,6 +648,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
