@@ -70,6 +70,13 @@ export const projects: Project[] = [
 
 export const allVentures: Venture[] = [
     {
+        id: 'venture-13',
+        name: "Famio.us",
+        description: "AI Powered Social Media Platform",
+        href: "/projects",
+        hasDemo: true,
+    },
+    {
         id: 'venture-1',
         name: "Enterprise AI Agents",
         description: "Enterprise AI that works like your best employee for better customer experiences.",
@@ -151,13 +158,6 @@ export const allVentures: Venture[] = [
         name: "The Potluxe",
         description: "AI-powered luxury product marketplace and social commerce platform.",
         href: "https://ThePotluxe.com",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-13',
-        name: "Famio.us",
-        description: "AI Powered Social Media Platform",
-        href: "/projects",
         hasDemo: true,
     },
     {
@@ -648,6 +648,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
