@@ -144,10 +144,10 @@ export default function Header() {
               AI Agents
             </div>
           </NavLink>
-           <NavLink href="/resume" isProjectLink>
+           <NavLink href="/cv" isProjectLink>
             <div className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
-              Resume
+              CV
             </div>
           </NavLink>
           <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
@@ -202,7 +202,7 @@ export default function Header() {
                 <nav className="flex flex-col gap-6 text-lg">
                     <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>
                      <NavLink href="/ai-agents" isProjectLink>AI Agents</NavLink>
-                    <NavLink href="/resume" isProjectLink>Resume</NavLink>
+                    <NavLink href="/cv" isProjectLink>CV</NavLink>
                     <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
                     <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
                     <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>

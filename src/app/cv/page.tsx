@@ -1,0 +1,212 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Briefcase, Code, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, Printer, Download, Bot, Users, BrainCircuit, Workflow, ShieldCheck } from 'lucide-react';
+import Link from 'next/link';
+import FloatingAIAssistant from '@/components/FloatingAIAssistant';
+import { resumeData, allVentures, ventureIcons } from '@/lib/data';
+import { Separator } from '@/components/ui/separator';
+import CaseStudyModal from '@/components/CaseStudyModal';
+import { useState } from 'react';
+import type { Venture } from '@/lib/types';
+import ProjectCard from '@/components/ProjectCard';
+
+
+const Section = ({ title, icon: Icon, children, delay = 0, className = '' }: { title: string; icon: React.ElementType; children: React.ReactNode; delay?: number, className?: string }) => (
+  <motion.section
+    className={`mb-16 ${className}`}
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.8, delay, ease: [0.25, 1, 0.5, 1] }}
+  >
+    <div className="flex items-center gap-4 mb-8">
+      <Icon className="w-8 h-8 text-primary" />
+      <h2 className="text-3xl font-bold tracking-tight text-primary-gradient">
+        {title}
+      </h2>
+    </div>
+    <div className="space-y-6">{children}</div>
+  </motion.section>
+);
+
+const SkillCard = ({ title, skills, icon: Icon }: { title: string, skills: string[], icon: React.ElementType }) => (
+    <Card className="bg-secondary/30 border-border/20 h-full transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-primary/15 hover:shadow-lg">
+        <CardHeader>
+            <div className="flex items-center gap-3 mb-2">
+                <Icon className="w-6 h-6 text-accent" />
+                <CardTitle className="text-xl">{title}</CardTitle>
+            </div>
+        </CardHeader>
+        <CardContent>
+            <div className="flex flex-wrap gap-2">
+                {skills.map(skill => (
+                    <Badge key={skill} variant="secondary" className="text-sm">{skill}</Badge>
+                ))}
+            </div>
+        </CardContent>
+    </Card>
+);
+
+
+export default function CVPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Venture | null>(null);
+
+  const openModal = (project: Venture) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+  
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const featuredProjects = allVentures.filter(v => ['venture-1', 'venture-2', 'venture-8'].includes(v.id));
+
+  return (
+    <>
+      <div className="py-16 md:py-24 relative overflow-hidden">
+        <div id="cv-container" className="max-w-5xl mx-auto">
+            
+          {/* Header */}
+          <motion.header
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="text-center mb-20 relative"
+          >
+            <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-primary-gradient">
+              {resumeData.name}
+            </h1>
+            <p className="mt-4 text-xl md:text-2xl text-muted-foreground font-light">AI Engineer & Full-Stack Developer</p>
+            <div className="mt-6 flex justify-center items-center flex-wrap gap-x-6 gap-y-3 text-muted-foreground">
+                <a href={`mailto:${resumeData.contact.email}`} className="flex items-center gap-2 hover:text-primary transition-colors"><Mail className="w-4 h-4" /> {resumeData.contact.email}</a>
+                <a href={resumeData.contact.github} target="_blank" className="flex items-center gap-2 hover:text-primary transition-colors"><Github className="w-4 h-4" /> GitHub</a>
+                <Link href={resumeData.contact.portfolio} target="_blank" className="flex items-center gap-2 hover:text-primary transition-colors"><LinkIcon className="w-4 h-4" /> Portfolio</Link>
+            </div>
+            <div className="mt-8">
+                <Button onClick={handlePrint} variant="outline" className="group">
+                    <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
+                    Download PDF
+                </Button>
+            </div>
+          </motion.header>
+
+          <main>
+            <Section title="Professional Summary" icon={Briefcase} delay={0.2}>
+              <p className="text-lg text-foreground/80 leading-relaxed bg-secondary/20 p-8 rounded-xl border border-border/20 shadow-inner">
+                  {resumeData.summary}
+              </p>
+            </Section>
+
+            <Section title="Core Competencies" icon={Star} delay={0.3}>
+               <div className="flex flex-wrap gap-3">
+                  {resumeData.coreCompetencies.map((c, i) => (
+                      <motion.div 
+                        key={c}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true, amount: 0.5 }}
+                        transition={{ duration: 0.5, delay: i * 0.05 }}
+                        whileHover={{ scale: 1.05, y: -2, transition: { duration: 0.2 } }}
+                      >
+                          <Badge variant="secondary" className="text-base py-2 px-5 cursor-default border border-transparent hover:border-primary/50 hover:bg-primary/10 transition-all duration-200">{c}</Badge>
+                      </motion.div>
+                  ))}
+              </div>
+            </Section>
+
+            <Section title="Professional Experience" icon={Briefcase} delay={0.4}>
+              <div className="space-y-12">
+                {resumeData.experience.map((job, index) => (
+                  <motion.div 
+                    key={index} 
+                    className="relative pl-8 border-l-2 border-primary/20"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <div className="absolute -left-[10px] top-1 w-5 h-5 bg-background border-2 border-primary rounded-full"></div>
+                     <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-1">
+                          <h3 className="text-xl font-semibold text-foreground">{job.title}</h3>
+                          <div className="text-sm text-muted-foreground font-mono mt-1 sm:mt-0">{job.date}</div>
+                      </div>
+                      <p className="text-primary font-semibold mb-3">{job.company}</p>
+                      <p className="text-foreground/80 mb-4">{job.description}</p>
+                       {job.highlights.length > 0 && (
+                          <ul className="space-y-2">
+                              {job.highlights.map((h, i) => (
+                                  <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                                      <span className="text-primary font-bold mt-1">▪</span>
+                                      <span>{h}</span>
+                                  </li>
+                              ))}
+                          </ul>
+                      )}
+                  </motion.div>
+                ))}
+              </div>
+            </Section>
+
+            <Section title="Featured Projects" icon={Code} delay={0.5}>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                     {featuredProjects.map((project) => {
+                        const iconData = ventureIcons.find(icon => icon.name === project.name);
+                        const Icon = iconData ? iconData.icon : Users;
+                        return <ProjectCard key={project.id} project={project} Icon={Icon} />
+                    })}
+                </div>
+                <div className="text-center mt-8">
+                    <Button asChild variant="outline">
+                        <Link href="/projects">View All Projects & Ventures</Link>
+                    </Button>
+                </div>
+            </Section>
+
+
+            <Section title="Technical Expertise" icon={Code} delay={0.5}>
+              <div className="grid md:grid-cols-2 gap-6">
+                  <SkillCard title="AI & MLOps" icon={BrainCircuit} skills={['GenAI', 'RAG', 'Fine-Tuning', 'Agentic Workflows', 'Vector DBs', 'MLOps', 'SageMaker', 'Vertex AI', 'LangChain']} />
+                  <SkillCard title="Data & Backend" icon={Briefcase} skills={['Data Engineering', 'ETL/ELT', 'Python', 'Node.js', 'SQL/NoSQL', 'Databricks', 'Airflow', 'Kafka']} />
+                  <SkillCard title="Cloud & DevOps" icon={ShieldCheck} skills={['Multi-Cloud', 'AWS', 'Azure', 'GCP', 'Kubernetes', 'Docker', 'Terraform', 'CI/CD', 'Serverless']} />
+                  <SkillCard title="Frontend" icon={Workflow} skills={['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'ShadCN UI', 'Framer Motion']} />
+              </div>
+            </Section>
+            
+            <Section title="Education" icon={GraduationCap} delay={0.6}>
+              <div className="space-y-4">
+                {resumeData.education.slice(0, 3).map(edu => ( // Show first 3
+                  <div key={edu.course} className="p-4 bg-secondary/30 rounded-lg border border-border/20">
+                      <p className="font-semibold text-foreground">{edu.course}</p>
+                      <p className="text-sm text-muted-foreground">{edu.institution}</p>
+                  </div>
+                ))}
+                <div className="text-center">
+                    <Button asChild variant="link">
+                        <Link href="/resume">View all certifications & courses</Link>
+                    </Button>
+                </div>
+              </div>
+            </Section>
+
+          </main>
+        </div>
+      </div>
+      <FloatingAIAssistant />
+      {selectedProject && isModalOpen && (
+            <CaseStudyModal 
+                isOpen={isModalOpen}
+                onOpenChange={setIsModalOpen}
+                projectId={selectedProject.id}
+                projectTitle={selectedProject.name}
+            />
+        )}
+    </>
+  );
+}
