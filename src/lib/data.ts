@@ -539,7 +539,7 @@ export const resumeData: ResumeData = {
       company: 'iSynera',
       date: 'April 2022 - Present',
       location: 'Houston, TX (Remote Consultant)',
-      description: 'I have experience planning, developing, building, testing, deploying, operating, and monitoring applications and ETL/ELT pipelines independently or in collaboration with a team to move solutions into production. With the advent of AI tools and resources, I am able to perform these steps even more efficiently.',
+      description: 'I have experience planning, developing, building, testing, deploying, operating, and monitoring applications independently or in collaboration with a team to move products into production. With the advent of AI tools and resources, I am able to perform these steps even more efficiently.',
       highlights: [
         'Proficient in implementing governance frameworks, designing networking architectures, and managing cloud databases on AWS, Azure, and GCP.',
         'Engineered AI-powered applications using LLMs (GPT, Claude, Gemini, Llama) with RAG architectures and vector databases (Pinecone, Chroma, S3 Vector)',
@@ -673,4 +673,6 @@ export const resumeData: ResumeData = {
 
 
     
+
+
 
