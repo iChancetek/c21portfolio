@@ -543,6 +543,7 @@ export const resumeData: ResumeData = {
       highlights: [
         'Proficient in implementing governance frameworks, designing networking architectures, and managing cloud databases on AWS, Azure, and GCP.',
         'Engineered AI-powered applications using LLMs (GPT, Claude, Gemini, Llama) with RAG architectures and vector databases (Pinecone, Chroma, S3 Vector)',
+        'Designed and built a full-stack data application from scratch using Replit and Snowflake, featuring interactive dashboards, real-time analytics, and robust data management workflows.',
         'Developed production applications with Azure AI Foundry and AWS Bedrock APIs, integrating Azure OpenAI and OpenAI SDK for intelligent features',
         'Built full-stack AI web applications using React, Next.js, TypeScript, ShadCN UI with Clerk authentication and Stripe payment processing',
         'Leveraged modern AI development platforms including Cursor AI, Vibe Coding, Replit, Firebase Studio AI, and Manus for rapid application development',
@@ -587,10 +588,10 @@ export const resumeData: ResumeData = {
     },
      {
       title: 'Sr. Systems Engineer Manager',
-      company: 'Bravia Capital Partners | Cayenne Pepper Productions',
+      company: "Bravia Capital Partners | Cayenne Pepper Productions",
       date: 'February 2016 - May 2017',
       location: 'New York, NY',
-      description: 'Managed Bravia\'s Virtual Private Network and Hybrid Cloud infrastructure supporting 250 users across New York, Hong Kong, and Japan. Led migration of On-Premises Exchange, SQL, and SharePoint servers to Microsoft 365 and Azure.',
+      description: "Managed Bravia's Virtual Private Network and Hybrid Cloud infrastructure supporting 250 users across New York, Hong Kong, and Japan. Led migration of On-Premises Exchange, SQL, and SharePoint servers to Microsoft 365 and Azure.",
       highlights: []
     },
      {
@@ -674,6 +675,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
