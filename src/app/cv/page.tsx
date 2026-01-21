@@ -69,7 +69,7 @@ export default function CVPage() {
 
   return (
     <>
-      <div className="py-16 md:py-24 relative overflow-hidden">
+      <div className="py-16 md:py-24 relative">
         <div id="cv-container" className="max-w-5xl mx-auto">
             
           {/* Header */}
@@ -89,7 +89,7 @@ export default function CVPage() {
                 <a href={resumeData.contact.github} target="_blank" className="flex items-center gap-2 hover:text-primary transition-colors"><Github className="w-4 h-4" /> GitHub</a>
                 <Link href={resumeData.contact.portfolio} target="_blank" className="flex items-center gap-2 hover:text-primary transition-colors"><LinkIcon className="w-4 h-4" /> Portfolio</Link>
             </div>
-            <div className="mt-8">
+            <div className="mt-8 print:hidden">
                 <Button onClick={handlePrint} variant="outline" className="group">
                     <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
                     Download PDF

@@ -140,52 +140,85 @@
 
 @media print {
   body {
-    background: #fff;
-    color: #000;
+    background: #fff !important;
+    color: #000 !important;
   }
 
-  header, footer, [data-no-print] {
-    display: none;
+  /* Hide non-essential elements for printing */
+  header, footer, [data-no-print], .print\\:hidden {
+    display: none !important;
+  }
+  
+  /* Reset page layout for printing */
+  main, #cv-container, #resume-container {
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  main {
-    padding: 0;
-  }
-
-  #resume-container {
+  /* Ensure containers don't clip content */
+  #cv-container, #resume-container {
     box-shadow: none !important;
     border: none !important;
     backdrop-filter: none !important;
     background: #fff !important;
-    padding: 0;
-  }
-  
-  .print\:hidden {
-    display: none;
+    overflow: visible !important;
   }
 
-  h1, h2, h3, h4, h5, h6, .text-primary, .text-foreground, .text-primary-gradient {
+  /* Reset framer-motion animations and ensure all sections are visible */
+  section {
+    opacity: 1 !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    position: static !important;
+    display: block !important;
+    page-break-inside: avoid;
+  }
+
+  /* General text color reset for readability */
+  h1, h2, h3, h4, h5, h6, p, a, li, span, div, .text-primary, .text-foreground, .text-muted-foreground {
+    color: #000 !important;
+  }
+  
+  .text-primary-gradient {
     color: #000 !important;
     background: none !important;
     -webkit-background-clip: initial !important;
     background-clip: initial !important;
     -webkit-text-fill-color: initial !important;
   }
-  
-  .bg-secondary\/30, .bg-card\/50 {
-     background-color: #f8f9fa !important;
+
+  /* Reset backgrounds to be light and print-friendly */
+  .bg-secondary\\/30, .bg-secondary\\/20, .bg-card\\/50, .bg-background\\/50, .bg-background\\/20, .bg-card, .bg-secondary {
+     background-color: #f0f0f0 !important;
   }
-  
-  .text-muted-foreground {
-    color: #555 !important;
+
+  /* Ensure borders are visible */
+  .border, .border-l-2, .border-border\\/20, .border-primary\\/20, .border-primary\\/50, .border-transparent {
+      border-color: #ccc !important;
   }
-  
-  .badge {
-     background-color: #eee !important;
+
+  /* Style badges for print */
+  .badge, .badge-secondary {
+     background-color: #e9ecef !important;
      color: #333 !important;
-     border: 1px solid #ccc !important;
+     border: 1px solid #dee2e6 !important;
+  }
+  
+  /* Reset specific component colors */
+  .text-accent, .text-primary {
+      color: #000 !important;
+  }
+  
+  .border-primary {
+      border-color: #ccc !important;
+  }
+  
+  .bg-background {
+      background-color: #fff !important;
   }
 }
     
 
     
+
+
