@@ -542,6 +542,7 @@ export const resumeData: ResumeData = {
       description: 'I have experience planning, developing, building, testing, deploying, operating, and monitoring applications independently or in collaboration with a team to move products into production. With the advent of AI tools and resources, I am able to perform these steps even more efficiently. Leading AI/ML engineering initiatives and cloud infrastructure modernization. Building enterprise-grade AI solutions including intelligent chatbots, RAG systems, and AI agents while maintaining scalable data pipelines and DevOps workflows across multi-cloud environments.',
       highlights: [
         'Proficient in implementing governance frameworks, designing networking architectures, and managing cloud databases on AWS, Azure, and GCP.',
+        'Expertly designed and deployed AI-driven applications with Google AntiGravity and built innovative mobile apps using Replit, managing full development lifecycles including rigorous testing and seamless Apple App Store deployment.',
         'Engineered AI-powered applications using LLMs (GPT, Claude, Gemini, Llama) with RAG architectures and vector databases (Pinecone, Chroma, S3 Vector)',
         'Designed and built a full-stack data application from scratch using Replit and Snowflake, featuring interactive dashboards, real-time analytics, and robust data management workflows.',
         'Developed production applications with Azure AI Foundry and AWS Bedrock APIs, integrating Azure OpenAI and OpenAI SDK for intelligent features',
@@ -588,10 +589,10 @@ export const resumeData: ResumeData = {
     },
      {
       title: 'Sr. Systems Engineer Manager',
-      company: "Bravia Capital Partners | Cayenne Pepper Productions",
+      company: 'Bravia Capital Partners | Cayenne Pepper Productions',
       date: 'February 2016 - May 2017',
       location: 'New York, NY',
-      description: "Managed Bravia's Virtual Private Network and Hybrid Cloud infrastructure supporting 250 users across New York, Hong Kong, and Japan. Led migration of On-Premises Exchange, SQL, and SharePoint servers to Microsoft 365 and Azure.",
+      description: 'Managed Bravia\'s Virtual Private Network and Hybrid Cloud infrastructure supporting 250 users across New York, Hong Kong, and Japan. Led migration of On-Premises Exchange, SQL, and SharePoint servers to Microsoft 365 and Azure.',
       highlights: []
     },
      {
@@ -675,6 +676,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
