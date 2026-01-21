@@ -145,7 +145,7 @@
   }
 
   /* Hide non-essential elements for printing */
-  header, footer, [data-no-print], .print\\:hidden {
+  header, footer, [data-no-print], .print\:hidden {
     display: none !important;
   }
   
@@ -188,12 +188,12 @@
   }
 
   /* Reset backgrounds to be light and print-friendly */
-  .bg-secondary\\/30, .bg-secondary\\/20, .bg-card\\/50, .bg-background\\/50, .bg-background\\/20, .bg-card, .bg-secondary {
+  .bg-secondary\/30, .bg-secondary\/20, .bg-card\/50, .bg-background\/50, .bg-background\/20, .bg-card, .bg-secondary {
      background-color: #f0f0f0 !important;
   }
 
   /* Ensure borders are visible */
-  .border, .border-l-2, .border-border\\/20, .border-primary\\/20, .border-primary\\/50, .border-transparent {
+  .border, .border-l-2, .border-border\/20, .border-primary\/20, .border-primary\/50, .border-transparent {
       border-color: #ccc !important;
   }
 
@@ -220,5 +220,6 @@
     
 
     
+
 
 
