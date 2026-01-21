@@ -144,42 +144,51 @@
     color: #000 !important;
   }
 
-  /* Hide non-essential elements for printing */
+  /* Hide non-essential elements */
   header, footer, [data-no-print], .print\:hidden {
     display: none !important;
   }
-  
-  /* Reset page layout for printing */
+
+  /* Reset page layout */
   main, #cv-container, #resume-container {
     padding: 0 !important;
     margin: 0 !important;
+    max-width: 100% !important;
   }
-
-  /* Ensure containers don't clip content */
+  
+  /* Ensure containers don't clip content and have no special styling */
   #cv-container, #resume-container {
-    box-shadow: none !important;
     border: none !important;
-    backdrop-filter: none !important;
-    background: #fff !important;
     overflow: visible !important;
   }
 
-  /* Reset framer-motion animations and ensure all sections are visible */
-  section {
-    opacity: 1 !important;
+  /* Universal reset for animations and visibility for printing */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
     transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
     -webkit-transform: none !important;
-    position: static !important;
-    display: block !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background-image: none !important;
+  }
+  
+  section {
     page-break-inside: avoid;
   }
-
-  /* General text color reset for readability */
+  
+  /* General text color reset */
   h1, h2, h3, h4, h5, h6, p, a, li, span, div, .text-primary, .text-foreground, .text-muted-foreground {
     color: #000 !important;
   }
   
-  .text-primary-gradient {
+  .text-primary-gradient, .text-transparent {
     color: #000 !important;
     background: none !important;
     -webkit-background-clip: initial !important;
@@ -187,13 +196,14 @@
     -webkit-text-fill-color: initial !important;
   }
 
-  /* Reset backgrounds to be light and print-friendly */
-  .bg-secondary\/30, .bg-secondary\/20, .bg-card\/50, .bg-background\/50, .bg-background\/20, .bg-card, .bg-secondary {
-     background-color: #f0f0f0 !important;
+  /* Reset backgrounds */
+  body, .bg-card, .bg-secondary, .bg-background, [class*="bg-"] {
+     background-color: #fff !important;
+     background: #fff !important;
   }
 
-  /* Ensure borders are visible */
-  .border, .border-l-2, .border-border\/20, .border-primary\/20, .border-primary\/50, .border-transparent {
+  /* Reset borders */
+  .border, .border-l-2, [class*="border-"] {
       border-color: #ccc !important;
   }
 
@@ -203,23 +213,11 @@
      color: #333 !important;
      border: 1px solid #dee2e6 !important;
   }
-  
-  /* Reset specific component colors */
-  .text-accent, .text-primary {
-      color: #000 !important;
-  }
-  
-  .border-primary {
-      border-color: #ccc !important;
-  }
-  
-  .bg-background {
-      background-color: #fff !important;
-  }
 }
     
 
     
+
 
 
 
