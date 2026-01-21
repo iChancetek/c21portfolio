@@ -38,7 +38,7 @@ export default function ResumePage() {
   return (
     <>
       <div className="py-12 md:py-24">
-        <div id="resume-container" className="max-w-4xl mx-auto bg-secondary/30 rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
+        <div id="resume-container" className="max-w-4xl mx-auto bg-card/50 rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
           
           <Button onClick={handlePrint} variant="outline" className="absolute top-6 right-6 print:hidden z-10">
             <Printer className="mr-2 h-4 w-4" />
@@ -134,7 +134,7 @@ export default function ResumePage() {
             <Section title="Professional Experience" icon={Briefcase} delay={0.4}>
               <div className="space-y-8">
                 {resumeData.experience.map((job, index) => (
-                  <div key={job.company} className="relative">
+                  <div key={index} className="relative">
                      <div className="bg-background/20 p-4 sm:p-6 rounded-lg border border-border/20 hover:border-primary/30 transition-all">
                        <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
                             <h3 className="text-lg sm:text-xl font-semibold text-foreground">{job.title}</h3>
