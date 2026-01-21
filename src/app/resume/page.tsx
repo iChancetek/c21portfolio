@@ -38,7 +38,7 @@ export default function ResumePage() {
   return (
     <>
       <div className="py-12 md:py-24">
-        <div id="resume-container" className="max-w-4xl mx-auto bg-card/50 rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
+        <div id="resume-container" className="max-w-4xl mx-auto bg-card rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
           
           <Button onClick={handlePrint} variant="outline" className="absolute top-6 right-6 print:hidden z-10">
             <Printer className="mr-2 h-4 w-4" />
