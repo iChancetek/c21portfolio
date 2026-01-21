@@ -70,17 +70,17 @@ export const projects: Project[] = [
 
 export const allVentures: Venture[] = [
     {
-        id: 'venture-14',
-        name: "iNavigateAi",
-        description: "AI Math Tutor Platform",
-        href: "https://inavigateai.us",
-        hasDemo: true,
-    },
-    {
         id: 'venture-13',
         name: "Famio",
         description: "AI Powered Social Media Platform",
         href: "/projects",
+        hasDemo: true,
+    },
+    {
+        id: 'venture-14',
+        name: "iNavigateAi",
+        description: "AI Math Tutor Platform",
+        href: "https://inavigateai.us",
         hasDemo: true,
     },
     {
@@ -255,8 +255,8 @@ export const allVentures: Venture[] = [
 ];
 
 export const ventureIcons: VentureIcon[] = [
-    { name: "iNavigateAi", icon: Sigma },
     { name: "Famio", icon: Users },
+    { name: "iNavigateAi", icon: Sigma },
     { name: "Enterprise AI Agents", icon: Briefcase },
     { name: "ChanceTEK Health", icon: HeartPulse },
     { name: "iQMarketing", icon: Search },
@@ -539,7 +539,7 @@ export const resumeData: ResumeData = {
       company: 'iSynera',
       date: 'April 2022 - Present',
       location: 'Houston, TX (Remote Consultant)',
-      description: 'I have experience planning, developing, building, testing, deploying, operating, and monitoring applications independently or in collaboration with a team to move products into production. With the advent of AI tools and resources, I am able to perform these steps even more efficiently. Leading AI/ML engineering initiatives and cloud infrastructure modernization. Building enterprise-grade AI solutions including intelligent chatbots, RAG systems, and AI agents while maintaining scalable data pipelines and DevOps workflows across multi-cloud environments.',
+      description: 'I have experience planning, developing, building, testing, deploying, operating, and monitoring applications and ETL/ELT pipelines independently or in collaboration with a team to move solutions into production. With the advent of AI tools and resources, I am able to perform these steps even more efficiently.',
       highlights: [
         'Proficient in implementing governance frameworks, designing networking architectures, and managing cloud databases on AWS, Azure, and GCP.',
         'Engineered AI-powered applications using LLMs (GPT, Claude, Gemini, Llama) with RAG architectures and vector databases (Pinecone, Chroma, S3 Vector)',
@@ -673,3 +673,4 @@ export const resumeData: ResumeData = {
 
 
     
+
