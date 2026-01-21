@@ -556,7 +556,8 @@ export const resumeData: ResumeData = {
         'Developed backend APIs with Python (FastAPI, Flask, Django) and Node.js for AI model integration',
         'Tested and debugged APIs using Postman and Insomnia for comprehensive validation and documentation',
         'Integrated streaming data solutions with Kafka and Kinesis for real-time analytics dashboards',
-        'Experienced in using Python libraries such as NumPy, Pandas, Matplotlib, Seaborn, and Scikit-learn for data manipulation, analysis, visualization, and machine learning'
+        'Experienced in using Python libraries such as NumPy, Pandas, Matplotlib, Seaborn, and Scikit-learn for data manipulation, analysis, visualization, and machine learning',
+        'Experienced in designing and deploying blockchain and Web3 solutions, with expertise in Solidity smart contract development, decentralized applications (dApps), and multi-chain systems, integrated with modern cloud and data platforms'
       ]
     },
     {
@@ -673,6 +674,7 @@ export const resumeData: ResumeData = {
 
 
     
+
 
 
 
