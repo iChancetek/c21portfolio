@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star, Bot, FileText } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star, Bot, FileText, ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
@@ -144,12 +144,23 @@ export default function Header() {
               AI Agents
             </div>
           </NavLink>
-           <NavLink href="/resume" isProjectLink>
-            <div className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              Resume
-            </div>
-          </NavLink>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+               <Button variant="ghost" className="p-0 h-auto font-semibold text-foreground text-sm flex items-center gap-1 hover:text-foreground/80 focus-visible:ring-0">
+                <FileText className="h-4 w-4" />
+                Resume / CV
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => router.push('/resume')}>
+                Resume
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push('/cv')}>
+                CV
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
           <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
           <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
@@ -203,6 +214,7 @@ export default function Header() {
                     <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>
                      <NavLink href="/ai-agents" isProjectLink>AI Agents</NavLink>
                     <NavLink href="/resume" isProjectLink>Resume</NavLink>
+                    <NavLink href="/cv" isProjectLink>CV</NavLink>
                     <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
                     <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
                     <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
