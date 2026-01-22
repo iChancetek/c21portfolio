@@ -10,11 +10,12 @@ import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import { resumeData } from '@/lib/data';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { cn } from '@/lib/utils';
 
 
-const Section = ({ title, icon: Icon, children, delay }: { title: string; icon: React.ElementType; children: React.ReactNode; delay: number; }) => (
+const Section = ({ title, icon: Icon, children, delay, className }: { title: string; icon: React.ElementType; children: React.ReactNode; delay: number; className?: string; }) => (
   <motion.section
-    className="mb-12"
+    className={cn("mb-12", className)}
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.2 }}
@@ -40,7 +41,7 @@ export default function ResumePage() {
         <div id="resume-container" className="max-w-4xl mx-auto bg-card rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
           
           <header className="p-10 text-center relative overflow-hidden">
-              <div className="absolute inset-0 -z-10 bg-primary-gradient/10 opacity-50 blur-2xl"></div>
+              <div className="absolute inset-0 -z-10 bg-primary-gradient/10 opacity-50 blur-2xl print:hidden"></div>
               <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -78,7 +79,7 @@ export default function ResumePage() {
               </p>
             </Section>
 
-            <Section title="Core Competencies" icon={Star} delay={0.2}>
+            <Section title="Core Competencies" icon={Star} delay={0.2} className="print:hidden">
                <div className="flex flex-wrap gap-3">
                   {resumeData.coreCompetencies.map(c => (
                       <motion.div key={c} whileHover={{ scale: 1.05 }} transition={{ type: 'spring', stiffness: 400, damping: 10 }}>
@@ -88,7 +89,7 @@ export default function ResumePage() {
               </div>
             </Section>
 
-            <Section title="Technical Expertise" icon={Code} delay={0.3}>
+            <Section title="Technical Expertise" icon={Code} delay={0.3} className="print:hidden">
               <div className="grid md:grid-cols-2 gap-6">
                   {resumeData.technicalExpertise.map(cat => {
                       const maxLength = 150;
@@ -161,7 +162,7 @@ export default function ResumePage() {
               </div>
             </Section>
             
-            <Section title="Education & Courses" icon={GraduationCap} delay={0.5}>
+            <Section title="Education & Courses" icon={GraduationCap} delay={0.5} className="print:hidden">
               <div className="space-y-3">
                 {resumeData.education.map(edu => (
                   <motion.div key={edu.course} whileHover={{ x: 5 }} transition={{ type: 'spring', stiffness: 400, damping: 12 }}>
@@ -174,7 +175,7 @@ export default function ResumePage() {
               </div>
             </Section>
 
-             <Section title="Portfolio" icon={LinkIcon} delay={0.6}>
+             <Section title="Portfolio" icon={LinkIcon} delay={0.6} className="print:hidden">
                   <div className="bg-background/50 p-6 rounded-lg border border-border/20 text-center">
                        <p className="text-foreground/80">
                           Explore full projects, skills, AI agents, and interactive demos at:
