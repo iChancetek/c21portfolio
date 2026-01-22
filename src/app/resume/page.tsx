@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Briefcase, Code, Cloud, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, Building, Printer, BookOpen } from 'lucide-react';
+import { Briefcase, Code, Cloud, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, Building, BookOpen, Download } from 'lucide-react';
 import Link from 'next/link';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import { resumeData } from '@/lib/data';
@@ -39,11 +39,6 @@ export default function ResumePage() {
       <div className="py-12 md:py-24">
         <div id="resume-container" className="max-w-4xl mx-auto bg-card rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
           
-          <Button onClick={handlePrint} variant="outline" className="absolute top-6 right-6 print:hidden z-10">
-            <Printer className="mr-2 h-4 w-4" />
-            Print
-          </Button>
-
           <header className="p-10 text-center relative overflow-hidden">
               <div className="absolute inset-0 -z-10 bg-primary-gradient/10 opacity-50 blur-2xl"></div>
               <motion.div
@@ -65,6 +60,12 @@ export default function ResumePage() {
                           <LinkIcon className="w-4 h-4" /> Portfolio
                       </Link>
                   </div>
+                   <div className="mt-8 print:hidden">
+                    <Button onClick={handlePrint} variant="outline" className="group">
+                        <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
+                        Download PDF
+                    </Button>
+                </div>
               </motion.div>
           </header>
 
