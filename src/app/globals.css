@@ -217,12 +217,12 @@
   /* Resume-specific print styles for compactness */
   #resume-container header {
     padding: 0 !important;
-    margin-bottom: 2rem !important;
+    margin-bottom: 1.5rem !important;
     text-align: center !important;
   }
   
   #resume-container h1 {
-    font-size: 28pt !important;
+    font-size: 26pt !important;
   }
 
   #resume-container header div {
@@ -232,31 +232,35 @@
   }
 
   #resume-container h2 {
-    font-size: 14pt !important;
-    margin-bottom: 1rem !important;
-    padding-bottom: 0.25rem !important;
+    font-size: 13pt !important;
+    margin-bottom: 0.5rem !important;
+    padding-bottom: 0.2rem !important;
     border-bottom: 1px solid #ccc !important;
   }
 
   #resume-container h3 {
-    font-size: 12pt !important;
+    font-size: 11pt !important;
   }
   
   #resume-container .space-y-8 > * + * {
-    margin-top: 1rem !important;
+    margin-top: 0.75rem !important;
   }
 
   #resume-container p, #resume-container li {
-    font-size: 10pt !important;
-    line-height: 1.4;
+    font-size: 9.5pt !important;
+    line-height: 1.35;
   }
   
   #resume-container .p-8, #resume-container .p-6, #resume-container .p-4, #resume-container .p-10, #resume-container .p-12 {
     padding: 0 !important;
   }
 
-  #resume-container .mb-12, #resume-container .mb-6 {
-    margin-bottom: 1.5rem !important;
+  #resume-container .mb-12 {
+    margin-bottom: 1.25rem !important;
+  }
+  
+  #resume-container .mb-6 {
+     margin-bottom: 0.75rem !important;
   }
 
   #resume-container .space-y-2 > * + * {
@@ -265,5 +269,11 @@
   
    #resume-container .space-y-3 > * + * {
     margin-top: 0.5rem !important;
+  }
+
+  /* Hide specific sections on resume print */
+  #resume-container .print\:hidden,
+  #resume-container [data-no-print="true"] {
+      display: none !important;
   }
 }
