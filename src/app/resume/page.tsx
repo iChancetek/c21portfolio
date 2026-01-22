@@ -4,14 +4,17 @@ import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Briefcase, Code, Cloud, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, Building, BookOpen, Download } from 'lucide-react';
+import { Briefcase, Code, Cloud, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, Building, BookOpen, Download, Volume2, Play, Pause, Loader2, StopCircle } from 'lucide-react';
 import Link from 'next/link';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import { resumeData } from '@/lib/data';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 
+type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
 const Section = ({ title, icon: Icon, children, delay, className }: { title: string; icon: React.ElementType; children: React.ReactNode; delay: number; className?: string; }) => (
   <motion.section
@@ -31,9 +34,84 @@ const Section = ({ title, icon: Icon, children, delay, className }: { title: str
 
 
 export default function ResumePage() {
+  const [audioState, setAudioState] = useState<AudioState>('idle');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const handlePrint = () => {
     window.print();
   };
+
+  const stopPlayback = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    setAudioState('idle');
+  }, []);
+
+  const handleReadAloud = async () => {
+    if (audioState === 'playing') {
+      audioRef.current?.pause();
+      setAudioState('paused');
+      return;
+    }
+
+    if (audioState === 'paused' && audioRef.current) {
+      audioRef.current.play();
+      setAudioState('playing');
+      return;
+    }
+
+    if (audioState === 'idle') {
+      setAudioState('loading');
+      try {
+        const mainContent = document.getElementById('resume-container');
+        if (!mainContent) {
+          console.error("Resume container not found");
+          setAudioState('idle');
+          return;
+        }
+
+        const contentClone = mainContent.cloneNode(true) as HTMLElement;
+        contentClone.querySelectorAll('button, a, [data-no-read="true"], .print\\:hidden').forEach(el => el.remove());
+        
+        const textToRead = contentClone.innerText.replace(/Download PDF/g, '');
+
+        const { audioDataUri } = await textToSpeech({ text: textToRead, voice: 'nova' });
+        if (audioRef.current) {
+          audioRef.current.src = audioDataUri;
+          audioRef.current.play().catch(() => setAudioState('idle'));
+          setAudioState('playing');
+        }
+      } catch (error) {
+        console.error('Failed to generate speech:', error);
+        setAudioState('idle');
+      }
+    }
+  };
+
+  useEffect(() => {
+    audioRef.current = new Audio();
+    const audioElement = audioRef.current;
+    
+    const onEnded = () => setAudioState('idle');
+    audioElement.addEventListener('ended', onEnded);
+
+    return () => {
+      stopPlayback();
+      audioElement?.removeEventListener('ended', onEnded);
+    };
+  }, [stopPlayback]);
+  
+  const getReadAloudIcon = () => {
+    switch (audioState) {
+        case 'loading': return <Loader2 className="mr-2 h-4 w-4 animate-spin" />;
+        case 'playing': return <Pause className="mr-2 h-4 w-4" />;
+        case 'paused': return <Play className="mr-2 h-4 w-4" />;
+        default: return <Volume2 className="mr-2 h-4 w-4" />;
+    }
+  };
+
 
   return (
     <>
@@ -61,11 +139,20 @@ export default function ResumePage() {
                           <LinkIcon className="w-4 h-4" /> Portfolio
                       </Link>
                   </div>
-                   <div className="mt-8 print:hidden">
+                   <div className="mt-8 print:hidden flex justify-center gap-2" data-no-read="true">
                     <Button onClick={handlePrint} variant="outline" className="group">
                         <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
                         Download PDF
                     </Button>
+                     <Button onClick={handleReadAloud} variant="outline" className="group" disabled={audioState === 'loading'}>
+                        {getReadAloudIcon()}
+                        {audioState === 'playing' ? 'Pause' : 'Read Aloud'}
+                    </Button>
+                    {audioState !== 'idle' && (
+                        <Button onClick={stopPlayback} variant="outline" className="group">
+                            <StopCircle className="mr-2 h-4 w-4" /> Stop
+                        </Button>
+                    )}
                 </div>
               </motion.div>
           </header>

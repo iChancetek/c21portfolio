@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import SiteReader from '@/components/SiteReader';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
@@ -31,7 +30,6 @@ export default function RootLayout({
             <main id="main-content" className="flex-1 container">{children}</main>
             <Footer />
             <Toaster />
-            <SiteReader />
         </Providers>
       </body>
     </html>
