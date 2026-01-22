@@ -57,7 +57,10 @@ const SkillCard = ({ title, skills, icon: Icon }: { title: string, skills: strin
 export default function CVPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Venture | null>(null);
+
   const [audioState, setAudioState] = useState<AudioState>('idle');
+  const [audioQueue, setAudioQueue] = useState<string[]>([]);
+  const [currentAudioIndex, setCurrentAudioIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const openModal = (project: Venture) => {
@@ -75,6 +78,54 @@ export default function CVPage() {
       audioRef.current.currentTime = 0;
     }
     setAudioState('idle');
+    setAudioQueue([]);
+    setCurrentAudioIndex(0);
+  }, []);
+
+  const playNextChunk = useCallback(async () => {
+    if (currentAudioIndex >= audioQueue.length) {
+      stopPlayback();
+      return;
+    }
+    setAudioState('loading');
+    try {
+      const { audioDataUri } = await textToSpeech({ text: audioQueue[currentAudioIndex], voice: 'nova' });
+      if (audioRef.current) {
+        audioRef.current.src = audioDataUri;
+        audioRef.current.play().catch((e) => {
+            console.error("Audio playback failed:", e);
+            stopPlayback();
+        });
+        setAudioState('playing');
+      }
+    } catch (error) {
+      console.error('Failed to generate speech for chunk:', error);
+      stopPlayback();
+    }
+  }, [currentAudioIndex, audioQueue, stopPlayback]);
+
+  useEffect(() => {
+    if (audioQueue.length > 0 && currentAudioIndex < audioQueue.length && audioState !== 'playing' && audioState !== 'paused') {
+        playNextChunk();
+    }
+  }, [audioQueue, currentAudioIndex, playNextChunk, audioState]);
+  
+  useEffect(() => {
+    audioRef.current = new Audio();
+    const audioElement = audioRef.current;
+    
+    const onEnded = () => {
+        setCurrentAudioIndex(prev => prev + 1);
+    };
+
+    audioElement.addEventListener('ended', onEnded);
+
+    return () => {
+      audioElement?.removeEventListener('ended', onEnded);
+      if (audioRef.current) {
+          audioRef.current.pause();
+      }
+    };
   }, []);
 
   const handleReadAloud = async () => {
@@ -91,45 +142,40 @@ export default function CVPage() {
     }
 
     if (audioState === 'idle') {
-      setAudioState('loading');
-      try {
-        const mainContent = document.getElementById('cv-container');
-        if (!mainContent) {
-          console.error("CV container not found");
-          setAudioState('idle');
-          return;
-        }
-
-        const contentClone = mainContent.cloneNode(true) as HTMLElement;
-        contentClone.querySelectorAll('button, a, [data-no-read="true"], .print\\:hidden').forEach(el => el.remove());
-        
-        const textToRead = contentClone.innerText.replace(/Download PDF/g, '');
-
-        const { audioDataUri } = await textToSpeech({ text: textToRead, voice: 'nova' });
-        if (audioRef.current) {
-          audioRef.current.src = audioDataUri;
-          audioRef.current.play().catch(() => setAudioState('idle'));
-          setAudioState('playing');
-        }
-      } catch (error) {
-        console.error('Failed to generate speech:', error);
-        setAudioState('idle');
+      const mainContent = document.getElementById('cv-container');
+      if (!mainContent) {
+        console.error("CV container not found");
+        return;
       }
+
+      const contentClone = mainContent.cloneNode(true) as HTMLElement;
+      contentClone.querySelectorAll('button, a, [data-no-read="true"], .print\\:hidden').forEach(el => el.remove());
+      
+      const textToRead = contentClone.innerText.replace(/Download PDF/g, '').trim();
+
+      const chunkText = (text: string, maxLength = 4000): string[] => {
+          const chunks: string[] = [];
+          while (text.length > 0) {
+              if (text.length <= maxLength) {
+                  chunks.push(text);
+                  break;
+              }
+              let chunk = text.substring(0, maxLength);
+              const lastSpace = chunk.lastIndexOf(' ');
+              if (lastSpace !== -1) {
+                  chunk = chunk.substring(0, lastSpace);
+              }
+              chunks.push(chunk);
+              text = text.substring(chunk.length).trim();
+          }
+          return chunks;
+      };
+
+      const chunks = chunkText(textToRead);
+      setAudioQueue(chunks);
+      setCurrentAudioIndex(0);
     }
   };
-  
-  useEffect(() => {
-    audioRef.current = new Audio();
-    const audioElement = audioRef.current;
-    
-    const onEnded = () => setAudioState('idle');
-    audioElement.addEventListener('ended', onEnded);
-
-    return () => {
-      stopPlayback();
-      audioElement?.removeEventListener('ended', onEnded);
-    };
-  }, [stopPlayback]);
   
   const getReadAloudIcon = () => {
     switch (audioState) {
