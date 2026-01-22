@@ -147,8 +147,6 @@
   body {
     background: #fff !important;
     color: #000 !important;
-    font-size: 10pt;
-    line-height: 1.3;
   }
 
   /* Hide non-essential elements */
@@ -185,11 +183,6 @@
     text-shadow: none !important;
     background-image: none !important;
   }
-  
-  section {
-    page-break-inside: avoid;
-    margin-bottom: 0.5in !important;
-  }
 
   /* General text color reset */
   h1, h2, h3, h4, h5, h6, p, a, li, span, div, .text-primary, .text-foreground, .text-muted-foreground {
@@ -213,37 +206,62 @@
   .border, .border-l-2, [class*="border-"] {
       border-color: #ccc !important;
   }
-  
+
+  /* --- CV Page: Keep original print behavior --- */
+  #cv-container section {
+    page-break-inside: avoid;
+    margin-bottom: 0.5in !important;
+  }
+
+  /* --- Resume Page Print Optimizations --- */
+  #resume-container {
+    font-size: 9.5pt !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Allow sections to break, but reduce space between them */
+  #resume-container section {
+    page-break-inside: auto !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Keep individual job experiences from splitting across pages */
+  #resume-container .space-y-8 > div {
+    page-break-inside: avoid !important;
+  }
+
   /* Resume-specific print styles for compactness */
   #resume-container header {
     padding: 0 !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1rem !important;
     text-align: center !important;
   }
-  
+
   #resume-container h1 {
-    font-size: 26pt !important;
+    font-size: 24pt !important;
   }
 
   #resume-container header div {
-    font-size: 10pt !important;
+    font-size: 9.5pt !important;
     gap: 1rem !important;
     justify-content: center !important;
   }
 
   #resume-container h2 {
-    font-size: 13pt !important;
-    margin-bottom: 0.5rem !important;
+    font-size: 12pt !important;
+    margin-top: 0 !important; /* Remove top margin */
+    margin-bottom: 0.4rem !important;
     padding-bottom: 0.2rem !important;
     border-bottom: 1px solid #ccc !important;
   }
 
   #resume-container h3 {
-    font-size: 11pt !important;
+    font-size: 10.5pt !important;
   }
   
+  /* Space between job items */
   #resume-container .space-y-8 > * + * {
-    margin-top: 0.75rem !important;
+    margin-top: 0.6rem !important;
   }
 
   #resume-container p, #resume-container li {
@@ -251,28 +269,28 @@
     line-height: 1.35;
   }
   
+  /* Resetting paddings from tailwind classes */
   #resume-container .p-8, #resume-container .p-6, #resume-container .p-4, #resume-container .p-10, #resume-container .p-12 {
     padding: 0 !important;
   }
-
-  #resume-container .mb-12 {
-    margin-bottom: 1.25rem !important;
-  }
   
-  #resume-container .mb-6 {
-     margin-bottom: 0.75rem !important;
+  #resume-container .mb-12, #resume-container .mb-6 {
+     margin-bottom: 0 !important;
+  }
+   
+  #resume-container h2 {
+      margin-top: 0.75rem; /* Add a bit of space before section titles */
   }
 
   #resume-container .space-y-2 > * + * {
     margin-top: 0.2rem !important;
   }
   
-   #resume-container .space-y-3 > * + * {
-    margin-top: 0.5rem !important;
+  #resume-container .space-y-3 > * + * {
+    margin-top: 0.4rem !important;
   }
 
   /* Hide specific sections on resume print */
-  #resume-container .print\:hidden,
   #resume-container [data-no-print="true"] {
       display: none !important;
   }
