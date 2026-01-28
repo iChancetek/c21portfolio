@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,7 +7,6 @@ import { Briefcase, Code, Mail, MapPin, Phone, Github, Link as LinkIcon, Graduat
 import Link from 'next/link';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import { resumeData, allVentures, ventureIcons } from '@/lib/data';
-import { Separator } from '@/components/ui/separator';
 import CaseStudyModal from '@/components/CaseStudyModal';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import type { Venture } from '@/lib/types';
@@ -17,14 +15,8 @@ import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
-const Section = ({ title, icon: Icon, children, delay = 0, className = '' }: { title: string; icon: React.ElementType; children: React.ReactNode; delay?: number, className?: string }) => (
-  <motion.section
-    className={`mb-16 ${className}`}
-    initial={{ opacity: 0, y: 40 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.2 }}
-    transition={{ duration: 0.8, delay, ease: [0.25, 1, 0.5, 1] }}
-  >
+const Section = ({ title, icon: Icon, children, className = '' }: { title: string; icon: React.ElementType; children: React.ReactNode; className?: string }) => (
+  <section className={`mb-16 ${className}`}>
     <div className="flex items-center gap-4 mb-8">
       <Icon className="w-8 h-8 text-primary" />
       <h2 className="text-3xl font-bold tracking-tight text-primary-gradient">
@@ -32,7 +24,7 @@ const Section = ({ title, icon: Icon, children, delay = 0, className = '' }: { t
       </h2>
     </div>
     <div className="space-y-6">{children}</div>
-  </motion.section>
+  </section>
 );
 
 const SkillCard = ({ title, skills, icon: Icon }: { title: string, skills: string[], icon: React.ElementType }) => (
@@ -194,10 +186,7 @@ export default function CVPage() {
         <div id="cv-container" className="max-w-5xl mx-auto">
             
           {/* Header */}
-          <motion.header
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+          <header
             className="text-center mb-20 relative"
           >
             <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10"></div>
@@ -225,42 +214,29 @@ export default function CVPage() {
                     </Button>
                 )}
             </div>
-          </motion.header>
+          </header>
 
           <main>
-            <Section title="Professional Summary" icon={Briefcase} delay={0.2}>
+            <Section title="Professional Summary" icon={Briefcase}>
               <p className="text-lg text-foreground/80 leading-relaxed bg-secondary/20 p-8 rounded-xl border border-border/20 shadow-inner">
                   {resumeData.summary}
               </p>
             </Section>
 
-            <Section title="Core Competencies" icon={Star} delay={0.3}>
+            <Section title="Core Competencies" icon={Star}>
                <div className="flex flex-wrap gap-3">
-                  {resumeData.coreCompetencies.map((c, i) => (
-                      <motion.div 
-                        key={c}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true, amount: 0.5 }}
-                        transition={{ duration: 0.5, delay: i * 0.05 }}
-                        whileHover={{ scale: 1.05, y: -2, transition: { duration: 0.2 } }}
-                      >
-                          <Badge variant="secondary" className="text-base py-2 px-5 cursor-default border border-transparent hover:border-primary/50 hover:bg-primary/10 transition-all duration-200">{c}</Badge>
-                      </motion.div>
+                  {resumeData.coreCompetencies.map((c) => (
+                    <Badge key={c} variant="secondary" className="text-base py-2 px-5 cursor-default border border-transparent hover:border-primary/50 hover:bg-primary/10 transition-all duration-200">{c}</Badge>
                   ))}
               </div>
             </Section>
 
-            <Section title="Professional Experience" icon={Briefcase} delay={0.4}>
+            <Section title="Professional Experience" icon={Briefcase}>
               <div className="space-y-12">
                 {resumeData.experience.map((job, index) => (
-                  <motion.div 
+                  <div
                     key={index} 
                     className="relative pl-8 border-l-2 border-primary/20"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
                     <div className="absolute -left-[10px] top-1 w-5 h-5 bg-background border-2 border-primary rounded-full"></div>
                      <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-1">
@@ -279,12 +255,12 @@ export default function CVPage() {
                               ))}
                           </ul>
                       )}
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </Section>
 
-            <Section title="Featured Projects" icon={Code} delay={0.5}>
+            <Section title="Featured Projects" icon={Code}>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                      {featuredProjects.map((project) => {
                         const iconData = ventureIcons.find(icon => icon.name === project.name);
@@ -300,7 +276,7 @@ export default function CVPage() {
             </Section>
 
 
-            <Section title="Technical Expertise" icon={Code} delay={0.5}>
+            <Section title="Technical Expertise" icon={Code}>
               <div className="grid md:grid-cols-2 gap-6">
                   <SkillCard title="AI & MLOps" icon={BrainCircuit} skills={['GenAI', 'RAG', 'Fine-Tuning', 'Agentic Workflows', 'Vector DBs', 'MLOps', 'SageMaker', 'Vertex AI', 'LangChain']} />
                   <SkillCard title="Data & Backend" icon={Briefcase} skills={['Data Engineering', 'ETL/ELT', 'Python', 'Node.js', 'SQL/NoSQL', 'Databricks', 'Airflow', 'Kafka']} />
@@ -309,7 +285,7 @@ export default function CVPage() {
               </div>
             </Section>
             
-            <Section title="Education" icon={GraduationCap} delay={0.6}>
+            <Section title="Education" icon={GraduationCap}>
               <div className="space-y-4">
                 {resumeData.education.slice(0, 3).map(edu => ( // Show first 3
                   <div key={edu.course} className="p-4 bg-secondary/30 rounded-lg border border-border/20">
