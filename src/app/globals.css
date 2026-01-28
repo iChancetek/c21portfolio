@@ -209,86 +209,15 @@
   /* --- CV Page: Keep original print behavior --- */
   #cv-container section {
     page-break-inside: avoid;
-    margin-bottom: 0.5in !important;
   }
 
   /* --- Resume Page Print Optimizations --- */
   
-  /* Overall document styling */
-  #resume-container {
-    font-size: 9pt !important;
-    line-height: 1.25 !important;
-  }
-  
-  /* Header section */
-  #resume-container header {
-    padding: 0 !important;
-    margin-bottom: 0.5rem !important;
-    text-align: center !important;
-  }
-
-  #resume-container h1 {
-    font-size: 20pt !important;
-  }
-
-  #resume-container header div {
-    font-size: 9pt !important;
-    gap: 0.75rem !important;
-    justify-content: center !important;
-  }
-
-  /* Section styling */
+  /* Prevent sections from breaking awkwardly across pages */
   #resume-container section {
-    page-break-inside: auto !important; /* Allow sections to break between pages */
-    margin-bottom: 0.4rem !important;
+    page-break-inside: avoid;
   }
 
-  #resume-container h2 {
-    font-size: 11pt !important;
-    margin-top: 0.4rem !important;
-    margin-bottom: 0.2rem !important;
-    padding-bottom: 0.1rem !important;
-    border-bottom: 1px solid #ccc !important;
-  }
-
-  /* Experience section styling */
-  #resume-container .space-y-8 > div {
-    page-break-inside: avoid !important; /* Keep a single job entry from breaking */
-  }
-
-  #resume-container h3 {
-    font-size: 10pt !important;
-  }
-  
-  #resume-container p, #resume-container li {
-    font-size: 9pt !important;
-    line-height: 1.25;
-  }
-  
-  /* Resetting paddings and margins from tailwind classes */
-  #resume-container .p-8, #resume-container .p-6, #resume-container .p-4, #resume-container .p-10, #resume-container .p-12 {
-    padding: 0 !important;
-  }
-
-  /* More aggressive spacing resets */
-  #resume-container [class*="mb-"] {
-    margin-bottom: 0 !important;
-  }
-  #resume-container [class*="mt-"] {
-    margin-top: 0 !important;
-  }
-   #resume-container [class*="space-y-"] > * + * {
-    margin-top: 0.2rem !important;
-  }
-
-   #resume-container h2 {
-      margin-top: 0.4rem !important; /* Re-apply specific margin for section titles */
-   }
-
-   #resume-container .space-y-8 > * + * {
-      margin-top: 0.4rem !important; /* Re-apply specific margin for job entries */
-   }
-   
   /* Hide specific sections on resume print */
   #resume-container [data-no-print="true"] {
       display: none !important;
