@@ -141,12 +141,14 @@
 @media print {
   @page {
     size: letter;
-    margin: 0.75in;
+    margin: 0.5in;
   }
 
   body {
     background: #fff !important;
     color: #000 !important;
+    font-size: 9pt;
+    line-height: 1.3;
   }
 
   /* Hide non-essential elements */
@@ -176,7 +178,6 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
     transform: none !important;
-    opacity: 1 !important;
     visibility: visible !important;
     box-shadow: none !important;
     text-shadow: none !important;
@@ -184,7 +185,7 @@
   }
 
   /* General text color reset */
-  h1, h2, h3, h4, h5, h6, p, a, li, span, div, .text-primary, .text-foreground, .text-muted-foreground {
+  h1, h2, h3, h4, h5, h6, p, a, li, span, div {
     color: #000 !important;
   }
   
@@ -205,21 +206,14 @@
   .border, .border-l-2, [class*="border-"] {
       border-color: #ccc !important;
   }
-
-  /* --- CV Page: Keep original print behavior --- */
-  #cv-container section {
-    page-break-inside: avoid;
-  }
-
-  /* --- Resume Page Print Optimizations --- */
   
-  /* Prevent sections from breaking awkwardly across pages */
+  /* --- Resume Page Print Optimizations --- */
   #resume-container section {
-    page-break-inside: avoid;
+    margin-bottom: 0.5rem !important;
+    page-break-inside: auto;
   }
-
-  /* Hide specific sections on resume print */
-  #resume-container [data-no-print="true"] {
-      display: none !important;
+  
+  #resume-container div, #resume-container ul {
+     page-break-inside: avoid;
   }
 }

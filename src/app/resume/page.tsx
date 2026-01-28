@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -16,20 +17,17 @@ import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
-const Section = ({ title, icon: Icon, children, delay, className }: { title: string; icon: React.ElementType; children: React.ReactNode; delay: number; className?: string; }) => (
-  <motion.section
+const Section = ({ title, icon: Icon, children, delay, className, ...props }: { title: string; icon: React.ElementType; children: React.ReactNode; delay: number; className?: string; [key: string]: any; }) => (
+  <section
     className={cn("mb-12", className)}
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, amount: 0.2 }}
-    transition={{ duration: 0.6, delay }}
+    {...props}
   >
     <h2 className="text-2xl font-bold tracking-tight text-primary-gradient mb-6 flex items-center gap-3">
       <Icon className="w-6 h-6" />
       {title}
     </h2>
     <div className="space-y-6">{children}</div>
-  </motion.section>
+  </section>
 );
 
 
@@ -126,18 +124,19 @@ export default function ResumePage() {
 
       const chunkText = (text: string, maxLength = 4000): string[] => {
           const chunks: string[] = [];
-          while (text.length > 0) {
-              if (text.length <= maxLength) {
-                  chunks.push(text);
-                  break;
+          let currentChunk = '';
+          const sentences = text.split(/(?<=[.?!])\s+/);
+
+          for (const sentence of sentences) {
+              if ((currentChunk + sentence).length > maxLength) {
+                  chunks.push(currentChunk);
+                  currentChunk = sentence;
+              } else {
+                  currentChunk += (currentChunk ? ' ' : '') + sentence;
               }
-              let chunk = text.substring(0, maxLength);
-              const lastSpace = chunk.lastIndexOf(' ');
-              if (lastSpace !== -1) {
-                  chunk = chunk.substring(0, lastSpace);
-              }
-              chunks.push(chunk);
-              text = text.substring(chunk.length).trim();
+          }
+          if (currentChunk) {
+              chunks.push(currentChunk);
           }
           return chunks;
       };
@@ -211,7 +210,7 @@ export default function ResumePage() {
               </p>
             </Section>
 
-            <Section title="Core Competencies" icon={Star} delay={0.2} className="print:hidden">
+            <Section title="Core Competencies" icon={Star} delay={0.2} data-no-print="true">
                <div className="flex flex-wrap gap-3">
                   {resumeData.coreCompetencies.map(c => (
                       <motion.div key={c} whileHover={{ scale: 1.05 }} transition={{ type: 'spring', stiffness: 400, damping: 10 }}>
@@ -221,7 +220,7 @@ export default function ResumePage() {
               </div>
             </Section>
 
-            <Section title="Technical Expertise" icon={Code} delay={0.3} className="print:hidden">
+            <Section title="Technical Expertise" icon={Code} delay={0.3} data-no-print="true">
               <div className="grid md:grid-cols-2 gap-6">
                   {resumeData.technicalExpertise.map(cat => {
                       const maxLength = 150;
@@ -294,7 +293,7 @@ export default function ResumePage() {
               </div>
             </Section>
             
-            <Section title="Education & Courses" icon={GraduationCap} delay={0.5} className="print:hidden">
+            <Section title="Education & Courses" icon={GraduationCap} delay={0.5} data-no-print="true">
               <div className="space-y-3">
                 {resumeData.education.map(edu => (
                   <motion.div key={edu.course} whileHover={{ x: 5 }} transition={{ type: 'spring', stiffness: 400, damping: 12 }}>
@@ -307,7 +306,7 @@ export default function ResumePage() {
               </div>
             </Section>
 
-             <Section title="Portfolio" icon={LinkIcon} delay={0.6} className="print:hidden">
+             <Section title="Portfolio" icon={LinkIcon} delay={0.6} data-no-print="true">
                   <div className="bg-background/50 p-6 rounded-lg border border-border/20 text-center">
                        <p className="text-foreground/80">
                           Explore full projects, skills, AI agents, and interactive demos at:
