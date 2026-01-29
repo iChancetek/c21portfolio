@@ -8,8 +8,6 @@ import { getTechInsight } from '@/ai/flows/tech-expert-flow';
 import type { Venture } from '@/lib/types';
 import { Resend } from 'resend';
 import { allVentures, techTopics, navLinks, skillCategories, resumeData } from '@/lib/data';
-import { embed } from 'genkit';
-import { ai } from '@/ai/genkit';
 import { initializeServerApp } from '@/firebase/server-config';
 
 
@@ -248,52 +246,5 @@ export async function handleSearch(query: string): Promise<{
 }
 
 
-// Add this to your actions.ts to test embeddings independently
 
-export async function testEmbeddings() {
-  try {
-    console.log('Testing embeddings...');
-    
-    // Test 1: Check if ai object exists
-    if (!ai) {
-      return { success: false, error: 'AI object is not defined' };
-    }
-    console.log('✓ AI object exists');
-    
-    // Test 2: Check if embedder exists
-    if (!ai.embedder) {
-      return { success: false, error: 'ai.embedder is not defined' };
-    }
-    console.log('✓ Embedder exists');
-    
-    // Test 3: Try a simple embedding
-    const testText = 'Hello world';
-    const embedding = await embed({
-      embedder: ai.embedder,
-      content: testText,
-    });
-    console.log('✓ Embedding generated:', embedding.length, 'dimensions');
-    
-    // Test 4: Try the AI assistant with simple input
-    const testResponse = await aiPortfolioAssistant({
-      query: 'Hello',
-      context: 'Chancellor Minus is a software engineer.'
-    });
-    console.log('✓ AI Assistant response:', testResponse.answer);
-    
-    return {
-      success: true,
-      embeddingDimensions: embedding.length,
-      aiResponse: testResponse.answer
-    };
-    
-  } catch (error) {
-    console.error('Test failed:', error);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : String(error),
-      stack: error instanceof Error ? error.stack : undefined
-    };
-  }
-}
 
