@@ -68,7 +68,7 @@ export default function Transcriber() {
     if (file) {
       setAudioBlob(file);
       setTranscription('');
-      toast({ title: t('fileSelected', {name: file.name}) });
+      toast({ title: t('fileSelected', { name: file.name }) });
     }
   };
 
@@ -126,7 +126,7 @@ export default function Transcriber() {
       setIsLoading(false);
     }
   };
-  
+
   const handleClear = () => {
     setAudioBlob(null);
     setTranscription('');
@@ -155,31 +155,31 @@ export default function Transcriber() {
                 </label>
               </Button>
             </div>
-            
+
             {audioBlob && (
-                <div className="p-4 bg-background/50 rounded-lg border text-center text-sm text-muted-foreground">
-                    <p>
-                        {audioBlob.type.startsWith('audio') ? t('audioReady', {size: (audioBlob.size / 1024).toFixed(2)}) : t('fileSelected', {name: audioBlob.name})}
-                    </p>
-                    <div className="flex justify-center items-center gap-4 mt-4">
-                        <Button onClick={handleTranscribe} disabled={isLoading} className="bg-primary-gradient">
-                            {isLoading ? (
-                                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('transcribing')}</>
-                            ) : (
-                                <><FileText className="mr-2 h-4 w-4" /> {t('transcribe')}</>
-                            )}
-                        </Button>
-                        <Button variant="ghost" size="icon" onClick={handleClear} disabled={isLoading}>
-                            <Trash2 className="h-4 w-4" />
-                        </Button>
-                    </div>
+              <div className="p-4 bg-background/50 rounded-lg border text-center text-sm text-muted-foreground">
+                <p>
+                  {audioBlob.type.startsWith('audio') ? t('audioReady', { size: (audioBlob.size / 1024).toFixed(2) }) : t('fileSelected', { name: (audioBlob as File).name })}
+                </p>
+                <div className="flex justify-center items-center gap-4 mt-4">
+                  <Button onClick={handleTranscribe} disabled={isLoading} className="bg-primary-gradient">
+                    {isLoading ? (
+                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('transcribing')}</>
+                    ) : (
+                      <><FileText className="mr-2 h-4 w-4" /> {t('transcribe')}</>
+                    )}
+                  </Button>
+                  <Button variant="ghost" size="icon" onClick={handleClear} disabled={isLoading}>
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
+              </div>
             )}
-            
+
             {transcription && (
               <div className="mt-6">
                 <h3 className="font-semibold mb-2">{t('transcription')}</h3>
-                <Textarea value={transcription} readOnly className="min-h-[120px] bg-background/50"/>
+                <Textarea value={transcription} readOnly className="min-h-[120px] bg-background/50" />
               </div>
             )}
           </CardContent>

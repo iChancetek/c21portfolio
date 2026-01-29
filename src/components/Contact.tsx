@@ -27,7 +27,7 @@ function SubmitButton() {
 }
 
 export default function Contact() {
-  const initialState = { message: '', errors: {}, success: false, data: null };
+  const initialState: any = { message: '', errors: {}, success: false, data: null };
   const [state, dispatch] = useActionState(submitContactForm, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
@@ -46,10 +46,10 @@ export default function Contact() {
         const submissionsCollection = collection(firestore, 'contactFormSubmissions');
         addDocumentNonBlocking(submissionsCollection, state.data);
       }
-      
+
       formRef.current?.reset();
       submissionHandled.current = true;
-      
+
     } else if (!state.success && state.message) {
       toast({
         title: t('toastError'),
@@ -78,12 +78,12 @@ export default function Contact() {
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-muted-foreground">Email</Label>
                 <Input id="email" name="email" type="email" placeholder={t('yourEmail')} />
-                 {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
+                {state.errors?.email && <p className="text-sm text-destructive">{state.errors.email[0]}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message" className="text-muted-foreground">{t('yourMessage')}</Label>
                 <Textarea id="message" name="message" placeholder={t('yourMessage')} className="min-h-[120px]" />
-                 {state.errors?.message && <p className="text-sm text-destructive">{state.errors.message[0]}</p>}
+                {state.errors?.message && <p className="text-sm text-destructive">{state.errors.message[0]}</p>}
               </div>
               <SubmitButton />
             </form>

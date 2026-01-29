@@ -1,14 +1,10 @@
 /**
- * @fileOverview A Genkit flow for generating menu suggestions.
- *
- * - getMenuSuggestion - A function that takes a prompt and returns a menu suggestion.
- * - SuggestionFlowInput - The input type for the getMenuSuggestion function.
- * - SuggestionFlowOutput - The return type for the getMenuSuggestion function.
+ * @fileOverview A function for generating menu suggestions using OpenAI.
  */
 
 'use server';
 
-import { ai } from '@/ai/genkit';
+import { openai } from '@/lib/openai';
 import { z } from 'zod';
 
 const SuggestionFlowInputSchema = z.string();
@@ -18,19 +14,10 @@ const SuggestionFlowOutputSchema = z.string();
 export type SuggestionFlowOutput = z.infer<typeof SuggestionFlowOutputSchema>;
 
 export async function getMenuSuggestion(prompt: SuggestionFlowInput): Promise<SuggestionFlowOutput> {
-    return suggestionFlow(prompt);
-}
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: 'user', content: prompt }],
+    model: 'gpt-4o',
+  });
 
-const suggestionFlow = ai.defineFlow(
-  {
-    name: 'suggestionFlow',
-    inputSchema: SuggestionFlowInputSchema,
-    outputSchema: SuggestionFlowOutputSchema,
-  },
-  async (prompt) => {
-    const response = await ai.generate({
-      prompt: prompt,
-    });
-    return response.text;
-  }
-);
+  return completion.choices[0].message.content || '';
+}

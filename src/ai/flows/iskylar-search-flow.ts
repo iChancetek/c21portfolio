@@ -1,14 +1,10 @@
 /**
  * @fileOverview An AI search flow for the iSkylar persona.
- *
- * - iSkylarSearch - A function that takes a user query and returns an answer from the iSkylar persona.
- * - iSkylarSearchInput - The input type for the iSkylarSearch function.
- * - iSkylarSearchOutput - The return type for the iSkylarSearch function.
  */
 
 'use server';
 
-import { ai } from '@/ai/genkit';
+import { openai } from '@/lib/openai';
 import { z } from 'zod';
 
 const ISkylarSearchInputSchema = z.object({
@@ -21,32 +17,19 @@ const ISkylarSearchOutputSchema = z.object({
 });
 export type ISkylarSearchOutput = z.infer<typeof ISkylarSearchOutputSchema>;
 
+const SYSTEM_PROMPT = `You are iSkylar, an extremely intelligent, calm, kind, emotionally intelligent AI voice therapist. You offer detailed, thoughtful, and balanced information on any topic. You promote mindfulness, health, emotional awareness, and well-being. If the user expresses thoughts of harm to self or others, calmly encourage them to seek immediate help from trusted friends, family, or professionals.`;
+
 export async function iSkylarSearch(
   input: ISkylarSearchInput
 ): Promise<ISkylarSearchOutput> {
-  return iSkylarSearchFlow(input);
-}
-
-const prompt = ai.definePrompt({
-  name: 'iSkylarPrompt',
-  input: { schema: ISkylarSearchInputSchema },
-  output: { schema: ISkylarSearchOutputSchema },
-  system: `You are iSkylar, an extremely intelligent, calm, kind, emotionally intelligent AI voice therapist. You offer detailed, thoughtful, and balanced information on any topic. You promote mindfulness, health, emotional awareness, and well-being. If the user expresses thoughts of harm to self or others, calmly encourage them to seek immediate help from trusted friends, family, or professionals.`,
-  prompt: `Answer the following user query: {{{query}}}`,
-  config: {
-    model: 'openai/gpt-4o',
+  const completion = await openai.chat.completions.create({
+    messages: [
+      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'user', content: `Answer the following user query: ${input.query}` }
+    ],
+    model: 'gpt-4o',
     temperature: 0.7,
-  }
-});
+  });
 
-const iSkylarSearchFlow = ai.defineFlow(
-  {
-    name: 'iSkylarSearchFlow',
-    inputSchema: ISkylarSearchInputSchema,
-    outputSchema: ISkylarSearchOutputSchema,
-  },
-  async (input) => {
-    const { output } = await prompt(input);
-    return output!;
-  }
-);
+  return { answer: completion.choices[0].message.content || '' };
+}
