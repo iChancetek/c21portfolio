@@ -15,9 +15,9 @@ env:
   - variable: OPENAI_API_KEY
     secret: OPENAI_API_KEY
   - variable: PINECONE_API_KEY
-    secret: PINECONE_API_KEY
+    value: pcsk_6zybHk_QzrU491QfzRrZtQTU3wzkrBo3jgYXK9wGhjBo4skjV1mw9y6LjAHyXSr8GiX5iF
   - variable: RESEND_API_KEY
-    secret: RESEND_API_KEY
+    value: re_jpJMRPQy_L7Ym5qkeCiaEEWkQjG66aSZR
     
   # Public Variables
   - variable: PINECONE_INDEX_NAME
