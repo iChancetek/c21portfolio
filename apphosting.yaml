@@ -11,7 +11,28 @@ runConfig:
 # Environment variables and secrets.
 # See https://firebase.google.com/docs/app-hosting/configure
 env:
-  # Grant access to secrets in Cloud Secret Manager.
-  # See https://firebase.google.com/docs/app-hosting/configure#secret-parameters
+  # Secrets
   - variable: OPENAI_API_KEY
     secret: OPENAI_API_KEY
+  - variable: PINECONE_API_KEY
+    secret: PINECONE_API_KEY
+  - variable: RESEND_API_KEY
+    secret: RESEND_API_KEY
+    
+  # Public Variables
+  - variable: PINECONE_INDEX_NAME
+    value: c21portfolio
+  - variable: PINECONE_HOST
+    value: https://c21portfolio-axppvmu.svc.aped-4627-b74a.pinecone.io
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: studio-1594258539-a60ba
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: 1:174490017685:web:90998e6abec8ced3c1a09c
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyDYQds8q66ePdupmR0EwESe9mBEgjfMsUw
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: studio-1594258539-a60ba.firebaseapp.com
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: 174490017685
+  - variable: RESEND_DOMAIN
+    value: chancellorminus.com
