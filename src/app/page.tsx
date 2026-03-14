@@ -459,13 +459,13 @@ export default function LandingPage() {
   return (
     <>
       <Hero />
-      <div className="flex flex-col items-center justify-center -mt-24 text-center pb-12 relative z-30">
+      <div className="flex flex-col items-center justify-center -mt-24 text-center pb-12 relative z-30 pointer-events-none">
         
         <motion.div
            initial={{ opacity: 0, y: -20 }}
            animate={{ opacity: 1, y: 0 }}
            transition={{ duration: 0.5 }}
-           className="w-full max-w-4xl"
+           className="w-full max-w-4xl pointer-events-auto"
         >
         <motion.form 
           initial={{ opacity: 0, y: 20 }}
@@ -483,7 +483,7 @@ export default function LandingPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={aiSuggestion}
-            className="bg-black/40 backdrop-blur-xl border-primary/20 focus-visible:border-primary/50 h-14 text-lg rounded-xl shadow-[0_0_15px_rgba(var(--primary),0.05)] transition-all"
+            className="bg-background/60 text-foreground backdrop-blur-xl border-primary/20 focus-visible:border-primary/50 h-14 text-lg rounded-xl shadow-[0_0_15px_rgba(var(--primary),0.05)] transition-all"
           />
           <Button type="submit" size="lg" className="bg-primary-gradient h-14 px-8 rounded-xl shadow-[0_0_15px_rgba(var(--primary),0.3)] hover:shadow-[0_0_25px_rgba(var(--primary),0.5)] transition-all" disabled={isSearching}>
             {isSearching ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}

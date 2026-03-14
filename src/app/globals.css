@@ -70,6 +70,11 @@
   .text-primary-gradient {
     @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
   }
+  
+  /* Spline 3D Canvas Rendering */
+  .light-mode-spline {
+     mix-blend-mode: screen;
+  }
   .ticker-container {
       width: 100%;
       overflow: hidden;
@@ -135,6 +140,19 @@
       100% {
         transform: translateX(-50%);
       }
+    }
+
+    @keyframes spin-slow {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .animate-spin-slow {
+      animation: spin-slow 8s linear infinite;
     }
 }
 

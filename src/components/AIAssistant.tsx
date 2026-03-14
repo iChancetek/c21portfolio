@@ -167,9 +167,9 @@ export default function AIAssistant() {
                   )}
                   <div className='flex-1'>
                     <div
-                      className={cn('rounded-lg p-3 text-sm max-w-[90%] inline-block', {
-                        'bg-background/50': message.role === 'assistant',
-                        'bg-primary text-primary-foreground': message.role === 'user',
+                      className={cn('rounded-lg p-3 text-sm max-w-[90%] inline-block shadow-sm border', {
+                        'bg-background border-border text-foreground': message.role === 'assistant',
+                        'bg-primary border-primary text-primary-foreground': message.role === 'user',
                         'float-right': message.role === 'user',
                       })}
                     >
