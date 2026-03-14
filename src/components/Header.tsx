@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star, Bot, FileText, ChevronDown } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star, Bot, FileText, ChevronDown, Activity, Stethoscope, Users, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
@@ -147,6 +147,37 @@ export default function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
                <Button variant="ghost" className="p-0 h-auto font-semibold text-foreground text-sm flex items-center gap-1 hover:text-foreground/80 focus-visible:ring-0">
+                <Star className="h-4 w-4" />
+                Featured Platforms
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem asChild>
+                <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                  <Activity className="h-4 w-4 text-primary" /> StrideIQ
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                  <Stethoscope className="h-4 w-4 text-primary" /> iCareOS
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                  <Users className="h-4 w-4 text-primary" /> Famio
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-primary" /> Evolvable
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+               <Button variant="ghost" className="p-0 h-auto font-semibold text-foreground text-sm flex items-center gap-1 hover:text-foreground/80 focus-visible:ring-0">
                 <FileText className="h-4 w-4" />
                 Resume / CV
                 <ChevronDown className="h-4 w-4" />
@@ -212,7 +243,22 @@ export default function Header() {
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
                     <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>
-                     <NavLink href="/ai-agents" isProjectLink>AI Agents</NavLink>
+                    <NavLink href="/ai-agents" isProjectLink>AI Agents</NavLink>
+                    <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
+                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Featured Platforms</span>
+                      <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                        <Activity className="h-4 w-4 text-primary" /> StrideIQ
+                      </a>
+                      <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                        <Stethoscope className="h-4 w-4 text-primary" /> iCareOS
+                      </a>
+                      <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                        <Users className="h-4 w-4 text-primary" /> Famio
+                      </a>
+                      <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                        <Sparkles className="h-4 w-4 text-primary" /> Evolvable
+                      </a>
+                    </div>
                     <NavLink href="/resume" isProjectLink>Resume</NavLink>
                     <NavLink href="/cv" isProjectLink>CV</NavLink>
                     <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>

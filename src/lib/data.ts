@@ -1,6 +1,6 @@
 
 import type { Project, SkillCategory, Venture, VentureIcon, PartnerCompany, ResumeData } from "@/lib/types";
-import { Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit, Notebook, GraduationCap } from "lucide-react";
+import { Activity, Stethoscope, Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit, Notebook, GraduationCap } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -70,17 +70,31 @@ export const projects: Project[] = [
 
 export const allVentures: Venture[] = [
     {
-        id: 'venture-13',
-        name: "Famio",
-        description: "AI Powered Social Media Platform",
-        href: "/projects",
+        id: 'venture-17',
+        name: "Evolvable",
+        description: "Evolvable is an AI-powered vibe coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.",
+        href: "https://eVolvable.us/",
         hasDemo: true,
     },
     {
-        id: 'venture-14',
-        name: "iNavigateAi",
-        description: "AI Math Tutor Platform",
-        href: "https://inavigateai.us",
+        id: 'venture-16',
+        name: "iCareOS",
+        description: "iCareOS by ChanceTEK is an AI-native clinical operating system that automates documentation, analyzes medical images, orchestrates patient intake, optimizes billing, monitors clinical risk, and coordinates care through a network of agentic AI modules—delivering smarter workflows, faster insights, and safer healthcare.",
+        href: "https://iCareOS.tech/",
+        hasDemo: true,
+    },
+    {
+        id: 'venture-15',
+        name: "StrideIQ",
+        description: "StrideIQ is a fitness and wellness app designed to help you track your running, walking, biking, hiking, mediation, intermittent fasting and journaling-all in one place.",
+        href: "https://StrideIQ.fit/",
+        hasDemo: true,
+    },
+    {
+        id: 'venture-13',
+        name: "Famio",
+        description: "AI Powered Social Media Platform",
+        href: "https://Famio.us/",
         hasDemo: true,
     },
     {
@@ -88,20 +102,6 @@ export const allVentures: Venture[] = [
         name: "Enterprise AI Agents",
         description: "Enterprise AI that works like your best employee for better customer experiences.",
         href: "/ai-agents",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-2',
-        name: "ChanceTEK Health",
-        description: "Healthcare automation platform focusing on smart referrals, patient intake, and digital consent capture.",
-        href: "https://chancetekhealth.us/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-3',
-        name: "iQMarketing",
-        description: "AI-driven marketing analytics and personalized campaign management suite.",
-        href: "https://iqmarketing.us/",
         hasDemo: true,
     },
     {
@@ -158,13 +158,6 @@ export const allVentures: Venture[] = [
         name: "Nesto Banks",
         description: "Fintech and digital banking platform enhanced with AI-based fraud detection and risk analytics.",
         href: "https://NestoBanks.com",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-12',
-        name: "The Potluxe",
-        description: "AI-powered luxury product marketplace and social commerce platform.",
-        href: "https://ThePotluxe.com",
         hasDemo: true,
     },
     {
@@ -255,11 +248,11 @@ export const allVentures: Venture[] = [
 ];
 
 export const ventureIcons: VentureIcon[] = [
+    { name: "Evolvable", icon: Sparkles },
+    { name: "iCareOS", icon: Stethoscope },
+    { name: "StrideIQ", icon: Activity },
     { name: "Famio", icon: Users },
-    { name: "iNavigateAi", icon: Sigma },
     { name: "Enterprise AI Agents", icon: Briefcase },
-    { name: "ChanceTEK Health", icon: HeartPulse },
-    { name: "iQMarketing", icon: Search },
     { name: "MediScribe", icon: FileText },
     { name: "MemoiQ", icon: Lightbulb },
     { name: "ModeliQ", icon: BrainCircuit },
@@ -268,7 +261,6 @@ export const ventureIcons: VentureIcon[] = [
     { name: "iHailey", icon: HandHeart },
     { name: "iSkylar", icon: Drama },
     { name: "Nesto Banks", icon: Users },
-    { name: "The Potluxe", icon: ShoppingCart },
 ];
 
 export const skillCategories: SkillCategory[] = [

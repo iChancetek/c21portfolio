@@ -6,12 +6,11 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2, Wand2, ExternalLink, Bot, Sparkles, RefreshCw, Volume2, Play, Pause, StopCircle } from 'lucide-react';
+import { Loader2, Wand2, ExternalLink, Bot, Sparkles, RefreshCw, Volume2, Play, Pause, StopCircle, Activity, Stethoscope, Users } from 'lucide-react';
 import { handleSearch } from '@/app/actions';
 import type { Venture } from '@/lib/types';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ventureIcons, navLinks, allVentures } from '@/lib/data';
-import { Users } from 'lucide-react';
 import CaseStudyModal from '@/components/CaseStudyModal';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
@@ -231,21 +230,187 @@ function SearchResults({ projects, searchQuery, isSearching, answer }: { project
 function SignUpCta() {
     const { t } = useLocale();
     return (
-        <section className="w-full py-16 md:py-24">
+        <motion.section 
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full py-16 md:py-24"
+        >
             <Separator className="my-8 bg-border/20" />
-            <div className="container max-w-4xl mx-auto text-center bg-secondary/30 backdrop-blur-sm border border-border/20 rounded-xl p-8 md:p-12">
-                <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 text-primary-gradient">
-                    {t('ctaTitle')}
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-                   {t('ctaDescription')}
-                </p>
-                <Button size="lg" asChild className="bg-primary-gradient">
-                    <Link href="/signup">{t('signUpNow')}</Link>
-                </Button>
+            <div className="container relative max-w-4xl mx-auto text-center bg-secondary/30 backdrop-blur-sm border border-border/20 rounded-2xl p-8 md:p-12 overflow-hidden shadow-[0_0_50px_-15px_rgba(var(--primary),0.3)]">
+                {/* Glowing ambient background inside CTA */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
+                
+                <div className="relative z-10">
+                    <motion.div 
+                        initial={{ rotate: -15, scale: 0.8 }}
+                        whileInView={{ rotate: 0, scale: 1 }}
+                        transition={{ type: "spring", stiffness: 200, damping: 10, delay: 0.2 }}
+                        className="inline-block"
+                    >
+                        <Sparkles className="w-12 h-12 text-primary mx-auto mb-6 drop-shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
+                    </motion.div>
+                    <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6 text-primary-gradient">
+                        {t('ctaTitle')}
+                    </h2>
+                    <p className="text-xl text-muted-foreground/90 max-w-3xl mx-auto mb-10 font-light">
+                       {t('ctaDescription')}
+                    </p>
+                    <Button size="lg" asChild className="bg-primary-gradient text-lg px-8 py-6 rounded-full shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:shadow-[0_0_40px_rgba(var(--primary),0.6)] hover:-translate-y-1 transition-all duration-300">
+                        <Link href="/signup">{t('signUpNow')}</Link>
+                    </Button>
+                </div>
             </div>
-        </section>
+        </motion.section>
+    )
+}
+
+function FeaturedPlatforms() {
+    return (
+       <section className="relative w-full xl:w-[120%] 2xl:w-[140%] max-w-[1400px] py-24 md:py-32 mt-12 overflow-hidden">
+           {/* Abstract Background Elements */}
+           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[500px] bg-primary/20 blur-[120px] rounded-full pointer-events-none opacity-50 mix-blend-screen" />
+           <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/20 blur-[150px] rounded-full pointer-events-none opacity-40 mix-blend-screen" />
+           
+           <div className="container relative z-10 px-4 md:px-6 mx-auto">
+               <motion.div 
+                   initial={{ opacity: 0, y: 30 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true, margin: "-100px" }}
+                   transition={{ duration: 0.8, ease: "easeOut" }}
+                   className="flex flex-col items-center justify-center space-y-6 text-center mb-16"
+               >
+                   <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4 backdrop-blur-sm shadow-[0_0_15px_rgba(var(--primary),0.2)]">
+                       <Sparkles className="mr-2 h-4 w-4" />
+                       Next-Generation AI Platforms
+                   </div>
+                   <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-primary-gradient">
+                       Featured Platforms
+                   </h2>
+                   <p className="max-w-[800px] text-muted-foreground md:text-xl/relaxed lg:text-lg/relaxed xl:text-xl/relaxed font-light">
+                       Explore our flagship AI-native applications redefining healthcare, fitness, vibe coding, and social media with cutting-edge intelligence.
+                   </p>
+               </motion.div>
+
+               <div className="mx-auto grid max-w-6xl items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+                   
+                   <motion.div
+                       initial={{ opacity: 0, x: -30 }}
+                       whileInView={{ opacity: 1, x: 0 }}
+                       viewport={{ once: true }}
+                       transition={{ duration: 0.6, delay: 0.1 }}
+                   >
+                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                           {/* Hover Gradient Effect */}
+                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                           
+                           <CardHeader className="relative z-10 pb-4">
+                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                   <Activity className="w-8 h-8 text-primary" />
+                               </div>
+                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">StrideIQ</CardTitle>
+                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
+                                   A fitness and wellness app designed to help you track your running, walking, biking, hiking, mediation, intermittent fasting and journaling—all in one place.
+                               </CardDescription>
+                           </CardHeader>
+                           <div className="p-6 pt-auto mt-auto relative z-10">
+                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
+                                    <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer">
+                                        Visit StrideIQ <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
+                                    </a>
+                               </Button>
+                           </div>
+                       </Card>
+                   </motion.div>
+
+                    <motion.div
+                       initial={{ opacity: 0, x: 30 }}
+                       whileInView={{ opacity: 1, x: 0 }}
+                       viewport={{ once: true }}
+                       transition={{ duration: 0.6, delay: 0.2 }}
+                   >
+                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                           
+                           <CardHeader className="relative z-10 pb-4">
+                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                   <Stethoscope className="w-8 h-8 text-primary" />
+                               </div>
+                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">iCareOS</CardTitle>
+                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
+                                   An AI-native clinical operating system that automates documentation, analyzes medical images, orchestrates patient intake, and optimizes billing.
+                               </CardDescription>
+                           </CardHeader>
+                           <div className="p-6 pt-auto mt-auto relative z-10">
+                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
+                                    <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer">
+                                        Visit iCareOS <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
+                                    </a>
+                               </Button>
+                           </div>
+                       </Card>
+                   </motion.div>
+
+                   <motion.div
+                        initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
+                        whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                   >
+                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                           
+                           <CardHeader className="relative z-10 pb-4">
+                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                   <Users className="w-8 h-8 text-primary" />
+                               </div>
+                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">Famio</CardTitle>
+                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
+                                   An AI-powered social media platform designed for meaningful connections and intelligent content discovery.
+                               </CardDescription>
+                           </CardHeader>
+                           <div className="p-6 pt-auto mt-auto relative z-10">
+                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
+                                    <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer">
+                                        Visit Famio <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
+                                    </a>
+                               </Button>
+                           </div>
+                       </Card>
+                   </motion.div>
+
+                   <motion.div
+                        initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
+                        whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                   >
+                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                           
+                           <CardHeader className="relative z-10 pb-4">
+                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                   <Sparkles className="w-8 h-8 text-primary" />
+                               </div>
+                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">Evolvable</CardTitle>
+                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
+                                   An AI-powered vibe coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.
+                               </CardDescription>
+                           </CardHeader>
+                           <div className="p-6 pt-auto mt-auto relative z-10">
+                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
+                                    <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer">
+                                        Visit Evolvable <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
+                                    </a>
+                               </Button>
+                           </div>
+                       </Card>
+                   </motion.div>
+
+               </div>
+           </div>
+       </section>
     )
 }
 
@@ -298,35 +463,55 @@ export default function LandingPage() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-4xl"
       >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
-          <span className="text-primary-gradient">{t('landingTitle')}</span>
-        </h1>
-        <p className="text-lg sm:text-xl text-muted-foreground mb-10">
+        <motion.h1 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6"
+        >
+          <span className="text-primary-gradient drop-shadow-[0_0_30px_rgba(var(--primary),0.3)]">{t('landingTitle')}</span>
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="text-lg sm:text-2xl text-muted-foreground mb-12 font-light"
+        >
           {t('landingSubtitle')}
-        </p>
+        </motion.p>
 
-        <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2 mb-4">
+        <motion.form 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          onSubmit={handleSearchSubmit} 
+          className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-3 mb-4 relative"
+        >
+          {/* Subtle glow behind the search bar */}
+          <div className="absolute inset-0 bg-primary/20 blur-[40px] rounded-full pointer-events-none -z-10" />
+          
           <Input
             type="text"
             name="query"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={aiSuggestion}
-            className="bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
+            className="bg-black/40 backdrop-blur-xl border-primary/20 focus-visible:border-primary/50 h-14 text-lg rounded-xl shadow-[0_0_15px_rgba(var(--primary),0.05)] transition-all"
           />
-          <Button type="submit" size="lg" className="bg-primary-gradient h-12" disabled={isSearching}>
+          <Button type="submit" size="lg" className="bg-primary-gradient h-14 px-8 rounded-xl shadow-[0_0_15px_rgba(var(--primary),0.3)] hover:shadow-[0_0_25px_rgba(var(--primary),0.5)] transition-all" disabled={isSearching}>
             {isSearching ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
             {t('aiSearch')}
           </Button>
-           <Button type="button" size="icon" variant="outline" className="h-12 w-12" onClick={handleResetSearch} disabled={isSearching}>
+           <Button type="button" size="icon" variant="outline" className="h-14 w-14 rounded-xl border-primary/20 hover:border-primary/50 hover:bg-primary/10 transition-all shadow-[0_0_15px_rgba(var(--primary),0.05)]" onClick={handleResetSearch} disabled={isSearching}>
             <RefreshCw className="h-5 w-5" />
             <span className="sr-only">Refresh Search</span>
           </Button>
-        </form>
+        </motion.form>
       </motion.div>
       <div className="w-full mt-16">
         <SearchResults projects={projects} searchQuery={searchQuery} isSearching={isSearching} answer={answer} />
       </div>
+      <FeaturedPlatforms />
       <Ticker />
       <SignUpCta />
     </div>
