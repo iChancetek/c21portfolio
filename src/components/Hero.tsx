@@ -4,8 +4,9 @@ import AIAssistant from './AIAssistant';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import { Network } from 'lucide-react';
+import Spline from '@splinetool/react-spline';
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -66,37 +67,50 @@ export default function Hero() {
         {/* Phase 2: The Inner Portal (Revealed Content) */}
         <motion.div 
           style={{ opacity: portalOpacity, scale: portalScale, y: portalY }}
-          className="relative z-20 w-full max-w-6xl px-4 flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24 h-full"
+          className="relative z-20 w-full max-w-7xl px-4 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 h-full pointer-events-auto"
         >
-          <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
+          <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 z-30 pt-16 lg:pt-0">
             <div className="inline-flex py-1.5 px-4 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold tracking-widest uppercase backdrop-blur-md shadow-[0_0_25px_rgba(var(--primary),0.3)]">
-               <Network className="w-4 h-4 mr-2" /> Engineering The Future
+               <Network className="w-4 h-4 mr-2 inline" /> Agentic AI Robot
             </div>
             
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl/none font-extrabold tracking-tight">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl/none font-extrabold tracking-tight drop-shadow-lg">
                From AI Concept to <br/><span className="text-primary-gradient">Production Reality</span>
             </h2>
             
-            <p className="max-w-[500px] text-lg lg:text-xl text-slate-300 font-light leading-relaxed">
-              I architect, build, and scale intelligent Generative AI solutions that solve complex business challenges with zero compromise.
+            <p className="max-w-[500px] text-lg lg:text-xl text-slate-300 font-light leading-relaxed drop-shadow-md bg-black/20 backdrop-blur-sm p-4 rounded-xl border border-white/5">
+              Interact with the 3D Agentic AI robot in real-time. Drag around to see it respond, or ask it a question below.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Button size="lg" asChild className="h-14 px-8 text-lg bg-primary-gradient shadow-[0_0_30px_rgba(var(--primary),0.4)] hover:shadow-[0_0_50px_rgba(var(--primary),0.6)] hover:-translate-y-1 transition-all">
                 <Link href="#projects">View My Work</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="h-14 px-8 text-lg hover:bg-primary/10 hover:text-primary transition-all border-primary/30 hover:border-primary/60 backdrop-blur-md">
+              <Button size="lg" variant="outline" asChild className="h-14 px-8 text-lg hover:bg-primary/10 hover:text-primary transition-all border-primary/30 hover:border-primary/60 backdrop-blur-md bg-black/30">
                 <Link href="#contact">Get in Touch</Link>
               </Button>
             </div>
           </div>
 
-          {/* The AI Assistant acts as the literal heart of the portal */}
-          <div className="flex-1 w-full max-w-md relative">
-             <div className="absolute -inset-4 bg-primary/20 blur-[60px] rounded-full z-0 animate-pulse" />
-             <div className="relative z-10 transform-gpu hover:scale-[1.02] transition-transform duration-500">
+          {/* Spline 3D Robot + AI Assistant Widget */}
+          <div className="flex-1 w-full h-[500px] lg:h-[800px] relative z-20">
+            <motion.div
+               initial={{ opacity: 0, scale: 0.8 }}
+               animate={{ opacity: 1, scale: 1 }}
+               transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+               className="absolute inset-0 w-full h-full z-0 cursor-grab active:cursor-grabbing pointer-events-auto mix-blend-screen lg:mix-blend-normal"
+            >
+               <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-primary animate-pulse font-mono tracking-widest">Loading Neural Interface...</div>}>
+                   {/* Advanced Spline 3D Scene */}
+                  <Spline scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" />
+               </Suspense>
+            </motion.div>
+
+            {/* AI Assistant Chat Panel */}
+            <div className="absolute -bottom-10 right-0 sm:-right-4 md:right-8 lg:-bottom-0 lg:right-[-60px] z-30 transform-gpu hover:scale-[1.02] transition-transform duration-500 shadow-2xl scale-[0.85] sm:scale-90 lg:scale-100">
+               <div className="absolute -inset-6 bg-primary/30 blur-[60px] rounded-full z-[-1] animate-pulse" />
                <AIAssistant />
-             </div>
+            </div>
           </div>
         </motion.div>
 

@@ -18,6 +18,7 @@ import { useLocale } from '@/hooks/useLocale';
 import Ticker from '@/components/Ticker';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import { cn } from '@/lib/utils';
+import Hero from '@/components/Hero';
 
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
@@ -456,30 +457,16 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-150px)] text-center py-12">
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-4xl"
-      >
-        <motion.h1 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6"
+    <>
+      <Hero />
+      <div className="flex flex-col items-center justify-center -mt-24 text-center pb-12 relative z-30">
+        
+        <motion.div
+           initial={{ opacity: 0, y: -20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.5 }}
+           className="w-full max-w-4xl"
         >
-          <span className="text-primary-gradient drop-shadow-[0_0_30px_rgba(var(--primary),0.3)]">{t('landingTitle')}</span>
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-lg sm:text-2xl text-muted-foreground mb-12 font-light"
-        >
-          {t('landingSubtitle')}
-        </motion.p>
-
         <motion.form 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -514,6 +501,7 @@ export default function LandingPage() {
       <FeaturedPlatforms />
       <Ticker />
       <SignUpCta />
-    </div>
+      </div>
+    </>
   );
 }
