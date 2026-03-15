@@ -96,15 +96,15 @@ export default function Hero() {
                Chancellor <br/><span className="text-primary-gradient">AGENTIC REALITY</span>
             </h2>
             
-            <p className="text-lg lg:text-xl text-white/90 font-light leading-relaxed drop-shadow-md bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-sm pointer-events-auto">
+            <p className="text-lg lg:text-xl text-white/90 font-light leading-relaxed drop-shadow-md bg-black/5 backdrop-blur-none p-6 rounded-2xl border border-white/5 shadow-sm pointer-events-auto">
               Three specialized AI agents—Architect, Developer, and Supervisor—collaborating inside a holographic workspace. Watch them build, architect, and supervise your project in real-time.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pointer-events-auto">
-              <Button size="lg" asChild className="h-14 px-8 text-lg bg-primary-gradient shadow-[0_0_30px_rgba(var(--primary),0.4)] hover:shadow-[0_0_50px_rgba(var(--primary),0.6)] hover:-translate-y-1 transition-all">
+              <Button size="lg" asChild className="h-14 px-8 text-lg bg-transparent border border-primary/40 text-primary shadow-none hover:bg-primary/5 hover:border-primary/60 transition-all backdrop-blur-none">
                 <Link href="/projects">View Projects</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="h-14 px-8 text-lg hover:bg-primary/10 hover:text-primary transition-all border-white/20 hover:border-white/60 backdrop-blur-md bg-white/5 text-white">
+              <Button size="lg" variant="outline" asChild className="h-14 px-8 text-lg bg-transparent border border-white/10 text-white hover:bg-white/5 hover:border-white/30 transition-all backdrop-blur-none">
                 <Link href="/projects#contact">Get in Touch</Link>
               </Button>
             </div>

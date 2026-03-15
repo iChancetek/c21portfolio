@@ -138,7 +138,7 @@ export default function AIAssistant() {
   };
 
   return (
-    <Card className="w-full max-w-md shadow-2xl shadow-primary/10 md:rounded-xl rounded-t-xl rounded-b-none bg-secondary/30 border-border/20">
+    <Card className="w-full max-w-md shadow-2xl shadow-primary/10 md:rounded-xl rounded-t-xl rounded-b-none bg-black/5 backdrop-blur-none border-white/5">
       <audio ref={audioRef} />
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
@@ -168,8 +168,8 @@ export default function AIAssistant() {
                   <div className='flex-1'>
                     <div
                       className={cn('rounded-lg p-3 text-sm max-w-[90%] inline-block shadow-sm border', {
-                        'bg-background border-border text-foreground': message.role === 'assistant',
-                        'bg-primary border-primary text-primary-foreground': message.role === 'user',
+                        'bg-white/5 backdrop-blur-none border-white/5 text-white': message.role === 'assistant',
+                        'bg-primary/20 backdrop-blur-none border-primary/10 text-primary-foreground': message.role === 'user',
                         'float-right': message.role === 'user',
                       })}
                     >
@@ -218,7 +218,7 @@ export default function AIAssistant() {
                       <Bot size={20} />
                     </AvatarFallback>
                 </Avatar>
-                <div className="bg-background/50 rounded-lg p-3 text-sm flex items-center">
+                <div className="bg-white/5 backdrop-blur-none rounded-lg p-3 text-sm flex items-center border border-white/5">
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('thinking')}
                 </div>
               </div>
