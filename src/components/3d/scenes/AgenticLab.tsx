@@ -9,7 +9,17 @@ import RobotAgent from '../robots/RobotAgent';
 export default function AgenticLab() {
   return (
     <div className="w-full h-full">
-      <Canvas shadows dpr={[1, 2]}>
+      <Canvas 
+        shadows 
+        dpr={[1, 1.5]}
+        gl={{ 
+          antialias: false, 
+          powerPreference: "default",
+          stencil: false,
+          depth: true,
+          alpha: true
+        }}
+      >
         <PerspectiveCamera makeDefault position={[12, 10, 16]} fov={45} />
         <OrbitControls 
           enablePan={false} 
@@ -17,55 +27,48 @@ export default function AgenticLab() {
           minDistance={8} 
           maxDistance={30}
           autoRotate
-          autoRotateSpeed={0.3}
+          autoRotateSpeed={0.5}
         />
 
+        <CubeWorkspace />
+        
         <Suspense fallback={null}>
-          <CubeWorkspace />
+          <Environment preset="city" />
           
-          {/* Architect Agent - White Chrome @ Topology Panel */}
+          {/* Architect Agent - White Chrome */}
           <RobotAgent 
-            position={[-4.5, -3.2, -3]} 
-            color="#fcfcfc" 
+            position={[-5, -3.2, -2]} 
+            color="#ffffff" 
             role="ARCHITECT" 
           />
           
-          {/* Developer Agent - Silver Chrome @ Coding Terminal */}
+          {/* Developer Agent - Silver Chrome */}
           <RobotAgent 
-            position={[2, -3.2, 4]} 
-            color="#a0a0a0" 
+            position={[3, -3.2, 5]} 
+            color="#cccccc" 
             role="DEVELOPER" 
           />
           
-          {/* Supervisor Agent - Black Chrome (Lead) @ Oversight Dashboard */}
+          {/* Supervisor Agent - Dark Chrome (Lead) */}
           <RobotAgent 
             position={[0, -3.2, -5]} 
-            color="#1a1a1a" 
+            color="#222222" 
             role="SUPERVISOR" 
             isLead={true}
           />
-
-
-          <Environment preset="city" />
-          <ContactShadows 
-            position={[0, -4, 0]} 
-            opacity={0.4} 
-            scale={20} 
-            blur={2} 
-            far={4.5} 
-          />
         </Suspense>
 
-        {/* Cinematic Lighting System */}
-        <ambientLight intensity={0.2} />
+        {/* Cinematic Lighting System - Maximum Visibility */}
+        <ambientLight intensity={1.5} />
         <spotLight 
-          position={[10, 10, 10]} 
-          angle={0.15} 
+          position={[20, 30, 20]} 
+          angle={0.2} 
           penumbra={1} 
-          intensity={1} 
+          intensity={50} 
           castShadow 
         />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#00aaff" />
+        <pointLight position={[-15, 10, -15]} intensity={30} color="#00f2ff" />
+        <directionalLight position={[0, 20, 0]} intensity={15} color="#ffffff" />
       </Canvas>
     </div>
   );

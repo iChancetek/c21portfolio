@@ -17,11 +17,11 @@ export default function Hero() {
   useEffect(() => {
     setMounted(true);
     
-    // Phase 1: Wait 1.5s then scale the typography mask autonomously
-    const scaleTimer = setTimeout(() => setIsScaled(true), 1500);
+    // Phase 1: Wait 1s then scale the typography mask autonomously
+    const scaleTimer = setTimeout(() => setIsScaled(true), 1000);
     
-    // Phase 2: Reveal the inner portal at 2.2s
-    const revealTimer = setTimeout(() => setIsRevealed(true), 2200);
+    // Phase 2: Reveal the inner portal at 1.5s
+    const revealTimer = setTimeout(() => setIsRevealed(true), 1500);
     
     return () => {
       clearTimeout(scaleTimer);
@@ -38,6 +38,19 @@ export default function Hero() {
         
         {/* Ambient Animated Background Grid */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.05)_0%,transparent_100%)] opacity-50" />
+
+        {/* Persistent Elite 3D Agentic Lab Background */}
+        {mounted && (
+          <div className="absolute inset-0 z-10 opacity-100 transition-opacity duration-1000">
+            <Suspense fallback={
+              <div className="w-full h-full flex items-center justify-center text-primary animate-pulse bg-black font-mono tracking-widest uppercase">
+                Initializing Agentic Neural Net...
+              </div>
+            }>
+               <AgenticLab />
+            </Suspense>
+          </div>
+        )}
 
         {/* Phase 1: Massive Scaling Text (The Autonomous Mask) */}
         <motion.div 
@@ -110,17 +123,6 @@ export default function Hero() {
                 <Link href="/projects#contact">Get in Touch</Link>
               </Button>
             </div>
-          </div>
-
-          {/* Full-Screen 3D Agentic Lab Background */}
-          <div className="absolute inset-0 z-10">
-            <Suspense fallback={
-              <div className="w-full h-full flex items-center justify-center text-primary animate-pulse bg-black font-mono tracking-widest uppercase">
-                Initializing Agentic Neural Net...
-              </div>
-            }>
-               <AgenticLab />
-            </Suspense>
           </div>
 
           {/* AI Assistant Chat Panel */}
