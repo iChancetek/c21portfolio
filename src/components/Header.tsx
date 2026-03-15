@@ -129,7 +129,7 @@ export default function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Code className="h-6 w-6 text-primary" />
-          <span className="font-bold text-primary-gradient">Chancellor Minus</span>
+          <span className="font-bold text-primary-gradient">Chancellor's Minus</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <NavLink href="/projects" isProjectLink>
@@ -239,7 +239,7 @@ export default function Header() {
               <div className="p-4">
                 <Link href="/" className="mb-8 flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
                   <Code className="h-6 w-6 text-primary" />
-                  <span className="font-bold">Chancellor Minus</span>
+                  <span className="font-bold">Chancellor's Minus</span>
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
                     <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>

@@ -57,7 +57,7 @@ export default function Hero() {
              className="text-center"
           >
              <h1 className="text-[10vw] font-black tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-500 drop-shadow-2xl mix-blend-plus-lighter uppercase">
-               Chancellor
+               Chancellor's
              </h1>
              <h1 className="text-[10vw] font-black tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-500 drop-shadow-2xl mix-blend-plus-lighter">
                AGENTIC
@@ -93,7 +93,7 @@ export default function Hero() {
             </div>
             
             <h2 className="text-4xl sm:text-5xl lg:text-7xl/none font-extrabold tracking-tight drop-shadow-lg text-white">
-               Chancellor <br/><span className="text-primary-gradient">AGENTIC REALITY</span>
+               Chancellor's <br/><span className="text-primary-gradient">AGENTIC REALITY</span>
             </h2>
             
             <p className="text-lg lg:text-xl text-white/90 font-light leading-relaxed drop-shadow-md bg-black/5 backdrop-blur-none p-6 rounded-2xl border border-white/5 shadow-sm pointer-events-auto">

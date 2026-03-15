@@ -12,7 +12,8 @@ export default function AgenticLab() {
       <Canvas shadows dpr={[1, 2]}>
         <PerspectiveCamera makeDefault position={[12, 10, 16]} fov={45} />
         <OrbitControls 
-          enablePan={false} 
+          enablePan={true}
+          screenSpacePanning={true} 
           maxPolarAngle={Math.PI / 1.8} 
           minDistance={8} 
           maxDistance={30}
