@@ -1,8 +1,22 @@
-
-'use client';
-
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, Send, User, Loader2, Play, Volume2, Pause, StopCircle, Minus, MessageSquare } from 'lucide-react';
+import { Avatar, AvatarFallback } from './ui/avatar';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
+import { ScrollArea } from './ui/scroll-area';
+import { cn } from '@/lib/utils';
+import { handleSearch } from '@/app/actions';
+import { useLocale } from '@/hooks/useLocale';
+import { textToSpeech } from '@/ai/flows/openai-tts-flow';
+
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
 export default function AIAssistant() {
   const { t, locale } = useLocale();
