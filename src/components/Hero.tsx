@@ -17,11 +17,9 @@ export default function Hero() {
   useEffect(() => {
     setMounted(true);
     
-    // Phase 1: Wait 1s then scale the typography mask autonomously
-    const scaleTimer = setTimeout(() => setIsScaled(true), 1000);
-    
-    // Phase 2: Reveal the inner portal at 1.5s
-    const revealTimer = setTimeout(() => setIsRevealed(true), 1500);
+    // Faster Elite Reveal
+    const scaleTimer = setTimeout(() => setIsScaled(true), 1200);
+    const revealTimer = setTimeout(() => setIsRevealed(true), 1800);
     
     return () => {
       clearTimeout(scaleTimer);
@@ -38,19 +36,6 @@ export default function Hero() {
         
         {/* Ambient Animated Background Grid */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.05)_0%,transparent_100%)] opacity-50" />
-
-        {/* Persistent Elite 3D Agentic Lab Background */}
-        {mounted && (
-          <div className="absolute inset-0 z-10 opacity-100 transition-opacity duration-1000">
-            <Suspense fallback={
-              <div className="w-full h-full flex items-center justify-center text-primary animate-pulse bg-black font-mono tracking-widest uppercase">
-                Initializing Agentic Neural Net...
-              </div>
-            }>
-               <AgenticLab />
-            </Suspense>
-          </div>
-        )}
 
         {/* Phase 1: Massive Scaling Text (The Autonomous Mask) */}
         <motion.div 
@@ -108,7 +93,7 @@ export default function Hero() {
             </div>
             
             <h2 className="text-4xl sm:text-5xl lg:text-7xl/none font-extrabold tracking-tight drop-shadow-lg text-white">
-               Autonomous <br/><span className="text-primary-gradient">Robotic Engineering</span>
+               Chancellor <br/><span className="text-primary-gradient">AGENTIC REALITY</span>
             </h2>
             
             <p className="text-lg lg:text-xl text-white/90 font-light leading-relaxed drop-shadow-md bg-black/40 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-sm pointer-events-auto">
@@ -123,6 +108,17 @@ export default function Hero() {
                 <Link href="/projects#contact">Get in Touch</Link>
               </Button>
             </div>
+          </div>
+
+          {/* Full-Screen 3D Agentic Lab Background - Always rendered for persistence */}
+          <div className="absolute inset-0 z-10">
+            <Suspense fallback={
+              <div className="w-full h-full flex items-center justify-center text-primary animate-pulse bg-black font-mono tracking-widest uppercase">
+                Initializing Elite Lab...
+              </div>
+            }>
+               <AgenticLab />
+            </Suspense>
           </div>
 
           {/* AI Assistant Chat Panel */}
