@@ -16,7 +16,7 @@ export default function AgenticLab() {
           screenSpacePanning={true} 
           maxPolarAngle={Math.PI / 1.8} 
           minDistance={8} 
-          maxDistance={30}
+          maxDistance={60}
           autoRotate
           autoRotateSpeed={0.3}
         />
@@ -51,7 +51,7 @@ export default function AgenticLab() {
           <ContactShadows 
             position={[0, -4, 0]} 
             opacity={0.4} 
-            scale={20} 
+            scale={100}
             blur={2} 
             far={4.5} 
           />
