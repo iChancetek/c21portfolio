@@ -104,7 +104,7 @@ export default function CubeWorkspace() {
         content="Goal: AI Portfolio Deployment\nVelocity: 94%\nPriority: CRITICAL" 
       />
 
-      <gridHelper args={[150, 100, '#004488', '#001122']} position={[0, -4, 0]} />
+      <gridHelper args={[500, 200, '#004488', '#001122']} position={[0, -4, 0]} />
       <pointLight position={[0, 4, 0]} intensity={2} color="#00ccff" />
       <spotLight position={[0, 10, 0]} angle={0.5} penumbra={1} intensity={15} color="#00ffff" castShadow />
     </group>

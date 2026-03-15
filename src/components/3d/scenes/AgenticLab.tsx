@@ -10,7 +10,7 @@ export default function AgenticLab() {
   return (
     <div className="w-full h-full">
       <Canvas shadows dpr={[1, 2]}>
-        <PerspectiveCamera makeDefault position={[12, 10, 16]} fov={45} />
+        <PerspectiveCamera makeDefault position={[12, 10, 16]} fov={45} far={2000} />
         <OrbitControls 
           enablePan={true}
           screenSpacePanning={true} 
@@ -51,7 +51,7 @@ export default function AgenticLab() {
           <ContactShadows 
             position={[0, -4, 0]} 
             opacity={0.4} 
-            scale={100}
+            scale={500} 
             blur={2} 
             far={4.5} 
           />
