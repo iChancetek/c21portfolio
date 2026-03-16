@@ -13,9 +13,16 @@ export default function Hero() {
   const [mounted, setMounted] = useState(false);
   const [isScaled, setIsScaled] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
     
     // Faster Elite Reveal
     const scaleTimer = setTimeout(() => setIsScaled(true), 1200);
@@ -24,15 +31,16 @@ export default function Hero() {
     return () => {
       clearTimeout(scaleTimer);
       clearTimeout(revealTimer);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   return (
     // Responsive immersive container
-    <section ref={containerRef} className="relative w-full h-screen bg-background overflow-hidden">
+    <section ref={containerRef} className={`relative w-full h-screen bg-background ${mounted && isMobile ? 'overflow-y-auto' : 'overflow-hidden'}`}>
       
       {/* Sticky viewport container */}
-      <div className="relative h-full w-full flex flex-col items-center justify-center">
+      <div className={`relative ${mounted && isMobile ? 'h-auto' : 'h-full'} w-full flex flex-col items-center justify-center`}>
         
         {/* Ambient Animated Background Grid */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.05)_0%,transparent_100%)] opacity-50" />
@@ -84,10 +92,10 @@ export default function Hero() {
             y: isRevealed ? 0 : 50
           }}
           transition={{ duration: 1.5, ease: "easeOut" }}
-          className="relative z-20 w-full max-w-full px-0 flex flex-col lg:flex-row items-center justify-center h-full"
+          className={`relative z-20 w-full max-w-full px-0 flex flex-col lg:flex-row items-center justify-center ${mounted && isMobile ? 'h-auto pt-4' : 'h-full'}`}
         >
           {/* Overlay Content (Left) */}
-          <div className="absolute left-8 lg:left-20 max-w-[450px] flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 z-30 pointer-events-none">
+          <div className={`flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 z-30 ${mounted && isMobile ? 'relative order-2 w-full p-4 mt-6 pointer-events-auto' : 'absolute left-8 lg:left-20 max-w-[450px] pointer-events-none'}`}>
             <div className="inline-flex py-1.5 px-4 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold tracking-widest uppercase backdrop-blur-md shadow-[0_0_25px_rgba(var(--primary),0.3)]">
                <Network className="w-4 h-4 mr-2 inline animate-spin-slow" /> Agentic AI Collaboration
             </div>
@@ -111,7 +119,7 @@ export default function Hero() {
           </div>
 
           {/* Full-Screen 3D Agentic Lab Background - Always rendered for persistence */}
-          <div className="absolute inset-0 z-10">
+          <div className={`${mounted && isMobile ? 'relative w-full h-[42vh] sm:h-[48vh] order-1 mt-12 mb-4' : 'absolute inset-0'} z-10`}>
             <Suspense fallback={
               <div className="w-full h-full flex items-center justify-center text-primary animate-pulse bg-black font-mono tracking-widest uppercase">
                 Initializing Elite Lab...
