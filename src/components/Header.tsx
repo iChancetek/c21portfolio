@@ -129,7 +129,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-20 max-w-screen-2xl items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <Image src="/scripted-logo.png" alt="Chancellor Minus Logo" width={64} height={64} className="h-16 w-auto rounded-md" />
+          <Image src="/logo-wide.png" alt="Chancellor Minus Logo" width={293} height={56} className="h-14 w-auto rounded-md" />
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <NavLink href="/projects" isProjectLink>
@@ -238,7 +238,7 @@ export default function Header() {
               </SheetHeader>
               <div className="p-4">
                 <Link href="/" className="mb-8 flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
-                  <Image src="/scripted-logo.png" alt="Chancellor Minus Logo" width={64} height={64} className="h-16 w-auto rounded-md" />
+                  <Image src="/logo-wide.png" alt="Chancellor Minus Logo" width={293} height={56} className="h-14 w-auto rounded-md" />
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
                     <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>
