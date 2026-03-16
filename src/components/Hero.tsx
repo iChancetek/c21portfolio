@@ -37,10 +37,10 @@ export default function Hero() {
 
   return (
     // Responsive immersive container
-    <section ref={containerRef} className={`relative w-full h-screen bg-background ${mounted && isMobile ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+    <section ref={containerRef} className={`relative w-full bg-background ${mounted && isMobile ? 'h-auto overflow-visible' : 'h-screen overflow-hidden'}`}>
       
       {/* Sticky viewport container */}
-      <div className={`relative ${mounted && isMobile ? 'h-auto' : 'h-full'} w-full flex flex-col items-center justify-center`}>
+      <div className={`relative ${mounted && isMobile ? 'h-auto' : 'h-full'} w-full flex flex-col items-center justify-center overflow-x-hidden`}>
         
         {/* Ambient Animated Background Grid */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.05)_0%,transparent_100%)] opacity-50" />
@@ -95,7 +95,7 @@ export default function Hero() {
           className={`relative z-20 w-full max-w-full px-0 flex flex-col lg:flex-row items-center justify-center ${mounted && isMobile ? 'h-auto pt-4' : 'h-full'}`}
         >
           {/* Overlay Content (Left) */}
-          <div className={`flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 z-30 ${mounted && isMobile ? 'relative order-2 w-full p-4 mt-6 pointer-events-auto' : 'absolute left-8 lg:left-20 max-w-[450px] pointer-events-none'}`}>
+          <div className={`flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 lg:space-y-8 z-30 ${mounted && isMobile ? 'relative order-2 w-full p-5 mt-6 pointer-events-auto max-w-[90%]' : 'absolute left-8 lg:left-20 lg:top-[22%] max-w-[450px] pointer-events-none'}`}>
             <div className="inline-flex py-1.5 px-4 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold tracking-widest uppercase backdrop-blur-md shadow-[0_0_25px_rgba(var(--primary),0.3)]">
                <Network className="w-4 h-4 mr-2 inline animate-spin-slow" /> Agentic AI Collaboration
             </div>
@@ -116,6 +116,7 @@ export default function Hero() {
                 <Link href="/projects#contact">Get in Touch</Link>
               </Button>
             </div>
+
           </div>
 
           {/* Full-Screen 3D Agentic Lab Background - Always rendered for persistence */}
@@ -130,12 +131,13 @@ export default function Hero() {
           </div>
 
           {/* AI Assistant Chat Panel */}
-          <div className="absolute bottom-8 right-8 z-30 transform-gpu hover:scale-[1.02] transition-transform duration-500 shadow-2xl pointer-events-none">
+          <div className="fixed bottom-8 right-8 z-30 transform-gpu hover:scale-[1.02] transition-transform duration-500 shadow-2xl pointer-events-none">
              <div className="relative pointer-events-auto">
                <div className="absolute -inset-6 bg-primary/30 blur-[60px] rounded-full z-[-1] animate-pulse pointer-events-none" />
                <AIAssistant />
              </div>
           </div>
+
         </motion.div>
 
       </div>
