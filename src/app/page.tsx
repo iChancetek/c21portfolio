@@ -513,13 +513,34 @@ export default function LandingPage() {
               
               <video 
                   src="/AgenticChance.mp4" 
-                  controls 
-                  className="w-full h-full object-cover relative z-0"
+                  className="absolute inset-0 w-full h-full object-cover z-0"
                   autoPlay
                   muted
                   loop
                   playsInline
               />
+
+              {/* Content Overlay */}
+              <div className="absolute inset-0 bg-black/40 z-20 flex flex-col items-center justify-center text-center px-4">
+                  <motion.h3 
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className="text-white text-3xl md:text-4xl font-extrabold tracking-tight mb-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+                  >
+                      Witness the Agentic Future
+                  </motion.h3>
+                  <motion.p 
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.4 }}
+                      className="text-white/90 text-base md:text-lg max-w-xl font-light drop-shadow-[0_1px_5px_rgba(0,0,0,0.8)]"
+                  >
+                      Our AI-native platforms collaborate, solve problems, and deliver results in real-time.
+                  </motion.p>
+              </div>
           </div>
       </motion.section>
 
