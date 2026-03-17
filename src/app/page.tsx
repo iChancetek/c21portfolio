@@ -498,6 +498,31 @@ export default function LandingPage() {
       <div className="w-full mt-16">
         <SearchResults projects={projects} searchQuery={searchQuery} isSearching={isSearching} answer={answer} />
       </div>
+
+      {/* Showcase Video Section */}
+      <motion.section 
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="w-full max-w-4xl mx-auto px-4 py-16 pointer-events-auto"
+      >
+          <div className="relative aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_50px_-15px_rgba(var(--primary),0.3)] bg-background/30 backdrop-blur-xl group">
+              {/* Glowing ambient background inside video container */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-primary/10 pointer-events-none z-10" />
+              
+              <video 
+                  src="/AgenticChance.mp4" 
+                  controls 
+                  className="w-full h-full object-cover relative z-0"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+              />
+          </div>
+      </motion.section>
+
       <FeaturedPlatforms />
       <Ticker />
       <SignUpCta />
