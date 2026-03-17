@@ -505,7 +505,7 @@ export default function LandingPage() {
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full max-w-4xl mx-auto px-4 py-16 pointer-events-auto"
+          className="w-full xl:w-[120%] 2xl:w-[140%] max-w-[1400px] mx-auto px-4 py-16 pointer-events-auto"
       >
           <div className="relative aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_50px_-15px_rgba(var(--primary),0.3)] bg-background/30 backdrop-blur-xl group">
               {/* Glowing ambient background inside video container */}
@@ -520,27 +520,25 @@ export default function LandingPage() {
                   playsInline
               />
 
-              {/* Content Overlay */}
-              <div className="absolute inset-0 bg-black/40 z-20 flex flex-col items-center justify-center text-center px-4">
-                  <motion.h3 
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.2 }}
-                      className="text-white text-3xl md:text-4xl font-extrabold tracking-tight mb-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
-                  >
+              {/* Content Overlay - Shows for 5 seconds and fades out */}
+              <motion.div 
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: [0, 1, 1, 0] }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                      times: [0, 0.05, 0.95, 1], 
+                      duration: 5, 
+                      ease: "easeInOut" 
+                  }}
+                  className="absolute inset-0 bg-black/50 z-20 flex flex-col items-center justify-center text-center px-4"
+              >
+                  <h3 className="text-white text-3xl md:text-5xl font-extrabold tracking-tight mb-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
                       Witness the Agentic Future
-                  </motion.h3>
-                  <motion.p 
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.4 }}
-                      className="text-white/90 text-base md:text-lg max-w-xl font-light drop-shadow-[0_1px_5px_rgba(0,0,0,0.8)]"
-                  >
+                  </h3>
+                  <p className="text-white/90 text-lg md:text-xl max-w-xl font-light drop-shadow-[0_1px_5px_rgba(0,0,0,0.8)] leading-relaxed">
                       Our AI-native platforms collaborate, solve problems, and deliver results in real-time.
-                  </motion.p>
-              </div>
+                  </p>
+              </motion.div>
           </div>
       </motion.section>
 
