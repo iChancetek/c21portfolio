@@ -137,7 +137,7 @@ function SearchResults({ projects, searchQuery, isSearching, answer }: { project
   return (
     <>
         <audio ref={audioRef} />
-        <div id="results" className="w-full relative z-10 mt-12">
+        <div id="results" className="w-full relative z-10 mt-12 pointer-events-auto">
              <div className="flex flex-col items-center text-center space-y-4 mb-12">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary-gradient">{t('searchResults')}</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -236,7 +236,7 @@ function SignUpCta() {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full py-16 md:py-24"
+            className="w-full py-16 md:py-24 pointer-events-auto"
         >
             <Separator className="my-8 bg-border/20" />
             <div className="container relative max-w-4xl mx-auto text-center bg-secondary/30 backdrop-blur-sm border border-border/20 rounded-2xl p-8 md:p-12 overflow-hidden shadow-[0_0_50px_-15px_rgba(var(--primary),0.3)]">
@@ -269,7 +269,7 @@ function SignUpCta() {
 
 function FeaturedPlatforms() {
     return (
-       <section className="relative w-full xl:w-[120%] 2xl:w-[140%] max-w-[1400px] py-24 md:py-32 mt-12 overflow-hidden">
+       <section className="relative w-full xl:w-[120%] 2xl:w-[140%] max-w-[1400px] py-24 md:py-32 mt-12 overflow-hidden pointer-events-auto">
            {/* Abstract Background Elements */}
            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-[500px] bg-primary/20 blur-[120px] rounded-full pointer-events-none opacity-50 mix-blend-screen" />
            <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/20 blur-[150px] rounded-full pointer-events-none opacity-40 mix-blend-screen" />

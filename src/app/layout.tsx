@@ -11,6 +11,17 @@ export const metadata: Metadata = {
   title: 'Chancellor Minus | Entrepreneur • AI & Data Engineer • DevOps & MLOps Specialist • Full-Stack Developer',
   description: 'A full stack AI-powered portfolio showcasing the projects and skills of Chancellor Minus.',
   manifest: '/manifest.json',
+  icons: {
+    icon: '/icon-192x192.png',
+    apple: '/icon-192x192.png',
+  },
+  openGraph: {
+    images: ['/logo-wide.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/logo-wide.png'],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
