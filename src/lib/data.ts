@@ -70,6 +70,13 @@ export const projects: Project[] = [
 
 export const allVentures: Venture[] = [
     {
+        id: 'venture-18',
+        name: "iCareOS Premium",
+        description: "Transform Healthcare with Intelligent AI. iCareOS Health revolutionizes medical documentation and workflow management with cutting-edge AI technology. Streamline patient intake, automate SOAP notes, and enhance clinical decision-making with HIPAA-compliant intelligence.",
+        href: "https://icareos.us/",
+        hasDemo: true,
+    },
+    {
         id: 'venture-17',
         name: "Evolvable",
         description: "Evolvable is an AI-powered vibe coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.",
@@ -248,6 +255,7 @@ export const allVentures: Venture[] = [
 ];
 
 export const ventureIcons: VentureIcon[] = [
+    { name: "iCareOS Premium", icon: Sparkles },
     { name: "Evolvable", icon: Sparkles },
     { name: "iCareOS", icon: Stethoscope },
     { name: "StrideIQ", icon: Activity },

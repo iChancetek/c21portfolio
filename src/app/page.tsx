@@ -268,6 +268,8 @@ function SignUpCta() {
 }
 
 function FeaturedPlatforms() {
+    const [isPremiumExpanded, setIsPremiumExpanded] = useState(false);
+
     return (
        <section className="relative w-full xl:w-[120%] 2xl:w-[140%] max-w-[1400px] py-24 md:py-32 mt-12 overflow-hidden pointer-events-auto">
            {/* Abstract Background Elements */}
@@ -296,6 +298,48 @@ function FeaturedPlatforms() {
 
                <div className="mx-auto grid max-w-6xl items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
                    
+                   <motion.div
+                       initial={{ opacity: 0, scale: 0.95 }}
+                       whileInView={{ opacity: 1, scale: 1 }}
+                       viewport={{ once: true }}
+                       transition={{ duration: 0.6 }}
+                       className="lg:col-span-2"
+                   >
+                       <Card className="relative flex flex-col h-full overflow-hidden bg-primary/5 border-primary/30 hover:border-primary/60 transition-all duration-500 group rounded-2xl shadow-[0_0_50px_-12px_rgba(var(--primary),0.2)] backdrop-blur-xl">
+                           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-100 group-hover:opacity-100 transition-opacity duration-500" />
+                           
+                           <CardHeader className="relative z-10 pb-4">
+                               <div className="flex items-center justify-between">
+                                 <div className="p-3 bg-primary/20 w-fit rounded-xl border border-primary/30 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.3)] group-hover:scale-110 transition-transform duration-500">
+                                     <Sparkles className="w-8 h-8 text-primary" />
+                                 </div>
+                                 <div className="px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-primary text-xs font-bold tracking-widest uppercase">
+                                     Premium Elite
+                                 </div>
+                               </div>
+                               <CardTitle className="text-4xl font-black text-foreground group-hover:text-primary transition-colors duration-300">iCareOS Premium</CardTitle>
+                               <div className="text-base text-muted-foreground leading-relaxed mt-3">
+                                   <p className={isPremiumExpanded ? "" : "line-clamp-2"}>
+                                       Transform Healthcare with Intelligent AI. iCareOS Health revolutionizes medical documentation and workflow management with cutting-edge AI technology. Streamline patient intake, automate SOAP notes, and enhance clinical decision-making with HIPAA-compliant intelligence.
+                                   </p>
+                                   <button 
+                                       onClick={() => setIsPremiumExpanded(!isPremiumExpanded)}
+                                       className="mt-2 text-primary text-sm font-semibold hover:underline"
+                                   >
+                                       {isPremiumExpanded ? "Show Less" : "Read More..."}
+                                   </button>
+                               </div>
+                           </CardHeader>
+                           <div className="p-6 pt-auto mt-auto relative z-10">
+                               <Button asChild className="w-full bg-primary-gradient text-white hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all duration-300 rounded-xl h-14 text-lg font-bold">
+                                    <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer">
+                                        Experience iCareOS Premium <ExternalLink className="w-5 h-5 ml-2" />
+                                    </a>
+                               </Button>
+                           </div>
+                       </Card>
+                   </motion.div>
+
                    <motion.div
                        initial={{ opacity: 0, x: -30 }}
                        whileInView={{ opacity: 1, x: 0 }}
