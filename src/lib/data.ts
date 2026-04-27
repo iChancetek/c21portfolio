@@ -1,6 +1,6 @@
 
 import type { Project, SkillCategory, Venture, VentureIcon, PartnerCompany, ResumeData } from "@/lib/types";
-import { Activity, Stethoscope, Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit, Notebook, GraduationCap } from "lucide-react";
+import { Activity, Stethoscope, Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit, Notebook, GraduationCap, LayoutDashboard } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
@@ -69,6 +69,20 @@ export const projects: Project[] = [
 ];
 
 export const allVentures: Venture[] = [
+    {
+        id: 'venture-20',
+        name: "Chancellor",
+        description: "Chancellor — ChancellorOS ERP & CRM Platform. A platform built for a new way of working. Unify your operations, automate your workflows, and scale with intelligence—all in one system. What would you like to manage with Chancellor Work OS? Powered by ChancellorOS",
+        href: "https://chancellor--ichancellor.us-east4.hosted.app/",
+        hasDemo: true,
+    },
+    {
+        id: 'venture-19',
+        name: "iChanceTEK",
+        description: "Your AI Solution Partner for the Agentic Future. iChanceTEK is building the next generation of AI-native enterprise platforms—designed from the ground up to think, act, and evolve alongside your business.",
+        href: "https://iChanceTEK.com",
+        hasDemo: true,
+    },
     {
         id: 'venture-18',
         name: "iCareOS Premium",
@@ -255,6 +269,8 @@ export const allVentures: Venture[] = [
 ];
 
 export const ventureIcons: VentureIcon[] = [
+    { name: "Chancellor", icon: LayoutDashboard },
+    { name: "iChanceTEK", icon: Sparkles },
     { name: "iCareOS Premium", icon: Sparkles },
     { name: "Evolvable", icon: Sparkles },
     { name: "iCareOS", icon: Stethoscope },

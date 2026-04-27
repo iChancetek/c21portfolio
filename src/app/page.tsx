@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Loader2, Wand2, ExternalLink, Bot, Sparkles, RefreshCw, Volume2, Play, Pause, StopCircle, Activity, Stethoscope, Users } from 'lucide-react';
+import { Loader2, Wand2, ExternalLink, Bot, Sparkles, RefreshCw, Volume2, Play, Pause, StopCircle, Activity, Stethoscope, Users, LayoutDashboard } from 'lucide-react';
 import { handleSearch } from '@/app/actions';
 import type { Venture } from '@/lib/types';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -311,17 +311,20 @@ function FeaturedPlatforms() {
                            <CardHeader className="relative z-10 pb-4">
                                <div className="flex items-center justify-between">
                                  <div className="p-3 bg-primary/20 w-fit rounded-xl border border-primary/30 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.3)] group-hover:scale-110 transition-transform duration-500">
-                                     <Sparkles className="w-8 h-8 text-primary" />
+                                     <LayoutDashboard className="w-8 h-8 text-primary" />
                                  </div>
                                  <div className="px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-primary text-xs font-bold tracking-widest uppercase">
                                      Premium Elite
                                  </div>
                                </div>
-                               <CardTitle className="text-4xl font-black text-foreground group-hover:text-primary transition-colors duration-300">iCareOS Premium</CardTitle>
+                               <CardTitle className="text-4xl font-black text-foreground group-hover:text-primary transition-colors duration-300">Chancellor</CardTitle>
                                <div className="text-base text-muted-foreground leading-relaxed mt-3">
-                                   <p className={isPremiumExpanded ? "" : "line-clamp-2"}>
-                                       Transform Healthcare with Intelligent AI. iCareOS Health revolutionizes medical documentation and workflow management with cutting-edge AI technology. Streamline patient intake, automate SOAP notes, and enhance clinical decision-making with HIPAA-compliant intelligence.
-                                   </p>
+                                   <div className={isPremiumExpanded ? "" : "line-clamp-2"}>
+                                       <p className="font-bold">Chancellor — ChancellorOS ERP & CRM Platform</p>
+                                       <p>A platform built for a new way of working. Unify your operations, automate your workflows, and scale with intelligence—all in one system.</p>
+                                       <p className="mt-2 italic">What would you like to manage with Chancellor Work OS?</p>
+                                       <p className="mt-1 text-xs uppercase tracking-widest">Powered by ChancellorOS</p>
+                                   </div>
                                    <button 
                                        onClick={() => setIsPremiumExpanded(!isPremiumExpanded)}
                                        className="mt-2 text-primary text-sm font-semibold hover:underline"
@@ -332,8 +335,8 @@ function FeaturedPlatforms() {
                            </CardHeader>
                            <div className="p-6 pt-auto mt-auto relative z-10">
                                <Button asChild className="w-full bg-primary-gradient text-white hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all duration-300 rounded-xl h-14 text-lg font-bold">
-                                    <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer">
-                                        Experience iCareOS Premium <ExternalLink className="w-5 h-5 ml-2" />
+                                    <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer">
+                                        Experience Chancellor <ExternalLink className="w-5 h-5 ml-2" />
                                     </a>
                                </Button>
                            </div>
@@ -347,7 +350,62 @@ function FeaturedPlatforms() {
                        transition={{ duration: 0.6, delay: 0.1 }}
                    >
                        <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
-                           {/* Hover Gradient Effect */}
+                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                           
+                           <CardHeader className="relative z-10 pb-4">
+                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                   <Sparkles className="w-8 h-8 text-primary" />
+                               </div>
+                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">iChanceTEK</CardTitle>
+                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
+                                   Your AI Solution Partner for the Agentic Future. AI-native enterprise platforms designed to think, act, and evolve alongside your business.
+                               </CardDescription>
+                           </CardHeader>
+                           <div className="p-6 pt-auto mt-auto relative z-10">
+                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
+                                    <a href="https://iChanceTEK.com" target="_blank" rel="noopener noreferrer">
+                                        Visit iChanceTEK <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
+                                    </a>
+                               </Button>
+                           </div>
+                       </Card>
+                   </motion.div>
+
+                   <motion.div
+                       initial={{ opacity: 0, x: 30 }}
+                       whileInView={{ opacity: 1, x: 0 }}
+                       viewport={{ once: true }}
+                       transition={{ duration: 0.6, delay: 0.1 }}
+                   >
+                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                           
+                           <CardHeader className="relative z-10 pb-4">
+                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                   <Sparkles className="w-8 h-8 text-primary" />
+                               </div>
+                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">iCareOS Premium</CardTitle>
+                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
+                                   Transform Healthcare with Intelligent AI. iCareOS Health revolutionizes medical documentation and workflow management.
+                               </CardDescription>
+                           </CardHeader>
+                           <div className="p-6 pt-auto mt-auto relative z-10">
+                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
+                                    <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer">
+                                        Visit iCareOS Premium <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
+                                    </a>
+                               </Button>
+                           </div>
+                       </Card>
+                   </motion.div>
+
+                    <motion.div
+                       initial={{ opacity: 0, x: 30 }}
+                       whileInView={{ opacity: 1, x: 0 }}
+                       viewport={{ once: true }}
+                       transition={{ duration: 0.6, delay: 0.2 }}
+                   >
+                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                            
                            <CardHeader className="relative z-10 pb-4">
