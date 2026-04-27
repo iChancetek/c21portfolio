@@ -323,8 +323,9 @@ function FeaturedPlatforms() {
                                <CardTitle className="text-4xl font-black text-foreground group-hover:text-primary transition-colors duration-300">Chancellor</CardTitle>
                                <div className="text-base text-muted-foreground leading-relaxed mt-3">
                                    <div className={isPremiumExpanded ? "" : "line-clamp-2"}>
-                                       <p className="font-bold">Chancellor — ChancellorOS ERP & CRM Platform</p>
-                                       <p>A platform built for a new way of working. Unify your operations, automate your workflows, and scale with intelligence—all in one system.</p>
+                                        <p>Chancellor — ChancellorOS ERP & CRM Platform</p>
+                                        <p className="mt-2">A platform built for a new way of working.</p>
+                                        <p className="mt-2">Unify your operations, automate your workflows, and scale with intelligence—all in one system.</p>
                                        <p className="mt-2 italic">What would you like to manage with Chancellor Work OS?</p>
                                        <p className="mt-1 text-xs uppercase tracking-widest">Powered by ChancellorOS</p>
                                    </div>

@@ -159,11 +159,6 @@ export default function Header() {
                 </a>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <a href="https://iChanceTEK.com" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" /> iChanceTEK
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
                 <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-primary" /> iCareOS Premium
                 </a>
@@ -267,9 +262,6 @@ export default function Header() {
                       <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Featured Platforms</span>
                       <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
                         <LayoutDashboard className="h-4 w-4 text-primary" /> Chancellor
-                      </a>
-                      <a href="https://iChanceTEK.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <Sparkles className="h-4 w-4 text-primary" /> iChanceTEK
                       </a>
                       <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
                         <Sparkles className="h-4 w-4 text-primary" /> iCareOS Premium

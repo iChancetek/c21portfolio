@@ -79,15 +79,8 @@ export const allVentures: Venture[] = [
     {
         id: 'venture-20',
         name: "Chancellor",
-        description: "Chancellor — ChancellorOS ERP & CRM Platform. A platform built for a new way of working. Unify your operations, automate your workflows, and scale with intelligence—all in one system. What would you like to manage with Chancellor Work OS? Powered by ChancellorOS",
+        description: "Chancellor — ChancellorOS ERP & CRM Platform\n\nA platform built for a new way of working.\n\nUnify your operations, automate your workflows, and scale with intelligence—all in one system.\n\nWhat would you like to manage with Chancellor Work OS?\n\nPowered by ChancellorOS",
         href: "https://chancellor--ichancellor.us-east4.hosted.app/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-19',
-        name: "iChanceTEK",
-        description: "Your AI Solution Partner for the Agentic Future. iChanceTEK is building the next generation of AI-native enterprise platforms—designed from the ground up to think, act, and evolve alongside your business.",
-        href: "https://iChanceTEK.com",
         hasDemo: true,
     },
     {
@@ -535,7 +528,7 @@ export const resumeData: ResumeData = {
   name: 'CHANCELLOR MINUS',
   contact: {
     email: 'cm@chancellorminus.com',
-    phone: '917-295-2351',
+    phone: '646 867 3318',
     location: 'New York, NY 10013',
     github: 'https://github.com/iChancetek',
     portfolio: 'https://chancellorminus.com',
