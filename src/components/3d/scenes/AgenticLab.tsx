@@ -1,15 +1,56 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
 import CubeWorkspace from './CubeWorkspace';
 import RobotAgent from '../robots/RobotAgent';
 
 export default function AgenticLab() {
+  const [hasWebGL, setHasWebGL] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    // Check for WebGL availability
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      setHasWebGL(!!gl);
+    } catch (e) {
+      setHasWebGL(false);
+    }
+  }, []);
+
+  if (hasWebGL === false) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-black/20 text-primary/60 font-mono text-center p-8">
+        <div>
+          <p className="text-xl mb-4 font-bold tracking-tighter uppercase">3D Experience Unavailable</p>
+          <p className="text-sm opacity-80">WebGL context blocked or unsupported. Please check your browser settings.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-full">
-      <Canvas shadows dpr={[1, 2]}>
+      <Canvas 
+        shadows 
+        dpr={[1, 1.5]}
+        gl={{ 
+          antialias: false, 
+          powerPreference: "default",
+          preserveDrawingBuffer: false,
+          alpha: true,
+          stencil: false,
+          depth: true
+        }}
+        onCreated={({ gl }) => {
+          gl.domElement.addEventListener('webglcontextlost', (event) => {
+            event.preventDefault();
+            console.warn('WebGL context lost. Attempting to restore...');
+          }, false);
+        }}
+      >
         <PerspectiveCamera makeDefault position={[12, 10, 16]} fov={45} far={2000} />
         <OrbitControls 
           enablePan={true}
