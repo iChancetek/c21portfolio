@@ -178,7 +178,7 @@ export default function CVPage() {
     }
   };
 
-  const featuredProjects = allVentures.filter(v => ['venture-1', 'venture-2', 'venture-8'].includes(v.id));
+  const featuredProjects = allVentures.filter(v => ['venture-1', 'venture-2', 'venture-8', 'venture-21'].includes(v.id));
 
   return (
     <>

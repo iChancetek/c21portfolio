@@ -70,6 +70,13 @@ export const projects: Project[] = [
 
 export const allVentures: Venture[] = [
     {
+        id: 'venture-21',
+        name: "WorkSpaceIQ",
+        description: "Power your thinking with WorkSpaceIQ. our AI Research & Dictation Partner. Dictate, research, and create. Upload any source, ask anything, and listen to an AI podcast of your own content — all in one place.",
+        href: "https://WorkSpaceIQ.us",
+        hasDemo: true,
+    },
+    {
         id: 'venture-20',
         name: "Chancellor",
         description: "Chancellor — ChancellorOS ERP & CRM Platform. A platform built for a new way of working. Unify your operations, automate your workflows, and scale with intelligence—all in one system. What would you like to manage with Chancellor Work OS? Powered by ChancellorOS",
@@ -269,6 +276,7 @@ export const allVentures: Venture[] = [
 ];
 
 export const ventureIcons: VentureIcon[] = [
+    { name: "WorkSpaceIQ", icon: Sparkles },
     { name: "Chancellor", icon: LayoutDashboard },
     { name: "iChanceTEK", icon: Sparkles },
     { name: "iCareOS Premium", icon: Sparkles },

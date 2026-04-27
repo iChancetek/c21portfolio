@@ -188,6 +188,11 @@ export default function Header() {
                   <Sparkles className="h-4 w-4 text-primary" /> Evolvable
                 </a>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-primary" /> WorkSpaceIQ
+                </a>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <DropdownMenu>
@@ -280,6 +285,9 @@ export default function Header() {
                       </a>
                       <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
                         <Sparkles className="h-4 w-4 text-primary" /> Evolvable
+                      </a>
+                      <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                        <Sparkles className="h-4 w-4 text-primary" /> WorkSpaceIQ
                       </a>
                     </div>
                     <NavLink href="/resume" isProjectLink>Resume</NavLink>

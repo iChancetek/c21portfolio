@@ -252,6 +252,9 @@ function SignUpCta() {
                     >
                         <Sparkles className="w-12 h-12 text-primary mx-auto mb-6 drop-shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
                     </motion.div>
+
+
+
                     <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6 text-primary-gradient">
                         {t('ctaTitle')}
                     </h2>
@@ -510,6 +513,34 @@ function FeaturedPlatforms() {
                            </div>
                        </Card>
                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
+                        whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            <CardHeader className="relative z-10 pb-4">
+                                <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                    <Sparkles className="w-8 h-8 text-primary" />
+                                </div>
+                                <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">WorkSpaceIQ</CardTitle>
+                                <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
+                                    Power your thinking with WorkSpaceIQ, our AI Research & Dictation Partner. Dictate, research, and create. Upload any source, ask anything, and listen to an AI podcast of your own content — all in one place.
+                                </CardDescription>
+                            </CardHeader>
+                            <div className="p-6 pt-auto mt-auto relative z-10">
+                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
+                                     <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer">
+                                         Visit WorkSpaceIQ <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
+                                     </a>
+                                </Button>
+                            </div>
+                        </Card>
+                    </motion.div>
 
                </div>
            </div>

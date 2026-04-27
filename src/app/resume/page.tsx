@@ -314,14 +314,28 @@ export default function ResumePage() {
                              Chancellor
                           </Link>
                       </p>
-                      <h3 className="text-xl font-bold text-primary-gradient mt-4">
-                        <Link href="https://iChanceTEK.com" target="_blank" className="hover:underline">
-                            iChanceTEK
-                        </Link>
-                      </h3>
-                      <p className="text-muted-foreground">
-                        Your AI Solutions Partner
-                      </p>
+                      <div className="flex flex-col sm:flex-row justify-center gap-6 mt-6">
+                           <div>
+                               <h3 className="text-xl font-bold text-primary-gradient">
+                                 <Link href="https://iChanceTEK.com" target="_blank" className="hover:underline">
+                                     iChanceTEK
+                                 </Link>
+                               </h3>
+                               <p className="text-muted-foreground text-sm">
+                                 Your AI Solutions Partner
+                               </p>
+                           </div>
+                           <div>
+                               <h3 className="text-xl font-bold text-primary-gradient">
+                                 <Link href="https://WorkSpaceIQ.us" target="_blank" className="hover:underline">
+                                     WorkSpaceIQ
+                                 </Link>
+                               </h3>
+                               <p className="text-muted-foreground text-sm">
+                                 AI Research & Dictation Partner
+                               </p>
+                           </div>
+                       </div>
                   </div>
               </Section>
 
