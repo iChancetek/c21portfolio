@@ -174,90 +174,9 @@
     display: none !important;
   }
 
-  /* Reset page layout */
-  body, html, main, #cv-container, #resume-container, .py-16, .py-12, .md\:py-24 {
-    padding: 0 !important;
-    margin: 0 !important;
-    max-width: 100% !important;
+  /* Make sure background colors print correctly */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  
-  #cv-container, #resume-container {
-    border: none !important;
-    box-shadow: none !important;
-    overflow: visible !important;
-  }
-
-  header {
-    padding: 0 !important;
-    margin-bottom: 10px !important;
-  }
-
-  /* Universal reset for animations and visibility for printing */
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-    transform: none !important;
-    visibility: visible !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-    background-image: none !important;
-  }
-
-  /* General text color reset */
-  h1, h2, h3, h4, h5, h6, p, a, li, span, div {
-    color: #000 !important;
-  }
-  
-  .text-primary-gradient, .text-transparent {
-    color: #000 !important;
-    background: none !important;
-    -webkit-background-clip: initial !important;
-    background-clip: initial !important;
-  }
-
-  /* Reset backgrounds */
-  body, .bg-card, .bg-secondary, .bg-background, [class*="bg-"] {
-     background-color: #fff !important;
-     background: #fff !important;
-  }
-
-  /* Reset borders */
-  .border, .border-l-2, [class*="border-"] {
-      border-color: #ccc !important;
-  }
-  
-  /* --- Resume Page Print Optimizations --- */
-  section {
-    page-break-inside: auto;
-    margin-bottom: 12px !important;
-  }
-  
-  .experience-item {
-     page-break-inside: auto;
-     margin-bottom: 8px !important;
-     padding: 4px !important;
-  }
-
-  .experience-item ul {
-     margin-top: 4px !important;
-  }
-  
-  .experience-item li {
-     margin-bottom: 2px !important;
-     font-size: 8.5pt !important;
-     line-height: 1.2 !important;
-  }
-
-  p, span, div {
-     font-size: 9pt;
-     line-height: 1.25;
-  }
-
-  h1 { font-size: 24pt !important; margin-bottom: 4px !important; }
-  h2 { font-size: 14pt !important; margin-bottom: 6px !important; }
-  h3 { font-size: 11pt !important; margin-bottom: 2px !important; }
 }

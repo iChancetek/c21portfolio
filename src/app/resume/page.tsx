@@ -1,35 +1,20 @@
-
 'use client';
 
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Briefcase, Code, Cloud, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, Building, BookOpen, Download, Volume2, Play, Pause, Loader2, StopCircle } from 'lucide-react';
+import { Briefcase, Code, Mail, MapPin, Phone, Github, Link as LinkIcon, GraduationCap, Star, BookOpen, Download, Volume2, Play, Pause, Loader2, StopCircle, Building } from 'lucide-react';
 import Link from 'next/link';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import { resumeData } from '@/lib/data';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { cn } from '@/lib/utils';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
+import PrintResume from '@/components/PrintResume';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
-
-const Section = ({ title, icon: Icon, children, delay, className, ...props }: { title: string; icon: React.ElementType; children: React.ReactNode; delay: number; className?: string; [key: string]: any; }) => (
-  <section
-    className={cn("mb-12", className)}
-    {...props}
-  >
-    <h2 className="text-2xl font-bold tracking-tight text-primary-gradient mb-6 print:mb-3 flex items-center gap-3">
-      <Icon className="w-6 h-6 print:w-4 print:h-4" />
-      {title}
-    </h2>
-    <div className="space-y-6">{children}</div>
-  </section>
-);
-
 
 export default function ResumePage() {
   const [audioState, setAudioState] = useState<AudioState>('idle');
@@ -96,7 +81,6 @@ export default function ResumePage() {
     };
   }, []);
 
-
   const handleReadAloud = async () => {
     if (audioState === 'playing') {
       audioRef.current?.pause();
@@ -156,193 +140,224 @@ export default function ResumePage() {
     }
   };
 
-
   return (
     <>
-      <div className="py-12 md:py-24">
-        <div id="resume-container" className="max-w-4xl mx-auto bg-card rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative">
-          
-          <header className="p-10 text-center relative overflow-hidden">
-              <div className="absolute inset-0 -z-10 bg-primary-gradient/10 opacity-50 blur-2xl print:hidden"></div>
-              <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-              >
-                  <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/80">CHANCELLOR MINUS</h1>
-                  <div className="mt-4 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-muted-foreground">
-                      <a href={`mailto:${resumeData.contact.email}`} className="flex items-center gap-2 hover:text-primary transition-colors"><Mail className="w-4 h-4" /> {resumeData.contact.email}</a>
-                      <a href={`tel:${resumeData.contact.phone.replace(/-/g, '')}`} className="flex items-center gap-2 hover:text-primary transition-colors"><Phone className="w-4 h-4" /> {resumeData.contact.phone}</a>
-                      <span className="flex items-center gap-2"><MapPin className="w-4 h-4" /> {resumeData.contact.location}</span>
-                  </div>
-                  <div className="mt-4 flex justify-center items-center gap-4">
-                      <Link href={resumeData.contact.github} target="_blank" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                          <Github className="w-4 h-4" /> GitHub
-                      </Link>
-                      <Link href={resumeData.contact.portfolio} target="_blank" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                          <LinkIcon className="w-4 h-4" /> Portfolio
-                      </Link>
-                  </div>
-                   <div className="mt-8 print:hidden flex justify-center gap-2" data-no-read="true">
-                    <Button onClick={handlePrint} variant="outline" className="group">
-                        <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
-                        Download PDF
+      <div className="py-12 md:py-24 print:hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            {/* Action Bar */}
+            <div className="flex flex-wrap justify-end gap-3 mb-6" data-no-read="true">
+                <Button onClick={handlePrint} variant="outline" className="group shadow-sm hover:shadow-md transition-all">
+                    <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-0.5 text-primary" />
+                    Download PDF
+                </Button>
+                 <Button onClick={handleReadAloud} variant="outline" className="group shadow-sm hover:shadow-md transition-all" disabled={audioState === 'loading'}>
+                    {getReadAloudIcon()}
+                    {audioState === 'playing' ? 'Pause' : 'Read Aloud'}
+                </Button>
+                {audioState !== 'idle' && (
+                    <Button onClick={stopPlayback} variant="outline" className="group">
+                        <StopCircle className="mr-2 h-4 w-4 text-destructive" /> Stop
                     </Button>
-                     <Button onClick={handleReadAloud} variant="outline" className="group" disabled={audioState === 'loading'}>
-                        {getReadAloudIcon()}
-                        {audioState === 'playing' ? 'Pause' : 'Read Aloud'}
-                    </Button>
-                    {audioState !== 'idle' && (
-                        <Button onClick={stopPlayback} variant="outline" className="group">
-                            <StopCircle className="mr-2 h-4 w-4" /> Stop
-                        </Button>
-                    )}
+                )}
+            </div>
+
+            {/* Main Resume Container */}
+            <div id="resume-container" className="bg-card rounded-2xl shadow-2xl shadow-primary/10 border border-border/20 backdrop-blur-sm overflow-hidden relative grid grid-cols-1 lg:grid-cols-[1fr_2.5fr]">
+                
+                {/* LEFT COLUMN - ACCENT BACKGROUND */}
+                <div className="bg-secondary/20 p-8 md:p-10 lg:border-r border-border/40 relative">
+                    <div className="absolute inset-0 -z-10 bg-primary-gradient/5 opacity-50 blur-3xl"></div>
+                    
+                    {/* Contact Section */}
+                    <div className="mb-10">
+                        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-5 border-b border-border/50 pb-2">Contact</h2>
+                        <div className="space-y-4 text-sm text-foreground/90">
+                            <a href={`mailto:${resumeData.contact.email}`} className="flex items-center gap-3 hover:text-primary transition-colors">
+                                <Mail className="w-4 h-4 text-primary" /> <span>{resumeData.contact.email}</span>
+                            </a>
+                            <a href={`tel:${resumeData.contact.phone.replace(/-/g, '')}`} className="flex items-center gap-3 hover:text-primary transition-colors">
+                                <Phone className="w-4 h-4 text-primary" /> <span>{resumeData.contact.phone}</span>
+                            </a>
+                            <div className="flex items-center gap-3">
+                                <MapPin className="w-4 h-4 text-primary" /> <span>{resumeData.contact.location}</span>
+                            </div>
+                            <Link href={resumeData.contact.portfolio} target="_blank" className="flex items-center gap-3 hover:text-primary transition-colors">
+                                <LinkIcon className="w-4 h-4 text-primary" /> <span>{resumeData.contact.portfolio.replace('https://', '')}</span>
+                            </Link>
+                            <Link href={resumeData.contact.github} target="_blank" className="flex items-center gap-3 hover:text-primary transition-colors">
+                                <Github className="w-4 h-4 text-primary" /> <span>{resumeData.contact.github.replace('https://', '')}</span>
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Core Competencies */}
+                    <div className="mb-10">
+                        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-5 border-b border-border/50 pb-2">Core Skills</h2>
+                        <div className="flex flex-wrap gap-2">
+                        {resumeData.coreCompetencies.map((skill) => (
+                            <Badge key={skill} variant="secondary" className="bg-background/50 hover:bg-primary/20 hover:border-primary/50 transition-all text-xs font-medium py-1 px-3">
+                                {skill}
+                            </Badge>
+                        ))}
+                        </div>
+                    </div>
+
+                    {/* Technical Expertise */}
+                    <div className="mb-10">
+                        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-5 border-b border-border/50 pb-2">Tech Stack</h2>
+                        <div className="space-y-6">
+                        {resumeData.technicalExpertise.map((cat) => {
+                             const maxLength = 80;
+                             const isLongContent = cat.skills.length > maxLength;
+                             const truncatedSkills = isLongContent ? cat.skills.substring(0, maxLength) + '...' : cat.skills;
+                             return (
+                            <div key={cat.title}>
+                                <h3 className="text-sm font-bold text-foreground mb-2 flex items-center gap-2">
+                                    <Code className="w-3.5 h-3.5 text-primary" /> {cat.title}
+                                </h3>
+                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                    {truncatedSkills.replace(/\\n/g, ' • ')}
+                                </p>
+                                {isLongContent && (
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button variant="link" className="p-0 h-auto text-primary text-xs mt-1">Read more</Button>
+                                        </DialogTrigger>
+                                        <DialogContent className="sm:max-w-xl">
+                                            <DialogHeader>
+                                                <DialogTitle>{cat.title} Expertise</DialogTitle>
+                                                <DialogDescription>Detailed overview of my capabilities</DialogDescription>
+                                            </DialogHeader>
+                                            <ScrollArea className="max-h-[60vh] pr-4 mt-4">
+                                                <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">{cat.skills}</p>
+                                            </ScrollArea>
+                                        </DialogContent>
+                                    </Dialog>
+                                )}
+                            </div>
+                        )})}
+                        </div>
+                    </div>
+
+                    {/* Education */}
+                    <div>
+                        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-5 border-b border-border/50 pb-2">Education</h2>
+                        <div className="space-y-4">
+                        {resumeData.education.slice(0, 4).map((edu) => (
+                            <div key={edu.course}>
+                                <p className="text-sm font-bold text-foreground leading-tight">{edu.course}</p>
+                                <p className="text-sm text-muted-foreground leading-tight mt-1">{edu.institution}</p>
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+
                 </div>
-              </motion.div>
-          </header>
 
+                {/* RIGHT COLUMN - MAIN CONTENT */}
+                <div className="p-8 md:p-12 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+                    
+                    {/* Header */}
+                    <div className="mb-12">
+                        <motion.h1 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/70 tracking-tighter mb-3 uppercase"
+                        >
+                            {resumeData.name}
+                        </motion.h1>
+                        <motion.p 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-lg md:text-xl text-primary font-semibold uppercase tracking-widest"
+                        >
+                            AI Engineer & Cloud Architect
+                        </motion.p>
+                    </div>
 
-          <main className="p-8 md:p-12">
-            
-            <Section title="Professional Summary" icon={Briefcase} delay={0.1}>
-              <p className="text-foreground/80 leading-relaxed bg-background/50 p-6 rounded-lg border border-border/20 italic">
-                  {resumeData.summary}
-              </p>
-            </Section>
+                    {/* Professional Summary */}
+                    <div className="mb-12">
+                        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-6 border-b border-border/50 pb-2 flex items-center gap-3">
+                            <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-black shadow-sm">1</span>
+                            Professional Summary
+                        </h2>
+                        <p className="text-base text-foreground/90 leading-relaxed whitespace-pre-wrap p-6 bg-background/50 rounded-xl border border-border/30 italic shadow-inner">
+                            {resumeData.summary}
+                        </p>
+                    </div>
 
-            <Section title="Core Competencies" icon={Star} delay={0.2} data-no-print="true">
-               <div className="flex flex-wrap gap-3">
-                  {resumeData.coreCompetencies.map(c => (
-                      <motion.div key={c} whileHover={{ scale: 1.05 }} transition={{ type: 'spring', stiffness: 400, damping: 10 }}>
-                          <Badge variant="secondary" className="text-base py-1 px-4 cursor-default transition-all duration-300 hover:bg-primary/20 hover:border-primary/50 border border-transparent">{c}</Badge>
-                      </motion.div>
-                  ))}
-              </div>
-            </Section>
-
-            <Section title="Technical Expertise" icon={Code} delay={0.3} data-no-print="true">
-              <div className="grid md:grid-cols-2 gap-6">
-                  {resumeData.technicalExpertise.map(cat => {
-                      const maxLength = 150;
-                      const isLongContent = cat.skills.length > maxLength;
-                      const truncatedSkills = isLongContent ? cat.skills.substring(0, maxLength) + '...' : cat.skills;
-
-                      return (
-                      <motion.div key={cat.title} className="h-full" whileHover={{ y: -5, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
-                          <Card className="bg-background/50 border-border/20 transition-all duration-300 hover:shadow-primary/10 hover:border-primary/30 flex flex-col h-full">
-                              <CardHeader>
-                                  <CardTitle className="text-lg text-primary">{cat.title}</CardTitle>
-                              </CardHeader>
-                              <CardContent className="flex-grow flex flex-col justify-between">
-                                  <p className="text-sm text-muted-foreground mb-4">{isLongContent ? truncatedSkills : cat.skills}</p>
-                                  {isLongContent && (
-                                      <Dialog>
-                                          <DialogTrigger asChild>
-                                              <Button variant="link" className="p-0 h-auto justify-start text-primary self-start mt-auto">
-                                                  <BookOpen className="mr-2 h-4 w-4"/>
-                                                  Read more...
-                                              </Button>
-                                          </DialogTrigger>
-                                          <DialogContent className="sm:max-w-xl">
-                                              <DialogHeader>
-                                                  <DialogTitle className="text-2xl">{cat.title} Expertise</DialogTitle>
-                                                  <DialogDescription>
-                                                      Detailed overview of my capabilities within the {cat.title} ecosystem.
-                                                  </DialogDescription>
-                                              </DialogHeader>
-                                              <ScrollArea className="max-h-[60vh] pr-4">
-                                                  <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">{cat.skills}</p>
-                                              </ScrollArea>
-                                          </DialogContent>
-                                      </Dialog>
-                                  )}
-                              </CardContent>
-                          </Card>
-                      </motion.div>
-                  )})}
-              </div>
-            </Section>
-
-            <Section title="Professional Experience" icon={Briefcase} delay={0.4}>
-              <div className="space-y-8 print:space-y-3">
-                {resumeData.experience.map((job, index) => (
-                  <div key={index} className="relative experience-item print:mb-2">
-                     <div className="bg-background/50 p-4 sm:p-6 print:p-2 print:border-none rounded-lg border border-border/20 hover:border-primary/30 transition-all">
-                       <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2 print:mb-1">
-                            <h3 className="text-lg sm:text-xl print:text-base font-semibold text-foreground">{job.title}</h3>
-                            <div className="text-xs sm:text-sm print:text-[10px] text-muted-foreground font-mono mt-1 sm:mt-0">{job.date}</div>
+                    {/* Professional Experience */}
+                    <div className="mb-12">
+                        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-8 border-b border-border/50 pb-2 flex items-center gap-3">
+                            <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-black shadow-sm">2</span>
+                            Professional Experience
+                        </h2>
+                        <div className="space-y-10">
+                        {resumeData.experience.map((job, index) => (
+                            <motion.div 
+                                key={index} 
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                className="relative group"
+                            >
+                                <div className="absolute -left-4 top-2 w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors duration-300 hidden sm:block"></div>
+                                <div className="flex flex-col sm:flex-row justify-between sm:items-baseline mb-2">
+                                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">{job.title}</h3>
+                                    <span className="text-sm text-muted-foreground font-mono font-semibold bg-secondary/50 px-3 py-1 rounded-md mt-2 sm:mt-0 whitespace-nowrap">{job.date}</span>
+                                </div>
+                                <div className="flex flex-col sm:flex-row justify-between sm:items-baseline mb-4">
+                                    <p className="text-base font-bold text-primary flex items-center gap-2"><Building className="w-4 h-4"/> {job.company}</p>
+                                    <span className="text-sm text-muted-foreground">{job.location}</span>
+                                </div>
+                                {job.description && (
+                                    <p className="text-sm text-foreground/80 mb-4 leading-relaxed">{job.description}</p>
+                                )}
+                                {job.highlights && job.highlights.length > 0 && (
+                                    <ul className="space-y-2 mt-2">
+                                    {job.highlights.map((highlight, i) => (
+                                        <li key={i} className="text-sm text-muted-foreground leading-relaxed flex items-start gap-3">
+                                            <span className="text-primary font-bold mt-0.5">▹</span>
+                                            <span>{highlight}</span>
+                                        </li>
+                                    ))}
+                                    </ul>
+                                )}
+                            </motion.div>
+                        ))}
                         </div>
-                        <div className="flex flex-col sm:flex-row justify-between sm:items-center text-muted-foreground mb-3 print:mb-1">
-                           <p className="text-primary font-semibold print:text-sm">{job.company}</p>
-                           <span className="text-sm print:text-[10px] mt-1 sm:mt-0">{job.location}</span>
+                    </div>
+
+                    {/* Portfolio Links */}
+                    <div>
+                        <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-6 border-b border-border/50 pb-2 flex items-center gap-3">
+                            <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-black shadow-sm">3</span>
+                            Portfolio
+                        </h2>
+                        <div className="bg-primary/5 p-6 rounded-xl border border-primary/20 text-center">
+                            <p className="text-foreground/80 mb-6">Explore full projects, skills, AI agents, and interactive demos at <Link href="https://chancellorminus.com" target="_blank" className="font-semibold text-primary hover:underline">Chancellor</Link></p>
+                            <div className="flex flex-wrap justify-center gap-8">
+                                <div>
+                                    <h3 className="text-lg font-bold text-primary-gradient"><Link href="https://iChanceTEK.com" target="_blank" className="hover:underline">iChanceTEK</Link></h3>
+                                    <p className="text-muted-foreground text-xs uppercase tracking-wider mt-1">AI Solutions Partner</p>
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-bold text-primary-gradient"><Link href="https://WorkSpaceIQ.us" target="_blank" className="hover:underline">WorkSpaceIQ</Link></h3>
+                                    <p className="text-muted-foreground text-xs uppercase tracking-wider mt-1">AI Dictation</p>
+                                </div>
+                            </div>
                         </div>
-                        {job.description && <p className="text-foreground/80 mb-4 print:mb-1 text-sm sm:text-base print:text-xs">{job.description}</p>}
-                         {job.highlights.length > 0 && (
-                            <ul className="space-y-2 print:space-y-0.5">
-                                {job.highlights.map((h, i) => (
-                                    <li key={i} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm print:text-[10px] print:leading-tight text-muted-foreground">
-                                        <span className="text-primary font-bold mt-1 flex-shrink-0">▹</span>
-                                        <span className="flex-1">{h}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                     </div>
-                  </div>
-                ))}
-              </div>
-            </Section>
-            
-            <Section title="Education & Courses" icon={GraduationCap} delay={0.5} data-no-print="true">
-              <div className="space-y-3">
-                {resumeData.education.map(edu => (
-                  <motion.div key={edu.course} whileHover={{ x: 5 }} transition={{ type: 'spring', stiffness: 400, damping: 12 }}>
-                       <div className="p-4 bg-background/50 rounded-lg border border-border/20">
-                          <p className="font-semibold text-foreground">{edu.course}</p>
-                          <p className="text-sm text-muted-foreground">{edu.institution}</p>
-                      </div>
-                   </motion.div>
-                ))}
-              </div>
-            </Section>
+                    </div>
 
-             <Section title="Portfolio" icon={LinkIcon} delay={0.6} data-no-print="true">
-                  <div className="bg-background/50 p-6 rounded-lg border border-border/20 text-center">
-                       <p className="text-foreground/80">
-                          Explore full projects, skills, AI agents, and interactive demos at:
-                          <Link href="https://chancellorminus.com" target="_blank" className="font-semibold text-primary hover:underline ml-2">
-                             Chancellor
-                          </Link>
-                      </p>
-                      <div className="flex flex-col sm:flex-row justify-center gap-6 mt-6">
-                           <div>
-                               <h3 className="text-xl font-bold text-primary-gradient">
-                                 <Link href="https://iChanceTEK.com" target="_blank" className="hover:underline">
-                                     iChanceTEK
-                                 </Link>
-                               </h3>
-                               <p className="text-muted-foreground text-sm">
-                                 Your AI Solutions Partner
-                               </p>
-                           </div>
-                           <div>
-                               <h3 className="text-xl font-bold text-primary-gradient">
-                                 <Link href="https://WorkSpaceIQ.us" target="_blank" className="hover:underline">
-                                     WorkSpaceIQ
-                                 </Link>
-                               </h3>
-                               <p className="text-muted-foreground text-sm">
-                                 AI Research & Dictation Partner
-                               </p>
-                           </div>
-                       </div>
-                  </div>
-              </Section>
-
-          </main>
+                </div>
+            </div>
         </div>
       </div>
       <FloatingAIAssistant />
+      <PrintResume />
     </>
   );
 }
