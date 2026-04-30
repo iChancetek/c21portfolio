@@ -22,8 +22,8 @@ const Section = ({ title, icon: Icon, children, delay, className, ...props }: { 
     className={cn("mb-12", className)}
     {...props}
   >
-    <h2 className="text-2xl font-bold tracking-tight text-primary-gradient mb-6 flex items-center gap-3">
-      <Icon className="w-6 h-6" />
+    <h2 className="text-2xl font-bold tracking-tight text-primary-gradient mb-6 print:mb-3 flex items-center gap-3">
+      <Icon className="w-6 h-6 print:w-4 print:h-4" />
       {title}
     </h2>
     <div className="space-y-6">{children}</div>
@@ -264,23 +264,23 @@ export default function ResumePage() {
             </Section>
 
             <Section title="Professional Experience" icon={Briefcase} delay={0.4}>
-              <div className="space-y-8">
+              <div className="space-y-8 print:space-y-3">
                 {resumeData.experience.map((job, index) => (
-                  <div key={index} className="relative">
-                     <div className="bg-background/50 p-4 sm:p-6 rounded-lg border border-border/20 hover:border-primary/30 transition-all">
-                       <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2">
-                            <h3 className="text-lg sm:text-xl font-semibold text-foreground">{job.title}</h3>
-                            <div className="text-xs sm:text-sm text-muted-foreground font-mono mt-1 sm:mt-0">{job.date}</div>
+                  <div key={index} className="relative experience-item print:mb-2">
+                     <div className="bg-background/50 p-4 sm:p-6 print:p-2 print:border-none rounded-lg border border-border/20 hover:border-primary/30 transition-all">
+                       <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-2 print:mb-1">
+                            <h3 className="text-lg sm:text-xl print:text-base font-semibold text-foreground">{job.title}</h3>
+                            <div className="text-xs sm:text-sm print:text-[10px] text-muted-foreground font-mono mt-1 sm:mt-0">{job.date}</div>
                         </div>
-                        <div className="flex flex-col sm:flex-row justify-between sm:items-center text-muted-foreground mb-3">
-                           <p className="text-primary font-semibold">{job.company}</p>
-                           <span className="text-sm mt-1 sm:mt-0">{job.location}</span>
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-center text-muted-foreground mb-3 print:mb-1">
+                           <p className="text-primary font-semibold print:text-sm">{job.company}</p>
+                           <span className="text-sm print:text-[10px] mt-1 sm:mt-0">{job.location}</span>
                         </div>
-                        <p className="text-foreground/80 mb-4 text-sm sm:text-base">{job.description}</p>
+                        {job.description && <p className="text-foreground/80 mb-4 print:mb-1 text-sm sm:text-base print:text-xs">{job.description}</p>}
                          {job.highlights.length > 0 && (
-                            <ul className="space-y-2">
+                            <ul className="space-y-2 print:space-y-0.5">
                                 {job.highlights.map((h, i) => (
-                                    <li key={i} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
+                                    <li key={i} className="flex items-start gap-2 sm:gap-3 text-xs sm:text-sm print:text-[10px] print:leading-tight text-muted-foreground">
                                         <span className="text-primary font-bold mt-1 flex-shrink-0">▹</span>
                                         <span className="flex-1">{h}</span>
                                     </li>

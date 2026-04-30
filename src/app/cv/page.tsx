@@ -16,14 +16,14 @@ import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
 const Section = ({ title, icon: Icon, children, className = '' }: { title: string; icon: React.ElementType; children: React.ReactNode; className?: string }) => (
-  <section className={`mb-16 ${className}`}>
-    <div className="flex items-center gap-4 mb-8">
-      <Icon className="w-8 h-8 text-primary" />
-      <h2 className="text-3xl font-bold tracking-tight text-primary-gradient">
+  <section className={`mb-16 print:mb-4 ${className}`}>
+    <div className="flex items-center gap-4 mb-8 print:mb-3">
+      <Icon className="w-8 h-8 text-primary print:w-5 print:h-5" />
+      <h2 className="text-3xl font-bold tracking-tight text-primary-gradient print:text-2xl">
         {title}
       </h2>
     </div>
-    <div className="space-y-6">{children}</div>
+    <div className="space-y-6 print:space-y-3">{children}</div>
   </section>
 );
 
@@ -232,23 +232,23 @@ export default function CVPage() {
             </Section>
 
             <Section title="Professional Experience" icon={Briefcase}>
-              <div className="space-y-12">
+              <div className="space-y-12 print:space-y-4">
                 {resumeData.experience.map((job, index) => (
                   <div
                     key={index} 
-                    className="relative pl-8 border-l-2 border-primary/20"
+                    className="relative pl-8 border-l-2 border-primary/20 experience-item print:pl-4 print:mb-2"
                   >
-                    <div className="absolute -left-[10px] top-1 w-5 h-5 bg-background border-2 border-primary rounded-full"></div>
+                    <div className="absolute -left-[10px] top-1 w-5 h-5 bg-background border-2 border-primary rounded-full print:w-3 print:h-3 print:-left-[7px]"></div>
                      <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-1">
-                          <h3 className="text-xl font-semibold text-foreground">{job.title}</h3>
-                          <div className="text-sm text-muted-foreground font-mono mt-1 sm:mt-0">{job.date}</div>
+                          <h3 className="text-xl font-semibold text-foreground print:text-base">{job.title}</h3>
+                          <div className="text-sm text-muted-foreground font-mono mt-1 sm:mt-0 print:text-[10px]">{job.date}</div>
                       </div>
-                      <p className="text-primary font-semibold mb-3">{job.company}</p>
-                      <p className="text-foreground/80 mb-4">{job.description}</p>
+                      <p className="text-primary font-semibold mb-3 print:mb-1 print:text-sm">{job.company}</p>
+                      {job.description && <p className="text-foreground/80 mb-4 print:mb-1 print:text-xs">{job.description}</p>}
                        {job.highlights.length > 0 && (
-                          <ul className="space-y-2">
+                          <ul className="space-y-2 print:space-y-0.5">
                               {job.highlights.map((h, i) => (
-                                  <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                                  <li key={i} className="flex items-start gap-3 text-muted-foreground print:text-[10px] print:leading-tight">
                                       <span className="text-primary font-bold mt-1">▪</span>
                                       <span>{h}</span>
                                   </li>

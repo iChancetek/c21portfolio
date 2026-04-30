@@ -533,100 +533,85 @@ export const resumeData: ResumeData = {
     github: 'https://github.com/iChancetek',
     portfolio: 'https://chancellorminus.com',
   },
-  summary: 'Innovative Business Technology Engineer with strong expertise across DevOps, Data Engineering, MLOps, AI/ML Engineering, and Full-Stack AI Web Development. Skilled in building automated systems, intelligent data pipelines, and scalable cloud infrastructure using cutting-edge AI development platforms. Experienced in delivering enterprise-grade AI solutions, modernizing software workflows, engineering AI agents, and deploying full-stack applications across multi-cloud environments.',
+  summary: 'AI Engineer and Cloud Architect specializing in production-grade AI-native systems across healthcare, enterprise, productivity, and digital platforms.\n\nI design and build end-to-end AI systems combining:\nAgentic AI workflows (LangChain, LangGraph, OpenAI Agents SDK, CrewAI)\nRAG (Retrieval-Augmented Generation) systems\nNLP, Computer Vision, and multimodal AI systems\nVoice AI pipelines (OpenAI Whisper, STT, TTS)\nMLOps and data engineering pipelines\nDevOps and cloud infrastructure automation\n\nExperienced across full lifecycle engineering: architecture, development, deployment, monitoring, and scaling of cloud-native AI systems across Google Cloud, AWS, Azure, and Microsoft 365 ecosystems.',
   coreCompetencies: [
-    'DevOps', 'MLOps', 'Data Engineering', 'AI Engineering', 'AI Agents',
-    'Full-Stack Development', 'Cloud Architecture', 'CI/CD', 'Infrastructure as Code',
-    'Vector Databases', 'RAG Systems', 'Fine-tuning', 'System Design', 'IBM AS/400 (IBM i)', 'Microsoft 365'
+    'AI Systems', 'Agentic AI', 'RAG Architectures', 'LLM Engineering',
+    'NLP', 'Computer Vision', 'Multimodal AI', 'Voice AI (Whisper, TTS, STT)',
+    'Vector Databases', 'Cloud Architecture', 'DevOps', 'Data Engineering', 'Full-Stack Development'
   ],
   technicalExpertise: [
-    { title: '🚀 DevOps Engineering', skills: 'CI/CD pipelines (Jenkins, GitHub Actions, GitLab, Azure DevOps), Infrastructure as Code (Terraform, Ansible, Pulumi), Kubernetes (EKS, AKS, GKE), Docker, Prometheus, Grafana, ELK' },
-    { title: '📊 Data Engineering', skills: 'ETL/ELT pipelines, Databricks, Data Factory, PySpark, Airflow, AWS Glue, and Delta Lakehouse systems, Kafka, Kinesis, Data Lakes & Warehouses, Tableau, Power BI, Microsoft Fabric, Python (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn), SQL' },
-    { title: '🤖 MLOps Engineering', skills: 'Amazon SageMaker, Azure Machine Learning, Google Vertex AI, MLflow, and Apache Airflow for model training, versioning, and automated deployment on cloud GPUs' },
-    { title: '🧠 AI Engineering', skills: 'RAG, Fine-tuning, Vector DBs, NLP, LLM, Computer Vision, GPT, Claude, Gemini, Llama, DeepSeek, Qwen, Fairness & Bias Mitigation' },
-    { title: '💻 Full-Stack Development', skills: 'React, Next.js, TypeScript, Tailwind, ShadCN UI, Python (Flask, FastAPI, Django), Node.js, REST APIs, Stripe, Clerk' },
-    { title: '☁️ Cloud Platforms', skills: 'Multi-cloud Architecture | AWS: Networking: VPC (Virtual Private Cloud): Isolated network environments. Subnets: Segmentation of VPCs for public/private resources. Route Tables & Internet Gateways: Control traffic flow. Security Groups & NACLs: Instance-level and subnet-level traffic control. Direct Connect / VPN: Private and secure connectivity options. Compute: EC2 (Elastic Compute Cloud): Scalable virtual servers in the cloud. Governance: IAM (Identity and Access Management): Users, roles, policies. Organizations & SCPs (Service Control Policies): Centralized account governance. AWS Config & CloudTrail: Monitoring, auditing, and compliance. AWS Control Tower: Automated account setup and governance. | Azure: Networking: Virtual Network (VNet): Isolated network space. Subnets & Network Security Groups (NSGs): Segmentation and traffic control. Azure Firewall & Application Gateway: Network security and traffic routing. ExpressRoute & VPN Gateway: Private connectivity. Compute: Virtual Machines (VMs): On-demand scalable virtual servers. Governance: Azure Active Directory (AAD): Identity and access management. Management Groups & Role-Based Access Control (RBAC): Hierarchical access control. Azure Policy & Blueprints: Compliance enforcement and environment standardization. Azure Monitor & Activity Logs: Monitoring and auditing resources. | GCP (Google Cloud Platform): Networking: VPC (Virtual Private Cloud): Global, scalable networks. Subnets & Firewalls: Traffic segmentation and rules. Cloud Load Balancing & Cloud NAT: Traffic management and NAT services. VPN & Interconnect: Secure connectivity options. Compute: Compute Engine: Scalable virtual machines (VMs) on demand. Governance: Cloud IAM: Users, roles, permissions management. Organization & Folders: Hierarchical resource organization. Org Policies & Resource Manager: Enforce governance rules and compliance. Cloud Audit Logs & Security Command Center: Monitoring, auditing, and threat detection.' },
-    { title: '🗄️ Databases', skills: 'MySQL, Neon PostgreSQL, MongoDB, Cosmos DB, Redis, Pinecone, Chroma, S3 Vector' },
-    { title: '🛠️ AI Dev Tools', skills: 'Cursor AI, Vibe Coding, Replit, Lovable, Firebase Studio AI, LangChain, LangGraph, CrewAI, Flowise AI, N8N, Manus' },
-    { title: '🏢 Microsoft 365', skills: 'Identity and Access Management (IAM), Multi-Factor Authentication (MFA), Conditional Access policies, and identity protection capabilities to safeguard user accounts and control access. Threat protection is strengthened through the Microsoft Defender family, Microsoft Entra for identity and access security, Microsoft Intune for endpoint management, and the Microsoft Purview suite for compliance and data governance. Key solutions include Microsoft Defender XDR, Microsoft Sentinel, Microsoft Purview Compliance Manager, and Microsoft Priva for privacy and risk management.' }
+    { title: 'AI Systems', skills: 'Agentic AI (LangChain, LangGraph, OpenAI Agents SDK, CrewAI)\nRAG architectures, LLM engineering\nNLP, Computer Vision, Multimodal AI\nOpenAI Whisper, TTS, STT pipelines\nVector databases & embeddings' },
+    { title: 'Cloud', skills: 'Google Cloud (Cloud Run, Cloud Build, Cloud SQL)\nAWS, Azure multi-cloud architecture\nFirebase (Auth, Firestore, Storage, Hosting)\nGoogle AI Studio, Google AntiGravity' },
+    { title: 'LLMs', skills: 'GPT, Claude, Gemini, Llama, DeepSeek' },
+    { title: 'Full-Stack AI Development', skills: 'Python (FastAPI, Flask, Django)\nReact, Next.js, TypeScript\nAI API integration & backend orchestration' },
+    { title: 'Data Science & ML Libraries', skills: 'NumPy, Pandas\nScikit-learn\nMatplotlib, Seaborn\nTensorFlow, PyTorch' },
+    { title: 'AI Development Tools', skills: 'Cursor AI\nGoogle AI Studio\nGoogle AntiGravity\nReplit AI workflows' },
+    { title: 'Data & MLOps', skills: 'ETL/ELT pipelines, Data Lakehouse\nDatabricks, PySpark, Airflow\nSageMaker, Azure ML, Vertex AI, MLflow' },
+    { title: 'DevOps', skills: 'Kubernetes, Docker\nTerraform, Pulumi\nCI/CD (GitHub Actions, Azure DevOps)' }
   ],
   experience: [
     {
-      title: 'AI Engineer | Data Engineer | DevOps Engineer',
+      title: 'AI Engineer | Cloud Architect | Data Engineer',
       company: 'iSynera',
-      date: 'April 2022 - Present',
+      date: 'Apr 2022 - Present',
       location: 'Houston, TX (Remote Consultant)',
-      description: 'I have experience planning, developing, building, testing, deploying, operating, and monitoring applications independently or in collaboration with a team to move products into production. With the advent of AI tools and resources, I am able to perform these steps even more efficiently. Leading AI/ML engineering initiatives and cloud infrastructure modernization. Building enterprise-grade AI solutions including intelligent chatbots, RAG systems, and AI agents while maintaining scalable data pipelines and DevOps workflows across multi-cloud environments.',
+      description: 'Lead design and delivery of production AI systems and cloud-native platforms across enterprise environments.',
       highlights: [
-        'Proficient in implementing governance frameworks, designing networking architectures, and managing cloud databases on AWS, Azure, and GCP.',
-        'Expertly designed and deployed AI-driven applications with Google AntiGravity and built innovative mobile apps using Replit, managing full development lifecycles including rigorous testing and seamless Apple App Store deployment.',
-        'Engineered AI-powered applications using LLMs (GPT, Claude, Gemini, Llama) with RAG architectures and vector databases (Pinecone, Chroma, S3 Vector)',
-        'Designed and built a full-stack data application from scratch using Replit and Snowflake, featuring interactive dashboards, real-time analytics, and robust data management workflows.',
-        'Developed production applications with Azure AI Foundry and AWS Bedrock APIs, integrating Azure OpenAI and OpenAI SDK for intelligent features',
-        'Built full-stack AI web applications using React, Next.js, TypeScript, ShadCN UI with Clerk authentication and Stripe payment processing',
-        'Leveraged modern AI development platforms including Cursor AI, Vibe Coding, Replit, Firebase Studio AI, and Manus for rapid application development',
-        'Implemented MCP (Model Context Protocol) integrations for enhanced AI agent communication and orchestration',
-        'Designed and deployed MLOps pipelines using Amazon SageMaker, Azure Machine Learning, Google Vertex AI, MLflow, and Apache Airflow for model training, versioning, and automated deployment on cloud GPUs',
-        'Architected scalable ETL/ELT data pipelines using Databricks, Data Factory, PySpark, Airflow, AWS Glue, and Delta Lakehouse systems',
-        'Automated infrastructure provisioning with Terraform and Pulumi across AWS, Azure, and GCP environments',
-        'Orchestrated enterprise-level Microsoft 365 environments, managing Teams, SharePoint, and Exchange Online while automating business processes with Power Automate and streamlining device management with AutoPilot and InTune.',
-        'Skilled in Microsoft Fabric for designing and managing scalable data infrastructures to collect, process, and analyze large datasets.',
-        'Implemented CI/CD pipelines using GitHub Actions and Azure DevOps for containerized microservices on Kubernetes',
-        'Developed backend APIs with Python (FastAPI, Flask, Django) and Node.js for AI model integration',
-        'Tested and debugged APIs using Postman and Insomnia for comprehensive validation and documentation',
-        'Integrated streaming data solutions with Kafka and Kinesis for real-time analytics dashboards',
-        'Experienced in using Python libraries such as NumPy, Pandas, Matplotlib, Seaborn, and Scikit-learn for data manipulation, analysis, visualization, and machine learning',
-        'Experienced in designing and deploying blockchain and Web3 solutions, with expertise in Solidity smart contract development, decentralized applications (dApps), and multi-chain systems, integrated with modern cloud and data platforms'
+        'AI Systems Engineering: Built agentic AI systems using LangChain, LangGraph, OpenAI Agents SDK, CrewAI. Designed RAG-based knowledge systems using embeddings and vector databases (Pinecone, Chroma, S3 Vector). Developed production LLM systems (GPT, Claude, Gemini, Llama, DeepSeek). Built voice AI systems using OpenAI Whisper, TTS, STT pipelines. Implemented NLP and Computer Vision systems for automation and intelligence extraction. Built AI applications using Google AI Studio, Google AntiGravity, Cursor AI. Delivered production AI systems using OpenAI, Azure AI Foundry, AWS Bedrock.',
+        'Full-Stack AI Application Development: Built full-stack AI applications using Python (FastAPI, Flask, Django) for backend AI services. Developed frontend systems using React, Next.js, TypeScript. Built scalable AI APIs for inference, orchestration, and automation workflows. Integrated AI models into production cloud systems and real-time applications.',
+        'Data Engineering, ML & Analytics Stack: Applied Python for data science and machine learning development. Built ML pipelines using NumPy, Pandas, Scikit-learn, Matplotlib, Seaborn. Developed deep learning systems using TensorFlow, PyTorch. Designed data processing and feature engineering workflows for AI systems. Integrated ML models into production environments via APIs and cloud services.',
+        'Cloud Architecture & Data Systems: Architected multi-cloud systems across Google Cloud, AWS, Azure. Built serverless systems using Cloud Run, Firebase, Cloud SQL. Designed ETL/ELT pipelines using Databricks, PySpark, AWS Glue, Delta Lake. Built streaming systems using Kafka and AWS Kinesis. Implemented MLOps pipelines using SageMaker, Azure ML, Vertex AI, MLflow.',
+        'DevOps & Platform Engineering: Built CI/CD pipelines (GitHub Actions, Azure DevOps) for Kubernetes microservices. Automated infrastructure using Terraform and Pulumi. Containerized deployments using Docker and Kubernetes. Implemented secure systems with secrets management and observability tooling.',
+        'Enterprise Systems: Managed Microsoft 365 environments (Teams, SharePoint, Exchange, Intune). Automated workflows using Power Automate. Integrated Microsoft 365 with cloud and AI systems.'
       ]
     },
     {
       title: 'DevOps | DevSecOps Engineer',
-      company: 'Pubbly/WNDR',
-      date: 'June 2018 - April 2022',
+      company: 'Pubbly / WNDR',
+      date: 'Jun 2018 - Apr 2022',
       location: 'New York, NY',
-      description: 'Highly motivated and results-oriented DevOps Engineer with expert knowledge of cloud concepts and AWS services. Proven ability to design, implement, and manage secure and scalable cloud infrastructure across AWS, Azure, and GCP.',
+      description: '',
       highlights: [
-          'Designed and implemented secure CI/CD pipelines using Jenkins, Azure DevOps, GitLab, and GitHub Actions for microservices deployments across Kubernetes clusters (AKS, EKS, GKE)',
-          'Automated infrastructure provisioning using Terraform and Ansible for multi-tier environments across AWS, Azure, and GCP',
-          'Implemented Helm charts and Argo CD for GitOps-based deployments, ensuring configuration consistency across all environments',
-          'Integrated security scanning with Trivy and secret management using Azure Key Vault, AWS Secrets Manager, and HashiCorp Vault',
-          'Developed automated testing pipelines with Pytest and Selenium for comprehensive application validation',
-          'Implemented service meshes (Istio) and monitoring solutions (Prometheus, Grafana) for enhanced observability',
-          'Architected data integration pipelines using Azure Data Factory, Databricks, and Synapse Analytics for big data processing',
-          'Managed container registries (ACR, ECR, GCR) with strict access controls and versioning policies'
+        'CI/CD pipelines (Jenkins, GitHub Actions, Azure DevOps, GitLab)',
+        'Kubernetes (AKS, EKS, GKE)',
+        'Infrastructure as Code (Terraform, Ansible)',
+        'GitOps (ArgoCD, Helm)',
+        'Security (Vault, Key Vault, Secrets Manager, Trivy)',
+        'Observability (Prometheus, Grafana, Istio)',
+        'Data pipelines (Databricks, Data Factory, Synapse)'
       ]
     },
     {
-      title: 'Microsoft 365 Engineer | Azure Administrator | Cloud Solutions Architect',
+      title: 'Microsoft 365 Engineer | Azure Administrator',
       company: 'Condé Nast | Advance Local',
-      date: 'May 2017 - June 2018',
+      date: 'May 2017 - Jun 2018',
       location: 'New York, NY (Consultant)',
-      description: 'Developed and managed Azure, Microsoft 365 cloud, AWS, and On-Premises environments. Performed DevOps tasks including plugin management, automation server configuration, CI/CD pipeline development, and continuous monitoring.',
-      highlights: []
-    },
-     {
-      title: 'Sr. Systems Engineer Manager',
-      company: 'Bravia Capital Partners | Cayenne Pepper Productions',
-      date: 'February 2016 - May 2017',
-      location: 'New York, NY',
-      description: 'Managed Bravia\'s Virtual Private Network and Hybrid Cloud infrastructure supporting 250 users across New York, Hong Kong, and Japan. Led migration of On-Premises Exchange, SQL, and SharePoint servers to Microsoft 365 and Azure.',
-      highlights: []
-    },
-     {
-      title: 'IT Manager',
-      company: 'NAMA Organization (Non-Profit)',
-      date: 'July 2013 - February 2016',
-      location: 'New York, NY',
-      description: 'Responsible for developing and supporting on-premise and cloud infrastructure for 125 users across three remote sites. Managed Windows Server, Exchange, SQL Server, SharePoint, Office 365, and network infrastructure.',
+      description: '',
       highlights: []
     },
     {
-        title: 'IT Manager',
-        company: 'Couristan, Inc.',
-        date: 'January 2002 - June 2013',
-        location: 'Fort Lee, NJ',
-        description: "Administered IBM AS/400 (IBM i) systems supporting mission-critical ERP and business applications, and led the operation of a high-availability VoIP network serving 500+ users across 15 remote offices. Oversaw all IT infrastructure operations, providing strategic guidance and reporting directly to the CEO and CFO.",
-        highlights: []
+      title: 'Sr. Systems Engineer Manager',
+      company: 'Bravia Capital Partners',
+      date: 'Feb 2016 - May 2017',
+      location: 'New York, NY',
+      description: '',
+      highlights: []
+    },
+    {
+      title: 'IT Manager',
+      company: 'NAMA Organization',
+      date: 'Jul 2013 - Feb 2016',
+      location: 'New York, NY',
+      description: '',
+      highlights: []
+    },
+    {
+      title: 'IT Manager',
+      company: 'Couristan, Inc.',
+      date: 'Jan 2002 - Jun 2013',
+      location: 'Fort Lee, NJ',
+      description: '',
+      highlights: []
     }
   ],
   education: [
