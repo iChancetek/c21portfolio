@@ -582,7 +582,7 @@ export const resumeData: ResumeData = {
       ]
     },
     {
-      title: 'Microsoft 365 Engineer | Azure Administrator',
+      title: 'Microsoft 365 Engineer | Azure Architect',
       company: 'Condé Nast | Advance Local',
       date: 'May 2017 - Jun 2018',
       location: 'New York, NY (Consultant)',
@@ -612,6 +612,33 @@ export const resumeData: ResumeData = {
       location: 'Fort Lee, NJ',
       description: '',
       highlights: []
+    },
+    {
+      title: 'Network Manager/Windows Manager (Consultant)',
+      company: 'Alpharma',
+      date: '2001 - 2002',
+      location: '',
+      description: '',
+      highlights: [],
+      cvOnly: true
+    },
+    {
+      title: 'Network Manager/Windows Manager (Consultant)',
+      company: 'Novartis',
+      date: '2000 - 2001',
+      location: '',
+      description: '',
+      highlights: [],
+      cvOnly: true
+    },
+    {
+      title: 'Divisional IT Manager',
+      company: 'Simon Property Group',
+      date: '1997 - 2000',
+      location: '',
+      description: '',
+      highlights: [],
+      cvOnly: true
     }
   ],
   education: [

@@ -38,7 +38,16 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
   const { user } = useUser();
   const auth = useAuth();
   const { toast } = useToast();
-  const { locale, setLocale, t, locales } = useLocale();
+  const { locale, setLocale, voice, setVoice, t, locales } = useLocale();
+  
+  const voiceOptions = [
+    { id: 'alloy', label: 'Alloy (Neutral, Balanced)' },
+    { id: 'echo', label: 'Echo (Warm, Professional)' },
+    { id: 'fable', label: 'Fable (Expressive, Friendly)' },
+    { id: 'onyx', label: 'Onyx (Deep, Authoritative)' },
+    { id: 'nova', label: 'Nova (Calm, Natural Female)' },
+    { id: 'shimmer', label: 'Shimmer (Bright, Clear)' }
+  ];
   
   const [newDisplayName, setNewDisplayName] = useState(user?.displayName || '');
   const [isSavingName, setIsSavingName] = useState(false);
@@ -163,6 +172,21 @@ export default function SettingsDialog({ isOpen, onOpenChange }: SettingsDialogP
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">{t('languageDescription')}</p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="voice">AI Voice Preference</Label>
+            <Select value={voice} onValueChange={(value) => setVoice(value as any)}>
+              <SelectTrigger id="voice">
+                <SelectValue placeholder="Select a voice" />
+              </SelectTrigger>
+              <SelectContent>
+                {voiceOptions.map((v) => (
+                    <SelectItem key={v.id} value={v.id}>{v.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">Choose the calm, natural voice used for reading text aloud.</p>
           </div>
         </div>
         <DialogFooter>

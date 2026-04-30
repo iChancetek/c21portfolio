@@ -74,6 +74,7 @@ export interface ResumeData {
     location: string;
     description: string;
     highlights: string[];
+    cvOnly?: boolean;
   }[];
   education: {
     course: string;

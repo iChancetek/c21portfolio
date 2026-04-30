@@ -13,10 +13,12 @@ import ProjectCard from '@/components/ProjectCard';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import PrintResume from '@/components/PrintResume';
 import { motion } from 'framer-motion';
+import { useLocale } from '@/hooks/useLocale';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
 export default function CVPage() {
+  const { locale, voice } = useLocale();
   const [audioState, setAudioState] = useState<AudioState>('idle');
   const [audioQueue, setAudioQueue] = useState<string[]>([]);
   const [currentAudioIndex, setCurrentAudioIndex] = useState(0);
@@ -43,7 +45,7 @@ export default function CVPage() {
     }
     setAudioState('loading');
     try {
-      const { audioDataUri } = await textToSpeech({ text: audioQueue[currentAudioIndex], voice: 'nova' });
+      const { audioDataUri } = await textToSpeech({ text: audioQueue[currentAudioIndex], locale, voice });
       if (audioRef.current) {
         audioRef.current.src = audioDataUri;
         audioRef.current.play().catch((e) => {
@@ -350,7 +352,7 @@ export default function CVPage() {
         </div>
       </div>
       <FloatingAIAssistant />
-      <PrintResume />
+      <PrintResume isCV={true} />
     </>
   );
 }

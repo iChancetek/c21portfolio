@@ -14,6 +14,7 @@ const TranscribeAudioInputSchema = z.object({
     .describe(
       "A Base64 encoded audio file as a data URI. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
+  language: z.string().optional().describe('ISO-639-1 language code (e.g., en, es, fr) to guide transcription.'),
 });
 export type TranscribeAudioInput = z.infer<typeof TranscribeAudioInputSchema>;
 
@@ -31,12 +32,17 @@ export async function transcribeAudio(
     // Convert Buffer to a File-like object expected by OpenAI SDK
     const file = await toFile(buffer, `audio.${extension}`, { type: mimeType });
 
-    const response = await openai.audio.transcriptions.create({
+    const requestOptions: any = {
       file: file,
       model: 'whisper-1',
-      language: 'en',
       prompt: 'The following is a transcription of a user interacting with a web application.',
-    });
+    };
+
+    if (input.language) {
+      requestOptions.language = input.language;
+    }
+
+    const response = await openai.audio.transcriptions.create(requestOptions);
 
     return { transcription: response.text };
 

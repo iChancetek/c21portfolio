@@ -22,6 +22,7 @@ import sn from '@/locales/sn.json';
 import af from '@/locales/af.json';
 import mg from '@/locales/mg.json';
 
+import type { TTSVoice } from '@/ai/flows/openai-tts-flow';
 
 type Locale = 'en' | 'es' | 'fr' | 'zh' | 'hi' | 'ar' | 'de' | 'pt' | 'ko' | 'ja' | 'sw' | 'yo' | 'ha' | 'zu' | 'am' | 'ig' | 'so' | 'sn' | 'af' | 'mg';
 
@@ -51,6 +52,8 @@ const locales: Record<Locale, string> = {
 interface LocaleContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
+  voice: TTSVoice;
+  setVoice: (voice: TTSVoice) => void;
   t: (key: string, values?: Record<string, string | number>) => string;
   locales: Record<Locale, string>;
 }
@@ -61,6 +64,7 @@ const LocaleContext = createContext<LocaleContextType | undefined>(undefined);
 
 export const LocaleProvider = ({ children }: { children: ReactNode }) => {
   const [locale, setLocaleState] = useState<Locale>('en');
+  const [voice, setVoiceState] = useState<TTSVoice>('nova');
 
   useEffect(() => {
     const savedLocale = localStorage.getItem('locale') as Locale;
@@ -72,12 +76,22 @@ export const LocaleProvider = ({ children }: { children: ReactNode }) => {
             setLocaleState(browserLang);
         }
     }
+    
+    const savedVoice = localStorage.getItem('voice') as TTSVoice;
+    if (savedVoice) {
+      setVoiceState(savedVoice);
+    }
   }, []);
 
   const setLocale = (newLocale: Locale) => {
     localStorage.setItem('locale', newLocale);
     setLocaleState(newLocale);
     document.documentElement.lang = newLocale;
+  };
+
+  const setVoice = (newVoice: TTSVoice) => {
+    localStorage.setItem('voice', newVoice);
+    setVoiceState(newVoice);
   };
 
   const t = useCallback((key: string, values?: Record<string, string | number>): string => {
@@ -94,7 +108,7 @@ export const LocaleProvider = ({ children }: { children: ReactNode }) => {
   }, [locale]);
 
   return (
-    <LocaleContext.Provider value={{ locale, setLocale, t, locales }}>
+    <LocaleContext.Provider value={{ locale, setLocale, voice, setVoice, t, locales }}>
       {children}
     </LocaleContext.Provider>
   );

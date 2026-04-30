@@ -13,10 +13,12 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import PrintResume from '@/components/PrintResume';
+import { useLocale } from '@/hooks/useLocale';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
 export default function ResumePage() {
+  const { locale, voice } = useLocale();
   const [audioState, setAudioState] = useState<AudioState>('idle');
   const [audioQueue, setAudioQueue] = useState<string[]>([]);
   const [currentAudioIndex, setCurrentAudioIndex] = useState(0);
@@ -43,7 +45,7 @@ export default function ResumePage() {
     }
     setAudioState('loading');
     try {
-      const { audioDataUri } = await textToSpeech({ text: audioQueue[currentAudioIndex], voice: 'nova' });
+      const { audioDataUri } = await textToSpeech({ text: audioQueue[currentAudioIndex], locale, voice });
       if (audioRef.current) {
         audioRef.current.src = audioDataUri;
         audioRef.current.play().catch((e) => {
@@ -296,7 +298,7 @@ export default function ResumePage() {
                             Professional Experience
                         </h2>
                         <div className="space-y-10">
-                        {resumeData.experience.map((job, index) => (
+                        {resumeData.experience.filter(job => !job.cvOnly).map((job, index) => (
                             <motion.div 
                                 key={index} 
                                 initial={{ opacity: 0, y: 10 }}

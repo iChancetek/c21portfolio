@@ -207,6 +207,12 @@ export default function Header() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <NavLink href="/about" isProjectLink>
+            <div className="flex items-center gap-2">
+              <User className="h-4 w-4" />
+              About
+            </div>
+          </NavLink>
           <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
           <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
           <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
@@ -282,6 +288,7 @@ export default function Header() {
                         <Sparkles className="h-4 w-4 text-primary" /> WorkSpaceIQ
                       </a>
                     </div>
+                    <NavLink href="/about" isProjectLink>About</NavLink>
                     <NavLink href="/resume" isProjectLink>Resume</NavLink>
                     <NavLink href="/cv" isProjectLink>CV</NavLink>
                     <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>

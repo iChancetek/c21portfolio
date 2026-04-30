@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, Send, User, Loader2, Play, Volume2, Pause, StopCircle, Minus, MessageSquare } from 'lucide-react';
+import { Bot, Send, User, Loader2, Play, Volume2, Pause, StopCircle, Minus, MessageSquare, Mic, MicOff } from 'lucide-react';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Input } from './ui/input';
@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { handleSearch } from '@/app/actions';
 import { useLocale } from '@/hooks/useLocale';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
+import { transcribeAudio } from '@/ai/flows/whisper-flow';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -19,7 +20,7 @@ interface Message {
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
 export default function AIAssistant() {
-  const { t, locale } = useLocale();
+  const { t, locale, voice } = useLocale();
   const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -29,7 +30,11 @@ export default function AIAssistant() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
   
   const [audioState, setAudioState] = useState<AudioState>('idle');
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
@@ -74,7 +79,7 @@ export default function AIAssistant() {
     setCurrentlyPlaying(messageKey);
 
     try {
-        const { audioDataUri } = await textToSpeech({ text, locale });
+        const { audioDataUri } = await textToSpeech({ text, locale, voice });
         setAudioSrc(audioDataUri);
     } catch (error) {
         console.error("Failed to generate speech:", error);
@@ -104,6 +109,59 @@ export default function AIAssistant() {
       audioElement?.removeEventListener('ended', onEnded);
     };
   }, []);
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onloadend = async () => {
+          const base64Audio = reader.result as string;
+          setIsTranscribing(true);
+          try {
+            const { transcription } = await transcribeAudio({ 
+              audioDataUri: base64Audio,
+              language: locale
+            });
+            if (transcription.trim()) {
+              setInput(transcription);
+            }
+          } catch (error) {
+            console.error('Transcription failed:', error);
+          } finally {
+            setIsTranscribing(false);
+          }
+        };
+        
+        // Stop all tracks to release microphone
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error('Error starting recording:', error);
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -270,7 +328,20 @@ export default function AIAssistant() {
                     autoComplete="off"
                     className="bg-white/5 border-white/10 text-white placeholder:text-white/30"
                   />
-                  <Button type="submit" size="icon" disabled={isLoading || !input.trim()} className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Button 
+                    type="button" 
+                    size="icon" 
+                    variant={isRecording ? "destructive" : "outline"}
+                    className={cn(
+                      "shrink-0",
+                      isRecording && "animate-pulse"
+                    )}
+                    onClick={isRecording ? stopRecording : startRecording}
+                    disabled={isLoading || isTranscribing}
+                  >
+                    {isTranscribing ? <Loader2 className="h-4 w-4 animate-spin" /> : (isRecording ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />)}
+                  </Button>
+                  <Button type="submit" size="icon" disabled={isLoading || isTranscribing || !input.trim()} className="bg-primary text-primary-foreground hover:bg-primary/90">
                     {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                     <span className="sr-only">{t('send')}</span>
                   </Button>

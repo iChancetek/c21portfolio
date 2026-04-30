@@ -1,7 +1,9 @@
 import { resumeData } from '@/lib/data';
 import { Mail, Phone, MapPin, Github, Link as LinkIcon } from 'lucide-react';
 
-export default function PrintResume() {
+export default function PrintResume({ isCV = false }: { isCV?: boolean }) {
+  const experienceToDisplay = isCV ? resumeData.experience : resumeData.experience.filter(job => !job.cvOnly);
+
   return (
     <div className="hidden print:block w-full text-black bg-white" style={{ fontFamily: 'Inter, sans-serif' }}>
       <div className="grid grid-cols-[1fr_2.5fr] min-h-screen">
@@ -101,7 +103,7 @@ export default function PrintResume() {
               Professional Experience
             </h2>
             <div className="space-y-6">
-              {resumeData.experience.map((job) => (
+              {experienceToDisplay.map((job) => (
                 <div key={job.company + job.title} style={{ pageBreakInside: 'auto' }}>
                   <div className="flex justify-between items-baseline mb-1">
                     <h3 className="text-sm font-bold text-slate-900">{job.title}</h3>
