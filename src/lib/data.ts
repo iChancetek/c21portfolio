@@ -809,8 +809,24 @@ export const resumeData: ResumeData = {
       certificateUrl: '/certificates/DevOps.pdf'
     },
     { 
-      course: 'Data & Machine Learning', 
-      institution: 'Udemy: Azure Databricks, Data Factory, Synapse Analytics, Python for ML & Data Science' 
+      course: 'Azure Databricks & Machine Learning', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/azure-databricks.pdf'
+    },
+    { 
+      course: 'MLOps Bootcamp: Machine Learning Operations', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/mlops-bootcamp.pdf'
+    },
+    { 
+      course: 'Generative AI for Database Professionals', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/gen-ai-db.pdf'
+    },
+    { 
+      course: 'RAG & QLoRA: Advanced LLM Training', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/rag-qlora-new.pdf'
     },
     { 
       course: 'Computer Vision', 

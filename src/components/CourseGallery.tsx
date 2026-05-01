@@ -138,11 +138,13 @@ export default function CourseGallery() {
                               />
                             ) : isPdf ? (
                               <div className="w-full h-full flex items-center justify-center bg-secondary/20 relative">
-                                 <iframe 
-                                    src={`${cert.certificateUrl}#toolbar=0&navpanes=0&scrollbar=0`} 
-                                    className="w-full h-full border-none pointer-events-none scale-[2.5] origin-top opacity-60 group-hover:opacity-100 transition-all duration-700"
-                                    title={cert.course}
-                                 />
+                                 <div className="w-full h-full relative overflow-hidden bg-white">
+                                   <iframe 
+                                      src={`${cert.certificateUrl}#page=1&view=FitH&toolbar=0&navpanes=0&scrollbar=0`} 
+                                      className="absolute inset-0 w-[300%] h-[300%] border-none pointer-events-none origin-top-left scale-[0.333] opacity-70 group-hover:opacity-100 transition-all duration-700"
+                                      title={cert.course}
+                                   />
+                                 </div>
                                  <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent flex items-end justify-center pb-2">
                                     <span className="text-[9px] font-black text-primary flex items-center gap-1 uppercase tracking-tighter">
                                         <FileText className="w-3 h-3" /> PDF PREVIEW
