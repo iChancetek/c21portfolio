@@ -14,7 +14,7 @@ import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import PrintResume from '@/components/PrintResume';
 import { motion } from 'framer-motion';
 import { useLocale } from '@/hooks/useLocale';
-import CertificationGallery from '@/components/CertificationGallery';
+import CourseGallery from '@/components/CourseGallery';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
@@ -230,7 +230,7 @@ export default function CVPage() {
                         </div>
                         <div className="mt-6 text-left">
                             <Button asChild variant="link" className="p-0 h-auto text-primary text-xs">
-                                <Link href="/resume">View all certifications & courses</Link>
+                                <Link href="/resume">View all course certificates & training</Link>
                             </Button>
                         </div>
                     </div>
@@ -367,7 +367,7 @@ export default function CVPage() {
                         </div>
                     </div>
 
-                    <CertificationGallery />
+                    <CourseGallery />
                 </div>
             </div>
         </div>

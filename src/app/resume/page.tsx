@@ -14,7 +14,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import PrintResume from '@/components/PrintResume';
 import { useLocale } from '@/hooks/useLocale';
-import CertificationGallery from '@/components/CertificationGallery';
+import CourseGallery from '@/components/CourseGallery';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
@@ -374,7 +374,7 @@ export default function ResumePage() {
                         </div>
                     </div>
 
-                    <CertificationGallery />
+                    <CourseGallery />
                 </div>
             </div>
         </div>
