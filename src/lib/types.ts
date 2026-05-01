@@ -79,8 +79,8 @@ export interface ResumeData {
   education: {
     course: string;
     institution: string;
+    certificateUrl?: string;
+    thumbnailUrl?: string;
   }[];
   portfolioLink: string;
 }
-    
-

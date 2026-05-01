@@ -242,7 +242,6 @@ export const allVentures: Venture[] = [
       name: "Alpharma Pharmaceuticals",
       description: "Alpharma Pharmaceuticals was a global specialty pharmaceutical company known for developing and producing pharmaceutical products across human and animal health sectors. It operated in areas such as antimicrobial drugs, pain management, active pharmaceutical ingredients, and generic medications. Alpharma developed widely used therapies and was recognized for advancing pharmaceutical manufacturing standards. The company was later acquired, integrating its portfolio into a larger global pharmaceutical network.",
       href: "#",
-
       hasDemo: false,
     },
     {
@@ -643,72 +642,78 @@ export const resumeData: ResumeData = {
   ],
   education: [
     { course: 'Computer Science', institution: 'Pace University, New York, NY' },
-    { course: 'AWS Certified Solutions Architect Courses', institution: 'AWS Loft, New York, NY' },
-    { course: 'Azure Courses', institution: 'A Cloud Guru: AZ-900, AZ-104, AZ-500, AZ-300, AZ-301 | Udemy: AZ-303/304, AZ-204' },
+    { 
+      course: 'AI Engineer MLOps Track: Deploy Gen AI & Agentic AI at Scale', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/udemy-mlops.jpg',
+      thumbnailUrl: '/certificates/udemy-mlops.jpg'
+    },
+    { 
+      course: 'Generative AI: Beginner to Pro with OpenAI & Azure OpenAI', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/udemy-gen-ai-pro.jpg',
+      thumbnailUrl: '/certificates/udemy-gen-ai-pro.jpg'
+    },
+    { 
+      course: 'Generative AI on AWS - Amazon Bedrock, RAG & Langchain', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/udemy-gen-ai-aws.jpg',
+      thumbnailUrl: '/certificates/udemy-gen-ai-aws.jpg'
+    },
+    { 
+      course: 'AI-Agents: Automation & Business with LangChain & LLM Apps', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/udemy-ai-agents.jpg',
+      thumbnailUrl: '/certificates/udemy-ai-agents.jpg'
+    },
+    { 
+      course: 'Prepare for the ISC2 Information Systems Security Professional (CISSP) Certification Exam', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-cissp.jpg',
+      thumbnailUrl: '/certificates/linkedin-cissp.jpg'
+    },
+    { 
+      course: 'Become a Blockchain Developer', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-blockchain-dev.png',
+      thumbnailUrl: '/certificates/linkedin-blockchain-dev.png'
+    },
+    { 
+      course: 'Advance Your Skills in the Blockchain', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-blockchain-skills.jpg',
+      thumbnailUrl: '/certificates/linkedin-blockchain-skills.jpg'
+    },
+    { 
+      course: 'Blockchain Programming in iOS Using Swift', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-blockchain-ios.jpg',
+      thumbnailUrl: '/certificates/linkedin-blockchain-ios.jpg'
+    },
+    { 
+      course: 'Learning C#', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-csharp.jpg',
+      thumbnailUrl: '/certificates/linkedin-csharp.jpg'
+    },
+    { 
+      course: 'AWS Certified Solutions Architect Courses', 
+      institution: 'AWS Loft, New York, NY' 
+    },
+    { 
+      course: 'Azure Courses', 
+      institution: 'A Cloud Guru: AZ-900, AZ-104, AZ-500, AZ-300, AZ-301 | Udemy: AZ-303/304, AZ-204'
+    },
+    { course: 'AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents', institution: 'Udemy' },
+    { course: 'Complete Agentic AI Bootcamp With LangGraph and Langchain', institution: 'Udemy' },
+    { course: 'Database AI Agents: Complete Guide', institution: 'Udemy' },
     { course: 'DevOps & Infrastructure', institution: 'Udemy: Azure DevOps, Terraform, Pulumi, Ansible, GCP' },
     { course: 'Data & Machine Learning', institution: 'Udemy: Azure Databricks, Data Factory, Synapse Analytics, Python for ML & Data Science' },
-    { course: 'AI Engineering & MLOps', institution: 'Udemy: AI Engineer MLOps Track: Deploy Gen AI & Agentic AI at Scale | AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents | Azure Machine Learning & MLOps: Beginner to Advance' },
-    { course: 'AI Agents & Automation', institution: 'Udemy: Complete Agentic AI Bootcamp With LangGraph and Langchain | AI-Agents: Automation & Business with LangChain & LLM Apps | Database AI Agents: Complete Guide' },
-    { course: 'AI Development Tools', institution: 'Udemy: Cursor AI Beginner to Pro: Build Production Web Apps with AI' },
     { course: 'Computer Vision', institution: 'Udemy: Complete Computer Vision Bootcamp With PyTorch & Tensorflow' },
     { course: 'Data Engineering & AI', institution: 'Udemy: Introduction to Data Engineering using Generative AI | Generative AI for Data Engineering and Data Professionals' },
     { course: 'Statistics & Analytics', institution: 'Udemy: Probability and Statistics: Complete Course 2025 | Statistics for Data Science and Business Analysis' },
-    { course: 'Blockchain Development', institution: 'LinkedIn Learning: Ethereum (Solidity, Web3) | Udemy: Internet Computer (Motoko)' },
+    { course: 'Blockchain Development', institution: 'Udemy: Internet Computer (Motoko)' },
     { course: 'Microsoft & Network', institution: 'Computer Education Services (MCSE) | GEO Training Corporation (CCNA)' }
   ],
   portfolioLink: 'https://chancellorminus.com'
 };
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-    
-
-
-
-
-
-
-

@@ -14,6 +14,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import PrintResume from '@/components/PrintResume';
 import { useLocale } from '@/hooks/useLocale';
+import CertificationGallery from '@/components/CertificationGallery';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
@@ -247,9 +248,18 @@ export default function ResumePage() {
                         <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-5 border-b border-border/50 pb-2">Education</h2>
                         <div className="space-y-4">
                         {resumeData.education.slice(0, 4).map((edu) => (
-                            <div key={edu.course}>
+                            <div key={edu.course} className="group">
                                 <p className="text-sm font-bold text-foreground leading-tight">{edu.course}</p>
                                 <p className="text-sm text-muted-foreground leading-tight mt-1">{edu.institution}</p>
+                                {edu.certificateUrl && (
+                                    <Link 
+                                        href={edu.certificateUrl} 
+                                        target="_blank" 
+                                        className="inline-flex items-center gap-1 text-[10px] text-primary hover:underline mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                                    >
+                                        <LinkIcon className="w-3 h-3" /> Completion Certificate
+                                    </Link>
+                                )}
                             </div>
                         ))}
                         </div>
@@ -354,6 +364,7 @@ export default function ResumePage() {
                         </div>
                     </div>
 
+                    <CertificationGallery />
                 </div>
             </div>
         </div>

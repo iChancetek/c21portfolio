@@ -71,6 +71,9 @@ export default function PrintResume({ isCV = false }: { isCV?: boolean }) {
                 <div key={edu.course}>
                   <p className="text-[10px] font-bold text-slate-800 leading-tight">{edu.course}</p>
                   <p className="text-[9px] text-slate-600 leading-tight mt-0.5">{edu.institution}</p>
+                  {edu.certificateUrl && (
+                    <p className="text-[7px] text-blue-600 mt-0.5">{edu.certificateUrl.replace('https://', '')}</p>
+                  )}
                 </div>
               ))}
             </div>
