@@ -675,26 +675,110 @@ export const resumeData: ResumeData = {
     { 
       course: 'Become a Blockchain Developer', 
       institution: 'LinkedIn Learning',
-      certificateUrl: '/certificates/linkedin-blockchain-dev.png',
-      thumbnailUrl: '/certificates/linkedin-blockchain-dev.png'
+      certificateUrl: '/certificates/linkedin-blockchain-dev-new.jpg',
+      thumbnailUrl: '/certificates/linkedin-blockchain-dev-new.jpg'
     },
     { 
       course: 'Advance Your Skills in the Blockchain', 
       institution: 'LinkedIn Learning',
-      certificateUrl: '/certificates/linkedin-blockchain-skills.jpg',
-      thumbnailUrl: '/certificates/linkedin-blockchain-skills.jpg'
+      certificateUrl: '/certificates/linkedin-blockchain-skills-new.jpg',
+      thumbnailUrl: '/certificates/linkedin-blockchain-skills-new.jpg'
     },
     { 
       course: 'Blockchain Programming in iOS Using Swift', 
       institution: 'LinkedIn Learning',
-      certificateUrl: '/certificates/linkedin-blockchain-ios.jpg',
-      thumbnailUrl: '/certificates/linkedin-blockchain-ios.jpg'
+      certificateUrl: '/certificates/linkedin-blockchain-ios-new.jpg',
+      thumbnailUrl: '/certificates/linkedin-blockchain-ios-new.jpg'
     },
     { 
       course: 'Learning C#', 
       institution: 'LinkedIn Learning',
-      certificateUrl: '/certificates/linkedin-csharp.jpg',
-      thumbnailUrl: '/certificates/linkedin-csharp.jpg'
+      certificateUrl: '/certificates/linkedin-learning-csharp.jpg',
+      thumbnailUrl: '/certificates/linkedin-learning-csharp.jpg'
+    },
+    { 
+      course: 'PostgreSQL Essential Training', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-postgresql.jpg',
+      thumbnailUrl: '/certificates/linkedin-postgresql.jpg'
+    },
+    { 
+      course: 'PostgreSQL Essential Training (2020)', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-postgresql-2020.jpg',
+      thumbnailUrl: '/certificates/linkedin-postgresql-2020.jpg'
+    },
+    { 
+      course: 'Blockchain: Learning Solidity', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-solidity.jpg',
+      thumbnailUrl: '/certificates/linkedin-solidity.jpg'
+    },
+    { 
+      course: 'Blockchain for Developers: Hyperledger Fabric on Azure', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-hyperledger.jpg',
+      thumbnailUrl: '/certificates/linkedin-hyperledger.jpg'
+    },
+    { 
+      course: 'Build an Ethereum Blockchain App', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-ethereum-app.jpg',
+      thumbnailUrl: '/certificates/linkedin-ethereum-app.jpg'
+    },
+    { 
+      course: 'Building an Ethereum Blockchain App: 1 Introduction to Blockchain', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-ethereum-intro-1.jpg',
+      thumbnailUrl: '/certificates/linkedin-ethereum-intro-1.jpg'
+    },
+    { 
+      course: 'Building an Ethereum Blockchain App: 2 Introduction to Ethereum', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-ethereum-intro-2.jpg',
+      thumbnailUrl: '/certificates/linkedin-ethereum-intro-2.jpg'
+    },
+    { 
+      course: 'Learning Bitcoin and Other Cryptocurrencies', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-bitcoin.jpg',
+      thumbnailUrl: '/certificates/linkedin-bitcoin.jpg'
+    },
+    { 
+      course: 'Django: Forms', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-django-forms.jpg',
+      thumbnailUrl: '/certificates/linkedin-django-forms.jpg'
+    },
+    { 
+      course: 'Building RESTful Web APIs with Django', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-django-apis.jpg',
+      thumbnailUrl: '/certificates/linkedin-django-apis.jpg'
+    },
+    { 
+      course: 'Learning Node.js', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-nodejs-learning.jpg',
+      thumbnailUrl: '/certificates/linkedin-nodejs-learning.jpg'
+    },
+    { 
+      course: 'Node.js Essential Training', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-nodejs-essential.jpg',
+      thumbnailUrl: '/certificates/linkedin-nodejs-essential.jpg'
+    },
+    { 
+      course: 'Learning Amazon Web Services Lambda', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-aws-lambda.jpg',
+      thumbnailUrl: '/certificates/linkedin-aws-lambda.jpg'
+    },
+    { 
+      course: 'DevOps with AWS', 
+      institution: 'LinkedIn Learning',
+      certificateUrl: '/certificates/linkedin-aws-devops.jpg',
+      thumbnailUrl: '/certificates/linkedin-aws-devops.jpg'
     },
     { 
       course: 'AWS Certified Solutions Architect Courses', 
@@ -704,14 +788,72 @@ export const resumeData: ResumeData = {
       course: 'Azure Courses', 
       institution: 'A Cloud Guru: AZ-900, AZ-104, AZ-500, AZ-300, AZ-301 | Udemy: AZ-303/304, AZ-204'
     },
-    { course: 'AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents', institution: 'Udemy' },
-    { course: 'Complete Agentic AI Bootcamp With LangGraph and Langchain', institution: 'Udemy' },
-    { course: 'Database AI Agents: Complete Guide', institution: 'Udemy' },
-    { course: 'DevOps & Infrastructure', institution: 'Udemy: Azure DevOps, Terraform, Pulumi, Ansible, GCP' },
-    { course: 'Data & Machine Learning', institution: 'Udemy: Azure Databricks, Data Factory, Synapse Analytics, Python for ML & Data Science' },
-    { course: 'Computer Vision', institution: 'Udemy: Complete Computer Vision Bootcamp With PyTorch & Tensorflow' },
-    { course: 'Data Engineering & AI', institution: 'Udemy: Introduction to Data Engineering using Generative AI | Generative AI for Data Engineering and Data Professionals' },
-    { course: 'Statistics & Analytics', institution: 'Udemy: Probability and Statistics: Complete Course 2025 | Statistics for Data Science and Business Analysis' },
+    { 
+      course: 'AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/AIEng.pdf'
+    },
+    { 
+      course: 'Complete Agentic AI Bootcamp With LangGraph and Langchain', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/AIAgents.pdf'
+    },
+    { 
+      course: 'Database AI Agents: Complete Guide', 
+      institution: 'Udemy',
+      certificateUrl: '/certificates/databases.pdf'
+    },
+    { 
+      course: 'DevOps & Infrastructure', 
+      institution: 'Udemy: Azure DevOps, Terraform, Pulumi, Ansible, GCP',
+      certificateUrl: '/certificates/DevOps.pdf'
+    },
+    { 
+      course: 'Data & Machine Learning', 
+      institution: 'Udemy: Azure Databricks, Data Factory, Synapse Analytics, Python for ML & Data Science' 
+    },
+    { 
+      course: 'Computer Vision', 
+      institution: 'Udemy: Complete Computer Vision Bootcamp With PyTorch & Tensorflow' 
+    },
+    { 
+      course: 'Data Engineering & AI', 
+      institution: 'Udemy: Introduction to Data Engineering using Generative AI | Generative AI for Data Engineering and Data Professionals' 
+    },
+    { 
+      course: 'Statistics & Analytics', 
+      institution: 'Udemy: Probability and Statistics: Complete Course 2025 | Statistics for Data Science and Business Analysis' 
+    },
+    { 
+      course: 'GCP Professional Cloud Developer', 
+      institution: 'Google Cloud Platform',
+      certificateUrl: '/certificates/GCPDev.pdf'
+    },
+    { 
+      course: 'Azure Solutions Architect Expert', 
+      institution: 'Microsoft Azure',
+      certificateUrl: '/certificates/azure arch2.pdf'
+    },
+    { 
+      course: 'Azure Administrator Associate', 
+      institution: 'Microsoft Azure',
+      certificateUrl: '/certificates/azureadmin.pdf'
+    },
+    { 
+      course: 'Azure Developer Associate', 
+      institution: 'Microsoft Azure',
+      certificateUrl: '/certificates/azuredev.pdf'
+    },
+    { 
+      course: 'Azure Arc Infrastructure', 
+      institution: 'Microsoft Azure',
+      certificateUrl: '/certificates/azurearc.pdf'
+    },
+    { 
+      course: 'Cursor AI Professional Development', 
+      institution: 'Cursor AI',
+      certificateUrl: '/certificates/CursorAI.pdf'
+    },
     { course: 'Blockchain Development', institution: 'Udemy: Internet Computer (Motoko)' },
     { course: 'Microsoft & Network', institution: 'Computer Education Services (MCSE) | GEO Training Corporation (CCNA)' }
   ],

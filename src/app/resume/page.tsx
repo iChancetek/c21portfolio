@@ -276,10 +276,20 @@ export default function ResumePage() {
                         <motion.h1 
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/70 tracking-tighter mb-3 uppercase"
+                            className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-foreground to-foreground/70 tracking-tighter mb-2 uppercase"
                         >
                             {resumeData.name}
                         </motion.h1>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.1 }}
+                            className="mb-4"
+                        >
+                            <Link href={resumeData.contact.portfolio} target="_blank" className="text-sm md:text-base font-medium text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1">
+                                Portfolio — ChancellorMinus.com (Projects & AI Agents)
+                            </Link>
+                        </motion.div>
                         <motion.p 
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
