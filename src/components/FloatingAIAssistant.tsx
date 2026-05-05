@@ -26,7 +26,7 @@ export default function FloatingAIAssistant() {
     <>
       <div 
         className={cn(
-            "fixed z-50 flex flex-col",
+            "fixed z-50 flex flex-col print:hidden",
             isOpen 
               ? "inset-0 bg-black/60 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:inset-auto md:bottom-6 md:right-6 md:items-end"
               : "bottom-6 right-6 items-end"

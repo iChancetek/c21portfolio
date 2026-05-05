@@ -11,7 +11,7 @@ export default function Footer() {
   const { t } = useLocale();
 
   return (
-    <footer className="border-t border-border/40">
+    <footer className="border-t border-border/40 print:hidden">
       <div className="container flex flex-col-reverse items-center justify-between gap-4 py-8 sm:flex-row">
         <p className="text-center text-sm text-muted-foreground">
           {t('footerText', { year: currentYear })}
