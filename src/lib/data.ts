@@ -70,6 +70,20 @@ export const projects: Project[] = [
 
 export const allVentures: Venture[] = [
     {
+        id: 'venture-23',
+        name: "EliteBooks",
+        description: "Accounting that runs itself.\n\nEliteBooks is an AI-powered financial operating system with autonomous agents handling invoicing, expenses, payroll, reporting, FinOps, and personal finances — all automated and clearly explained. Everything your business needs. Full QuickBooks-class accounting, supercharged with AI autonomy.",
+        href: "https://EliteBooks.us/",
+        hasDemo: true,
+    },
+    {
+        id: 'venture-22',
+        name: "ChancellorHR",
+        description: "The Autonomous HR Workforce Operating System\n\nNine specialized AI agents working in concert to manage, optimize, and execute every HR operation — from hiring to retention — with minimal human intervention. Nine Agents. One HR Intelligence. Each agent specializes in an HR domain. Together, they form a unified workforce orchestration system.",
+        href: "https://chancellorhr.us/",
+        hasDemo: true,
+    },
+    {
         id: 'venture-21',
         name: "WorkSpaceIQ",
         description: "Power your thinking with WorkSpaceIQ. our AI Research & Dictation Partner. Dictate, research, and create. Upload any source, ask anything, and listen to an AI podcast of your own content — all in one place.",
@@ -269,6 +283,8 @@ export const allVentures: Venture[] = [
 
 export const ventureIcons: VentureIcon[] = [
     { name: "WorkSpaceIQ", icon: Sparkles },
+    { name: "ChancellorHR", icon: Users },
+    { name: "EliteBooks", icon: CreditCard },
     { name: "Chancellor", icon: LayoutDashboard },
     { name: "iChanceTEK", icon: Sparkles },
     { name: "iCareOS Premium", icon: Sparkles },

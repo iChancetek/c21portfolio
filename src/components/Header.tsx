@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star, Bot, FileText, ChevronDown, Activity, Stethoscope, Users, Sparkles } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star, Bot, FileText, ChevronDown, Activity, Stethoscope, Users, Sparkles, CreditCard } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
@@ -154,6 +154,16 @@ export default function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem asChild>
+                <a href="https://chancellorhr.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2 font-bold text-primary">
+                  <Users className="h-4 w-4 text-primary" /> ChancellorHR
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="https://EliteBooks.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2 font-bold text-primary">
+                  <CreditCard className="h-4 w-4 text-primary" /> EliteBooks
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
                   <LayoutDashboard className="h-4 w-4 text-primary" /> Chancellor
                 </a>
@@ -266,6 +276,12 @@ export default function Header() {
                     <NavLink href="/ai-agents" isProjectLink>AI Agents</NavLink>
                     <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
                       <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Featured Platforms</span>
+                      <a href="https://chancellorhr.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                        <Users className="h-4 w-4 text-primary" /> ChancellorHR
+                      </a>
+                      <a href="https://EliteBooks.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                        <CreditCard className="h-4 w-4 text-primary" /> EliteBooks
+                      </a>
                       <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
                         <LayoutDashboard className="h-4 w-4 text-primary" /> Chancellor
                       </a>
