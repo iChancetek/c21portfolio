@@ -4,7 +4,7 @@
   "settings": "Zvirongwa",
   "logOut": "Buda",
   "login": "Pinda",
-  "projects": "Mapurojekiti",
+  "products": "Mapurojekiti",
   "techInsight": "Kunzwisisa Tekinoroji",
   "healthyLiving": "Upenyu Hwakanaka",
   "skills": "Unyanzvi",
@@ -59,7 +59,7 @@
   "aiSearch": "Tsvaga neAI",
   "searchResults": "Zvakabuda Mukutsvaga",
   "showingResultsFor": "Kuratiidza zvakabuda zve: '{searchQuery}'",
-  "noProjectsFound": "Hapana mapurojekiti akawanikwa e '{searchQuery}'. Edza kumwe kutsvaga.",
+  "noProductsFound": "Hapana mapurojekiti akawanikwa e '{searchQuery}'. Edza kumwe kutsvaga.",
   "aiDeepDive": "Ongororo Yakadzama yeAI",
   "demo": "Ratidzo",
   "ctaTitle": "Vhura Ramangwana Rako Rakanaka",
@@ -190,3 +190,5 @@
   "myFriend": "shamwari yangu",
   "affirmationPrompt": "Ngatigadzire zvisimbiso zvanhasi kuti tipfungwa dzako dziite pakati uye tikurudzire zvakanakisisa zvako."
 }
+
+

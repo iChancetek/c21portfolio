@@ -23,7 +23,7 @@ import Hero from '@/components/Hero';
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
-function SearchResults({ projects, searchQuery, isSearching, answer }: { projects: Venture[]; searchQuery: string; isSearching: boolean; answer?: string; }) {
+function SearchResults({ products, searchQuery, isSearching, answer }: { products: Venture[]; searchQuery: string; isSearching: boolean; answer?: string; }) {
     const { t, locale } = useLocale();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<Venture | null>(null);
@@ -121,15 +121,15 @@ function SearchResults({ projects, searchQuery, isSearching, answer }: { project
         return null;
     }
 
-    if (searchQuery && projects.length === 0 && !answer) {
+    if (searchQuery && products.length === 0 && !answer) {
         return (
             <div className="text-center col-span-full mt-8 text-muted-foreground">
-                <p>{t('noProjectsFound', { searchQuery })}</p>
+                <p>{t('noProductsFound', { searchQuery })}</p>
             </div>
         );
     }
     
-    if (projects.length === 0 && !searchQuery && !answer) { // Don't show anything if no search has been made
+    if (products.length === 0 && !searchQuery && !answer) { // Don't show anything if no search has been made
         return null;
     }
 
@@ -181,9 +181,9 @@ function SearchResults({ projects, searchQuery, isSearching, answer }: { project
                 </Card>
             )}
 
-            {projects.length > 0 && (
+            {products.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {projects.map((project) => {
+                {products.map((project) => {
                     const iconData = ventureIcons.find(icon => icon.name === project.name);
                     const Icon = iconData ? iconData.icon : Users;
                     return (
@@ -220,8 +220,8 @@ function SearchResults({ projects, searchQuery, isSearching, answer }: { project
             <CaseStudyModal 
                 isOpen={isModalOpen}
                 onOpenChange={setIsModalOpen}
-                projectId={selectedProject.id}
-                projectTitle={selectedProject.name}
+                productId={selectedProject.id}
+                productTitle={selectedProject.name}
             />
         )}
     </>
@@ -553,7 +553,7 @@ function FeaturedPlatforms() {
 export default function LandingPage() {
   const [query, setQuery] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [projects, setProjects] = useState<Venture[]>([]);
+  const [products, setProducts] = useState<Venture[]>([]);
   const [answer, setAnswer] = useState<string | undefined>('');
   const [isSearching, startSearchTransition] = useTransition();
   const router = useRouter();
@@ -564,7 +564,7 @@ export default function LandingPage() {
     e.preventDefault();
     const currentQuery = query.trim();
     if (!currentQuery) {
-        setProjects(allVentures);
+        setProducts(allVentures);
         setSearchQuery('');
         setAnswer(undefined);
         return;
@@ -577,7 +577,7 @@ export default function LandingPage() {
       if (result.navPath) {
           router.push(result.navPath);
       } else {
-          setProjects(result.projects);
+          setProducts(result.products);
           setAnswer(result.answer);
       }
     });
@@ -586,7 +586,7 @@ export default function LandingPage() {
   const handleResetSearch = () => {
     setQuery('');
     setSearchQuery('');
-    setProjects([]);
+    setProducts([]);
     setAnswer(undefined);
   };
 
@@ -630,7 +630,7 @@ export default function LandingPage() {
         </motion.form>
       </motion.div>
       <div className="w-full mt-16">
-        <SearchResults projects={projects} searchQuery={searchQuery} isSearching={isSearching} answer={answer} />
+        <SearchResults products={products} searchQuery={searchQuery} isSearching={isSearching} answer={answer} />
       </div>
 
       {/* Showcase Video Section */}

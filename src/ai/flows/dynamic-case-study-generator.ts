@@ -10,27 +10,27 @@ import { z } from 'zod';
 import { allVentures } from '@/lib/data';
 
 const GenerateDeepDiveInputSchema = z.object({
-  projectId: z.string().describe('The ID of the project to generate a deep dive for.'),
+  productId: z.string().describe('The ID of the product to generate a deep dive for.'),
 });
 export type GenerateDeepDiveInput = z.infer<typeof GenerateDeepDiveInputSchema>;
 
 const GenerateDeepDiveOutputSchema = z.object({
-  deepDive: z.string().describe('The detailed technical deep-dive for the project.'),
+  deepDive: z.string().describe('The detailed technical deep-dive for the product.'),
 });
 export type GenerateDeepDiveOutput = z.infer<typeof GenerateDeepDiveOutputSchema>;
 
 // Helper to get project details directly
-function getProjectDetails(projectId: string) {
-  const project = allVentures.find(v => v.id === projectId || v.name.toLowerCase() === projectId.toLowerCase());
+function getProductDetails(productId: string) {
+  const product = allVentures.find(v => v.id === productId || v.name.toLowerCase() === productId.toLowerCase());
 
-  if (!project) {
-    throw new Error(`Project with ID ${projectId} not found.`);
+  if (!product) {
+    throw new Error(`Product with ID ${productId} not found.`);
   }
 
   return {
-    name: project.name,
-    description: project.description,
-    href: project.href,
+    name: product.name,
+    description: product.description,
+    href: product.href,
   };
 }
 
@@ -38,17 +38,17 @@ export async function generateDeepDive(input: GenerateDeepDiveInput): Promise<Ge
   const { projectId } = input;
 
   // Directly retrieve data
-  const project = getProjectDetails(projectId);
+  const product = getProductDetails(productId);
 
-  const systemPrompt = `You are an expert technical writer, specializing in creating deep-dive case studies of software projects.
+  const systemPrompt = `You are an expert technical writer, specializing in creating deep-dive case studies of software products.
 
-The user has requested a deep-dive for the following project:
-Name: ${project.name}
-Description: ${project.description}
-Link: ${project.href}
+The user has requested a deep-dive for the following product:
+Name: ${product.name}
+Description: ${product.description}
+Link: ${product.href}
 
 Write a detailed technical deep-dive, covering the following aspects:
-- Project overview and goals
+- Product overview and goals
 - Key Features and Functionality
 - Potential technical implementation details (be creative and infer a possible tech stack if not provided)
 - Challenges that might have been faced and how they could be solved
@@ -61,7 +61,7 @@ IMPORTANT: Output strictly valid JSON in the format: { "deepDive": "html_string"
   const completion = await openai.chat.completions.create({
     messages: [
       { role: 'system', content: systemPrompt },
-      { role: 'user', content: `Generate deep dive for ${project.name}` }
+      { role: 'user', content: `Generate deep dive for ${product.name}` }
     ],
     model: 'gpt-4o',
     response_format: { type: 'json_object' }

@@ -176,7 +176,7 @@ export default function AIAssistant() {
     setInput('');
 
     const { answer } = await handleSearch(searchInput);
-    const assistantMessage: Message = { role: 'assistant', content: answer || t('noProjectsFound', { searchQuery: searchInput }) };
+    const assistantMessage: Message = { role: 'assistant', content: answer || t('noProductsFound', { searchQuery: searchInput }) };
     
     setMessages((prev) => [...prev, assistantMessage]);
     setIsLoading(false);

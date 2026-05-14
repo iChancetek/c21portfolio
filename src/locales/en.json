@@ -5,7 +5,7 @@
   "settings": "Settings",
   "logOut": "Log Out",
   "login": "Login",
-  "projects": "Projects",
+  "products": "Products",
   "techInsight": "Tech Insight",
   "healthyLiving": "Healthy Living",
   "skills": "Skills",
@@ -34,14 +34,14 @@
   "checkYourInbox": "Please check your inbox for instructions to reset your password.",
   "iChancellorWelcome": "Hello, I'm iChancellor. I'm here to support you on your path to wellness. How can I help you today? We can discuss mindfulness, healthy habits, or begin a guided meditation.",
   "pageTitle": "Chancellor Minus | Entrepreneur • AI & Data Engineer • DevOps & MLOps Specialist • Full-Stack Developer",
-  "pageDescription": "A full stack AI-powered portfolio showcasing the projects and skills of Chancellor Minus.",
+  "pageDescription": "A full stack AI-powered portfolio showcasing the products and skills of Chancellor Minus.",
   "landingTitle": "The Future of Agentic and Generative AI Development — Today",
   "landingSubtitle": "Chancellor Minus | Entrepreneur • AI & Data Engineer • DevOps & MLOps Specialist • Full-Stack Developer",
-  "landingSearchPlaceholder": "Search projects… e.g. “Explore Chancellor’s AI and innovation projects”",
+  "landingSearchPlaceholder": "Search products… e.g. “Explore Chancellor’s AI and innovation products”",
   "aiSearch": "AI Search",
   "searchResults": "Search Results",
   "showingResultsFor": "Showing results for: \"{searchQuery}\"",
-  "noProjectsFound": "No projects found for \"{searchQuery}\". Try a different search.",
+  "noProductsFound": "No products found for \"{searchQuery}\". Try a different search.",
   "aiDeepDive": "AI Deep-Dive",
   "demo": "Demo",
   "ctaTitle": "Unlock Your Healthier Future",
@@ -188,3 +188,4 @@
 }
 
     
+

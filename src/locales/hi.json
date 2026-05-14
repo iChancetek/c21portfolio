@@ -4,7 +4,7 @@
   "settings": "सेटिंग्स",
   "logOut": "लॉग आउट करें",
   "login": "लॉग इन करें",
-  "projects": "परियोजनाएं",
+  "products": "परियोजनाएं",
   "techInsight": "तकनीकी अंतर्दृष्टि",
   "healthyLiving": "स्वस्थ जीवन",
   "skills": "कौशल",
@@ -49,7 +49,7 @@
   "aiSearch": "AI खोज",
   "searchResults": "खोज परिणाम",
   "showingResultsFor": "इसके लिए परिणाम दिखा रहा है: '{searchQuery}'",
-  "noProjectsFound": "'{searchQuery}' के लिए कोई परियोजना नहीं मिली। एक अलग खोज का प्रयास करें।",
+  "noProductsFound": "'{searchQuery}' के लिए कोई परियोजना नहीं मिली। एक अलग खोज का प्रयास करें।",
   "aiDeepDive": "AI गहन विश्लेषण",
   "demo": "डेमो",
   "ctaTitle": "अपने स्वस्थ भविष्य को अनलॉक करें",
@@ -184,3 +184,5 @@
   "greeting_evening_return": "शुभ संध्या, {name}। आपने आज अच्छा काम किया। चलिए आराम करते हैं और एक साथ सांस लेते हैं।",
   "meditationEnd": "आप अद्भुत हैं। आपका दिन शुभ हो!"
 }
+
+

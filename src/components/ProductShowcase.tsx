@@ -1,21 +1,21 @@
 'use client';
 
 import type { Venture } from '@/lib/types';
-import ProjectCard from './ProjectCard';
+import ProductCard from './ProductCard';
 import { ventureIcons } from '@/lib/data';
 import { Users } from 'lucide-react';
 import { useLocale } from '@/hooks/useLocale';
 
-interface ProjectShowcaseProps {
-  projects: Venture[];
+interface ProductShowcaseProps {
+  products: Venture[];
   searchQuery?: string;
 }
 
-export default function ProjectShowcase({ projects, searchQuery }: ProjectShowcaseProps) {
+export default function ProductShowcase({ products, searchQuery }: ProductShowcaseProps) {
   const { t } = useLocale();
   
   return (
-    <section id="projects" className="py-16 md:py-24 lg:py-32 relative bg-background overflow-hidden">
+    <section id="products" className="py-16 md:py-24 lg:py-32 relative bg-background overflow-hidden">
       <div className="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary to-transparent"></div>
       <div className="container relative z-10">
         <div className="flex flex-col items-center text-center space-y-4 mb-12">
@@ -32,17 +32,17 @@ export default function ProjectShowcase({ projects, searchQuery }: ProjectShowca
            )}
         </div>
         
-        {projects.length > 0 ? (
+        {products.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => {
-                const iconData = ventureIcons.find(icon => icon.name === project.name);
+            {products.map((product) => {
+                const iconData = ventureIcons.find(icon => icon.name === product.name);
                 const Icon = iconData ? iconData.icon : Users;
-                return <ProjectCard key={project.id} project={project} Icon={Icon} />
+                return <ProductCard key={product.id} product={product} Icon={Icon} />
             })}
             </div>
         ) : (
             <div className="text-center col-span-full mt-8 text-muted-foreground">
-                <p>{t('noProjectsFound', { searchQuery })}</p>
+                <p>{t('noProductsFound', { searchQuery })}</p>
             </div>
         )}
       </div>

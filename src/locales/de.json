@@ -4,7 +4,7 @@
   "settings": "Einstellungen",
   "logOut": "Abmelden",
   "login": "Anmelden",
-  "projects": "Projekte",
+  "products": "Produkte",
   "techInsight": "Tech-Einblick",
   "healthyLiving": "Gesundes Leben",
   "skills": "Fähigkeiten",
@@ -42,14 +42,14 @@
   "errorSendingResetEmail": "Fehler beim Senden der Reset-E-Mail",
   "iChancellorWelcome": "Hallo, ich bin iChancellor. Ich bin hier, um Sie auf Ihrem Weg zum Wohlbefinden zu unterstützen. Wie kann ich Ihnen heute helfen? Wir können über Achtsamkeit, gesunde Gewohnheiten sprechen oder eine geführte Meditation beginnen.",
   "pageTitle": "Chancellor Minus | Unternehmer, KI-Ingenieur & Full-Stack-Entwickler",
-  "pageDescription": "Ein Full-Stack-KI-gestütztes Portfolio, das die Projekte und Fähigkeiten von Chancellor Minus zeigt.",
+  "pageDescription": "Ein Full-Stack-KI-gestütztes Portfolio, das die Produkte und Fähigkeiten von Chancellor Minus zeigt.",
   "landingTitle": "Die Zukunft der agentischen und generativen KI-Entwicklung — heute",
   "landingSubtitle": "Chancellor Minus | Unternehmer, KI-Ingenieur & Full-Stack-Entwickler",
-  "landingSearchPlaceholder": "Projekte durchsuchen… z.B. „Entdecken Sie die KI- und Innovationsprojekte von Chancellor“",
+  "landingSearchPlaceholder": "Produkte durchsuchen… z.B. „Entdecken Sie die KI- und InnovationsProdukte von Chancellor“",
   "aiSearch": "KI-Suche",
   "searchResults": "Suchergebnisse",
   "showingResultsFor": "Zeige Ergebnisse für: „{searchQuery}“",
-  "noProjectsFound": "Keine Projekte für „{searchQuery}“ gefunden. Versuchen Sie eine andere Suche.",
+  "noProductsFound": "Keine Produkte für „{searchQuery}“ gefunden. Versuchen Sie eine andere Suche.",
   "aiDeepDive": "KI-Tiefenanalyse",
   "demo": "Demo",
   "ctaTitle": "Entfalten Sie Ihre gesündere Zukunft",
@@ -184,3 +184,5 @@
   "greeting_evening_return": "Guten Abend, {name}. Sie haben heute gute Arbeit geleistet. Lassen Sie uns entspannen und zusammen atmen.",
   "meditationEnd": "Du bist großartig. Hab einen schönen Tag!"
 }
+
+

@@ -1,5 +1,5 @@
 
-import type { Project, SkillCategory, Venture, VentureIcon, PartnerCompany, ResumeData } from "@/lib/types";
+import type { Product, SkillCategory, Venture, VentureIcon, PartnerCompany, ResumeData } from "@/lib/types";
 import { Activity, Stethoscope, Code, PanelTop, Server, BrainCircuit, ServerCog, Database, Wind, Bot, Search, GitBranch, ExternalLink, Send, Github, Linkedin, Twitter, HeartPulse, Microscope, FileText, MessagesSquare, Lightbulb, Users, HandHeart, Briefcase, ShoppingCart, Drama, CloudCog, Workflow, MicVocal, CreditCard, Mail, TestTubeDiagonal, Cloud, Puzzle, Filter, Monitor, Sparkles, SlidersHorizontal, Share2, Globe, Building, BarChart, Route, Network, ServerCrash, MessageCircle, FunctionSquare, Binary, GitCommit, ListTree, Sigma, Box, Shield, ShieldCheck, Factory, Layers, Book, CheckCircle, Package, Upload, Instagram, Rabbit, Notebook, GraduationCap, LayoutDashboard } from "lucide-react";
 import { PlaceHolderImages } from "./placeholder-images";
 
@@ -11,7 +11,7 @@ const getPlaceholderImage = (id: string) => {
     return { src: image.imageUrl, alt: image.description, hint: image.imageHint };
 }
 
-export const projects: Project[] = [
+export const products: Product[] = [
   {
     id: "project-1",
     title: "Project Alpha",
@@ -275,7 +275,7 @@ export const allVentures: Venture[] = [
     {
       id: 'partner-11',
       name: "Cayenne Pepper Productions",
-      description: "Cayenne Pepper Productions is a creative media and production company specializing in film, television, advertising, and branded content. Known for storytelling, visual design, and multimedia production, the company collaborates with brands, networks, and creators to develop engaging media projects. Its work spans digital video, commercial campaigns, music-related content, and film-focused creative development.",
+      description: "Cayenne Pepper Productions is a creative media and production company specializing in film, television, advertising, and branded content. Known for storytelling, visual design, and multimedia production, the company collaborates with brands, networks, and creators to develop engaging media products. Its work spans digital video, commercial campaigns, music-related content, and film-focused creative development.",
       href: "#",
       hasDemo: false,
     }
@@ -528,8 +528,8 @@ export const techTopics = [
 
 export const navLinks = [
     { name: "AI Assistant", href: "/ai-assistant", keywords: ['ai', 'assistant', 'ai assistant'] },
-    { name: "Skills", href: "/projects#skills", keywords: ['skills', 'expertise'] },
-    { name: "Contact", href: "/projects#contact", keywords: ['contact', 'get in touch', 'email'] },
+    { name: "Skills", href: "/products#skills", keywords: ['skills', 'expertise'] },
+    { name: "Contact", href: "/products#contact", keywords: ['contact', 'get in touch', 'email'] },
     { name: "Affirmations", href: "/affirmations", keywords: ['affirmations', 'affirmation', 'inspiration'] },
 ];
 

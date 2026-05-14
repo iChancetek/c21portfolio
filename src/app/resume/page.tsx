@@ -287,7 +287,7 @@ export default function ResumePage() {
                             className="mb-4"
                         >
                             <Link href={resumeData.contact.portfolio} target="_blank" className="text-sm md:text-base font-medium text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1">
-                                Portfolio — ChancellorMinus.com (Projects & AI Agents)
+                                Portfolio — ChancellorMinus.com (Products & AI Agents)
                             </Link>
                         </motion.div>
                         <motion.p 
@@ -360,7 +360,7 @@ export default function ResumePage() {
                             Portfolio
                         </h2>
                         <div className="bg-primary/5 p-6 rounded-xl border border-primary/20 text-center">
-                            <p className="text-foreground/80 mb-6">Explore full projects, skills, AI agents, and interactive demos at <Link href="https://chancellorminus.com" target="_blank" className="font-semibold text-primary hover:underline">Chancellor</Link></p>
+                            <p className="text-foreground/80 mb-6">Explore full products, skills, AI agents, and interactive demos at <Link href="https://chancellorminus.com" target="_blank" className="font-semibold text-primary hover:underline">Chancellor</Link></p>
                             <div className="flex flex-wrap justify-center gap-8">
                                 <div>
                                     <h3 className="text-lg font-bold text-primary-gradient"><Link href="https://iChanceTEK.com" target="_blank" className="hover:underline">iChanceTEK</Link></h3>

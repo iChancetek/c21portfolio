@@ -4,7 +4,7 @@
   "settings": "Fandrindrana",
   "logOut": "Hivoaka",
   "login": "Hiditra",
-  "projects": "Tetikasa",
+  "products": "Tetikasa",
   "techInsight": "Fahazoana Teknolojia",
   "healthyLiving": "Fiainana Salama",
   "skills": "Fahaiza-manao",
@@ -59,7 +59,7 @@
   "aiSearch": "Fikarohana AI",
   "searchResults": "Valin'ny Fikarohana",
   "showingResultsFor": "Mampiseho valiny ho an'ny: '{searchQuery}'",
-  "noProjectsFound": "Tsy misy tetikasa hita ho an'ny '{searchQuery}'. Andramo fikarohana hafa.",
+  "noProductsFound": "Tsy misy tetikasa hita ho an'ny '{searchQuery}'. Andramo fikarohana hafa.",
   "aiDeepDive": "Famakafakana Lalina AI",
   "demo": "Fampisehoana",
   "ctaTitle": "Sokafy ny Hoavinao Salama Kokoa",
@@ -190,3 +190,5 @@
   "myFriend": "ry namako",
   "affirmationPrompt": "Andao hamorona ny fanamarinana anio mba hampifantoka ny sainao sy hanome aingam-panahy ny tenanao tsara indrindra."
 }
+
+

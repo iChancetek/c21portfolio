@@ -23,10 +23,10 @@ export default function AIAssistantPage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button size="lg" asChild className="bg-primary-gradient">
-              <Link href="/projects#projects">{t('viewMyWork')}</Link>
+              <Link href="/products#products">{t('viewMyWork')}</Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link href="/projects#contact">
+              <Link href="/products#contact">
                 {t('getInTouch')}
               </Link>
             </Button>

@@ -4,7 +4,7 @@
   "settings": "Paramètres",
   "logOut": "Déconnexion",
   "login": "Connexion",
-  "projects": "Projets",
+  "products": "Produits",
   "techInsight": "Aperçu Tech",
   "healthyLiving": "Vie Saine",
   "skills": "Compétences",
@@ -42,14 +42,14 @@
   "errorSendingResetEmail": "Erreur lors de l'envoi de l'e-mail de réinitialisation",
   "iChancellorWelcome": "Bonjour, je suis iChancellor. Je suis là pour vous accompagner sur votre chemin vers le bien-être. Comment puis-je vous aider aujourd'hui ? Nous pouvons discuter de pleine conscience, d'habitudes saines, ou commencer une méditation guidée.",
   "pageTitle": "Chancellor Minus | Entrepreneur, Ingénieur IA & Développeur Full-Stack",
-  "pageDescription": "Un portfolio full-stack alimenté par l'IA présentant les projets et compétences de Chancellor Minus.",
+  "pageDescription": "Un portfolio full-stack alimenté par l'IA présentant les Produits et compétences de Chancellor Minus.",
   "landingTitle": "Le futur du développement de l'IA agentique et générative — Aujourd'hui",
   "landingSubtitle": "Chancellor Minus | Entrepreneur, Ingénieur IA & Développeur Full-Stack",
-  "landingSearchPlaceholder": "Rechercher des projets… ex: « Explorer les projets d'IA et d'innovation de Chancellor »",
+  "landingSearchPlaceholder": "Rechercher des Produits… ex: « Explorer les Produits d'IA et d'innovation de Chancellor »",
   "aiSearch": "Recherche IA",
   "searchResults": "Résultats de recherche",
   "showingResultsFor": "Affichage des résultats pour : « {searchQuery} »",
-  "noProjectsFound": "Aucun projet trouvé pour « {searchQuery} ». Essayez une autre recherche.",
+  "noProductsFound": "Aucun projet trouvé pour « {searchQuery} ». Essayez une autre recherche.",
   "aiDeepDive": "Analyse approfondie par IA",
   "demo": "Démo",
   "ctaTitle": "Débloquez votre avenir plus sain",
@@ -184,3 +184,5 @@
   "greeting_evening_return": "Bonsoir, {name}. Vous avez bien travaillé aujourd'hui. Détendez-vous et respirez avec moi.",
   "meditationEnd": "Vous êtes incroyable. Passez une belle journée !"
 }
+
+

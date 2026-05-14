@@ -4,7 +4,7 @@
   "settings": "Izilungiselelo",
   "logOut": "Phuma",
   "login": "Ngena",
-  "projects": "Amaphrojekthi",
+  "products": "Amaphrojekthi",
   "techInsight": "Ukuqonda Ngobuchwepheshe",
   "healthyLiving": "Impilo Enempilo",
   "skills": "Amakhono",
@@ -59,7 +59,7 @@
   "aiSearch": "Ukusesha nge-AI",
   "searchResults": "Imiphumela Yosesho",
   "showingResultsFor": "Ibonisa imiphumela ye: '{searchQuery}'",
-  "noProjectsFound": "Awekho amaphrojekthi atholakele we '{searchQuery}'. Zama ukusesha okuhlukile.",
+  "noProductsFound": "Awekho amaphrojekthi atholakele we '{searchQuery}'. Zama ukusesha okuhlukile.",
   "aiDeepDive": "Ukuhlaziya Okujulile Kwe-AI",
   "demo": "Idemo",
   "ctaTitle": "Vula Ikusasa Lakho Elinempilo",
@@ -190,3 +190,5 @@
   "myFriend": "mngane wami",
   "affirmationPrompt": "Ake sidale iziqinisekiso zanamuhla ukuze sigxilise ingqondo yakho futhi sikhuthaze ubuntu bakho obungcono kakhulu."
 }
+
+

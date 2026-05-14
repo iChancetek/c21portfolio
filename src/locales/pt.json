@@ -4,7 +4,7 @@
   "settings": "Configurações",
   "logOut": "Sair",
   "login": "Login",
-  "projects": "Projetos",
+  "products": "Produtos",
   "techInsight": "Visão Técnica",
   "healthyLiving": "Vida Saudável",
   "skills": "Habilidades",
@@ -42,14 +42,14 @@
   "errorSendingResetEmail": "Erro ao Enviar E-mail de Redefinição",
   "iChancellorWelcome": "Olá, eu sou iChancellor. Estou aqui para apoiá-lo em seu caminho para o bem-estar. Como posso ajudá-lo hoje? Podemos discutir mindfulness, hábitos saudáveis ou iniciar uma meditação guiada.",
   "pageTitle": "Chancellor Minus | Empreendedor, Engenheiro de IA e Desenvolvedor Full-Stack",
-  "pageDescription": "Um portfólio full-stack alimentado por IA mostrando os projetos e habilidades de Chancellor Minus.",
+  "pageDescription": "Um portfólio full-stack alimentado por IA mostrando os Produtos e habilidades de Chancellor Minus.",
   "landingTitle": "O Futuro do Desenvolvimento de IA Agente e Gerativa — Hoje",
   "landingSubtitle": "Chancellor Minus | Empreendedor, Engenheiro de IA e Desenvolvedor Full-Stack",
-  "landingSearchPlaceholder": "Pesquisar projetos… ex: 'Explorar os projetos de IA e inovação de Chancellor'",
+  "landingSearchPlaceholder": "Pesquisar Produtos… ex: 'Explorar os Produtos de IA e inovação de Chancellor'",
   "aiSearch": "Pesquisa de IA",
   "searchResults": "Resultados da Pesquisa",
   "showingResultsFor": "Mostrando resultados para: '{searchQuery}'",
-  "noProjectsFound": "Nenhum projeto encontrado para '{searchQuery}'. Tente uma pesquisa diferente.",
+  "noProductsFound": "Nenhum projeto encontrado para '{searchQuery}'. Tente uma pesquisa diferente.",
   "aiDeepDive": "Análise Profunda de IA",
   "demo": "Demonstração",
   "ctaTitle": "Desbloqueie seu Futuro Mais Saudável",
@@ -184,3 +184,5 @@
   "greeting_evening_return": "Boa noite, {name}. Você se saiu bem hoje. Vamos relaxar e respirar juntos.",
   "meditationEnd": "Você é incrível. Tenha um belo dia!"
 }
+
+

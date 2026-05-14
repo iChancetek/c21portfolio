@@ -4,7 +4,7 @@
   "settings": "Dejinta",
   "logOut": "Ka Bax",
   "login": "Gal",
-  "projects": "Mashaariic",
+  "products": "Mashaariic",
   "techInsight": "Fahamka Teknolojiyada",
   "healthyLiving": "Nolol Caafimaad Qabta",
   "skills": "Xirfadaha",
@@ -59,7 +59,7 @@
   "aiSearch": "Raadinta AI",
   "searchResults": "Natiijooyinka Raadinta",
   "showingResultsFor": "Waxaa la soo bandhigayaa natiijooyinka: '{searchQuery}'",
-  "noProjectsFound": "Lama helin mashaariic u dhigma '{searchQuery}'. Iskuday raadin kale.",
+  "noProductsFound": "Lama helin mashaariic u dhigma '{searchQuery}'. Iskuday raadin kale.",
   "aiDeepDive": "Falanqayn Qoto Dheer oo AI ah",
   "demo": "Bandhig",
   "ctaTitle": "Furo Mustaqbalkaaga Caafimaadka Leh",
@@ -190,3 +190,5 @@
   "myFriend": "saaxiibkay",
   "affirmationPrompt": "Aan abuurno xaqiijinta maanta si aan maskaxdaada u mideyno oo aan u dhiirigelino naftaada ugu fiican."
 }
+
+

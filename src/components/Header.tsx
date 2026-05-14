@@ -132,10 +132,10 @@ export default function Header() {
           <img src="/logo-wide.png" alt="Chancellor Minus Logo" className="h-14 w-auto rounded-md" />
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <NavLink href="/projects" isProjectLink>
+          <NavLink href="/products" isProjectLink>
             <div className="flex items-center gap-2">
               <Briefcase className="h-4 w-4" />
-              {t('projects')}
+              {t('products')}
             </div>
           </NavLink>
            <NavLink href="/ai-agents" isProjectLink>
@@ -223,8 +223,8 @@ export default function Header() {
               About
             </div>
           </NavLink>
-          <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
-          <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
+          <NavLink href="/products#skills" isProjectLink>{t('skills')}</NavLink>
+          <NavLink href="/products#contact" isProjectLink>{t('contact')}</NavLink>
           <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
           {user && (
             <>
@@ -272,7 +272,7 @@ export default function Header() {
                   <img src="/logo-wide.png" alt="Chancellor Minus Logo" className="h-14 w-auto rounded-md" />
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
-                    <NavLink href="/projects" isProjectLink>{t('projects')}</NavLink>
+                    <NavLink href="/products" isProjectLink>{t('products')}</NavLink>
                     <NavLink href="/ai-agents" isProjectLink>AI Agents</NavLink>
                     <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
                       <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Featured Platforms</span>
@@ -307,8 +307,8 @@ export default function Header() {
                     <NavLink href="/about" isProjectLink>About</NavLink>
                     <NavLink href="/resume" isProjectLink>Resume</NavLink>
                     <NavLink href="/cv" isProjectLink>CV</NavLink>
-                    <NavLink href="/projects#skills" isProjectLink>{t('skills')}</NavLink>
-                    <NavLink href="/projects#contact" isProjectLink>{t('contact')}</NavLink>
+                    <NavLink href="/products#skills" isProjectLink>{t('skills')}</NavLink>
+                    <NavLink href="/products#contact" isProjectLink>{t('contact')}</NavLink>
                     <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
                      {user && (
                         <>

@@ -6,7 +6,7 @@ import { allVentures, ventureIcons } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Bot, Zap, Users, ShieldCheck, Workflow, BrainCircuit } from 'lucide-react';
 import Link from 'next/link';
-import ProjectCard from "@/components/ProjectCard";
+import ProductCard from "@/components/ProductCard";
 import FloatingAIAssistant from "@/components/FloatingAIAssistant";
 import Image from "next/image";
 
@@ -69,7 +69,7 @@ export default function AIAgentsPage() {
               </p>
                <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Button asChild size="lg" className="bg-primary-gradient">
-                    <Link href="/projects#contact">Request a Demo</Link>
+                    <Link href="/products#contact">Request a Demo</Link>
                 </Button>
               </div>
             </div>
@@ -110,13 +110,13 @@ export default function AIAgentsPage() {
             </div>
             <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {iSydney && (
-                    <ProjectCard project={iSydney} Icon={ISydneyIcon} />
+                    <ProductCard product={iSydney} Icon={ISydneyIcon} />
                 )}
                  {iHailey && (
-                    <ProjectCard project={iHailey} Icon={IHaileyIcon} />
+                    <ProductCard product={iHailey} Icon={IHaileyIcon} />
                 )}
                 {iSkylar && (
-                    <ProjectCard project={iSkylar} Icon={ISkylarIcon} />
+                    <ProductCard product={iSkylar} Icon={ISkylarIcon} />
                 )}
             </div>
         </div>

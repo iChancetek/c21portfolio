@@ -4,7 +4,7 @@
   "settings": "الإعدادات",
   "logOut": "تسجيل الخروج",
   "login": "تسجيل الدخول",
-  "projects": "المشاريع",
+  "products": "المشاريع",
   "techInsight": "رؤى تقنية",
   "healthyLiving": "حياة صحية",
   "skills": "المهارات",
@@ -49,7 +49,7 @@
   "aiSearch": "بحث بالذكاء الاصطناعي",
   "searchResults": "نتائج البحث",
   "showingResultsFor": "عرض نتائج البحث عن: '{searchQuery}'",
-  "noProjectsFound": "لم يتم العثور على مشاريع لـ '{searchQuery}'. جرب بحثًا مختلفًا.",
+  "noProductsFound": "لم يتم العثور على مشاريع لـ '{searchQuery}'. جرب بحثًا مختلفًا.",
   "aiDeepDive": "تحليل عميق بالذكاء الاصطناعي",
   "demo": "عرض توضيحي",
   "ctaTitle": "افتح مستقبلك الأكثر صحة",
@@ -184,3 +184,5 @@
   "greeting_evening_return": "مساء الخير، {name}. لقد أحسنت صنعًا اليوم. لنسترخ ونتنفس معًا.",
   "meditationEnd": "أنت رائع. أتمنى لك يومًا جميلًا!"
 }
+
+

@@ -121,7 +121,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
   };
 }
 
-export async function generateProjectDeepDive(projectId: string) {
+export async function generateProductDeepDive(productId: string) {
     try {
         const response = await generateDeepDive({ projectId });
         return response.deepDive;
@@ -144,32 +144,32 @@ export async function generateTechInsight(topic: z.infer<typeof techTopics>[numb
 }
 
 export async function handleSearch(query: string): Promise<{ 
-  projects: Venture[]; 
+  products: Venture[]; 
   navPath?: string; 
   answer?: string 
 }> {
     const lowercasedQuery = query.toLowerCase().trim();
 
     if (!lowercasedQuery) {
-        return { projects: allVentures, answer: "Here are all the projects." };
+        return { products: allVentures, answer: "Here are all the products." };
     }
     
     // Check for direct navigation
     const directNavLink = navLinks.find(link => link.keywords.includes(lowercasedQuery));
     if (directNavLink) {
-        return { projects: [], navPath: directNavLink.href };
+        return { products: [], navPath: directNavLink.href };
     }
 
     // Check for commands
-    const commandQueries = ['list all projects', 'show all projects', 'show me everything'];
+    const commandQueries = ['list all products', 'show all products', 'show me everything'];
     if(commandQueries.includes(lowercasedQuery)) {
-        return { projects: allVentures };
+        return { products: allVentures };
     }
     
     try {
         // Build context using simple keyword matching
         const relevantContext: string[] = [];
-        const relevantProjects = new Set<Venture>();
+        const relevantProducts = new Set<Venture>();
         
         // Search in resume data
         if (lowercasedQuery.includes('summary') || lowercasedQuery.includes('about')) {
@@ -199,12 +199,12 @@ export async function handleSearch(query: string): Promise<{
             }
         });
         
-        // Search in projects
+        // Search in products
         allVentures.forEach(v => {
             const projectText = `${v.name} ${v.description}`.toLowerCase();
             if (projectText.includes(lowercasedQuery)) {
-                relevantContext.push(`Project ${v.name}: ${v.description}`);
-                relevantProjects.add(v);
+                relevantContext.push(`Product ${v.name}: ${v.description}`);
+                relevantProducts.add(v);
             }
         });
         
@@ -225,7 +225,7 @@ export async function handleSearch(query: string): Promise<{
         const finalAnswer = await aiPortfolioAssistant({ query, context });
         
         return { 
-          projects: Array.from(relevantProjects), 
+          products: Array.from(relevantProducts), 
           answer: finalAnswer.answer 
         };
         
@@ -233,14 +233,14 @@ export async function handleSearch(query: string): Promise<{
         console.error("AI Search handler failed:", error);
         
         // Fallback to string matching
-        const filteredProjects = allVentures.filter(venture => 
+        const filteredProducts = allVentures.filter(venture => 
             venture.name.toLowerCase().includes(lowercasedQuery) || 
             venture.description.toLowerCase().includes(lowercasedQuery)
         );
         
         return { 
-          projects: filteredProjects, 
-          answer: "I found some projects that match your search. Feel free to ask me more specific questions about Chancellor's experience!" 
+          products: filteredProducts, 
+          answer: "I found some products that match your search. Feel free to ask me more specific questions about Chancellor's experience!" 
         };
     }
 }

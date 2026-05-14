@@ -2,7 +2,7 @@
 import type { LucideIcon, LucideProps } from "lucide-react";
 import { z } from 'zod';
 
-export interface Project {
+export interface Product {
   id: string;
   title: string;
   oneLiner: string;

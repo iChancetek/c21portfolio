@@ -4,7 +4,7 @@
   "settings": "Ètò",
   "logOut": "Jáde",
   "login": "Wọlé",
-  "projects": "Àwọn Iṣẹ́",
+  "products": "Àwọn Iṣẹ́",
   "techInsight": "Ìjìnlẹ̀ Èrò nípa Tẹkinọ́lọ́jì",
   "healthyLiving": "Ìgbé Ayé Aláàáfíà",
   "skills": "Àwọn Ogbon",
@@ -59,7 +59,7 @@
   "aiSearch": "Ìwákiri AI",
   "searchResults": "Àwọn Èsì Ìwákiri",
   "showingResultsFor": "Ń ṣe àfihàn àwọn èsì fún: '{searchQuery}'",
-  "noProjectsFound": "Kò sí àwọn iṣẹ́ kankan tí a rí fún '{searchQuery}'. Gbìyànjú ìwákiri mìíràn.",
+  "noProductsFound": "Kò sí àwọn iṣẹ́ kankan tí a rí fún '{searchQuery}'. Gbìyànjú ìwákiri mìíràn.",
   "aiDeepDive": "Ìjìnlẹ̀ Èrò AI",
   "demo": "Àfihàn",
   "ctaTitle": "Ṣí Ọjọ́ Iwájú Rẹ Tí Ó Dárajùlọ sílẹ̀",
@@ -190,3 +190,5 @@
   "myFriend": "ọ̀rẹ́ mi",
   "affirmationPrompt": "Jẹ́ kí a dá àwọn ìdánilójú òní láti fi ọkàn rẹ sí àárín àti láti fún ara rẹ tí ó dára jùlọ ní ìwúrí."
 }
+
+

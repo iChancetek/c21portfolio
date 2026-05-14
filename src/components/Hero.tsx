@@ -110,10 +110,10 @@ export default function Hero() {
 
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pointer-events-auto">
               <Button size="lg" asChild className="h-14 px-8 text-lg bg-transparent border border-primary/40 text-primary shadow-none hover:bg-primary/5 hover:border-primary/60 transition-all backdrop-blur-none">
-                <Link href="/projects">View Projects</Link>
+                <Link href="/products">View Products</Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="h-14 px-8 text-lg bg-transparent border border-white/10 text-white hover:bg-white/5 hover:border-white/30 transition-all backdrop-blur-none">
-                <Link href="/projects#contact">Get in Touch</Link>
+                <Link href="/products#contact">Get in Touch</Link>
               </Button>
             </div>
 

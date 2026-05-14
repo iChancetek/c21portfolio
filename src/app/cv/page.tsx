@@ -9,7 +9,7 @@ import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import { resumeData, allVentures, ventureIcons } from '@/lib/data';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import type { Venture } from '@/lib/types';
-import ProjectCard from '@/components/ProjectCard';
+import ProductCard from '@/components/ProductCard';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import PrintResume from '@/components/PrintResume';
 import { motion } from 'framer-motion';
@@ -143,7 +143,7 @@ export default function CVPage() {
     }
   };
 
-  const featuredProjects = allVentures.filter(v => ['venture-1', 'venture-2', 'venture-8', 'venture-21'].includes(v.id));
+  const featuredProducts = allVentures.filter(v => ['venture-1', 'venture-2', 'venture-8', 'venture-21'].includes(v.id));
 
   return (
     <>
@@ -257,7 +257,7 @@ export default function CVPage() {
                             className="mb-4"
                         >
                             <Link href={resumeData.contact.portfolio} target="_blank" className="text-sm md:text-base font-medium text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1">
-                                Portfolio — ChancellorMinus.com (Projects & AI Agents)
+                                Portfolio — ChancellorMinus.com (Products & AI Agents)
                             </Link>
                         </motion.div>
                         <motion.p 
@@ -347,22 +347,22 @@ export default function CVPage() {
                         </div>
                     </div>
 
-                    {/* Featured Projects */}
+                    {/* Featured Products */}
                     <div>
                         <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-6 border-b border-border/50 pb-2 flex items-center gap-3">
                             <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-black shadow-sm">4</span>
-                            Featured Engineering Projects
+                            Featured Engineering Products
                         </h2>
                         <div className="grid sm:grid-cols-2 gap-6">
-                            {featuredProjects.map((project) => {
-                                const iconData = ventureIcons.find(icon => icon.name === project.name);
+                            {featuredProducts.map((product) => {
+                                const iconData = ventureIcons.find(icon => icon.name === product.name);
                                 const Icon = iconData ? iconData.icon : Users;
-                                return <ProjectCard key={project.id} project={project} Icon={Icon} />
+                                return <ProductCard key={product.id} product={product} Icon={Icon} />
                             })}
                         </div>
                         <div className="text-center mt-8">
                             <Button asChild variant="outline" className="group">
-                                <Link href="/projects">View All Technical Ventures <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span></Link>
+                                <Link href="/products">View All Technical Ventures <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span></Link>
                             </Button>
                         </div>
                     </div>

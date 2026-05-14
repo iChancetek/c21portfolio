@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
-import { generateProjectDeepDive } from '@/app/actions';
+import { generateProductDeepDive } from '@/app/actions';
 import { Loader2 } from 'lucide-react';
 import { ScrollArea } from './ui/scroll-area';
 import { useLocale } from '@/hooks/useLocale';
@@ -10,11 +10,11 @@ import { useLocale } from '@/hooks/useLocale';
 interface CaseStudyModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  projectId: string;
-  projectTitle: string;
+  productId: string;
+  productTitle: string;
 }
 
-export default function CaseStudyModal({ isOpen, onOpenChange, projectId, projectTitle }: CaseStudyModalProps) {
+export default function CaseStudyModal({ isOpen, onOpenChange, productId, productTitle }: CaseStudyModalProps) {
   const [deepDive, setDeepDive] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -24,7 +24,7 @@ export default function CaseStudyModal({ isOpen, onOpenChange, projectId, projec
     if (isOpen && !deepDive) {
       setIsLoading(true);
       setError('');
-      generateProjectDeepDive(projectId)
+      generateProductDeepDive(productId)
         .then((content) => {
           if (content.startsWith("I'm sorry")) {
             setError(content);
@@ -36,13 +36,13 @@ export default function CaseStudyModal({ isOpen, onOpenChange, projectId, projec
           setIsLoading(false);
         });
     }
-  }, [isOpen, projectId, deepDive]);
+  }, [isOpen, productId, deepDive]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-3xl h-[80vh] flex flex-col">
         <DialogHeader>
-          <DialogTitle className="text-2xl">{t('caseStudyTitle', { projectTitle })}</DialogTitle>
+          <DialogTitle className="text-2xl">{t('caseStudyTitle', { projectTitle: productTitle })}</DialogTitle>
           <DialogDescription>
             {t('caseStudyDescription')}
           </DialogDescription>

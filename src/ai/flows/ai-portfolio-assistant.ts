@@ -64,7 +64,7 @@ export async function aiPortfolioAssistant(
 
 -   **Query:** "Hello there"
     **Context:** (empty)
-    **Good Answer:** "Hello! I am iSynera, Chancellor Minus's AI Portfolio Assistant. I can answer any questions you have about his skills, projects, and professional experience. How can I help you today?"`;
+    **Good Answer:** "Hello! I am iSynera, Chancellor Minus's AI Portfolio Assistant. I can answer any questions you have about his skills, products, and professional experience. How can I help you today?"`;
 
   const userContent = `CONTEXT from Knowledge Base:
 ${finalContext}

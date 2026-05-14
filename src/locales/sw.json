@@ -4,7 +4,7 @@
   "settings": "Mipangilio",
   "logOut": "Ondoka",
   "login": "Ingia",
-  "projects": "Miradi",
+  "products": "Miradi",
   "techInsight": "Ufahamu wa Teknolojia",
   "healthyLiving": "Maisha ya Afya",
   "skills": "Ujuzi",
@@ -59,7 +59,7 @@
   "aiSearch": "Tafuta na AI",
   "searchResults": "Matokeo ya Utafutaji",
   "showingResultsFor": "Inaonyesha matokeo ya: '{searchQuery}'",
-  "noProjectsFound": "Hakuna miradi iliyopatikana kwa '{searchQuery}'. Jaribu utafutaji tofauti.",
+  "noProductsFound": "Hakuna miradi iliyopatikana kwa '{searchQuery}'. Jaribu utafutaji tofauti.",
   "aiDeepDive": "Uchambuzi wa Kina wa AI",
   "demo": "Onyesho",
   "ctaTitle": "Fungua Mustakabali Wako Wenye Afya Bora",
@@ -190,3 +190,5 @@
   "myFriend": "rafiki yangu",
   "affirmationPrompt": "Hebu tuunde uthibitisho wa leo ili kuweka akili yako katikati na kuhamasisha ubora wako."
 }
+
+

@@ -4,7 +4,7 @@
   "settings": "Ntọala",
   "logOut": "Wepụ",
   "login": "Banye",
-  "projects": "Ọrụ",
+  "products": "Ọrụ",
   "techInsight": "Nghọta Teknụzụ",
   "healthyLiving": "Ndụ Dị Mma",
   "skills": "Nka",
@@ -59,7 +59,7 @@
   "aiSearch": "Nchọgharị AI",
   "searchResults": "Nsonaazụ Nchọgharị",
   "showingResultsFor": "Na-egosi nsonaazụ maka: '{searchQuery}'",
-  "noProjectsFound": "Ahụghị ọrụ maka '{searchQuery}'. Gbalịa nchọgharị ọzọ.",
+  "noProductsFound": "Ahụghị ọrụ maka '{searchQuery}'. Gbalịa nchọgharị ọzọ.",
   "aiDeepDive": "Nnyocha Omimi AI",
   "demo": "Ngosipụta",
   "ctaTitle": "Mepee Ọdịnihu Gị Dị Mma",
@@ -190,3 +190,5 @@
   "myFriend": "enyi m",
   "affirmationPrompt": "Ka anyị mepụta nkwenye taa iji lekwasị anya n'uche gị ma kpalie onwe gị kachasị mma."
 }
+
+

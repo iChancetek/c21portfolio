@@ -4,7 +4,7 @@
   "settings": "설정",
   "logOut": "로그아웃",
   "login": "로그인",
-  "projects": "프로젝트",
+  "products": "프로젝트",
   "techInsight": "기술 인사이트",
   "healthyLiving": "건강한 생활",
   "skills": "기술",
@@ -49,7 +49,7 @@
   "aiSearch": "AI 검색",
   "searchResults": "검색 결과",
   "showingResultsFor": "'{searchQuery}'에 대한 결과 표시 중",
-  "noProjectsFound": "'{searchQuery}'에 대한 프로젝트를 찾을 수 없습니다. 다른 검색을 시도해 보세요.",
+  "noProductsFound": "'{searchQuery}'에 대한 프로젝트를 찾을 수 없습니다. 다른 검색을 시도해 보세요.",
   "aiDeepDive": "AI 심층 분석",
   "demo": "데모",
   "ctaTitle": "더 건강한 미래를 열어보세요",
@@ -184,3 +184,5 @@
   "greeting_evening_return": "좋은 저녁입니다, {name}님. 오늘 잘 하셨습니다. 함께 긴장을 풀고 숨을 쉽시다.",
   "meditationEnd": "당신은 정말 멋져요. 아름다운 하루 보내세요!"
 }
+
+

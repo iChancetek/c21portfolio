@@ -4,7 +4,7 @@
   "settings": "Saiti",
   "logOut": "Fita",
   "login": "Shiga",
-  "projects": "Ayyuka",
+  "products": "Ayyuka",
   "techInsight": "Fahimtar Fasaha",
   "healthyLiving": "Rayuwa Mai Lafiya",
   "skills": "Gwaninta",
@@ -59,7 +59,7 @@
   "aiSearch": "Binciken AI",
   "searchResults": "Sakamakon Bincike",
   "showingResultsFor": "Ana nuna sakamako na: '{searchQuery}'",
-  "noProjectsFound": "Ba a sami ayyuka na '{searchQuery}' ba. Gwada wani bincike.",
+  "noProductsFound": "Ba a sami ayyuka na '{searchQuery}' ba. Gwada wani bincike.",
   "aiDeepDive": "Nazarin AI Mai Zurfi",
   "demo": "Nuni",
   "ctaTitle": "Bude Makomarka Mai Lafiya",
@@ -190,3 +190,5 @@
   "myFriend": "abokina",
   "affirmationPrompt": "Bari mu samar da tabbatarwa ta yau don mayar da hankalinka da kuma karfafa mafi kyawun kanka."
 }
+
+

@@ -4,7 +4,7 @@
   "settings": "Instellings",
   "logOut": "Teken uit",
   "login": "Teken in",
-  "projects": "Projekte",
+  "products": "Produkte",
   "techInsight": "Tegniese Insig",
   "healthyLiving": "Gesonde Lewe",
   "skills": "Vaardighede",
@@ -52,14 +52,14 @@
   "errorSendingResetEmail": "Fout met die stuur van terugstelling-e-pos",
   "iChancellorWelcome": "Hallo, ek is iChancellor. Ek is hier om jou te ondersteun op jou pad na welstand. Hoe kan ek jou vandag help? Ons kan bewustheid, gesonde gewoontes bespreek, of 'n begeleide meditasie begin.",
   "pageTitle": "Chancellor Minus | Entrepreneur, KI-ingenieur & Volstapelontwikkelaar",
-  "pageDescription": "'n Volstapel KI-aangedrewe portefeulje wat die projekte en vaardighede van Chancellor Minus ten toon stel.",
+  "pageDescription": "'n Volstapel KI-aangedrewe portefeulje wat die Produkte en vaardighede van Chancellor Minus ten toon stel.",
   "landingTitle": "Die Toekoms van Agentiese en Generatiewe KI-ontwikkeling — Vandag",
   "landingSubtitle": "Chancellor Minus | Entrepreneur, KI-ingenieur & Volstapelontwikkelaar",
-  "landingSearchPlaceholder": "Soek projekte... bv. 'Verken Chancellor se KI- en innovasieprojekte'",
+  "landingSearchPlaceholder": "Soek Produkte... bv. 'Verken Chancellor se KI- en innovasieProdukte'",
   "aiSearch": "KI-soektog",
   "searchResults": "Soekresultate",
   "showingResultsFor": "Wys resultate vir: '{searchQuery}'",
-  "noProjectsFound": "Geen projekte gevind vir '{searchQuery}'. Probeer 'n ander soektog.",
+  "noProductsFound": "Geen Produkte gevind vir '{searchQuery}'. Probeer 'n ander soektog.",
   "aiDeepDive": "KI Diepduik",
   "demo": "Demo",
   "ctaTitle": "Ontsluit Jou Gesonder Toekoms",
@@ -190,3 +190,5 @@
   "myFriend": "my vriend",
   "affirmationPrompt": "Kom ons skep vandag se bevestigings om jou gedagtes te sentreer en jou beste self te inspireer."
 }
+
+

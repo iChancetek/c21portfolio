@@ -85,7 +85,7 @@ export default function PrintResume({ isCV = false }: { isCV?: boolean }) {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-1 uppercase">{resumeData.name}</h1>
-            <p className="text-[10px] font-medium text-slate-500 mb-3">Portfolio — ChancellorMinus.com (Projects & AI Agents)</p>
+            <p className="text-[10px] font-medium text-slate-500 mb-3">Portfolio — ChancellorMinus.com (Products & AI Agents)</p>
             <p className="text-lg text-blue-600 font-semibold uppercase tracking-widest">AI Engineer & Cloud Architect</p>
           </div>
 

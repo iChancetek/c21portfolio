@@ -4,13 +4,13 @@
 import Contact from '@/components/Contact';
 import Skills from '@/components/Skills';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
-import ProjectShowcase from '@/components/ProjectShowcase';
+import ProductShowcase from '@/components/ProductShowcase';
 import { allVentures } from '@/lib/data';
 
-export default function ProjectsPage() {
+export default function ProductsPage() {
   return (
     <div className="flex flex-col">
-      <ProjectShowcase projects={allVentures} />
+      <ProductShowcase products={allVentures} />
       <Skills />
       <Contact />
       <FloatingAIAssistant />

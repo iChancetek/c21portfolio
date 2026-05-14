@@ -1,6 +1,6 @@
 
 import 'dotenv/config'; // Ensure env vars are loaded
-import { projects, allVentures, resumeData, skillCategories } from '@/lib/data';
+import { products, allVentures, resumeData, skillCategories } from '@/lib/data';
 import { upsertVector } from '@/lib/rag';
 import { chunkText } from '@/lib/chunking';
 
@@ -8,14 +8,14 @@ async function ingestData() {
     console.log('Starting ingestion...');
 
     try {
-        // 1. Ingest Projects
-        console.log('Ingesting Projects...');
-        for (const project of projects) {
-            const text = `Project: ${project.title}\nDescription: ${project.oneLiner}\nTech Stack: ${project.techStack.join(', ')}`;
-            await upsertVector(`project-${project.id}`, text, {
-                type: 'project',
-                source: 'projects',
-                title: project.title,
+        // 1. Ingest Products
+        console.log('Ingesting Products...');
+        for (const product of products) {
+            const text = `Project: ${product.title}\nDescription: ${product.oneLiner}\nTech Stack: ${product.techStack.join(', ')}`;
+            await upsertVector(`product-${product.id}`, text, {
+                type: 'product',
+                source: 'products',
+                title: product.title,
             });
         }
 

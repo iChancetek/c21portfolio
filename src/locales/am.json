@@ -4,7 +4,7 @@
   "settings": "ቅንብሮች",
   "logOut": "ውጣ",
   "login": "ግባ",
-  "projects": "ፕሮጀክቶች",
+  "products": "ፕሮጀክቶች",
   "techInsight": "የቴክኖሎጂ ግንዛቤ",
   "healthyLiving": "ጤናማ ሕይወት",
   "skills": "ችሎታዎች",
@@ -59,7 +59,7 @@
   "aiSearch": "AI ፍለጋ",
   "searchResults": "የፍለጋ ውጤቶች",
   "showingResultsFor": "ለ '{searchQuery}' ውጤቶችን በማሳየት ላይ",
-  "noProjectsFound": "ለ '{searchQuery}' ምንም ፕሮጀክቶች አልተገኙም። የተለየ ፍለጋ ይሞክru።",
+  "noProductsFound": "ለ '{searchQuery}' ምንም ፕሮጀክቶች አልተገኙም። የተለየ ፍለጋ ይሞክru።",
   "aiDeepDive": "AI ጥልቅ-ትንተና",
   "demo": "ማሳያ",
   "ctaTitle": "ጤናማ የወደፊትዎን ይክፈቱ",
@@ -190,3 +190,5 @@
   "myFriend": "ወዳጄ",
   "affirmationPrompt": "የዛሬውን ማረጋገጫዎች እንፍጠር፤ አእምሮዎን ለማተኮር እና ምርጥ ማንነትዎን ለማነሳሳት።"
 }
+
+
