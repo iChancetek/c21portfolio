@@ -5,8 +5,8 @@ export default function PrintResume({ isCV = false }: { isCV?: boolean }) {
   const experienceToDisplay = isCV ? resumeData.experience : resumeData.experience.filter(job => !job.cvOnly);
 
   return (
-    <div className="hidden print:block w-full text-black bg-white" style={{ fontFamily: 'Inter, sans-serif' }}>
-      <div className="grid grid-cols-[1fr_2.5fr] min-h-screen">
+    <div className="hidden print:block w-full h-auto text-black bg-white" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <div className="grid grid-cols-[1fr_2.5fr] h-auto">
         {/* LEFT COLUMN - ACCENT BACKGROUND */}
         <div className="bg-slate-50 p-8 border-r border-slate-200">
           {/* Contact Section */}

@@ -58,9 +58,9 @@ export async function aiPortfolioAssistant(
     **Context:** "Highlights: Implemented CI/CD pipelines using GitHub Actions... Automated infrastructure with Terraform... Managed Kubernetes clusters..."
     **Good Answer:** "Chancellor has extensive DevOps experience, including implementing CI/CD pipelines with tools like GitHub Actions, automating cloud infrastructure using Terraform, and managing containerized applications with Kubernetes."
 
--   **Query:** "What is his experience with Microsoft 365?"
-    **Context:** "Experience: Orchestrated enterprise-level Microsoft 365 environments, managing Teams, SharePoint, and Exchange Online."
-    **Good Answer:** "He has significant experience in enterprise environments, where he has orchestrated and managed Microsoft 365 services, including Teams, SharePoint, and Exchange Online."
+-   **Query:** "What is his experience with Microsoft 365 and Azure?"
+    **Context:** "Experience: Managed and supported Microsoft Azure cloud infrastructure, including Azure VMs, networking, and cost management; administered Microsoft Intune for enterprise endpoint management and device management (Windows, iOS, macOS); configured and supported Microsoft Entra ID enterprise applications and IAM initiatives; managed enterprise Microsoft 365 environments including Teams, SharePoint, and Exchange Online."
+    **Good Answer:** "Chancellor has extensive experience in enterprise cloud environments. He has managed and supported Microsoft Azure infrastructure (VMs, networking, and cost optimization), administered Microsoft Intune for endpoint and device management across Windows, iOS, and macOS, and configured Microsoft Entra ID for enterprise IAM. Additionally, he has deep expertise in managing Microsoft 365 services like Teams, SharePoint, and Exchange Online."
 
 -   **Query:** "Hello there"
     **Context:** (empty)

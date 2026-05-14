@@ -162,16 +162,29 @@
     margin: 0.5in;
   }
 
-  body {
+  html, body, #main-content {
+    height: auto !important;
+    min-height: 0 !important;
     background: #fff !important;
     color: #000 !important;
     font-size: 9pt;
     line-height: 1.2;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   /* Hide non-essential elements */
-  footer, [data-no-print], .print\:hidden {
+  footer, [data-no-print], .print\:hidden, #header, .floating-ai-assistant {
     display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Prevent blank pages at the end */
+  .hidden.print\:block:last-child {
+    break-after: avoid !important;
   }
 
   /* Make sure background colors print correctly */

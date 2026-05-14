@@ -577,7 +577,9 @@ export const resumeData: ResumeData = {
         'Data Engineering, ML & Analytics Stack: Applied Python for data science and machine learning development. Built ML pipelines using NumPy, Pandas, Scikit-learn, Matplotlib, Seaborn. Developed deep learning systems using TensorFlow, PyTorch. Designed data processing and feature engineering workflows for AI systems. Integrated ML models into production environments via APIs and cloud services.',
         'Cloud Architecture & Data Systems: Architected multi-cloud systems across Google Cloud, AWS, Azure. Built serverless systems using Cloud Run, Firebase, Cloud SQL. Designed ETL/ELT pipelines using Databricks, PySpark, AWS Glue, Delta Lake. Built streaming systems using Kafka and AWS Kinesis. Implemented MLOps pipelines using SageMaker, Azure ML, Vertex AI, MLflow.',
         'DevOps & Platform Engineering: Built CI/CD pipelines (GitHub Actions, Azure DevOps) for Kubernetes microservices. Automated infrastructure using Terraform and Pulumi. Containerized deployments using Docker and Kubernetes. Implemented secure systems with secrets management and observability tooling.',
-        'Enterprise Systems: Managed Microsoft 365 environments (Teams, SharePoint, Exchange, Intune). Automated workflows using Power Automate. Integrated Microsoft 365 with cloud and AI systems.'
+        'Managed and supported Microsoft Azure cloud infrastructure, including Azure VMs, Azure networking, core cloud services, Azure consumption monitoring, resource optimization, and cost management; administered Microsoft Intune for enterprise endpoint management and device management (Windows, iOS, macOS); configured and supported Microsoft Entra ID enterprise applications, app registrations, SSO integrations, provisioning, hybrid identity, and IAM initiatives; managed enterprise Microsoft 365 environments including Teams, SharePoint, Exchange Online, and Intune; automated workflows using Microsoft Power Automate; integrated Microsoft 365 with cloud and AI systems; participated in cloud transformation, infrastructure upgrades, and modernization initiatives; troubleshot complex Azure, endpoint, networking, and identity-related issues; and collaborated cross-functionally with Infrastructure, Security, Service Management, and vendor teams to support secure, scalable, and modern enterprise cloud environments.',
+        'Experience with Google Cloud cloud technologies, including Compute Engine, Google Kubernetes Engine (GKE), Cloud Run, Cloud Functions, Cloud Storage, Cloud SQL, Firestore, Bigtable, VPC networking, Cloud Load Balancing, Cloud Monitoring, Vertex AI, Cloud Build, Artifact Registry, Cloud Identity/IAM, Google Workspace, AppSheet automation, DevOps, AI/ML services, serverless computing, cloud infrastructure, and hybrid cloud operations.',
+        'Experience with Amazon Web Services cloud technologies, including EC2, ECS, Elastic Kubernetes Service (EKS), Lambda, S3, RDS, DynamoDB, VPC networking, Elastic Load Balancer (ELB), CloudWatch, CodePipeline, CodeBuild, IAM, AWS Directory Service, Bedrock, SageMaker, managed Active Directory, DevOps, AI/ML services, serverless computing, cloud infrastructure, and hybrid cloud operations.'
       ]
     },
     {
@@ -602,7 +604,9 @@ export const resumeData: ResumeData = {
       date: 'May 2017 - Jun 2018',
       location: 'New York, NY (Consultant)',
       description: '',
-      highlights: []
+      highlights: [
+        'Experience with Microsoft cloud technologies including Microsoft Azure and Microsoft 365, covering Azure VMs, networking, VNet, Azure App Services, AKS, Azure Functions, storage, Azure SQL, Cosmos DB, load balancing, Azure Monitor, Azure DevOps, Entra ID (IAM), Intune endpoint management, Exchange Online, SharePoint, Teams, Power Automate, hybrid identity, enterprise application integrations, SSO, device management (Windows, iOS, macOS), cloud security, DevOps CI/CD pipelines, automation, cost optimization, troubleshooting, and enterprise cloud infrastructure administration and modernization.'
+      ]
     },
     {
       title: 'Sr. Systems Engineer Manager',
