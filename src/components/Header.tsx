@@ -226,22 +226,18 @@ export default function Header() {
           <NavLink href="/products#skills" isProjectLink>{t('skills')}</NavLink>
           <NavLink href="/products#contact" isProjectLink>{t('contact')}</NavLink>
           <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
-          {user && (
-            <>
-             <NavLink href="/dashboard" isProjectLink>
-                <div className="flex items-center gap-2">
-                    <LayoutDashboard className="h-4 w-4" />
-                    {t('techInsight')}
-                </div>
-             </NavLink>
-             <NavLink href="/healthy-living" isProjectLink>
-                <div className="flex items-center gap-2">
-                    <Heart className="h-4 w-4" />
-                    {t('healthyLiving')}
-                </div>
-             </NavLink>
-            </>
-          )}
+          <NavLink href="/dashboard" isProjectLink>
+            <div className="flex items-center gap-2">
+                <LayoutDashboard className="h-4 w-4" />
+                {t('techInsight')}
+            </div>
+          </NavLink>
+          <NavLink href="/healthy-living" isProjectLink>
+            <div className="flex items-center gap-2">
+                <Heart className="h-4 w-4" />
+                {t('healthyLiving')}
+            </div>
+          </NavLink>
           {isAdmin && (
              <NavLink href="/admin" isProjectLink>
                 <div className="flex items-center gap-2">
@@ -310,13 +306,9 @@ export default function Header() {
                     <NavLink href="/products#skills" isProjectLink>{t('skills')}</NavLink>
                     <NavLink href="/products#contact" isProjectLink>{t('contact')}</NavLink>
                     <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
-                     {user && (
-                        <>
-                          <NavLink href="/dashboard" isProjectLink>{t('techInsight')}</NavLink>
-                          <NavLink href="/healthy-living" isProjectLink>{t('healthyLiving')}</NavLink>
-                        </>
-                     )}
-                     {isAdmin && (
+                    <NavLink href="/dashboard" isProjectLink>{t('techInsight')}</NavLink>
+                    <NavLink href="/healthy-living" isProjectLink>{t('healthyLiving')}</NavLink>
+                    {isAdmin && (
                         <NavLink href="/admin" isProjectLink>Admin</NavLink>
                      )}
                 </nav>

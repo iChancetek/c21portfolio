@@ -54,7 +54,7 @@
   "demo": "Demo",
   "ctaTitle": "Entfalten Sie Ihre gesündere Zukunft",
   "ctaDescription": "Erstellen Sie ein Konto, um auf 'Gesundes Leben' zuzugreifen – Ihr Tor zu geführten Meditationssitzungen, personalisierter Wellness-Unterstützung mit iChancellor – Ihrem KI-Wellness-Assistenten, und exklusivem Zugang zum Tech-Einblick-Generator für innovative Perspektiven auf Technologie und Wohlbefinden.",
-  "signUpNow": "Jetzt anmelden",
+  "getStarted": "Jetzt anmelden",
   "verifyingPermissions": "Berechtigungen werden überprüft...",
   "adminDashboard": "Admin-Dashboard",
   "adminDescription": "Benutzer verwalten, Aktivitäten anzeigen und die Anwendung überwachen.",
@@ -184,5 +184,6 @@
   "greeting_evening_return": "Guten Abend, {name}. Sie haben heute gute Arbeit geleistet. Lassen Sie uns entspannen und zusammen atmen.",
   "meditationEnd": "Du bist großartig. Hab einen schönen Tag!"
 }
+
 
 

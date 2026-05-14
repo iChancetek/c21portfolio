@@ -64,7 +64,7 @@
   "demo": "Ratidzo",
   "ctaTitle": "Vhura Ramangwana Rako Rakanaka",
   "ctaDescription": "Nyoresa akaundi kuti uwane 'Upenyu Hwakanaka' — gedhi rako rekuenda kumasesheni ekufungisisa anotungamirirwa, rutsigiro rwehutano hwemunhu wega ne iChancellor – mubatsiri wako wehutano weAI, uye kuwana kwakakosha kuTech Insight Generator kuitira maonero matsva pane tekinoroji neutano.",
-  "signUpNow": "Nyoresa Zvino",
+  "getStarted": "Nyoresa Zvino",
   "verifyingPermissions": "Kurimbisa mvumo...",
   "adminDashboard": "Admin Dashboard",
   "adminDescription": "Chengetedza vashandisi, tarisa zviitiko, uye tarisisa application.",
@@ -190,5 +190,6 @@
   "myFriend": "shamwari yangu",
   "affirmationPrompt": "Ngatigadzire zvisimbiso zvanhasi kuti tipfungwa dzako dziite pakati uye tikurudzire zvakanakisisa zvako."
 }
+
 
 

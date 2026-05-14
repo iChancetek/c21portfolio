@@ -69,12 +69,14 @@ export default function HealthyLivingPage() {
     setIsSpeaking(false);
   }, []);
 
-  // Redirect if not logged in
+  // No longer redirecting to login; making features public.
+  /*
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.replace('/login');
     }
   }, [user, isUserLoading, router]);
+  */
 
   const speak = useCallback(async (text: string, voice: TTSVoice = 'alloy', isGreeting = false) => {
     if (isMuted) return;
@@ -113,9 +115,9 @@ export default function HealthyLivingPage() {
 
   // Set or update the initial welcome message when locale or user changes.
   useEffect(() => {
-    if (user && mode === 'chat') {
+    if (mode === 'chat') {
         const loginStatus = sessionStorage.getItem('loginStatus');
-        const userName = sessionStorage.getItem('userName') || user.displayName || 'my friend';
+        const userName = sessionStorage.getItem('userName') || (user ? (user.displayName || user.email) : null) || 'my friend';
         
         let greetingKey = '';
         if (loginStatus === 'newUser') {
@@ -326,7 +328,7 @@ export default function HealthyLivingPage() {
     }
   }, [isMuted, stopPlayback]);
 
-  if (isUserLoading || !user) {
+  if (isUserLoading) {
     return <div className="container flex items-center justify-center py-24"><Loader2 className="h-16 w-16 animate-spin text-primary" /></div>;
   }
   

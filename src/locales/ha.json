@@ -64,7 +64,7 @@
   "demo": "Nuni",
   "ctaTitle": "Bude Makomarka Mai Lafiya",
   "ctaDescription": "Yi rijista don asusu don samun damar 'Rayuwa Mai Lafiya' — hanyarka zuwa ga zaman tunani mai shiryarwa, tallafin lafiya na keɓaɓɓu tare da iChancellor – mataimakin lafiyarka na AI, da kuma samun dama ta musamman ga Mai Samar da Fahimtar Fasaha don sabbin ra'ayoyi kan fasaha da walwala.",
-  "signUpNow": "Yi Rijista Yanzu",
+  "getStarted": "Yi Rijista Yanzu",
   "verifyingPermissions": "Ana tabbatar da izini...",
   "adminDashboard": "Dashboard na Admin",
   "adminDescription": "Sarrafa masu amfani, duba aiki, da kuma sa ido kan aikace-aikacen.",
@@ -190,5 +190,6 @@
   "myFriend": "abokina",
   "affirmationPrompt": "Bari mu samar da tabbatarwa ta yau don mayar da hankalinka da kuma karfafa mafi kyawun kanka."
 }
+
 
 

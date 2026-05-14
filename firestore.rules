@@ -4,7 +4,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isAdmin() {
-      return request.auth.token.email IN ['chancellor@ichancetek.com', 'chanceminus@gmail.com'];
+      return request.auth.token.email IN ['chancellor@ichancetek.com', 'chancellor@chancellorminus.com', 'chanceminus@gmail.com'];
     }
 
     match /userStatus/{userId} {

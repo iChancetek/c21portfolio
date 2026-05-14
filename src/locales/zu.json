@@ -64,7 +64,7 @@
   "demo": "Idemo",
   "ctaTitle": "Vula Ikusasa Lakho Elinempilo",
   "ctaDescription": "Bhalisela i-akhawunti ukuze ufinyelele 'Impilo Enempilo' — umnyango wakho oya ezimisweni zokuzindla eziqondisiwe, ukusekelwa kwempilo komuntu siqu nge-iChancellor – umsizi wakho wezempilo we-AI, nokufinyelela okukhethekile kuJenaretha Yokuqonda Ngobuchwepheshe ukuze uthole imibono emisha kwezobuchwepheshe nokuphila kahle.",
-  "signUpNow": "Bhalisa Manje",
+  "getStarted": "Bhalisa Manje",
   "verifyingPermissions": "Iqinisekisa izimvume...",
   "adminDashboard": "Ideshibhodi Yomphathi",
   "adminDescription": "Phatha abasebenzisi, buka umsebenzi, futhi uqaphe uhlelo lokusebenza.",
@@ -190,5 +190,6 @@
   "myFriend": "mngane wami",
   "affirmationPrompt": "Ake sidale iziqinisekiso zanamuhla ukuze sigxilise ingqondo yakho futhi sikhuthaze ubuntu bakho obungcono kakhulu."
 }
+
 
 

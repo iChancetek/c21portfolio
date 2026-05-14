@@ -48,7 +48,14 @@ export default function ActiveUsers() {
     }
 
     if (error) {
-       throw error;
+      return (
+        <div className="flex flex-col items-center justify-center h-40 text-center p-4">
+          <p className="text-destructive font-semibold mb-2">{t('insufficientPermissions') || 'Insufficient Permissions'}</p>
+          <p className="text-xs text-muted-foreground">
+            {error.message || 'You do not have permission to view active user status.'}
+          </p>
+        </div>
+      );
     }
 
     if (!users || users.length === 0) {

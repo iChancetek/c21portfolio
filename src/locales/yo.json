@@ -64,7 +64,7 @@
   "demo": "Àfihàn",
   "ctaTitle": "Ṣí Ọjọ́ Iwájú Rẹ Tí Ó Dárajùlọ sílẹ̀",
   "ctaDescription": "Forúkọsílẹ̀ fún àkọọ́lẹ̀ kan láti wọ 'Ìgbé Ayé Aláàáfíà' — ẹnu ọ̀nà rẹ sí àwọn ìṣàṣàrò tí a darí, àtìlẹyìn àlàáfíà ti ara ẹni pẹ̀lú iChancellor – olùrànlọ́wọ́ àlàáfíà AI rẹ, àti àǹfààní àrà ọ̀tọ̀ sí Olùgbéjáde Ìjìnlẹ̀ Èrò nípa Tẹkinọ́lọ́jì fún àwọn èrò tuntun lórí tẹkinọ́lọ́jì àti àlàáfíà.",
-  "signUpNow": "Forúkọsílẹ̀ Nísinsìnyí",
+  "getStarted": "Forúkọsílẹ̀ Nísinsìnyí",
   "verifyingPermissions": "Ń ṣàgbéyẹ̀wò àwọn àṣẹ...",
   "adminDashboard": "Ojú-iṣẹ́ Aláṣẹ",
   "adminDescription": "Ṣàkóso àwọn olùlò, wo ìgbòkègbodò, kí o sì bojú tó ìṣàfilọ́lẹ̀ náà.",
@@ -190,5 +190,6 @@
   "myFriend": "ọ̀rẹ́ mi",
   "affirmationPrompt": "Jẹ́ kí a dá àwọn ìdánilójú òní láti fi ọkàn rẹ sí àárín àti láti fún ara rẹ tí ó dára jùlọ ní ìwúrí."
 }
+
 
 

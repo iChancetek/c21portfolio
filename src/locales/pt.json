@@ -54,7 +54,7 @@
   "demo": "Demonstração",
   "ctaTitle": "Desbloqueie seu Futuro Mais Saudável",
   "ctaDescription": "Inscreva-se para ter acesso ao 'Vida Saudável' — sua porta de entrada para sessões de meditação guiada, suporte de bem-estar personalizado com iChancellor – seu assistente de bem-estar de IA, e acesso exclusivo ao Gerador de Visão Tecnológica para perspectivas inovadoras sobre tecnologia e bem-estar.",
-  "signUpNow": "Inscreva-se Agora",
+  "getStarted": "Inscreva-se Agora",
   "verifyingPermissions": "Verificando permissões...",
   "adminDashboard": "Painel do Administrador",
   "adminDescription": "Gerencie usuários, visualize atividades e monitore a aplicação.",
@@ -184,5 +184,6 @@
   "greeting_evening_return": "Boa noite, {name}. Você se saiu bem hoje. Vamos relaxar e respirar juntos.",
   "meditationEnd": "Você é incrível. Tenha um belo dia!"
 }
+
 
 

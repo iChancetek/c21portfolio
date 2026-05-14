@@ -54,7 +54,7 @@
   "demo": "데모",
   "ctaTitle": "더 건강한 미래를 열어보세요",
   "ctaDescription": "'건강한 생활'에 액세스하려면 계정에 가입하세요. 안내 명상 세션, AI 웰빙 어시스턴트 iChancellor와 함께하는 맞춤형 웰빙 지원, 기술 및 웰빙에 대한 혁신적인 관점을 위한 기술 인사이트 생성기에 대한 독점적인 액세스를 제공합니다.",
-  "signUpNow": "지금 가입하기",
+  "getStarted": "지금 가입하기",
   "verifyingPermissions": "권한 확인 중...",
   "adminDashboard": "관리자 대시보드",
   "adminDescription": "사용자를 관리하고 활동을 보며 애플리케이션을 모니터링합니다.",
@@ -184,5 +184,6 @@
   "greeting_evening_return": "좋은 저녁입니다, {name}님. 오늘 잘 하셨습니다. 함께 긴장을 풀고 숨을 쉽시다.",
   "meditationEnd": "당신은 정말 멋져요. 아름다운 하루 보내세요!"
 }
+
 
 

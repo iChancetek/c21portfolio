@@ -64,7 +64,7 @@
   "demo": "Fampisehoana",
   "ctaTitle": "Sokafy ny Hoavinao Salama Kokoa",
   "ctaDescription": "Misorata anarana amin'ny kaonty mba hidirana amin'ny 'Fiainana Salama' — vavahadinao mankany amin'ny fivoriana fisaintsainana tarihin-dalana, fanohanana ara-pahasalamana manokana miaraka amin'ny iChancellor – mpanampy ara-pahasalamana AI anao, ary fidirana manokana amin'ny Generatora Fampahafantarana Teknolojia ho an'ny fomba fijery vaovao momba ny teknolojia sy ny fahasalamana.",
-  "signUpNow": "Misorata Anarana Ankehitriny",
+  "getStarted": "Misorata Anarana Ankehitriny",
   "verifyingPermissions": "Manamarina ny fahazoan-dàlana...",
   "adminDashboard": "Dashboard Admin",
   "adminDescription": "Tantano ny mpampiasa, jereo ny hetsika, ary araho maso ny fampiharana.",
@@ -190,5 +190,6 @@
   "myFriend": "ry namako",
   "affirmationPrompt": "Andao hamorona ny fanamarinana anio mba hampifantoka ny sainao sy hanome aingam-panahy ny tenanao tsara indrindra."
 }
+
 
 

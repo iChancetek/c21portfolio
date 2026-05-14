@@ -54,7 +54,7 @@
   "demo": "演示",
   "ctaTitle": "开启您更健康的未来",
   "ctaDescription": "注册账户即可访问“健康生活”——您通往引导冥想课程、iChancellor（您的人工智能健康助手）提供的个性化健康支持以及独家访问技术洞察生成器以获取关于技术和福祉的创新视角的门户。",
-  "signUpNow": "立即注册",
+  "getStarted": "立即注册",
   "verifyingPermissions": "正在验证权限...",
   "adminDashboard": "管理员仪表板",
   "adminDescription": "管理用户、查看活动并监控应用程序。",
@@ -184,5 +184,6 @@
   "greeting_evening_return": "晚上好，{name}。您今天做得很好。让我们一起放松和呼吸。",
   "meditationEnd": "你太棒了。祝你有美好的一天！"
 }
+
 
 

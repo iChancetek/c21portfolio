@@ -8,6 +8,7 @@ import { Providers } from './providers';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://chancellorminus.com'),
   title: 'Chancellor Minus | Entrepreneur • AI & Data Engineer • DevOps & MLOps Specialist • Full-Stack Developer',
   description: 'A full stack AI-powered portfolio showcasing the products and skills of Chancellor Minus.',
   manifest: '/manifest.json',

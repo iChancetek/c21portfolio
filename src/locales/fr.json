@@ -54,7 +54,7 @@
   "demo": "Démo",
   "ctaTitle": "Débloquez votre avenir plus sain",
   "ctaDescription": "Créez un compte pour accéder à 'Vie Saine' — votre passerelle vers des séances de méditation guidée, un soutien au bien-être personnalisé avec iChancellor – votre assistant de bien-être IA, et un accès exclusif au Générateur d'Aperçus Technologiques pour des perspectives innovantes sur la technologie et le bien-être.",
-  "signUpNow": "S'inscrire maintenant",
+  "getStarted": "S'inscrire maintenant",
   "verifyingPermissions": "Vérification des autorisations...",
   "adminDashboard": "Tableau de bord Admin",
   "adminDescription": "Gérez les utilisateurs, consultez l'activité et surveillez l'application.",
@@ -184,5 +184,6 @@
   "greeting_evening_return": "Bonsoir, {name}. Vous avez bien travaillé aujourd'hui. Détendez-vous et respirez avec moi.",
   "meditationEnd": "Vous êtes incroyable. Passez une belle journée !"
 }
+
 
 

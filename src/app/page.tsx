@@ -262,7 +262,7 @@ function SignUpCta() {
                        {t('ctaDescription')}
                     </p>
                     <Button size="lg" asChild className="bg-primary-gradient text-lg px-8 py-6 rounded-full shadow-[0_0_20px_rgba(var(--primary),0.4)] hover:shadow-[0_0_40px_rgba(var(--primary),0.6)] hover:-translate-y-1 transition-all duration-300">
-                        <Link href="/signup">{t('signUpNow')}</Link>
+                        <Link href="/healthy-living">{t('getStarted')}</Link>
                     </Button>
                 </div>
             </div>

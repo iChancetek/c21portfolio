@@ -11,7 +11,7 @@ const RobotFaceIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 2a9 9 0 0 0-9 9v3.5a2.5 2.5 0 0 0 2.5 2.5h13A2.5 2.5 0 0 0 21 14.5V11a9 9 0 0 0-9-9Z" fill="currentColor" />
     <path d="M8.5 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="hsl(var(--background))" />
-    <path d="M15.5 11a1.5 1.5 a 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="hsl(var(--background))" />
+    <path d="M15.5 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" fill="hsl(var(--background))" />
     <path d="M9 18h6a1 1 0 0 1 0 2H9a1 1 0 0 1 0-2Z" fill="currentColor" />
     <path d="M15 6.5a1 1 0 1 0-2 0 1 1 0 0 0 2 0Z" fill="hsl(var(--background))" />
     <path d="M12 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" fill="hsl(var(--background))" opacity="0.6" />

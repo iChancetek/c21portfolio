@@ -46,7 +46,7 @@
   "demo": "Demostración",
   "ctaTitle": "Desbloquea Tu Futuro Más Saludable",
   "ctaDescription": "Regístrate para acceder a Vida Saludable: tu puerta de entrada a meditaciones guiadas, apoyo personalizado con iChancellor (tu asistente de bienestar con IA) y acceso exclusivo al Generador de Análisis Tecnológico para perspectivas innovadoras.",
-  "signUpNow": "Regístrate Ahora",
+  "getStarted": "Regístrate Ahora",
   "verifyingPermissions": "Verificando permisos...",
   "adminDashboard": "Panel de Administración",
   "adminDescription": "Administra usuarios, ve la actividad y monitorea la aplicación.",
@@ -176,5 +176,6 @@
   "greeting_evening_return": "Buenas noches, {name}. Lo has hecho bien hoy. Relajémonos y respiremos juntos.",
   "meditationEnd": "Eres increíble. ¡Que tengas un hermoso día!"
 }
+
 
 

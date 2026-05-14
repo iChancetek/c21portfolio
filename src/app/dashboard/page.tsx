@@ -33,11 +33,14 @@ export default function DashboardPage() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const { t } = useLocale();
   
+  // No longer redirecting to login; making features public.
+  /*
   useEffect(() => {
     if (!isUserLoading && !user) {
       router.replace('/login');
     }
   }, [user, isUserLoading, router]);
+  */
 
   const handleGenerateInsight = (isDeeperDive = false) => {
     if (!selectedTopic) return;
@@ -120,7 +123,7 @@ export default function DashboardPage() {
     }
   };
 
-  if (isUserLoading || !user) {
+  if (isUserLoading) {
     return (
       <div className="container flex items-center justify-center py-24">
         <Loader2 className="h-16 w-16 animate-spin text-primary" />
@@ -136,7 +139,7 @@ export default function DashboardPage() {
           {t('dashboardTitle')}
         </h1>
         <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-          {t('dashboardWelcome', { name: user.displayName || user.email })}
+          {t('dashboardWelcome', { name: user ? (user.displayName || user.email) : 'Guest' })}
         </p>
       </div>
 

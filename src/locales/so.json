@@ -64,7 +64,7 @@
   "demo": "Bandhig",
   "ctaTitle": "Furo Mustaqbalkaaga Caafimaadka Leh",
   "ctaDescription": "Is diiwaan geli akoon si aad u hesho 'Nolol Caafimaad Qabta' — albaabkaaga fadhiyada fekerka ee la hago, taageerada fayo-qabka shakhsi ahaaneed ee iChancellor – caawiyahaaga fayo-qabka AI, iyo helitaanka gaarka ah ee Generator-ka Fahamka Teknolojiyada ee aragtiyaha cusub ee teknolojiyada iyo fayo-qabka.",
-  "signUpNow": "Isdiiwaan Geli Hadda",
+  "getStarted": "Isdiiwaan Geli Hadda",
   "verifyingPermissions": "Xaqiijinaya ogolaanshaha...",
   "adminDashboard": "Dashboard-ka Maamulka",
   "adminDescription": "Maamul isticmaalayaasha, eeg waxqabadka, oo la soco arjiga.",
@@ -190,5 +190,6 @@
   "myFriend": "saaxiibkay",
   "affirmationPrompt": "Aan abuurno xaqiijinta maanta si aan maskaxdaada u mideyno oo aan u dhiirigelino naftaada ugu fiican."
 }
+
 
 

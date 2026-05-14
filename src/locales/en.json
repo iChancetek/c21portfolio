@@ -45,8 +45,8 @@
   "aiDeepDive": "AI Deep-Dive",
   "demo": "Demo",
   "ctaTitle": "Unlock Your Healthier Future",
-  "ctaDescription": "Sign up for an account to access Healthy Living — your gateway to guided meditation sessions, personalized wellness support with iChancellor – your AI wellness assistant, and exclusive access to the Tech Insight Generator for innovative perspectives on technology and well-being.",
-  "signUpNow": "Sign Up Now",
+  "ctaDescription": "Experience Healthy Living — your gateway to guided meditation sessions, personalized wellness support with iChancellor – your AI wellness assistant, and access to the Tech Insight Generator for innovative perspectives on technology and well-being.",
+  "getStarted": "Get Started",
   "verifyingPermissions": "Verifying permissions...",
   "adminDashboard": "Admin Dashboard",
   "adminDescription": "Manage users, view activity, and monitor the application.",
@@ -188,4 +188,5 @@
 }
 
     
+
 

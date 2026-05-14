@@ -8,6 +8,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AuditLogs from '@/components/AuditLogs';
 import ActiveUsers from '@/components/ActiveUsers';
+import ReportingDashboard from '@/components/ReportingDashboard';
 import { useLocale } from '@/hooks/useLocale';
 import { cn } from '@/lib/utils';
 
@@ -60,17 +61,7 @@ function AdminDashboardPage() {
             <AuditLogs />
         </TabsContent>
         <TabsContent value="reports">
-            <Card className="bg-secondary/30 border-border/20">
-            <CardHeader>
-                <CardTitle>{t('reporting')}</CardTitle>
-                <CardDescription>
-                {t('reportingDescription')}
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2">
-                 <p className="text-muted-foreground">{t('reportingPending')}</p>
-            </CardContent>
-            </Card>
+            <ReportingDashboard />
         </TabsContent>
         </Tabs>
     </div>

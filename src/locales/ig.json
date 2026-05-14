@@ -64,7 +64,7 @@
   "demo": "Ngosipụta",
   "ctaTitle": "Mepee Ọdịnihu Gị Dị Mma",
   "ctaDescription": "Debanye aha maka akaụntụ iji nweta 'Ndụ Dị Mma' — ọnụ ụzọ gị maka oge ntụgharị uche eduzi, nkwado ahụike nkeonwe gị na iChancellor – onye inyeaka ahụike AI gị, na ohere pụrụ iche maka Onye Mmepe Nghọta Teknụzụ maka echiche ọhụrụ banyere teknụzụ na ahụike.",
-  "signUpNow": "Debanye aha Ugbu a",
+  "getStarted": "Debanye aha Ugbu a",
   "verifyingPermissions": "Na-enyocha ikike...",
   "adminDashboard": "Dashboard Onye Nchịkwa",
   "adminDescription": "Jikwaa ndị ọrụ, lelee ọrụ, ma nyochaa ngwa ahụ.",
@@ -190,5 +190,6 @@
   "myFriend": "enyi m",
   "affirmationPrompt": "Ka anyị mepụta nkwenye taa iji lekwasị anya n'uche gị ma kpalie onwe gị kachasị mma."
 }
+
 
 

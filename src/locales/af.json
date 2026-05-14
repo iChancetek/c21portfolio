@@ -64,7 +64,7 @@
   "demo": "Demo",
   "ctaTitle": "Ontsluit Jou Gesonder Toekoms",
   "ctaDescription": "Teken aan vir 'n rekening om toegang te kry tot 'Gesonde Lewe' — jou poort na begeleide meditasiesessies, gepersonaliseerde welstandsondersteuning met iChancellor – jou KI-welstandsgenoot, en eksklusiewe toegang tot die Tegniese Insig-generator vir innoverende perspektiewe op tegnologie en welstand.",
-  "signUpNow": "Teken Nou Aan",
+  "getStarted": "Teken Nou Aan",
   "verifyingPermissions": "Besig om toestemmings te verifieer...",
   "adminDashboard": "Admin-kontrolepaneel",
   "adminDescription": "Bestuur gebruikers, bekyk aktiwiteit en monitor die toepassing.",
@@ -190,5 +190,6 @@
   "myFriend": "my vriend",
   "affirmationPrompt": "Kom ons skep vandag se bevestigings om jou gedagtes te sentreer en jou beste self te inspireer."
 }
+
 
 

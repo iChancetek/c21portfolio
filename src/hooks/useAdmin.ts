@@ -10,7 +10,7 @@ interface UseAdminResult {
   isLoading: boolean;
 }
 
-const ADMIN_EMAILS = ['chancellor@ichancetek.com', 'chanceminus@gmail.com'];
+const ADMIN_EMAILS = ['chancellor@ichancetek.com', 'chancellor@chancellorminus.com', 'chanceminus@gmail.com'];
 
 export function useAdmin(): UseAdminResult {
   const { user, isUserLoading } = useUser();

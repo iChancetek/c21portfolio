@@ -64,7 +64,7 @@
   "demo": "Onyesho",
   "ctaTitle": "Fungua Mustakabali Wako Wenye Afya Bora",
   "ctaDescription": "Jisajili kwa akaunti ili kupata 'Maisha ya Afya' — lango lako la vikao vya tafakari vilivyoongozwa, usaidizi wa afya ya kibinafsi na iChancellor – msaidizi wako wa afya wa AI, na ufikiaji wa kipekee kwa Jenereta ya Ufahamu wa Teknolojia kwa mitazamo ya ubunifu juu ya teknolojia na ustawi.",
-  "signUpNow": "Jisajili Sasa",
+  "getStarted": "Jisajili Sasa",
   "verifyingPermissions": "Inathibitisha ruhusa...",
   "adminDashboard": "Dashibodi ya Usimamizi",
   "adminDescription": "Dhibiti watumiaji, tazama shughuli, na fuatilia programu.",
@@ -190,5 +190,6 @@
   "myFriend": "rafiki yangu",
   "affirmationPrompt": "Hebu tuunde uthibitisho wa leo ili kuweka akili yako katikati na kuhamasisha ubora wako."
 }
+
 
 
