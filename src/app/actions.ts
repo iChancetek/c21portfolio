@@ -123,7 +123,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
 export async function generateProductDeepDive(productId: string) {
     try {
-        const response = await generateDeepDive({ projectId });
+        const response = await generateDeepDive({ projectId: productId });
         return response.deepDive;
     } catch (error: any) {
         console.error("Deep dive generation failed:", error);

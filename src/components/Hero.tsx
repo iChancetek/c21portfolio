@@ -6,7 +6,16 @@ import Link from 'next/link';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef, Suspense, useState, useEffect } from 'react';
 import { Network } from 'lucide-react';
-import AgenticLab from './3d/scenes/AgenticLab';
+import dynamic from 'next/dynamic';
+
+const AgenticLab = dynamic(() => import('./3d/scenes/AgenticLab'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center text-primary animate-pulse bg-black font-mono tracking-widest uppercase">
+      Initializing Elite Lab...
+    </div>
+  ),
+});
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
