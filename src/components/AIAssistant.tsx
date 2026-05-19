@@ -221,7 +221,7 @@ export default function AIAssistant() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
           >
-            <Card className="w-full max-w-md shadow-2xl shadow-primary/10 rounded-xl bg-black/5 backdrop-blur-none border-white/5 overflow-hidden">
+            <Card className="w-full max-w-md shadow-2xl shadow-primary/10 rounded-xl bg-black/50 backdrop-blur-md border-white/10 overflow-hidden">
               <audio ref={audioRef} />
               <CardHeader className="flex flex-row items-center justify-between pb-4">
                 <CardTitle className="flex items-center gap-2">

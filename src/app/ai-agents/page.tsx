@@ -1,14 +1,16 @@
 
 'use client';
 
+import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { allVentures, ventureIcons } from "@/lib/data";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Bot, Zap, Users, ShieldCheck, Workflow, BrainCircuit } from 'lucide-react';
+import { CheckCircle, Bot, Zap, Users, ShieldCheck, Workflow, BrainCircuit, ExternalLink, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import ProductCard from "@/components/ProductCard";
 import FloatingAIAssistant from "@/components/FloatingAIAssistant";
 import Image from "next/image";
+import { motion } from 'framer-motion';
 
 const features = [
   {
@@ -41,6 +43,7 @@ const specializations = [
 ]
 
 export default function AIAgentsPage() {
+    const [isMuted, setIsMuted] = useState(true);
     const iSydney = allVentures.find(v => v.id === 'venture-8');
     const iHailey = allVentures.find(v => v.id === 'venture-9');
     const iSkylar = allVentures.find(v => v.id === 'venture-10');
@@ -50,7 +53,71 @@ export default function AIAgentsPage() {
     const ISkylarIcon = ventureIcons.find(icon => icon.name === iSkylar?.name)?.icon || Bot;
 
   return (
-    <div className="flex flex-col items-center justify-center py-12 md:py-24">
+    <div className="flex flex-col w-full items-center justify-center py-12">
+      {/* Featured Agentic AI Platform - Cinematic Widescreen Banner */}
+      <div className="w-full max-w-7xl px-4 md:px-6 mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="w-full rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_50px_-15px_rgba(var(--primary),0.3)] bg-background/30 backdrop-blur-xl relative flex flex-col lg:flex-row items-center justify-between p-6 md:p-10 lg:p-12 gap-8 lg:gap-12 group animate-glow"
+        >
+          {/* Soft glowing cinematic gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none z-0" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(var(--primary),0.1),transparent_70%)] pointer-events-none z-0" />
+
+          {/* Left Section: Platform Info & CTA */}
+          <div className="relative z-10 flex-1 flex flex-col gap-5 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md text-xs font-semibold tracking-wider text-primary uppercase w-fit">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-ping" />
+              Featured Agentic AI Platform
+            </div>
+            
+            <div className="flex flex-col gap-2">
+              <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)] leading-none">
+                ModelIQ
+              </h1>
+              <p className="text-primary font-semibold text-sm md:text-base tracking-wider uppercase">
+                Agentic AI Coding • MLOps • Data Engineering • DevOps • ML
+              </p>
+            </div>
+
+            <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-xl font-light">
+              Experience the future with an Agent-First IDE. Orchestrate a fleet of autonomous agents—Architect, Frontend, Backend, Data Engineering, MLOps, and DevOps—to plan, build, and optimize elite AI applications and petabyte-scale pipelines natively on Google Cloud Platform.
+            </p>
+            
+            {/* CTA Platform Link */}
+            <div className="flex flex-wrap items-center gap-4 mt-2">
+              <Button asChild className="bg-primary-gradient hover:shadow-[0_0_25px_rgba(var(--primary),0.4)] hover:-translate-y-0.5 transition-all duration-300 rounded-xl px-6 py-5 font-semibold text-white">
+                <a href="https://ModelIQ.us" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                  Visit ModelIQ <ExternalLink className="w-4 h-4" />
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Section: Large Immersive Showcase Video */}
+          <div className="relative z-10 w-full lg:w-[500px] xl:w-[640px] shrink-0 aspect-video rounded-xl overflow-hidden border border-white/10 bg-black/40 group-hover:border-primary/30 transition-all duration-500 shadow-2xl">
+            <video
+              src="/modeliq5.mp4"
+              className="w-full h-full object-cover"
+              autoPlay
+              muted={isMuted}
+              loop
+              playsInline
+            />
+            {/* Mute/Unmute toggle for listening */}
+            <button
+              onClick={() => setIsMuted(!isMuted)}
+              className="absolute bottom-4 right-4 z-20 p-3 rounded-full bg-black/60 hover:bg-black/80 border border-white/10 hover:border-primary/50 text-white backdrop-blur-md transition-all duration-300 shadow-lg hover:scale-105"
+              title={isMuted ? "Unmute to Listen" : "Mute Video"}
+            >
+              {isMuted ? <VolumeX className="h-5 w-5 text-red-400" /> : <Volume2 className="h-5 w-5 text-primary animate-pulse" />}
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
        <section className="w-full relative">
          <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
          <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary opacity-20 blur-[100px]"></div>
