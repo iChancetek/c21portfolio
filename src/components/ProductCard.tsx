@@ -8,6 +8,7 @@ import { ExternalLink, Bot, type LucideIcon } from 'lucide-react';
 import type { Venture } from '@/lib/types';
 import CaseStudyModal from './CaseStudyModal';
 import { cn } from '@/lib/utils';
+import SocialEngagement from './SocialEngagement';
 
 interface ProductCardProps {
   product: Venture;
@@ -41,6 +42,7 @@ export default function ProductCard({ product, Icon }: ProductCardProps) {
                     </Button>
                 )}
             </div>
+            <SocialEngagement platformName={product.name} />
         </div>
       </Card>
       {isModalOpen && (

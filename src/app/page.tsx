@@ -19,7 +19,15 @@ import Ticker from '@/components/Ticker';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
 import { cn } from '@/lib/utils';
 import Hero from '@/components/Hero';
-
+import SocialEngagement from '@/components/SocialEngagement';
+import ProductCard from '@/components/ProductCard';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 type AudioState = 'idle' | 'loading' | 'playing' | 'paused';
 
@@ -299,14 +307,17 @@ function FeaturedPlatforms() {
                    </p>
                </motion.div>
 
-               <div className="mx-auto grid max-w-6xl items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+               
+               <Carousel opts={{ align: "start", loop: true }} className="w-full max-w-7xl mx-auto pb-4">
+                 <CarouselContent className="-ml-4 md:-ml-8 items-stretch">
+
                    
-                   <motion.div
+                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
                        initial={{ opacity: 0, scale: 0.95 }}
                        whileInView={{ opacity: 1, scale: 1 }}
                        viewport={{ once: true }}
                        transition={{ duration: 0.6 }}
-                       className="lg:col-span-2"
+                       className="w-full h-full"
                    >
                        <Card className="relative flex flex-col h-full overflow-hidden bg-primary/5 border-primary/30 hover:border-primary/60 transition-all duration-500 group rounded-2xl shadow-[0_0_50px_-12px_rgba(var(--primary),0.2)] backdrop-blur-xl">
                            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-100 group-hover:opacity-100 transition-opacity duration-500" />
@@ -337,17 +348,18 @@ function FeaturedPlatforms() {
                                    </button>
                                </div>
                            </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10">
+                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
                                <Button asChild className="w-full bg-primary-gradient text-white hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all duration-300 rounded-xl h-14 text-lg font-bold">
                                     <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer">
                                         Experience Chancellor <ExternalLink className="w-5 h-5 ml-2" />
                                     </a>
                                </Button>
+                               <SocialEngagement platformName="Chancellor" />
                            </div>
                        </Card>
-                   </motion.div>
+                   </motion.div>                   </CarouselItem>
 
-                   <motion.div
+                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
                        initial={{ opacity: 0, x: -30 }}
                        whileInView={{ opacity: 1, x: 0 }}
                        viewport={{ once: true }}
@@ -365,17 +377,18 @@ function FeaturedPlatforms() {
                                    Your AI Solution Partner for the Agentic Future. AI-native enterprise platforms designed to think, act, and evolve alongside your business.
                                </CardDescription>
                            </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10">
+                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
                                     <a href="https://iChanceTEK.com" target="_blank" rel="noopener noreferrer">
                                         Visit iChanceTEK <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
                                     </a>
                                </Button>
+                               <SocialEngagement platformName="iChanceTEK" />
                            </div>
                        </Card>
-                   </motion.div>
+                   </motion.div>                   </CarouselItem>
 
-                   <motion.div
+                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
                        initial={{ opacity: 0, x: 30 }}
                        whileInView={{ opacity: 1, x: 0 }}
                        viewport={{ once: true }}
@@ -393,17 +406,18 @@ function FeaturedPlatforms() {
                                    Transform Healthcare with Intelligent AI. iCareOS Health revolutionizes medical documentation and workflow management.
                                </CardDescription>
                            </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10">
+                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
                                     <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer">
                                         Visit iCareOS Premium <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
                                     </a>
                                </Button>
+                               <SocialEngagement platformName="iCareOS Premium" />
                            </div>
                        </Card>
-                   </motion.div>
+                   </motion.div>                   </CarouselItem>
 
-                    <motion.div
+                    <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
                        initial={{ opacity: 0, x: 30 }}
                        whileInView={{ opacity: 1, x: 0 }}
                        viewport={{ once: true }}
@@ -421,17 +435,18 @@ function FeaturedPlatforms() {
                                    A fitness and wellness app designed to help you track your running, walking, biking, hiking, mediation, intermittent fasting and journaling—all in one place.
                                </CardDescription>
                            </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10">
+                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
                                     <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer">
                                         Visit StrideIQ <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
                                     </a>
                                </Button>
+                               <SocialEngagement platformName="StrideIQ" />
                            </div>
                        </Card>
-                   </motion.div>
+                   </motion.div>                   </CarouselItem>
 
-                    <motion.div
+                    <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
                        initial={{ opacity: 0, x: 30 }}
                        whileInView={{ opacity: 1, x: 0 }}
                        viewport={{ once: true }}
@@ -449,17 +464,18 @@ function FeaturedPlatforms() {
                                    An AI-native clinical operating system that automates documentation, analyzes medical images, orchestrates patient intake, and optimizes billing.
                                </CardDescription>
                            </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10">
+                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
                                     <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer">
                                         Visit iCareOS <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
                                     </a>
                                </Button>
+                               <SocialEngagement platformName="iCareOS" />
                            </div>
                        </Card>
-                   </motion.div>
+                   </motion.div>                   </CarouselItem>
 
-                   <motion.div
+                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
                         initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
                         whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
@@ -477,17 +493,18 @@ function FeaturedPlatforms() {
                                    An AI-powered social media platform designed for meaningful connections and intelligent content discovery.
                                </CardDescription>
                            </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10">
+                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
                                     <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer">
                                         Visit Famio <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
                                     </a>
                                </Button>
+                               <SocialEngagement platformName="Famio" />
                            </div>
                        </Card>
-                   </motion.div>
+                   </motion.div>                   </CarouselItem>
 
-                   <motion.div
+                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
                         initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
                         whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
@@ -505,17 +522,18 @@ function FeaturedPlatforms() {
                                    An AI-powered vibe coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.
                                </CardDescription>
                            </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10">
+                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
                                     <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer">
                                         Visit Evolvable <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
                                     </a>
                                </Button>
+                               <SocialEngagement platformName="Evolvable" />
                            </div>
                        </Card>
-                   </motion.div>
+                   </motion.div>                   </CarouselItem>
 
-                    <motion.div
+                    <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
                         initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
                         whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
@@ -533,22 +551,67 @@ function FeaturedPlatforms() {
                                     Power your thinking with WorkSpaceIQ, our AI Research & Dictation Partner. Dictate, research, and create. Upload any source, ask anything, and listen to an AI podcast of your own content — all in one place.
                                 </CardDescription>
                             </CardHeader>
-                            <div className="p-6 pt-auto mt-auto relative z-10">
+                            <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
                                 <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
                                      <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer">
                                          Visit WorkSpaceIQ <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
                                      </a>
                                 </Button>
+                                <SocialEngagement platformName="WorkSpaceIQ" />
                             </div>
                         </Card>
-                    </motion.div>
+                    </motion.div>                   </CarouselItem>
 
-               </div>
+               
+                   {allVentures.filter(v => !['venture-20', 'venture-18', 'venture-15', 'venture-16', 'venture-13', 'venture-17', 'venture-21', 'venture-1'].includes(v.id) && !v.id.includes('partner')).map((agent, i) => {
+                       const IconData = ventureIcons.find(icon => icon.name === agent.name);
+                       const Icon = IconData ? IconData.icon : Bot;
+                       return (
+                           <CarouselItem key={agent.id} className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">
+                               <motion.div
+                                   initial={{ opacity: 0, scale: 0.95 }}
+                                   whileInView={{ opacity: 1, scale: 1 }}
+                                   viewport={{ once: true }}
+                                   transition={{ duration: 0.6, delay: 0.1 }}
+                                   className="w-full h-full pb-4 flex"
+                               >
+                                   <ProductCard product={agent} Icon={Icon} />
+                               </motion.div>
+                           </CarouselItem>
+                       );
+                   })}
+                 </CarouselContent>
+                 <div className="flex justify-center gap-4 mt-8 pb-8">
+                     <CarouselPrevious className="static translate-y-0 h-12 w-12 rounded-full border-primary/50 text-primary hover:bg-primary/20" />
+                     <CarouselNext className="static translate-y-0 h-12 w-12 rounded-full border-primary/50 text-primary hover:bg-primary/20" />
+                 </div>
+               </Carousel>
+
            </div>
        </section>
     )
 }
 
+function VisitorEngagement() {
+    return (
+        <section className="relative w-full xl:w-[120%] 2xl:w-[140%] max-w-[1400px] mx-auto px-4 py-16 pointer-events-auto">
+            <Card className="bg-background/40 backdrop-blur-xl border-border/50 shadow-[0_0_40px_-15px_rgba(var(--primary),0.2)] hover:border-primary/50 transition-colors duration-500 rounded-2xl">
+                <CardHeader className="text-center pb-4">
+                    <div className="mx-auto p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)]">
+                        <Users className="w-8 h-8 text-primary" />
+                    </div>
+                    <CardTitle className="text-3xl md:text-4xl font-extrabold text-primary-gradient tracking-tight">Join the Conversation</CardTitle>
+                    <CardDescription className="text-lg mt-2 max-w-2xl mx-auto">
+                        Engage with our community, share your thoughts, and stay updated on the latest agentic platforms.
+                    </CardDescription>
+                </CardHeader>
+                <div className="px-6 pb-8 pt-4 max-w-2xl mx-auto flex justify-center">
+                    <SocialEngagement platformName="the Landing Page" className="border-t border-border/20 mt-4 pt-6" />
+                </div>
+            </Card>
+        </section>
+    );
+}
 
 export default function LandingPage() {
   const [query, setQuery] = useState('');
@@ -677,9 +740,11 @@ export default function LandingPage() {
       </motion.section>
 
       <FeaturedPlatforms />
+      <VisitorEngagement />
       <Ticker />
       <SignUpCta />
       </div>
     </>
   );
 }
+

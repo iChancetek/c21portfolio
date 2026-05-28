@@ -5,7 +5,13 @@ import ProductCard from './ProductCard';
 import { ventureIcons } from '@/lib/data';
 import { Users } from 'lucide-react';
 import { useLocale } from '@/hooks/useLocale';
-
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 interface ProductShowcaseProps {
   products: Venture[];
   searchQuery?: string;
@@ -33,13 +39,25 @@ export default function ProductShowcase({ products, searchQuery }: ProductShowca
         </div>
         
         {products.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => {
-                const iconData = ventureIcons.find(icon => icon.name === product.name);
-                const Icon = iconData ? iconData.icon : Users;
-                return <ProductCard key={product.id} product={product} Icon={Icon} />
-            })}
-            </div>
+            <Carousel opts={{ align: "start", loop: true }} className="w-full max-w-7xl mx-auto pb-4">
+              <CarouselContent className="-ml-4 md:-ml-8 items-stretch">
+                {products.map((product) => {
+                    const iconData = ventureIcons.find(icon => icon.name === product.name);
+                    const Icon = iconData ? iconData.icon : Users;
+                    return (
+                      <CarouselItem key={product.id} className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/3 flex">
+                         <div className="w-full h-full pb-4 flex">
+                           <ProductCard product={product} Icon={Icon} />
+                         </div>
+                      </CarouselItem>
+                    );
+                })}
+              </CarouselContent>
+              <div className="flex justify-center gap-4 mt-8 pb-8 hidden md:flex">
+                  <CarouselPrevious className="static translate-y-0 h-12 w-12 rounded-full border-primary/50 text-primary hover:bg-primary/20" />
+                  <CarouselNext className="static translate-y-0 h-12 w-12 rounded-full border-primary/50 text-primary hover:bg-primary/20" />
+              </div>
+            </Carousel>
         ) : (
             <div className="text-center col-span-full mt-8 text-muted-foreground">
                 <p>{t('noProductsFound', { searchQuery })}</p>
