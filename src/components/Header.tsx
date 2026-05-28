@@ -19,6 +19,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import SettingsDialog from './SettingsDialog';
@@ -132,112 +135,163 @@ export default function Header() {
           <img src="/logo-wide.png" alt="Chancellor Minus Logo" className="h-14 w-auto rounded-md" />
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <NavLink href="/products" isProjectLink>
-            <div className="flex items-center gap-2">
-              <Briefcase className="h-4 w-4" />
-              {t('products')}
-            </div>
-          </NavLink>
-           <NavLink href="/ai-agents" isProjectLink>
-            <div className="flex items-center gap-2">
-              <Bot className="h-4 w-4" />
-              AI Agents
-            </div>
-          </NavLink>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
                <Button variant="ghost" className="p-0 h-auto font-semibold text-foreground text-sm flex items-center gap-1 hover:text-foreground/80 focus-visible:ring-0">
-                <Star className="h-4 w-4" />
-                Featured Platforms
+                <Briefcase className="h-4 w-4" />
+                Production
                 <ChevronDown className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem asChild>
-                <a href="https://chancellorhr.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2 font-bold text-primary">
-                  <Users className="h-4 w-4 text-primary" /> ChancellorHR
-                </a>
+                <Link href="/products" className="cursor-pointer w-full flex items-center gap-2">
+                  <Briefcase className="h-4 w-4" />
+                  {t('products')}
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <a href="https://EliteBooks.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2 font-bold text-primary">
-                  <CreditCard className="h-4 w-4 text-primary" /> EliteBooks
-                </a>
+                <Link href="/ai-agents" className="cursor-pointer w-full flex items-center gap-2">
+                  <Bot className="h-4 w-4" />
+                  AI Agents
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger className="flex items-center gap-2">
+                  <Star className="h-4 w-4" />
+                  Featured Platforms
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem asChild>
+                    <a href="https://chancellorhr.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2 font-bold text-primary">
+                      <Users className="h-4 w-4 text-primary" /> ChancellorHR
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href="https://EliteBooks.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2 font-bold text-primary">
+                      <CreditCard className="h-4 w-4 text-primary" /> EliteBooks
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                      <LayoutDashboard className="h-4 w-4 text-primary" /> Chancellor
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-primary" /> iCareOS Premium
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                      <Activity className="h-4 w-4 text-primary" /> StrideIQ
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                      <Stethoscope className="h-4 w-4 text-primary" /> iCareOS
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                      <Users className="h-4 w-4 text-primary" /> Famio
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-primary" /> Evolvable
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-primary" /> WorkSpaceIQ
+                    </a>
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+               <Button variant="ghost" className="p-0 h-auto font-semibold text-foreground text-sm flex items-center gap-1 hover:text-foreground/80 focus-visible:ring-0">
+                <Code className="h-4 w-4" />
+                {t('skills')}
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem asChild>
+                <Link href="/products#skills" className="cursor-pointer w-full flex items-center gap-2">
+                  <Code className="h-4 w-4" />
+                  {t('skills')}
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
-                  <LayoutDashboard className="h-4 w-4 text-primary" /> Chancellor
-                </a>
+                <Link href="/resume" className="cursor-pointer w-full flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  Resume
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" /> iCareOS Premium
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
-                  <Activity className="h-4 w-4 text-primary" /> StrideIQ
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
-                  <Stethoscope className="h-4 w-4 text-primary" /> iCareOS
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
-                  <Users className="h-4 w-4 text-primary" /> Famio
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" /> Evolvable
-                </a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer" className="cursor-pointer flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" /> WorkSpaceIQ
-                </a>
+                <Link href="/cv" className="cursor-pointer w-full flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  CV
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
                <Button variant="ghost" className="p-0 h-auto font-semibold text-foreground text-sm flex items-center gap-1 hover:text-foreground/80 focus-visible:ring-0">
-                <FileText className="h-4 w-4" />
-                Resume / CV
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => router.push('/resume')}>
-                Resume
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push('/cv')}>
-                CV
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <NavLink href="/about" isProjectLink>
-            <div className="flex items-center gap-2">
-              <User className="h-4 w-4" />
-              About
-            </div>
-          </NavLink>
-          <NavLink href="/products#skills" isProjectLink>{t('skills')}</NavLink>
-          <NavLink href="/products#contact" isProjectLink>{t('contact')}</NavLink>
-          <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
-          <NavLink href="/dashboard" isProjectLink>
-            <div className="flex items-center gap-2">
-                <LayoutDashboard className="h-4 w-4" />
-                {t('techInsight')}
-            </div>
-          </NavLink>
-          <NavLink href="/healthy-living" isProjectLink>
-            <div className="flex items-center gap-2">
                 <Heart className="h-4 w-4" />
                 {t('healthyLiving')}
-            </div>
-          </NavLink>
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem asChild>
+                <Link href="/healthy-living" className="cursor-pointer w-full flex items-center gap-2">
+                  <Heart className="h-4 w-4" />
+                  {t('healthyLiving')}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/affirmations" className="cursor-pointer w-full flex items-center gap-2">
+                  <Heart className="h-4 w-4" />
+                  {t('affirmations')}
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/dashboard" className="cursor-pointer w-full flex items-center gap-2">
+                  <LayoutDashboard className="h-4 w-4" />
+                  {t('techInsight')}
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+               <Button variant="ghost" className="p-0 h-auto font-semibold text-foreground text-sm flex items-center gap-1 hover:text-foreground/80 focus-visible:ring-0">
+                <User className="h-4 w-4" />
+                About
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem asChild>
+                <Link href="/about" className="cursor-pointer w-full flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  About Me
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/products#contact" className="cursor-pointer w-full flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  {t('contact')}
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           {isAdmin && (
              <NavLink href="/admin" isProjectLink>
                 <div className="flex items-center gap-2">
@@ -268,46 +322,66 @@ export default function Header() {
                   <img src="/logo-wide.png" alt="Chancellor Minus Logo" className="h-14 w-auto rounded-md" />
                 </Link>
                 <nav className="flex flex-col gap-6 text-lg">
-                    <NavLink href="/products" isProjectLink>{t('products')}</NavLink>
-                    <NavLink href="/ai-agents" isProjectLink>AI Agents</NavLink>
-                    <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
-                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Featured Platforms</span>
-                      <a href="https://chancellorhr.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <Users className="h-4 w-4 text-primary" /> ChancellorHR
-                      </a>
-                      <a href="https://EliteBooks.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <CreditCard className="h-4 w-4 text-primary" /> EliteBooks
-                      </a>
-                      <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <LayoutDashboard className="h-4 w-4 text-primary" /> Chancellor
-                      </a>
-                      <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <Sparkles className="h-4 w-4 text-primary" /> iCareOS Premium
-                      </a>
-                      <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <Activity className="h-4 w-4 text-primary" /> StrideIQ
-                      </a>
-                      <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <Stethoscope className="h-4 w-4 text-primary" /> iCareOS
-                      </a>
-                      <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <Users className="h-4 w-4 text-primary" /> Famio
-                      </a>
-                      <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <Sparkles className="h-4 w-4 text-primary" /> Evolvable
-                      </a>
-                      <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                        <Sparkles className="h-4 w-4 text-primary" /> WorkSpaceIQ
-                      </a>
+                    <div className="flex flex-col gap-4">
+                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Production</span>
+                      <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
+                        <NavLink href="/products" isProjectLink>{t('products')}</NavLink>
+                        <NavLink href="/ai-agents" isProjectLink>AI Agents</NavLink>
+                        <div className="flex flex-col gap-4 mt-2">
+                          <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Featured Platforms</span>
+                          <a href="https://chancellorhr.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                            <Users className="h-4 w-4 text-primary" /> ChancellorHR
+                          </a>
+                          <a href="https://EliteBooks.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                            <CreditCard className="h-4 w-4 text-primary" /> EliteBooks
+                          </a>
+                          <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                            <LayoutDashboard className="h-4 w-4 text-primary" /> Chancellor
+                          </a>
+                          <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                            <Sparkles className="h-4 w-4 text-primary" /> iCareOS Premium
+                          </a>
+                          <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                            <Activity className="h-4 w-4 text-primary" /> StrideIQ
+                          </a>
+                          <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                            <Stethoscope className="h-4 w-4 text-primary" /> iCareOS
+                          </a>
+                          <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                            <Users className="h-4 w-4 text-primary" /> Famio
+                          </a>
+                          <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                            <Sparkles className="h-4 w-4 text-primary" /> Evolvable
+                          </a>
+                          <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                            <Sparkles className="h-4 w-4 text-primary" /> WorkSpaceIQ
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                    <NavLink href="/about" isProjectLink>About</NavLink>
-                    <NavLink href="/resume" isProjectLink>Resume</NavLink>
-                    <NavLink href="/cv" isProjectLink>CV</NavLink>
-                    <NavLink href="/products#skills" isProjectLink>{t('skills')}</NavLink>
-                    <NavLink href="/products#contact" isProjectLink>{t('contact')}</NavLink>
-                    <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
-                    <NavLink href="/dashboard" isProjectLink>{t('techInsight')}</NavLink>
-                    <NavLink href="/healthy-living" isProjectLink>{t('healthyLiving')}</NavLink>
+                    <div className="flex flex-col gap-4">
+                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">{t('skills')}</span>
+                      <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
+                        <NavLink href="/products#skills" isProjectLink>{t('skills')}</NavLink>
+                        <NavLink href="/resume" isProjectLink>Resume</NavLink>
+                        <NavLink href="/cv" isProjectLink>CV</NavLink>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">{t('healthyLiving')}</span>
+                      <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
+                        <NavLink href="/healthy-living" isProjectLink>{t('healthyLiving')}</NavLink>
+                        <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
+                        <NavLink href="/dashboard" isProjectLink>{t('techInsight')}</NavLink>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4">
+                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">About</span>
+                      <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
+                        <NavLink href="/about" isProjectLink>About Me</NavLink>
+                        <NavLink href="/products#contact" isProjectLink>{t('contact')}</NavLink>
+                      </div>
+                    </div>
                     {isAdmin && (
                         <NavLink href="/admin" isProjectLink>Admin</NavLink>
                      )}
