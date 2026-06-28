@@ -4,11 +4,11 @@ import { Activity, Stethoscope, Code, PanelTop, Server, BrainCircuit, ServerCog,
 import { PlaceHolderImages } from "./placeholder-images";
 
 const getPlaceholderImage = (id: string) => {
-    const image = PlaceHolderImages.find(p => p.id === id);
-    if (!image) {
-        return { src: 'https://picsum.photos/seed/placeholder/600/400', alt: 'Placeholder', hint: 'placeholder' };
-    }
-    return { src: image.imageUrl, alt: image.description, hint: image.imageHint };
+  const image = PlaceHolderImages.find(p => p.id === id);
+  if (!image) {
+    return { src: 'https://picsum.photos/seed/placeholder/600/400', alt: 'Placeholder', hint: 'placeholder' };
+  }
+  return { src: image.imageUrl, alt: image.description, hint: image.imageHint };
 }
 
 export const products: Product[] = [
@@ -48,7 +48,7 @@ export const products: Product[] = [
     githubUrl: "https://github.com",
     liveUrl: "https://example.com",
   },
-    {
+  {
     id: "project-5",
     title: "Project Epsilon",
     oneLiner: "A decentralized social media application.",
@@ -69,238 +69,246 @@ export const products: Product[] = [
 ];
 
 export const allVentures: Venture[] = [
-    {
-        id: 'venture-23',
-        name: "EliteBooks",
-        description: "Accounting that runs itself.\n\nEliteBooks is an AI-powered financial operating system with autonomous agents handling invoicing, expenses, payroll, reporting, FinOps, and personal finances — all automated and clearly explained. Everything your business needs. Full QuickBooks-class accounting, supercharged with AI autonomy.",
-        href: "https://EliteBooks.us/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-22',
-        name: "ChancellorHR",
-        description: "The Autonomous HR Workforce Operating System\n\nNine specialized AI agents working in concert to manage, optimize, and execute every HR operation — from hiring to retention — with minimal human intervention. Nine Agents. One HR Intelligence. Each agent specializes in an HR domain. Together, they form a unified workforce orchestration system.",
-        href: "https://chancellorhr.us/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-21',
-        name: "WorkSpaceIQ",
-        description: "Power your thinking with WorkSpaceIQ. our AI Research & Dictation Partner. Dictate, research, and create. Upload any source, ask anything, and listen to an AI podcast of your own content — all in one place.",
-        href: "https://WorkSpaceIQ.us",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-20',
-        name: "Chancellor",
-        description: "Chancellor — ChancellorOS ERP & CRM Platform\n\nA platform built for a new way of working.\n\nUnify your operations, automate your workflows, and scale with intelligence—all in one system.\n\nWhat would you like to manage with Chancellor Work OS?\n\nPowered by ChancellorOS",
-        href: "https://chancellor--ichancellor.us-east4.hosted.app/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-18',
-        name: "iCareOS Premium",
-        description: "Transform Healthcare with Intelligent AI. iCareOS Health revolutionizes medical documentation and workflow management with cutting-edge AI technology. Streamline patient intake, automate SOAP notes, and enhance clinical decision-making with HIPAA-compliant intelligence.",
-        href: "https://icareos.us/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-17',
-        name: "Evolvable",
-        description: "Evolvable is an AI-powered vibe coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.",
-        href: "https://eVolvable.us/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-16',
-        name: "iCareOS",
-        description: "iCareOS by ChanceTEK is an AI-native clinical operating system that automates documentation, analyzes medical images, orchestrates patient intake, optimizes billing, monitors clinical risk, and coordinates care through a network of agentic AI modules—delivering smarter workflows, faster insights, and safer healthcare.",
-        href: "https://iCareOS.tech/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-15',
-        name: "StrideIQ",
-        description: "StrideIQ is a fitness and wellness app designed to help you track your running, walking, biking, hiking, mediation, intermittent fasting and journaling-all in one place.",
-        href: "https://StrideIQ.fit/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-13',
-        name: "Famio",
-        description: "AI Powered Social Media Platform",
-        href: "https://Famio.us/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-1',
-        name: "Enterprise AI Agents",
-        description: "Enterprise AI that works like your best employee for better customer experiences.",
-        href: "/ai-agents",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-4',
-        name: "MediScribe",
-        description: "AI medical documentation assistant with live transcription, SOAP notes, and EHR integration.",
-        href: "https://mediscribe.us",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-5',
-        name: "MemoiQ",
-        description: "Personal AI memory and journaling assistant with long-term context understanding.",
-        href: "https://memoiq.us/",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-6',
-        name: "ModeliQ",
-        description: "AI model training and deployment automation for custom LLM fine-tuning and inference.",
-        href: "https://modeliq.us",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-7',
-        name: "WoundiQ",
-        description: "AI wound care management system with image analysis, SOAP generation, and role-based nurse/admin dashboards.",
-        href: "https://woundiq.us",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-8',
-        name: "iSydney",
-        description: "Conversational AI voice companion for therapeutic and lifestyle engagement.",
-        href: "https://iSydney.us",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-9',
-        name: "iHailey",
-        description: "AI-driven emotional support and mental wellness companion with natural voice interaction.",
-        href: "https://iHailey.us",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-10',
-        name: "iSkylar",
-        description: "AI Voice Therapist combining generative empathy models and therapeutic dialogue systems.",
-        href: "https://iSkylar.us",
-        hasDemo: true,
-    },
-    {
-        id: 'venture-11',
-        name: "Nesto Banks",
-        description: "Fintech and digital banking platform enhanced with AI-based fraud detection and risk analytics.",
-        href: "https://NestoBanks.com",
-        hasDemo: true,
-    },
-    {
-      id: 'partner-0',
-      name: "Condé Nast",
-      description: "Condé Nast is a premier global media company known for producing world-renowned magazines, digital platforms, and branded experiences. The company oversees iconic publications such as Vogue, GQ, Vanity Fair, Wired, Condé Nast Traveler, and The New Yorker. With a large international presence, Condé Nast blends journalism, fashion, culture, technology, and multimedia storytelling. It serves millions of readers worldwide through print, digital, video, and social channels while shaping trends in fashion, luxury, lifestyle, and entertainment.",
-      href: "https://www.condenast.com",
-      hasDemo: false,
-    },
-    {
-      id: 'partner-1',
-      name: "Advance",
-      description: "Advance is a diversified global media and technology company and parent organization of Condé Nast. Founded in 1922, it holds investments in media, data analytics, technology, and entertainment companies. Its portfolio includes stakes in Reddit, Discovery, and American City Business Journals. Advance also owns newspapers, digital publications, and various media groups. The company is known for long-term strategic investment and innovation across content, data, and global media industries.",
-      href: "https://www.advance.com",
-      hasDemo: false,
-    },
-    {
-      id: 'partner-2',
-      name: "SIMON",
-      description: "Simon Property Group is one of the world’s largest real estate companies and the leading owner and operator of shopping malls in the United States. The company manages premier retail, dining, entertainment, and mixed-use destinations, including iconic malls, lifestyle centers, and outlets. Simon’s properties attract millions of visitors annually, serving as major commercial hubs for retailers, restaurants, and experiential brands. The company is publicly traded and recognized for large-scale real estate development and high-end retail environments.",
-      href: "https://www.simon.com",
-      hasDemo: false,
-    },
-    {
-      id: 'partner-3',
-      name: "Braiva Capital",
-      description: "Braiva Capital is a private investment firm focused on strategic financial growth, venture funding, and partnership development. The company invests in emerging technologies, consumer markets, and high-potential business ventures. Braiva Capital is known for its data-driven strategy, portfolio-building approach, and long-term value creation. Through capital deployment and advisory support, the firm helps early-stage and growth-stage companies scale effectively.",
-      href: "#",
-      hasDemo: false,
-    },
-    {
-      id: 'partner-4',
-      name: "Couristan",
-      description: "Founded in 1926, Couristan is a leading global manufacturer and importer of high-end area rugs, residential carpeting, and custom floor coverings. The company supplies luxury products to retailers, interior designers, and hospitality clients. Known for craftsmanship, premium materials, and innovative designs, Couristan has built a strong reputation in the textile and flooring industries. It serves commercial and residential markets across the United States and internationally.",
-      href: "https://www.couristan.com",
-      hasDemo: false,
-    },
-    {
-      id: 'partner-5',
-      name: "tBrexa Bio Inc.",
-      description: "tBrexa Bio Inc. is a biotechnology company focused on innovative solutions in life sciences, pharmaceuticals, and medical technology. The company specializes in research, development, and commercialization of advanced therapeutic initiatives. Its mission centers on improving global health outcomes through scientific innovation, data-driven drug development, and biotech advancement. tBrexa Bio collaborates with scientific institutions and healthcare partners to accelerate results in biotechnology and medical research.",
-      href: "#",
-      hasDemo: false,
-    },
-    {
-        id: 'partner-6',
-        name: "Nama Harlem",
-        description: "(New Amsterdam Musical Association)\\nFounded in 1904, the New Amsterdam Musical Association (NAMA) is the oldest African-American musical organization in the United States. Created during a time when African-American musicians were excluded from the American Federation of Musicians Local 310, NAMA became the first Black music union. The association provided performance opportunities, training, and community support for Black musicians throughout New York City. Located in Harlem, NAMA remains a historic cultural institution dedicated to preserving jazz, blues, and African-American musical heritage.",
-        href: "https://www.namaharlem.org",
-        hasDemo: false,
-    },
-    {
-      id: 'partner-7',
-      name: "WNDR",
-      description: "WNDR is a modern cloud-gaming and user-generated content platform founded by Borris Bazelais. The company aims to become a major hub for interactive entertainment, often described as the next major evolution of social gaming. Prior to founding WNDR, Bazelais worked in film, television, and music, bringing creative and technical expertise into the gaming industry. His earlier browser-based flash game achieved over 23 million plays, demonstrating his ability to scale user engagement. WNDR focuses on cloud gaming, creator tools, and next-generation gaming experiences.",
-      href: "#",
-      hasDemo: false,
-    },
-    {
-      id: 'partner-8',
-      name: "Alpharma Pharmaceuticals",
-      description: "Alpharma Pharmaceuticals was a global specialty pharmaceutical company known for developing and producing pharmaceutical products across human and animal health sectors. It operated in areas such as antimicrobial drugs, pain management, active pharmaceutical ingredients, and generic medications. Alpharma developed widely used therapies and was recognized for advancing pharmaceutical manufacturing standards. The company was later acquired, integrating its portfolio into a larger global pharmaceutical network.",
-      href: "#",
-      hasDemo: false,
-    },
-    {
-      id: 'partner-9',
-      name: "Novartis Pharmaceuticals",
-      description: "Novartis is one of the world’s largest and most respected pharmaceutical companies, known for developing innovative medicines across oncology, cardiovascular health, immunology, neuroscience, and gene therapy. Headquartered in Switzerland, Novartis focuses heavily on research and development, precision medicine, and humanitarian access to treatments worldwide. With a global footprint, a company aims to transform patient outcomes through advanced scientific discovery and medical innovation.",
-      href: "https://www.novartis.com",
-      hasDemo: false,
-    },
-    {
-      id: 'partner-10',
-      name: "Manhattan College",
-      description: "Manhattan College is a private Catholic liberal arts college located in Riverdale, New York. Founded in 1853, the school is known for strong academic programs in engineering, business, education, the sciences, and the humanities. The institution emphasizes values-based learning, community engagement, and leadership development. Manhattan College has a long history of producing graduates who contribute significantly to engineering, public service, research, and the arts.",
-      href: "https://manhattan.edu",
-      hasDemo: false,
-    },
-    {
-      id: 'partner-11',
-      name: "Cayenne Pepper Productions",
-      description: "Cayenne Pepper Productions is a creative media and production company specializing in film, television, advertising, and branded content. Known for storytelling, visual design, and multimedia production, the company collaborates with brands, networks, and creators to develop engaging media products. Its work spans digital video, commercial campaigns, music-related content, and film-focused creative development.",
-      href: "#",
-      hasDemo: false,
-    }
+  {
+    id: 'venture-23',
+    name: "EliteBooks",
+    description: "Accounting that runs itself.\n\nEliteBooks is an AI-powered financial operating system with autonomous agents handling invoicing, expenses, payroll, reporting, FinOps, and personal finances — all automated and clearly explained. Everything your business needs. Full QuickBooks-class accounting, supercharged with AI autonomy.",
+    href: "https://EliteBooks.us/",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-22',
+    name: "ChancellorHR",
+    description: "The Autonomous HR Workforce Operating System\n\nNine specialized AI agents working in concert to manage, optimize, and execute every HR operation — from hiring to retention — with minimal human intervention. Nine Agents. One HR Intelligence. Each agent specializes in an HR domain. Together, they form a unified workforce orchestration system.",
+    href: "https://chancellorhr.us/",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-21',
+    name: "WorkSpaceIQ",
+    description: "Power your thinking with WorkSpaceIQ. our AI Research & Dictation Partner. Dictate, research, and create. Upload any source, ask anything, and listen to an AI podcast of your own content — all in one place.",
+    href: "https://WorkSpaceIQ.us",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-20',
+    name: "Chancellor",
+    description: "Chancellor — ChancellorOS ERP & CRM Platform\n\nA platform built for a new way of working.\n\nUnify your operations, automate your workflows, and scale with intelligence—all in one system.\n\nWhat would you like to manage with Chancellor Work OS?\n\nPowered by ChancellorOS",
+    href: "https://chancellor--ichancellor.us-east4.hosted.app/",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-18',
+    name: "iCareOS Premium",
+    description: "Transform Healthcare with Intelligent AI. iCareOS Health revolutionizes medical documentation and workflow management with cutting-edge AI technology. Streamline patient intake, automate SOAP notes, and enhance clinical decision-making with HIPAA-compliant intelligence.",
+    href: "https://icareos.us/",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-17',
+    name: "Evolvable",
+    description: "Evolvable is an AI-powered vibe coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.",
+    href: "https://eVolvable.us/",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-16',
+    name: "iCareOS",
+    description: "iCareOS by ChanceTEK is an AI-native clinical operating system that automates documentation, analyzes medical images, orchestrates patient intake, optimizes billing, monitors clinical risk, and coordinates care through a network of agentic AI modules—delivering smarter workflows, faster insights, and safer healthcare.",
+    href: "https://iCareOS.tech/",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-15',
+    name: "StrideIQ",
+    description: "StrideIQ is a fitness and wellness app designed to help you track your running, walking, biking, hiking, mediation, intermittent fasting and journaling-all in one place.",
+    href: "https://StrideIQ.fit/",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-13',
+    name: "Famio",
+    description: "AI Powered Social Media Platform",
+    href: "https://Famio.us/",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-1',
+    name: "Enterprise AI Agents",
+    description: "Enterprise AI that works like your best employee for better customer experiences.",
+    href: "/ai-agents",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-4',
+    name: "MediScribe",
+    description: "AI medical documentation assistant with live transcription, SOAP notes, and EHR integration.",
+    href: "https://mediscribe.us",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-5',
+    name: "MemoiQ",
+    description: "Personal AI memory and journaling assistant with long-term context understanding.",
+    href: "https://memoiq.us/",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-6',
+    name: "ModeliQ",
+    description: "AI model training and deployment automation for custom LLM fine-tuning and inference.",
+    href: "https://modeliq.us",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-7',
+    name: "WoundiQ",
+    description: "AI wound care management system with image analysis, SOAP generation, and role-based nurse/admin dashboards.",
+    href: "https://woundiq.us",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-8',
+    name: "iSydney",
+    description: "Conversational AI voice companion for therapeutic and lifestyle engagement.",
+    href: "https://iSydney.us",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-9',
+    name: "iHailey",
+    description: "AI-driven emotional support and mental wellness companion with natural voice interaction.",
+    href: "https://iHailey.us",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-10',
+    name: "iSkylar",
+    description: "AI Voice Therapist combining generative empathy models and therapeutic dialogue systems.",
+    href: "https://iSkylar.us",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-11',
+    name: "Nesto Banks",
+    description: "NESTO BANKS MUSIC - A Streaming Service powered by AI.",
+    href: "https://nestobanks.us",
+    hasDemo: true,
+  },
+  {
+    id: 'venture-12',
+    name: "The PotLuxE",
+    description: "AI-Native Luxury Pet Store.",
+    href: "https://petluxestore--ipetluxestore.us-east4.hosted.app/",
+    hasDemo: true,
+  },
+  {
+    id: 'partner-0',
+    name: "Condé Nast",
+    description: "Condé Nast is a premier global media company known for producing world-renowned magazines, digital platforms, and branded experiences. The company oversees iconic publications such as Vogue, GQ, Vanity Fair, Wired, Condé Nast Traveler, and The New Yorker. With a large international presence, Condé Nast blends journalism, fashion, culture, technology, and multimedia storytelling. It serves millions of readers worldwide through print, digital, video, and social channels while shaping trends in fashion, luxury, lifestyle, and entertainment.",
+    href: "https://www.condenast.com",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-1',
+    name: "Advance",
+    description: "Advance is a diversified global media and technology company and parent organization of Condé Nast. Founded in 1922, it holds investments in media, data analytics, technology, and entertainment companies. Its portfolio includes stakes in Reddit, Discovery, and American City Business Journals. Advance also owns newspapers, digital publications, and various media groups. The company is known for long-term strategic investment and innovation across content, data, and global media industries.",
+    href: "https://www.advance.com",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-2',
+    name: "SIMON",
+    description: "Simon Property Group is one of the world’s largest real estate companies and the leading owner and operator of shopping malls in the United States. The company manages premier retail, dining, entertainment, and mixed-use destinations, including iconic malls, lifestyle centers, and outlets. Simon’s properties attract millions of visitors annually, serving as major commercial hubs for retailers, restaurants, and experiential brands. The company is publicly traded and recognized for large-scale real estate development and high-end retail environments.",
+    href: "https://www.simon.com",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-3',
+    name: "Braiva Capital",
+    description: "Braiva Capital is a private investment firm focused on strategic financial growth, venture funding, and partnership development. The company invests in emerging technologies, consumer markets, and high-potential business ventures. Braiva Capital is known for its data-driven strategy, portfolio-building approach, and long-term value creation. Through capital deployment and advisory support, the firm helps early-stage and growth-stage companies scale effectively.",
+    href: "#",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-4',
+    name: "Couristan",
+    description: "Founded in 1926, Couristan is a leading global manufacturer and importer of high-end area rugs, residential carpeting, and custom floor coverings. The company supplies luxury products to retailers, interior designers, and hospitality clients. Known for craftsmanship, premium materials, and innovative designs, Couristan has built a strong reputation in the textile and flooring industries. It serves commercial and residential markets across the United States and internationally.",
+    href: "https://www.couristan.com",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-5',
+    name: "tBrexa Bio Inc.",
+    description: "tBrexa Bio Inc. is a biotechnology company focused on innovative solutions in life sciences, pharmaceuticals, and medical technology. The company specializes in research, development, and commercialization of advanced therapeutic initiatives. Its mission centers on improving global health outcomes through scientific innovation, data-driven drug development, and biotech advancement. tBrexa Bio collaborates with scientific institutions and healthcare partners to accelerate results in biotechnology and medical research.",
+    href: "#",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-6',
+    name: "Nama Harlem",
+    description: "(New Amsterdam Musical Association)\\nFounded in 1904, the New Amsterdam Musical Association (NAMA) is the oldest African-American musical organization in the United States. Created during a time when African-American musicians were excluded from the American Federation of Musicians Local 310, NAMA became the first Black music union. The association provided performance opportunities, training, and community support for Black musicians throughout New York City. Located in Harlem, NAMA remains a historic cultural institution dedicated to preserving jazz, blues, and African-American musical heritage.",
+    href: "https://www.namaharlem.org",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-7',
+    name: "WNDR",
+    description: "WNDR is a modern cloud-gaming and user-generated content platform founded by Borris Bazelais. The company aims to become a major hub for interactive entertainment, often described as the next major evolution of social gaming. Prior to founding WNDR, Bazelais worked in film, television, and music, bringing creative and technical expertise into the gaming industry. His earlier browser-based flash game achieved over 23 million plays, demonstrating his ability to scale user engagement. WNDR focuses on cloud gaming, creator tools, and next-generation gaming experiences.",
+    href: "#",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-8',
+    name: "Alpharma Pharmaceuticals",
+    description: "Alpharma Pharmaceuticals was a global specialty pharmaceutical company known for developing and producing pharmaceutical products across human and animal health sectors. It operated in areas such as antimicrobial drugs, pain management, active pharmaceutical ingredients, and generic medications. Alpharma developed widely used therapies and was recognized for advancing pharmaceutical manufacturing standards. The company was later acquired, integrating its portfolio into a larger global pharmaceutical network.",
+    href: "#",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-9',
+    name: "Novartis Pharmaceuticals",
+    description: "Novartis is one of the world’s largest and most respected pharmaceutical companies, known for developing innovative medicines across oncology, cardiovascular health, immunology, neuroscience, and gene therapy. Headquartered in Switzerland, Novartis focuses heavily on research and development, precision medicine, and humanitarian access to treatments worldwide. With a global footprint, a company aims to transform patient outcomes through advanced scientific discovery and medical innovation.",
+    href: "https://www.novartis.com",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-10',
+    name: "Manhattan College",
+    description: "Manhattan College is a private Catholic liberal arts college located in Riverdale, New York. Founded in 1853, the school is known for strong academic programs in engineering, business, education, the sciences, and the humanities. The institution emphasizes values-based learning, community engagement, and leadership development. Manhattan College has a long history of producing graduates who contribute significantly to engineering, public service, research, and the arts.",
+    href: "https://manhattan.edu",
+    hasDemo: false,
+  },
+  {
+    id: 'partner-11',
+    name: "Cayenne Pepper Productions",
+    description: "Cayenne Pepper Productions is a creative media and production company specializing in film, television, advertising, and branded content. Known for storytelling, visual design, and multimedia production, the company collaborates with brands, networks, and creators to develop engaging media products. Its work spans digital video, commercial campaigns, music-related content, and film-focused creative development.",
+    href: "#",
+    hasDemo: false,
+  }
 ];
 
 export const ventureIcons: VentureIcon[] = [
-    { name: "WorkSpaceIQ", icon: Sparkles },
-    { name: "ChancellorHR", icon: Users },
-    { name: "EliteBooks", icon: CreditCard },
-    { name: "Chancellor", icon: LayoutDashboard },
-    { name: "iChanceTEK", icon: Sparkles },
-    { name: "iCareOS Premium", icon: Sparkles },
-    { name: "Evolvable", icon: Sparkles },
-    { name: "iCareOS", icon: Stethoscope },
-    { name: "StrideIQ", icon: Activity },
-    { name: "Famio", icon: Users },
-    { name: "Enterprise AI Agents", icon: Briefcase },
-    { name: "MediScribe", icon: FileText },
-    { name: "MemoiQ", icon: Lightbulb },
-    { name: "ModeliQ", icon: BrainCircuit },
-    { name: "WoundiQ", icon: Microscope },
-    { name: "iSydney", icon: MessagesSquare },
-    { name: "iHailey", icon: HandHeart },
-    { name: "iSkylar", icon: Drama },
-    { name: "Nesto Banks", icon: Users },
+  { name: "WorkSpaceIQ", icon: Sparkles },
+  { name: "ChancellorHR", icon: Users },
+  { name: "EliteBooks", icon: CreditCard },
+  { name: "Chancellor", icon: LayoutDashboard },
+  { name: "iChanceTEK", icon: Sparkles },
+  { name: "iCareOS Premium", icon: Sparkles },
+  { name: "Evolvable", icon: Sparkles },
+  { name: "iCareOS", icon: Stethoscope },
+  { name: "StrideIQ", icon: Activity },
+  { name: "Famio", icon: Users },
+  { name: "Enterprise AI Agents", icon: Briefcase },
+  { name: "MediScribe", icon: FileText },
+  { name: "MemoiQ", icon: Lightbulb },
+  { name: "ModeliQ", icon: BrainCircuit },
+  { name: "WoundiQ", icon: Microscope },
+  { name: "iSydney", icon: MessagesSquare },
+  { name: "iHailey", icon: HandHeart },
+  { name: "iSkylar", icon: Drama },
+  { name: "Nesto Banks", icon: Users },
+  { name: "The PotLuxE", icon: ShoppingCart },
 ];
 
 export const skillCategories: SkillCategory[] = [
@@ -386,7 +394,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "AWS S3 Vector", icon: Database },
     ],
   },
-   {
+  {
     title: "Data Engineering",
     skills: [
       { name: "ETL / ELT", icon: Filter },
@@ -408,62 +416,62 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Data Science & ML",
     skills: [
-        { name: "Pandas & Numpy", icon: Database },
-        { name: "Seaborn & Matplotlib", icon: BarChart },
-        { name: "Scikit-learn", icon: TestTubeDiagonal },
-        { name: "PyTorch", icon: BrainCircuit },
-        { name: "TensorFlow", icon: BrainCircuit },
-        { name: "Jupyter Notebook", icon: Notebook },
-        { name: "Google Colab", icon: Notebook },
-        { name: "Anaconda", icon: Package },
-        { name: "Data Structures", icon: GitCommit },
-        { name: "Linear Regression", icon: FunctionSquare },
-        { name: "Logistic Regression", icon: FunctionSquare },
-        { name: "Decision Trees", icon: GitCommit },
-        { name: "Naive Bayes", icon: Binary },
-        { name: "Random Forest", icon: ListTree },
-        { name: "Support Vector Machines (SVM)", icon: Sigma },
-        { name: "K-Means", icon: Sigma },
-        { name: "K-Nearest Neighbors (KNN)", icon: Sigma },
+      { name: "Pandas & Numpy", icon: Database },
+      { name: "Seaborn & Matplotlib", icon: BarChart },
+      { name: "Scikit-learn", icon: TestTubeDiagonal },
+      { name: "PyTorch", icon: BrainCircuit },
+      { name: "TensorFlow", icon: BrainCircuit },
+      { name: "Jupyter Notebook", icon: Notebook },
+      { name: "Google Colab", icon: Notebook },
+      { name: "Anaconda", icon: Package },
+      { name: "Data Structures", icon: GitCommit },
+      { name: "Linear Regression", icon: FunctionSquare },
+      { name: "Logistic Regression", icon: FunctionSquare },
+      { name: "Decision Trees", icon: GitCommit },
+      { name: "Naive Bayes", icon: Binary },
+      { name: "Random Forest", icon: ListTree },
+      { name: "Support Vector Machines (SVM)", icon: Sigma },
+      { name: "K-Means", icon: Sigma },
+      { name: "K-Nearest Neighbors (KNN)", icon: Sigma },
     ]
   },
   {
     title: "Cloud & DevOps",
     skills: [
-        { name: "System Design", icon: Network },
-        { name: "Docker", icon: Box },
-        { name: "Docker Hub", icon: Box },
-        { name: "Docker Desktop", icon: Monitor },
-        { name: "Kubernetes (EKS, AKS, GKE)", icon: ServerCog },
-        { name: "Helm", icon: Package },
-        { name: "Serverless (Lambda, Functions, Cloud Run)", icon: CloudCog },
-        { name: "Terraform", icon: Code },
-        { name: "Pulumi", icon: Code },
-        { name: "Istio", icon: Puzzle },
-        { name: "Powershell", icon: Code },
-        { name: "AWS (EC2, Beanstalk, App Runner)", icon: Cloud },
-        { name: "Azure (VMs, App Service, Container Apps)", icon: Cloud },
-        { name: "GCP (Compute & App Engine)", icon: Cloud },
-        { name: "Vercel", icon: Cloud },
-        { name: "CI/CD (GitHub Actions, GitLab, Jenkins, Azure DevOps)", icon: GitBranch },
-        { name: "MLOps / DevOps", icon: ServerCog },
-        { name: "MLflow", icon: ServerCog },
-        { name: "Amazon Route 53", icon: Route },
-        { name: "Azure DNS", icon: Network },
-        { name: "Azure Front Door", icon: Network },
-        { name: "Application Load Balancer", icon: ServerCog },
-        { name: "Nginx / Apache", icon: Server },
-        { name: "Ansible", icon: Code },
-        { name: "Prometheus / Grafana", icon: BarChart },
-        { name: "ELK Stack", icon: Database },
-        { name: "Hashicorp Vault", icon: Shield },
-        { name: "ArgoCD", icon: CheckCircle },
-        { name: "VirtualBox / Vagrant", icon: Box },
-        { name: "Minikube", icon: Box },
-        { name: "Monday.com", icon: Package },
-        { name: "Trello", icon: Package },
-        { name: "UV (Python Package Manager)", icon: Package },
-        { name: "Semgrep", icon: ShieldCheck },
+      { name: "System Design", icon: Network },
+      { name: "Docker", icon: Box },
+      { name: "Docker Hub", icon: Box },
+      { name: "Docker Desktop", icon: Monitor },
+      { name: "Kubernetes (EKS, AKS, GKE)", icon: ServerCog },
+      { name: "Helm", icon: Package },
+      { name: "Serverless (Lambda, Functions, Cloud Run)", icon: CloudCog },
+      { name: "Terraform", icon: Code },
+      { name: "Pulumi", icon: Code },
+      { name: "Istio", icon: Puzzle },
+      { name: "Powershell", icon: Code },
+      { name: "AWS (EC2, Beanstalk, App Runner)", icon: Cloud },
+      { name: "Azure (VMs, App Service, Container Apps)", icon: Cloud },
+      { name: "GCP (Compute & App Engine)", icon: Cloud },
+      { name: "Vercel", icon: Cloud },
+      { name: "CI/CD (GitHub Actions, GitLab, Jenkins, Azure DevOps)", icon: GitBranch },
+      { name: "MLOps / DevOps", icon: ServerCog },
+      { name: "MLflow", icon: ServerCog },
+      { name: "Amazon Route 53", icon: Route },
+      { name: "Azure DNS", icon: Network },
+      { name: "Azure Front Door", icon: Network },
+      { name: "Application Load Balancer", icon: ServerCog },
+      { name: "Nginx / Apache", icon: Server },
+      { name: "Ansible", icon: Code },
+      { name: "Prometheus / Grafana", icon: BarChart },
+      { name: "ELK Stack", icon: Database },
+      { name: "Hashicorp Vault", icon: Shield },
+      { name: "ArgoCD", icon: CheckCircle },
+      { name: "VirtualBox / Vagrant", icon: Box },
+      { name: "Minikube", icon: Box },
+      { name: "Monday.com", icon: Package },
+      { name: "Trello", icon: Package },
+      { name: "UV (Python Package Manager)", icon: Package },
+      { name: "Semgrep", icon: ShieldCheck },
     ],
   },
   {
@@ -527,16 +535,16 @@ export const techTopics = [
 ] as const;
 
 export const navLinks = [
-    { name: "AI Assistant", href: "/ai-assistant", keywords: ['ai', 'assistant', 'ai assistant'] },
-    { name: "Skills", href: "/products#skills", keywords: ['skills', 'expertise'] },
-    { name: "Contact", href: "/products#contact", keywords: ['contact', 'get in touch', 'email'] },
-    { name: "Affirmations", href: "/affirmations", keywords: ['affirmations', 'affirmation', 'inspiration'] },
+  { name: "AI Assistant", href: "/ai-assistant", keywords: ['ai', 'assistant', 'ai assistant'] },
+  { name: "Skills", href: "/products#skills", keywords: ['skills', 'expertise'] },
+  { name: "Contact", href: "/products#contact", keywords: ['contact', 'get in touch', 'email'] },
+  { name: "Affirmations", href: "/affirmations", keywords: ['affirmations', 'affirmation', 'inspiration'] },
 ];
 
 export const socialLinks = [
-    { name: "GitHub", href: "https://github.com/iChancetek", icon: Github },
-    { name: "Instagram", href: "https://www.instagram.com/chancetek/", icon: Instagram },
-    { name: "Twitter", href: "#", icon: Twitter },
+  { name: "GitHub", href: "https://github.com/iChancetek", icon: Github },
+  { name: "Instagram", href: "https://www.instagram.com/chancetek/", icon: Instagram },
+  { name: "Twitter", href: "#", icon: Twitter },
 ]
 
 export const resumeData: ResumeData = {
@@ -662,231 +670,231 @@ export const resumeData: ResumeData = {
   ],
   education: [
     { course: 'Computer Science', institution: 'Pace University, New York, NY' },
-    { 
-      course: 'AI Engineer MLOps Track: Deploy Gen AI & Agentic AI at Scale', 
+    {
+      course: 'AI Engineer MLOps Track: Deploy Gen AI & Agentic AI at Scale',
       institution: 'Udemy',
       certificateUrl: '/certificates/udemy-mlops.jpg',
       thumbnailUrl: '/certificates/udemy-mlops.jpg'
     },
-    { 
-      course: 'Generative AI: Beginner to Pro with OpenAI & Azure OpenAI', 
+    {
+      course: 'Generative AI: Beginner to Pro with OpenAI & Azure OpenAI',
       institution: 'Udemy',
       certificateUrl: '/certificates/udemy-gen-ai-pro.jpg',
       thumbnailUrl: '/certificates/udemy-gen-ai-pro.jpg'
     },
-    { 
-      course: 'Generative AI on AWS - Amazon Bedrock, RAG & Langchain', 
+    {
+      course: 'Generative AI on AWS - Amazon Bedrock, RAG & Langchain',
       institution: 'Udemy',
       certificateUrl: '/certificates/udemy-gen-ai-aws.jpg',
       thumbnailUrl: '/certificates/udemy-gen-ai-aws.jpg'
     },
-    { 
-      course: 'AI-Agents: Automation & Business with LangChain & LLM Apps', 
+    {
+      course: 'AI-Agents: Automation & Business with LangChain & LLM Apps',
       institution: 'Udemy',
       certificateUrl: '/certificates/udemy-ai-agents.jpg',
       thumbnailUrl: '/certificates/udemy-ai-agents.jpg'
     },
-    { 
-      course: 'Prepare for the ISC2 Information Systems Security Professional (CISSP) Certification Exam', 
+    {
+      course: 'Prepare for the ISC2 Information Systems Security Professional (CISSP) Certification Exam',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-cissp.jpg',
       thumbnailUrl: '/certificates/linkedin-cissp.jpg'
     },
-    { 
-      course: 'Become a Blockchain Developer', 
+    {
+      course: 'Become a Blockchain Developer',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-blockchain-dev-new.jpg',
       thumbnailUrl: '/certificates/linkedin-blockchain-dev-new.jpg'
     },
-    { 
-      course: 'Advance Your Skills in the Blockchain', 
+    {
+      course: 'Advance Your Skills in the Blockchain',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-blockchain-skills-new.jpg',
       thumbnailUrl: '/certificates/linkedin-blockchain-skills-new.jpg'
     },
-    { 
-      course: 'Blockchain Programming in iOS Using Swift', 
+    {
+      course: 'Blockchain Programming in iOS Using Swift',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-blockchain-ios-new.jpg',
       thumbnailUrl: '/certificates/linkedin-blockchain-ios-new.jpg'
     },
-    { 
-      course: 'Learning C#', 
+    {
+      course: 'Learning C#',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-learning-csharp.jpg',
       thumbnailUrl: '/certificates/linkedin-learning-csharp.jpg'
     },
-    { 
-      course: 'PostgreSQL Essential Training', 
+    {
+      course: 'PostgreSQL Essential Training',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-postgresql.jpg',
       thumbnailUrl: '/certificates/linkedin-postgresql.jpg'
     },
-    { 
-      course: 'PostgreSQL Essential Training (2020)', 
+    {
+      course: 'PostgreSQL Essential Training (2020)',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-postgresql-2020.jpg',
       thumbnailUrl: '/certificates/linkedin-postgresql-2020.jpg'
     },
-    { 
-      course: 'Blockchain: Learning Solidity', 
+    {
+      course: 'Blockchain: Learning Solidity',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-solidity.jpg',
       thumbnailUrl: '/certificates/linkedin-solidity.jpg'
     },
-    { 
-      course: 'Blockchain for Developers: Hyperledger Fabric on Azure', 
+    {
+      course: 'Blockchain for Developers: Hyperledger Fabric on Azure',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-hyperledger.jpg',
       thumbnailUrl: '/certificates/linkedin-hyperledger.jpg'
     },
-    { 
-      course: 'Build an Ethereum Blockchain App', 
+    {
+      course: 'Build an Ethereum Blockchain App',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-ethereum-app.jpg',
       thumbnailUrl: '/certificates/linkedin-ethereum-app.jpg'
     },
-    { 
-      course: 'Building an Ethereum Blockchain App: 1 Introduction to Blockchain', 
+    {
+      course: 'Building an Ethereum Blockchain App: 1 Introduction to Blockchain',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-ethereum-intro-1.jpg',
       thumbnailUrl: '/certificates/linkedin-ethereum-intro-1.jpg'
     },
-    { 
-      course: 'Building an Ethereum Blockchain App: 2 Introduction to Ethereum', 
+    {
+      course: 'Building an Ethereum Blockchain App: 2 Introduction to Ethereum',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-ethereum-intro-2.jpg',
       thumbnailUrl: '/certificates/linkedin-ethereum-intro-2.jpg'
     },
-    { 
-      course: 'Learning Bitcoin and Other Cryptocurrencies', 
+    {
+      course: 'Learning Bitcoin and Other Cryptocurrencies',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-bitcoin.jpg',
       thumbnailUrl: '/certificates/linkedin-bitcoin.jpg'
     },
-    { 
-      course: 'Django: Forms', 
+    {
+      course: 'Django: Forms',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-django-forms.jpg',
       thumbnailUrl: '/certificates/linkedin-django-forms.jpg'
     },
-    { 
-      course: 'Building RESTful Web APIs with Django', 
+    {
+      course: 'Building RESTful Web APIs with Django',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-django-apis.jpg',
       thumbnailUrl: '/certificates/linkedin-django-apis.jpg'
     },
-    { 
-      course: 'Learning Node.js', 
+    {
+      course: 'Learning Node.js',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-nodejs-learning.jpg',
       thumbnailUrl: '/certificates/linkedin-nodejs-learning.jpg'
     },
-    { 
-      course: 'Node.js Essential Training', 
+    {
+      course: 'Node.js Essential Training',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-nodejs-essential.jpg',
       thumbnailUrl: '/certificates/linkedin-nodejs-essential.jpg'
     },
-    { 
-      course: 'Learning Amazon Web Services Lambda', 
+    {
+      course: 'Learning Amazon Web Services Lambda',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-aws-lambda.jpg',
       thumbnailUrl: '/certificates/linkedin-aws-lambda.jpg'
     },
-    { 
-      course: 'DevOps with AWS', 
+    {
+      course: 'DevOps with AWS',
       institution: 'LinkedIn Learning',
       certificateUrl: '/certificates/linkedin-aws-devops.jpg',
       thumbnailUrl: '/certificates/linkedin-aws-devops.jpg'
     },
-    { 
-      course: 'AWS Certified Solutions Architect Courses', 
-      institution: 'AWS Loft, New York, NY' 
+    {
+      course: 'AWS Certified Solutions Architect Courses',
+      institution: 'AWS Loft, New York, NY'
     },
-    { 
-      course: 'Azure Courses', 
+    {
+      course: 'Azure Courses',
       institution: 'A Cloud Guru: AZ-900, AZ-104, AZ-500, AZ-300, AZ-301 | Udemy: AZ-303/304, AZ-204'
     },
-    { 
-      course: 'AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents', 
+    {
+      course: 'AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents',
       institution: 'Udemy',
       certificateUrl: '/certificates/AIEng.pdf'
     },
-    { 
-      course: 'Complete Agentic AI Bootcamp With LangGraph and Langchain', 
+    {
+      course: 'Complete Agentic AI Bootcamp With LangGraph and Langchain',
       institution: 'Udemy',
       certificateUrl: '/certificates/AIAgents.pdf'
     },
-    { 
-      course: 'Database AI Agents: Complete Guide', 
+    {
+      course: 'Database AI Agents: Complete Guide',
       institution: 'Udemy',
       certificateUrl: '/certificates/databases.pdf'
     },
-    { 
-      course: 'DevOps & Infrastructure', 
+    {
+      course: 'DevOps & Infrastructure',
       institution: 'Udemy: Azure DevOps, Terraform, Pulumi, Ansible, GCP',
       certificateUrl: '/certificates/DevOps.pdf'
     },
-    { 
-      course: 'Azure Databricks & Machine Learning', 
+    {
+      course: 'Azure Databricks & Machine Learning',
       institution: 'Udemy',
       certificateUrl: '/certificates/azure-databricks.pdf'
     },
-    { 
-      course: 'MLOps Bootcamp: Machine Learning Operations', 
+    {
+      course: 'MLOps Bootcamp: Machine Learning Operations',
       institution: 'Udemy',
       certificateUrl: '/certificates/mlops-bootcamp.pdf'
     },
-    { 
-      course: 'Generative AI for Database Professionals', 
+    {
+      course: 'Generative AI for Database Professionals',
       institution: 'Udemy',
       certificateUrl: '/certificates/gen-ai-db.pdf'
     },
-    { 
-      course: 'RAG & QLoRA: Advanced LLM Training', 
+    {
+      course: 'RAG & QLoRA: Advanced LLM Training',
       institution: 'Udemy',
       certificateUrl: '/certificates/rag-qlora-new.pdf'
     },
-    { 
-      course: 'Computer Vision', 
-      institution: 'Udemy: Complete Computer Vision Bootcamp With PyTorch & Tensorflow' 
+    {
+      course: 'Computer Vision',
+      institution: 'Udemy: Complete Computer Vision Bootcamp With PyTorch & Tensorflow'
     },
-    { 
-      course: 'Data Engineering & AI', 
-      institution: 'Udemy: Introduction to Data Engineering using Generative AI | Generative AI for Data Engineering and Data Professionals' 
+    {
+      course: 'Data Engineering & AI',
+      institution: 'Udemy: Introduction to Data Engineering using Generative AI | Generative AI for Data Engineering and Data Professionals'
     },
-    { 
-      course: 'Statistics & Analytics', 
-      institution: 'Udemy: Probability and Statistics: Complete Course 2025 | Statistics for Data Science and Business Analysis' 
+    {
+      course: 'Statistics & Analytics',
+      institution: 'Udemy: Probability and Statistics: Complete Course 2025 | Statistics for Data Science and Business Analysis'
     },
-    { 
-      course: 'GCP Professional Cloud Developer', 
+    {
+      course: 'GCP Professional Cloud Developer',
       institution: 'Google Cloud Platform',
       certificateUrl: '/certificates/GCPDev.pdf'
     },
-    { 
-      course: 'Azure Solutions Architect Expert', 
+    {
+      course: 'Azure Solutions Architect Expert',
       institution: 'Microsoft Azure',
       certificateUrl: '/certificates/azure arch2.pdf'
     },
-    { 
-      course: 'Azure Administrator Associate', 
+    {
+      course: 'Azure Administrator Associate',
       institution: 'Microsoft Azure',
       certificateUrl: '/certificates/azureadmin.pdf'
     },
-    { 
-      course: 'Azure Developer Associate', 
+    {
+      course: 'Azure Developer Associate',
       institution: 'Microsoft Azure',
       certificateUrl: '/certificates/azuredev.pdf'
     },
-    { 
-      course: 'Azure Arc Infrastructure', 
+    {
+      course: 'Azure Arc Infrastructure',
       institution: 'Microsoft Azure',
       certificateUrl: '/certificates/azurearc.pdf'
     },
-    { 
-      course: 'Cursor AI Professional Development', 
+    {
+      course: 'Cursor AI Professional Development',
       institution: 'Cursor AI',
       certificateUrl: '/certificates/CursorAI.pdf'
     },
