@@ -35,7 +35,7 @@ function getProductDetails(productId: string) {
 }
 
 export async function generateDeepDive(input: GenerateDeepDiveInput): Promise<GenerateDeepDiveOutput> {
-  const { projectId } = input;
+  const { productId } = input;
 
   // Directly retrieve data
   const product = getProductDetails(productId);
