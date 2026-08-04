@@ -47,7 +47,7 @@ export async function queryVectorStore(query: string, topK: number = 5) {
 }
 
 // Ingest vector
-export async function upsertVector(id: string, text: string, metadata: VectorMetadata) {
+export async function upsertVector(id: string, text: string, metadata: Omit<VectorMetadata, 'text'>) {
     const embedding = await getEmbeddings(text);
     const index = pinecone.index(indexName);
 

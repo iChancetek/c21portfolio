@@ -70,6 +70,20 @@ export const products: Product[] = [
 
 export const allVentures: Venture[] = [
   {
+    id: 'venture-ichancetek',
+    name: "iChanceTEK",
+    description: "iChanceTEK (ichancetek.com) is Chancellor Minus's parent innovation platform and technology company. It serves as the central hub for all AI-powered products, SaaS platforms, and enterprise solutions built by Chancellor. iChanceTEK encompasses the full portfolio of ventures including EliteBooks, ChancellorHR, WorkSpaceIQ, Chancellor Work OS, iCareOS, Evolvable, ModeliQ, MediScribe, MemoiQ, WoundiQ, iSydney, iHailey, iSkylar, StrideIQ, Famio, Nesto Banks, The PotLuxE, and Enterprise AI Agents. The company specializes in Agentic AI, Cloud Architecture, Data Engineering, MLOps, DevOps, and Full-Stack AI Development across healthcare, finance, HR, fitness, social media, music, and enterprise sectors.",
+    href: "https://ichancetek.com",
+    hasDemo: false,
+  },
+  {
+    id: 'venture-isynera',
+    name: "iSynera",
+    description: "iSynera (isynera.us) is Chancellor Minus's Enterprise Agentic AI & Cloud Architecture Consultancy and Platform. iSynera is where Chancellor delivers production-grade AI systems, multi-agent architectures, RAG pipelines, and cloud-native platforms for enterprise clients. The name 'iSynera' also represents the AI assistant persona embedded in the portfolio. iSynera specializes in building agentic AI systems using LangChain, LangGraph, OpenAI Agents SDK, CrewAI, and MCP (Model Context Protocol). The platform delivers solutions across Google Cloud (Cloud Run, Vertex AI, Firebase), AWS (Bedrock, SageMaker, EKS), and Azure (AI Foundry, AKS, Databricks). iSynera's core services include: AI Agentic Systems Engineering, Full-Stack AI Application Development, Data Engineering & ML Analytics, Cloud Architecture & Data Systems, DevOps & Platform Engineering, and Microsoft 365 & Azure Administration.",
+    href: "https://isynera.us",
+    hasDemo: false,
+  },
+  {
     id: 'venture-23',
     name: "EliteBooks",
     description: "Accounting that runs itself.\n\nEliteBooks is an AI-powered financial operating system with autonomous agents handling invoicing, expenses, payroll, reporting, FinOps, and personal finances — all automated and clearly explained. Everything your business needs. Full QuickBooks-class accounting, supercharged with AI autonomy.",
@@ -289,11 +303,12 @@ export const allVentures: Venture[] = [
 ];
 
 export const ventureIcons: VentureIcon[] = [
+  { name: "iChanceTEK", icon: Sparkles },
+  { name: "iSynera", icon: BrainCircuit },
   { name: "WorkSpaceIQ", icon: Sparkles },
   { name: "ChancellorHR", icon: Users },
   { name: "EliteBooks", icon: CreditCard },
   { name: "Chancellor", icon: LayoutDashboard },
-  { name: "iChanceTEK", icon: Sparkles },
   { name: "iCareOS Premium", icon: Sparkles },
   { name: "Evolvable", icon: Sparkles },
   { name: "iCareOS", icon: Stethoscope },

@@ -171,6 +171,25 @@ export async function handleSearch(query: string): Promise<{
         const relevantContext: string[] = [];
         const relevantProducts = new Set<Venture>();
         
+        // Platform-level context for iChanceTEK and iSynera queries
+        const platformKeywords = ['ichancetek', 'ichancetek.com', 'chancetek', 'isynera', 'isynera.us', 'platform', 'company', 'parent company', 'who built', 'who made'];
+        if (platformKeywords.some(kw => lowercasedQuery.includes(kw))) {
+            const ichancetek = allVentures.find(v => v.id === 'venture-ichancetek');
+            const isynera = allVentures.find(v => v.id === 'venture-isynera');
+            if (ichancetek) relevantContext.push(`Company: ${ichancetek.name} - ${ichancetek.description}`);
+            if (isynera) relevantContext.push(`Company: ${isynera.name} - ${isynera.description}`);
+        }
+
+        // Agent-level context for product/agent queries
+        const agentKeywords = ['agent', 'agents', 'ai agent', 'all products', 'ventures', 'portfolio', 'what do you offer', 'what products'];
+        if (agentKeywords.some(kw => lowercasedQuery.includes(kw))) {
+            const productList = allVentures
+                .filter(v => v.hasDemo)
+                .map(v => `${v.name}: ${v.description.split('\n')[0]}`)
+                .join('\n');
+            relevantContext.push(`All Products & AI Agents:\n${productList}`);
+        }
+
         // Search in resume data
         if (lowercasedQuery.includes('summary') || lowercasedQuery.includes('about')) {
             relevantContext.push(`Professional Summary: ${resumeData.summary}`);
