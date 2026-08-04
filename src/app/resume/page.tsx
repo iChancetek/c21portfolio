@@ -296,7 +296,7 @@ export default function ResumePage() {
                             transition={{ delay: 0.2 }}
                             className="text-lg md:text-xl text-primary font-semibold uppercase tracking-widest"
                         >
-                            AI Engineer & Cloud Architect
+                            Lead Agentic AI Engineer & Cloud Architect
                         </motion.p>
                     </div>
 
