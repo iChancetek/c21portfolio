@@ -268,6 +268,153 @@ export default function AgenticWorkflowSection() {
           </Card>
         </motion.div>
 
+        {/* Executive Architecture Specification & Agent Mapping */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mt-16 max-w-6xl mx-auto"
+        >
+          <Card className="bg-black/50 border-primary/30 rounded-3xl p-6 md:p-8 backdrop-blur-xl shadow-[0_0_50px_-10px_rgba(var(--primary),0.15)] relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
+              <Cpu className="w-48 h-48 text-primary" />
+            </div>
+
+            {/* Header */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
+              <div>
+                <div className="inline-flex items-center rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-400 mb-2">
+                  <Workflow className="w-3.5 h-3.5 mr-1.5" /> Full Pipeline Specification
+                </div>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-white">Executive Architecture & Agent Mapping</h3>
+              </div>
+              <div className="text-xs font-mono bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-slate-300 w-fit">
+                Index: <span className="text-primary font-bold">c21portfolio</span> | Stack: <span className="text-cyan-400 font-bold">LangGraph JS + OpenAI SDK</span>
+              </div>
+            </div>
+
+            {/* ASCII Live Execution Pipeline */}
+            <div className="mt-6">
+              <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-2">
+                <Radio className="w-4 h-4 text-cyan-400 animate-pulse" /> Live Execution Pipeline Flow
+              </h4>
+              <div className="bg-slate-950/80 border border-cyan-500/30 rounded-xl p-4 font-mono text-xs md:text-sm text-cyan-300 overflow-x-auto shadow-inner">
+                User Query / Voice &rarr; Supervisor Agent (StateGraph) &rarr; RAG / Firestore / Voice AI &rarr; 9 Specialized AI Flows &rarr; Verified Output
+              </div>
+            </div>
+
+            {/* 9 Specialized Agents Grid */}
+            <div className="mt-8">
+              <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-2">
+                <BrainCircuit className="w-4 h-4 text-primary" /> Supervisor Agent & 9 Specialized AI Flows
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs">
+                  <div className="font-bold text-cyan-400 text-sm mb-1 flex items-center gap-1.5">
+                    <Network className="w-4 h-4" /> Supervisor Agent (iSynera)
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-400">ai-portfolio-assistant.ts</div>
+                  <div className="text-slate-300 mt-1 font-medium">LangGraph JS StateGraph Orchestrator</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs">
+                  <div className="font-bold text-purple-400 text-sm mb-1 flex items-center gap-1.5">
+                    <Sparkles className="w-4 h-4" /> iChancellor Wellness
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-400">ichancellor-flow.ts</div>
+                  <div className="text-slate-300 mt-1 font-medium">Mindfulness & Guided Meditation</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs">
+                  <div className="font-bold text-rose-400 text-sm mb-1 flex items-center gap-1.5">
+                    <Mic className="w-4 h-4" /> iSkylar Voice Therapy
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-400">iskylar-search-flow.ts</div>
+                  <div className="text-slate-300 mt-1 font-medium">Therapeutic Empathy & Dialogue</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-blue-500/10 border border-blue-500/30 text-xs">
+                  <div className="font-bold text-blue-400 text-sm mb-1 flex items-center gap-1.5">
+                    <Layers className="w-4 h-4" /> Dynamic Case Study Generator
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-400">dynamic-case-study-generator.ts</div>
+                  <div className="text-slate-300 mt-1 font-medium">Real-Time Deep-Dive Synthesis</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs">
+                  <div className="font-bold text-amber-400 text-sm mb-1 flex items-center gap-1.5">
+                    <Cpu className="w-4 h-4" /> Tech Expert Analyst
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-400">tech-expert-flow.ts</div>
+                  <div className="text-slate-300 mt-1 font-medium">GenAI, MLOps & Architecture</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs">
+                  <div className="font-bold text-emerald-400 text-sm mb-1 flex items-center gap-1.5">
+                    <Zap className="w-4 h-4" /> Daily Affirmation Generator
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-400">affirmation-generator.ts</div>
+                  <div className="text-slate-300 mt-1 font-medium">Personalized Mindset Affirmations</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-xs">
+                  <div className="font-bold text-indigo-400 text-sm mb-1 flex items-center gap-1.5">
+                    <Mic className="w-4 h-4" /> Whisper STT Perception
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-400">whisper-flow.ts</div>
+                  <div className="text-slate-300 mt-1 font-medium">Speech-to-Text Voice Input</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/30 text-xs">
+                  <div className="font-bold text-fuchsia-400 text-sm mb-1 flex items-center gap-1.5">
+                    <Radio className="w-4 h-4" /> OpenAI Voice Synthesis TTS
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-400">openai-tts-flow.ts</div>
+                  <div className="text-slate-300 mt-1 font-medium">Multi-Language Audio Playback</div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-teal-500/10 border border-teal-500/30 text-xs">
+                  <div className="font-bold text-teal-400 text-sm mb-1 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4" /> Healthy Living Planner
+                  </div>
+                  <div className="font-mono text-[11px] text-slate-400">menuSuggestionFlow.ts</div>
+                  <div className="text-slate-300 mt-1 font-medium">Nutrition & Health Advice</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Core Infrastructure Capabilities */}
+            <div className="mt-8 pt-6 border-t border-white/10">
+              <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-2">
+                <Database className="w-4 h-4 text-purple-400" /> Core Infrastructure Capabilities
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div className="font-bold text-purple-400 text-sm mb-1">Pinecone Vector Database (RAG)</div>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    512-dimensional dense embeddings (<code className="text-primary font-mono">text-embedding-3-small</code>) in Pinecone <code className="text-primary font-mono">c21portfolio</code> index for zero-hallucination context injection.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div className="font-bold text-cyan-400 text-sm mb-1">Persistent Long-Term Thread Memory</div>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Google Cloud Firestore <code className="text-cyan-400 font-mono">social_engagements</code> integration allowing iSynera (<code className="text-cyan-400 font-mono">search_user_threads</code>) to recall visitor comments across platforms.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div className="font-bold text-emerald-400 text-sm mb-1">Voice AI Perception & Speech</div>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    OpenAI Whisper STT audio recognition combined with OpenAI Speech TTS neural voice synthesis.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+
         {/* 9 Specialized Chancellor Minus AI Agents Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mt-12">
           <Card className="bg-black/40 border-white/10 p-6 rounded-2xl backdrop-blur-md hover:border-primary/40 transition-colors">
