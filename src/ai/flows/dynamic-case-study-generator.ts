@@ -63,7 +63,7 @@ IMPORTANT: Output strictly valid JSON in the format: { "deepDive": "html_string"
       { role: 'system', content: systemPrompt },
       { role: 'user', content: `Generate deep dive for ${product.name}` }
     ],
-    model: 'gpt-4o',
+    model: 'gpt-5.4-mini',
     response_format: { type: 'json_object' }
   });
 

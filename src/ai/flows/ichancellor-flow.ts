@@ -62,7 +62,7 @@ The user's preferred language is ${locale || 'en'}. YOU MUST RESPOND IN THIS LAN
 
   const completion = await openai.chat.completions.create({
     messages: messages,
-    model: 'gpt-4o',
+    model: 'gpt-5.4-mini',
     temperature: 0.7,
   });
 

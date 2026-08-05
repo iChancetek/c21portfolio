@@ -75,7 +75,7 @@ Keep the tone warm, wise, and deeply supportive.`;
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt }
     ],
-    model: 'gpt-4o',
+    model: 'gpt-5.4-mini',
     temperature: 1.0,
     response_format: { type: 'json_object' }
   });

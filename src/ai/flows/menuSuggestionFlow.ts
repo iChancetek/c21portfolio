@@ -16,7 +16,7 @@ export type SuggestionFlowOutput = z.infer<typeof SuggestionFlowOutputSchema>;
 export async function getMenuSuggestion(prompt: SuggestionFlowInput): Promise<SuggestionFlowOutput> {
   const completion = await openai.chat.completions.create({
     messages: [{ role: 'user', content: prompt }],
-    model: 'gpt-4o',
+    model: 'gpt-5.4-mini',
   });
 
   return completion.choices[0].message.content || '';

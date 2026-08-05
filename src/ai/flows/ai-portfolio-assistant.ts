@@ -113,7 +113,7 @@ const agentTools = [searchPortfolio, searchUserThreads];
 
 // ─── LLM Configuration ──────────────────────────────────────────────
 const llm = new ChatOpenAI({
-  model: 'gpt-4o',
+  model: 'gpt-5.4-mini',
   temperature: 0.3,
   openAIApiKey: process.env.OPENAI_API_KEY,
 });

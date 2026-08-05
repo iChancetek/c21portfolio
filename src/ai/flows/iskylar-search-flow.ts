@@ -27,7 +27,7 @@ export async function iSkylarSearch(
       { role: 'system', content: SYSTEM_PROMPT },
       { role: 'user', content: `Answer the following user query: ${input.query}` }
     ],
-    model: 'gpt-4o',
+    model: 'gpt-5.4-mini',
     temperature: 0.7,
   });
 

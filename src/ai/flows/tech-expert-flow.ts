@@ -58,7 +58,7 @@ Elaborate on each section to ensure the total response is detailed and substanti
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt }
     ],
-    model: 'gpt-4o',
+    model: 'gpt-5.4-mini',
     temperature: 0.6,
     response_format: { type: 'json_object' }
   });
