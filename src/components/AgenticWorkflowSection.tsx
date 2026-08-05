@@ -29,22 +29,22 @@ export default function AgenticWorkflowSection() {
     {
       id: 'orchestration',
       badge: 'Step 1: Multi-Agent Collaboration',
-      title: '9 Specialized AI Agentic Flows & Agents',
+      title: 'Supervisor Agent & 9 Specialized AI Flows',
       icon: Network,
       color: 'from-blue-500/20 to-cyan-500/20',
       borderColor: 'border-cyan-500/40',
       textColor: 'text-cyan-400',
       description:
-        'Nine specialized AI agentic flows and agents work in concert to power the Chancellor Minus platform. Tasks are routed dynamically across iSynera Assistant, iChancellor Wellness, iSkylar Voice Therapy, Dynamic Case Study Generator, Tech Expert Analyst, Daily Affirmation Generator, Whisper STT Perception, OpenAI TTS Audio Synthesis, and Healthy Living Planner.',
+        'The Supervisor Agent (iSynera) orchestrates 9 specialized AI agentic flows and agents working in concert to power the Chancellor Minus platform. The Supervisor routes tasks dynamically across iSynera Assistant, iChancellor Wellness, iSkylar Voice Therapy, Dynamic Case Study Generator, Tech Expert Analyst, Daily Affirmation Generator, Whisper STT Perception, OpenAI TTS Audio Synthesis, and Healthy Living Planner.',
       details: [
-        'Stateful directed execution graphs (LangGraph, Genkit & OpenAI Agents SDK)',
-        '9 Specialized Chancellor Minus AI Agents (iSynera, iChancellor, iSkylar, Case Study, Tech Expert, Whisper, TTS, Affirmations, Wellness)',
+        'Stateful Supervisor directed execution graphs (LangGraph, Genkit & OpenAI Agents SDK)',
+        'Central Supervisor Agent (iSynera) orchestrating 9 specialized Chancellor Minus AI Agents',
         'Autonomous tool calling for Pinecone Vector DB search and Firestore long-term thread memory',
         'Built-in safety guardrails, state persistence, and fallbacks for reliable performance'
       ],
       diagram: [
         { label: 'User Query / Voice', icon: Mic, status: 'Trigger' },
-        { label: 'iSynera Orchestrator', icon: Network, status: 'Routing' },
+        { label: 'Supervisor Agent (iSynera)', icon: Network, status: 'Orchestrating' },
         { label: '9 Specialized c21 Agents', icon: BrainCircuit, status: 'Executing' },
         { label: 'Grounded Output / TTS', icon: ShieldCheck, status: 'Verified' },
       ]
@@ -275,10 +275,10 @@ export default function AgenticWorkflowSection() {
               <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
                 <Network className="w-6 h-6" />
               </div>
-              <CardTitle className="text-xl font-bold text-white">9 Specialized Chancellor AI Agents</CardTitle>
+              <CardTitle className="text-xl font-bold text-white">Supervisor & 9 AI Agents</CardTitle>
             </CardHeader>
             <CardContent className="p-0 text-sm text-slate-400 leading-relaxed">
-              Nine dedicated AI agents (iSynera Assistant, iChancellor Wellness, iSkylar Therapy, Case Study Generator, Tech Analyst, Whisper STT, TTS Speech, Affirmations, and Nutrition Planner) work in concert.
+              The central Supervisor Agent (iSynera) coordinates 9 dedicated AI flows (iChancellor Wellness, iSkylar Therapy, Case Study Generator, Tech Analyst, Whisper STT, TTS Speech, Affirmations, and Nutrition Planner) in stateful directed execution graphs.
             </CardContent>
           </Card>
 
