@@ -601,6 +601,9 @@ function VisitorEngagement() {
                     <div className="mx-auto p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)]">
                         <Users className="w-8 h-8 text-primary" />
                     </div>
+                    <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary mb-2 backdrop-blur-sm shadow-[0_0_15px_rgba(var(--primary),0.2)] w-fit mx-auto">
+                        <Sparkles className="w-3.5 h-3.5 mr-1.5 text-primary" /> Persistent Long-Term Memory & AI Context Active
+                    </div>
                     <CardTitle className="text-3xl md:text-4xl font-extrabold text-primary-gradient tracking-tight">Join the Conversation</CardTitle>
                     <CardDescription className="text-lg mt-2 max-w-2xl mx-auto">
                         Engage with our community, share your thoughts, and stay updated on the latest agentic platforms.
