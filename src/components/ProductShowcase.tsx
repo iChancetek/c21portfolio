@@ -60,7 +60,7 @@ export default function ProductShowcase({ products, searchQuery }: ProductShowca
             </Carousel>
         ) : (
             <div className="text-center col-span-full mt-8 text-muted-foreground">
-                <p>{t('noProductsFound', { searchQuery })}</p>
+                <p>{t('noProductsFound', { searchQuery: searchQuery || '' })}</p>
             </div>
         )}
       </div>

@@ -41,7 +41,7 @@ export default function LoginPage() {
 
   const playWelcomeAudio = async (text: string) => {
     try {
-      const { audioDataUri } = await textToSpeech({ text, voice: 'nova' });
+      const { audioDataUri } = await textToSpeech({ text, locale: 'en', voice: 'nova' });
       if (audioRef.current) {
         audioRef.current.src = audioDataUri;
         // Storing promise to avoid unhandled promise rejection error

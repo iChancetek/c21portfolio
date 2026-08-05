@@ -132,7 +132,7 @@ export async function generateProductDeepDive(productId: string) {
     }
 }
 
-export async function generateTechInsight(topic: z.infer<typeof techTopics>[number], isDeeperDive = false) {
+export async function generateTechInsight(topic: string, isDeeperDive = false) {
     try {
         const response = await getTechInsight({ topic, isDeeperDive });
         return response.insight;

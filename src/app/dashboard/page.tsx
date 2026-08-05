@@ -82,7 +82,7 @@ export default function DashboardPage() {
         tempDiv.innerHTML = insight;
         const textToRead = tempDiv.textContent || tempDiv.innerText || "";
         
-        const { audioDataUri } = await textToSpeech({ text: textToRead });
+        const { audioDataUri } = await textToSpeech({ text: textToRead, locale: 'en' });
         setAudioSrc(audioDataUri);
       } catch (error) {
         console.error('Failed to generate speech:', error);
@@ -139,7 +139,7 @@ export default function DashboardPage() {
           {t('dashboardTitle')}
         </h1>
         <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-          {t('dashboardWelcome', { name: user ? (user.displayName || user.email) : 'Guest' })}
+          {t('dashboardWelcome', { name: (user ? (user.displayName || user.email) : 'Guest') || 'Guest' })}
         </p>
       </div>
 

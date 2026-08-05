@@ -1,14 +1,12 @@
-
-import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-
-export async function chunkText(text: string, chunkSize: number = 1000, chunkOverlap: number = 200) {
-    const splitter = new RecursiveCharacterTextSplitter({
-        chunkSize,
-        chunkOverlap,
-    });
-
-    const output = await splitter.createDocuments([text]);
-    return output.map((doc) => doc.pageContent);
+export async function chunkText(text: string, chunkSize: number = 1000, chunkOverlap: number = 200): Promise<string[]> {
+    const chunks: string[] = [];
+    let start = 0;
+    while (start < text.length) {
+        const end = Math.min(start + chunkSize, text.length);
+        chunks.push(text.slice(start, end));
+        start += chunkSize - chunkOverlap;
+    }
+    return chunks;
 }
 
 export function chunkArray<T>(array: T[], size: number): T[][] {
