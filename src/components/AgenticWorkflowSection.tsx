@@ -35,10 +35,10 @@ export default function AgenticWorkflowSection() {
       borderColor: 'border-cyan-500/40',
       textColor: 'text-cyan-400',
       description:
-        'Nine specialized AI agentic flows and agents work in concert to power the c21portfolio platform. Tasks are routed dynamically across iSynera Assistant, iChancellor Wellness, iSkylar Voice Therapy, Dynamic Case Study Generator, Tech Expert Analyst, Daily Affirmation Generator, Whisper STT Perception, OpenAI TTS Audio Synthesis, and Healthy Living Planner.',
+        'Nine specialized AI agentic flows and agents work in concert to power the Chancellor Minus platform. Tasks are routed dynamically across iSynera Assistant, iChancellor Wellness, iSkylar Voice Therapy, Dynamic Case Study Generator, Tech Expert Analyst, Daily Affirmation Generator, Whisper STT Perception, OpenAI TTS Audio Synthesis, and Healthy Living Planner.',
       details: [
         'Stateful directed execution graphs (LangGraph, Genkit & OpenAI Agents SDK)',
-        '9 Specialized c21portfolio AI Agents (iSynera, iChancellor, iSkylar, Case Study, Tech Expert, Whisper, TTS, Affirmations, Wellness)',
+        '9 Specialized Chancellor Minus AI Agents (iSynera, iChancellor, iSkylar, Case Study, Tech Expert, Whisper, TTS, Affirmations, Wellness)',
         'Autonomous tool calling for Pinecone Vector DB search and Firestore long-term thread memory',
         'Built-in safety guardrails, state persistence, and fallbacks for reliable performance'
       ],
@@ -146,7 +146,7 @@ export default function AgenticWorkflowSection() {
           </h2>
 
           <p className="max-w-[850px] text-muted-foreground md:text-xl/relaxed lg:text-lg/relaxed xl:text-xl/relaxed font-light">
-            Discover how c21portfolio&apos;s 9 specialized AI agents, Pinecone vector search, dynamic RAG context injection, and voice AI combine into a unified enterprise platform.
+            Discover how Chancellor Minus&apos;s 9 specialized AI agents, Pinecone vector search, dynamic RAG context injection, and voice AI combine into a unified enterprise platform.
           </p>
         </motion.div>
 
@@ -268,14 +268,14 @@ export default function AgenticWorkflowSection() {
           </Card>
         </motion.div>
 
-        {/* 9 Specialized c21portfolio AI Agents Highlights */}
+        {/* 9 Specialized Chancellor Minus AI Agents Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mt-12">
           <Card className="bg-black/40 border-white/10 p-6 rounded-2xl backdrop-blur-md hover:border-primary/40 transition-colors">
             <CardHeader className="p-0 mb-3 flex flex-row items-center gap-3">
               <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
                 <Network className="w-6 h-6" />
               </div>
-              <CardTitle className="text-xl font-bold text-white">9 Specialized c21 AI Agents</CardTitle>
+              <CardTitle className="text-xl font-bold text-white">9 Specialized Chancellor AI Agents</CardTitle>
             </CardHeader>
             <CardContent className="p-0 text-sm text-slate-400 leading-relaxed">
               Nine dedicated AI agents (iSynera Assistant, iChancellor Wellness, iSkylar Therapy, Case Study Generator, Tech Analyst, Whisper STT, TTS Speech, Affirmations, and Nutrition Planner) work in concert.
