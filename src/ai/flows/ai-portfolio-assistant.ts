@@ -9,6 +9,7 @@ import { tool } from '@langchain/core/tools';
 import { SystemMessage, HumanMessage, BaseMessage } from '@langchain/core/messages';
 import type { AIMessage } from '@langchain/core/messages';
 import { queryVectorStore } from '@/lib/rag';
+import { initializeServerApp } from '@/firebase/server-config';
 
 // ─── Preserve the existing public interface ───────────────────────────
 const AIPortfolioAssistantInputSchema = z.object({
@@ -60,7 +61,55 @@ const searchPortfolio = tool(
   }
 );
 
-const agentTools = [searchPortfolio];
+// Search user discussion threads and community comments from Firestore memory
+const searchUserThreads = tool(
+  async ({ topic }: { topic: string }) => {
+    console.log(`[Agent Tool] search_user_threads called for topic/platform: "${topic}"`);
+    try {
+      const { firestore } = initializeServerApp();
+      const snapshot = await firestore.collection('social_engagements').get();
+      if (snapshot.empty) {
+        return 'No user comments or discussion threads found in long-term Firestore memory.';
+      }
+      const threads: string[] = [];
+      const lowerTopic = topic.toLowerCase();
+      snapshot.forEach((docSnap) => {
+        const docId = docSnap.id;
+        const data = docSnap.data();
+        if (data.comments && Array.isArray(data.comments)) {
+          const matchingComments = data.comments.filter((c: any) =>
+            !topic || docId.toLowerCase().includes(lowerTopic) || (c.text && c.text.toLowerCase().includes(lowerTopic))
+          );
+          if (matchingComments.length > 0) {
+            const commentsFormatted = matchingComments
+              .map((c: any) => `- ${c.name}: "${c.text}"`)
+              .join('\n');
+            threads.push(`[Thread Platform: ${docId}]\n${commentsFormatted}`);
+          }
+        }
+      });
+      if (threads.length > 0) {
+        return threads.join('\n\n---\n\n');
+      }
+      return 'No matching comments found in user discussion threads.';
+    } catch (error) {
+      console.error('[Agent Tool] search_user_threads error:', error);
+      return 'Error searching long-term thread memory from Firestore.';
+    }
+  },
+  {
+    name: 'search_user_threads',
+    description:
+      'Search user comments, community feedback, and visitor discussion thread history stored in long-term Firestore memory. Use this tool whenever asked about user feedback, visitor comments, or discussions on any platform.',
+    schema: z.object({
+      topic: z
+        .string()
+        .describe('The platform name or topic to search in visitor discussion threads (e.g. "landing page", "Chancellor", "iCareOS").'),
+    }),
+  }
+);
+
+const agentTools = [searchPortfolio, searchUserThreads];
 
 // ─── LLM Configuration ──────────────────────────────────────────────
 const llm = new ChatOpenAI({
@@ -127,7 +176,8 @@ Chancellor has worked with Condé Nast, Advance, Simon Property Group, Braiva Ca
 5.  **CRITICAL RULE: NEVER SAY YOU CAN'T FIND INFORMATION.** If the tool returns no results, do not say "I couldn't find information" or "Based on the context...". Instead, use the graceful handling described in rule 4.
 6.  **Always search first:** For any question about Chancellor's background, skills, projects, or experience, ALWAYS use the search_portfolio tool before answering. Do not guess or make up information.
 7.  **Know every product and agent:** You have complete knowledge of all products and ventures listed above. When asked about any product, agent, or platform, provide detailed, accurate information including its URL, description, and capabilities.
-8.  **Know the companies:** When asked about iChanceTEK (ichancetek.com) or iSynera (isynera.us), explain their role, services, and relationship to the full product portfolio.`;
+8.  **Know the companies:** When asked about iChanceTEK (ichancetek.com) or iSynera (isynera.us), explain their role, services, and relationship to the full product portfolio.
+9.  **Access Long-Term Thread Memory:** You have access to the search_user_threads tool to query visitor discussion threads, user comments, and community feedback stored in long-term Firestore memory. Use this tool whenever asked about visitor feedback, community comments, or discussion history.`;
 
 // ─── Graph Nodes ─────────────────────────────────────────────────────
 // The "agent" node: calls the LLM, which decides whether to use tools or respond.
