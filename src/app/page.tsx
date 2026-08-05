@@ -309,279 +309,283 @@ function FeaturedPlatforms() {
                </motion.div>
 
                
-               <Carousel opts={{ align: "start", loop: true }} className="w-full max-w-7xl mx-auto pb-4">
-                 <CarouselContent className="-ml-4 md:-ml-8 items-stretch">
+                <Carousel opts={{ align: "start", loop: true }} className="w-full max-w-7xl mx-auto pb-4">
+                  <CarouselContent className="-ml-4 md:-ml-6 items-stretch">
 
-                   
-                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div 
-                       initial={{ opacity: 0, scale: 0.95 }}
-                       whileInView={{ opacity: 1, scale: 1 }}
-                       viewport={{ once: true }}
-                       transition={{ duration: 0.6 }}
-                       className="w-full h-full"
-                   >
-                       <Card className="relative flex flex-col h-full overflow-hidden bg-primary/5 border-primary/30 hover:border-primary/60 transition-all duration-500 group rounded-2xl shadow-[0_0_50px_-12px_rgba(var(--primary),0.2)] backdrop-blur-xl">
-                           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-100 group-hover:opacity-100 transition-opacity duration-500" />
-                           
-                           <CardHeader className="relative z-10 pb-4">
-                               <div className="flex items-center justify-between">
-                                 <div className="p-3 bg-primary/20 w-fit rounded-xl border border-primary/30 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.3)] group-hover:scale-110 transition-transform duration-500">
-                                     <LayoutDashboard className="w-8 h-8 text-primary" />
-                                 </div>
-                                 <div className="px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-primary text-xs font-bold tracking-widest uppercase">
-                                     Premium Elite
-                                 </div>
-                               </div>
-                               <CardTitle className="text-4xl font-black text-foreground group-hover:text-primary transition-colors duration-300">Chancellor</CardTitle>
-                               <div className="text-base text-muted-foreground leading-relaxed mt-3">
-                                   <div className={isPremiumExpanded ? "" : "line-clamp-2"}>
-                                        <p>Chancellor — ChancellorOS ERP & CRM Platform</p>
-                                        <p className="mt-2">A platform built for a new way of working.</p>
-                                        <p className="mt-2">Unify your operations, automate your workflows, and scale with intelligence—all in one system.</p>
-                                       <p className="mt-2 italic">What would you like to manage with Chancellor Work OS?</p>
-                                       <p className="mt-1 text-xs uppercase tracking-widest">Powered by ChancellorOS</p>
-                                   </div>
-                                   <button 
-                                       onClick={() => setIsPremiumExpanded(!isPremiumExpanded)}
-                                       className="mt-2 text-primary text-sm font-semibold hover:underline"
-                                   >
-                                       {isPremiumExpanded ? "Show Less" : "Read More..."}
-                                   </button>
-                               </div>
-                           </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
-                               <Button asChild className="w-full bg-primary-gradient text-white hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all duration-300 rounded-xl h-14 text-lg font-bold">
-                                    <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer">
-                                        Experience Chancellor <ExternalLink className="w-5 h-5 ml-2" />
-                                    </a>
-                               </Button>
-                               <SocialEngagement platformName="Chancellor" />
-                           </div>
-                       </Card>
-                   </motion.div>                   </CarouselItem>
+                    {/* Chancellor Card */}
+                    <CarouselItem className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 flex">
+                       <motion.div 
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="w-full h-full flex"
+                    >
+                        <Card className="relative flex flex-col h-full overflow-hidden bg-primary/5 border-primary/30 hover:border-primary/60 transition-all duration-500 group rounded-2xl shadow-[0_0_50px_-12px_rgba(var(--primary),0.2)] backdrop-blur-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-100 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            <CardHeader className="relative z-10 p-5 pb-3">
+                                <div className="flex items-center justify-between">
+                                  <div className="p-2.5 bg-primary/20 w-fit rounded-xl border border-primary/30 mb-3 shadow-[0_0_20px_rgba(var(--primary),0.3)] group-hover:scale-110 transition-transform duration-500">
+                                      <LayoutDashboard className="w-6 h-6 text-primary" />
+                                  </div>
+                                  <div className="px-2.5 py-0.5 bg-primary/10 border border-primary/30 rounded-full text-primary text-[10px] font-bold tracking-widest uppercase">
+                                      Premium Elite
+                                  </div>
+                                </div>
+                                <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">Chancellor</CardTitle>
+                                <div className="text-xs text-muted-foreground leading-relaxed mt-2">
+                                    <p className="font-medium text-slate-300">ChancellorOS ERP & CRM Platform</p>
+                                    <p className="mt-1 line-clamp-2">Unify operations, automate workflows, and scale with intelligence—all in one system.</p>
+                                </div>
+                            </CardHeader>
+                            <div className="p-5 pt-0 mt-auto relative z-10 flex flex-col gap-3">
+                                <Button asChild className="w-full bg-primary-gradient text-white hover:shadow-[0_0_25px_rgba(var(--primary),0.5)] transition-all duration-300 rounded-xl h-11 text-sm font-bold">
+                                     <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer">
+                                         Experience Chancellor <ExternalLink className="w-4 h-4 ml-1.5" />
+                                     </a>
+                                </Button>
+                            </div>
+                        </Card>
+                    </motion.div>
+                    </CarouselItem>
 
-                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
-                       initial={{ opacity: 0, x: -30 }}
-                       whileInView={{ opacity: 1, x: 0 }}
-                       viewport={{ once: true }}
-                       transition={{ duration: 0.6, delay: 0.1 }}
-                   >
-                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
-                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                           
-                           <CardHeader className="relative z-10 pb-4">
-                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
-                                   <Sparkles className="w-8 h-8 text-primary" />
-                               </div>
-                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">iChanceTEK</CardTitle>
-                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
-                                   Your AI Solution Partner for the Agentic Future. AI-native enterprise platforms designed to think, act, and evolve alongside your business.
-                               </CardDescription>
-                           </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
-                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
-                                    <a href="https://iChanceTEK.com" target="_blank" rel="noopener noreferrer">
-                                        Visit iChanceTEK <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
-                                    </a>
-                               </Button>
-                               <SocialEngagement platformName="iChanceTEK" />
-                           </div>
-                       </Card>
-                   </motion.div>                   </CarouselItem>
-
-                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
-                       initial={{ opacity: 0, x: 30 }}
-                       whileInView={{ opacity: 1, x: 0 }}
-                       viewport={{ once: true }}
-                       transition={{ duration: 0.6, delay: 0.1 }}
-                   >
-                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
-                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                           
-                           <CardHeader className="relative z-10 pb-4">
-                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
-                                   <Sparkles className="w-8 h-8 text-primary" />
-                               </div>
-                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">iCareOS Premium</CardTitle>
-                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
-                                   Transform Healthcare with Intelligent AI. iCareOS Health revolutionizes medical documentation and workflow management.
-                               </CardDescription>
-                           </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
-                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
-                                    <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer">
-                                        Visit iCareOS Premium <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
-                                    </a>
-                               </Button>
-                               <SocialEngagement platformName="iCareOS Premium" />
-                           </div>
-                       </Card>
-                   </motion.div>                   </CarouselItem>
-
-                    <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
-                       initial={{ opacity: 0, x: 30 }}
-                       whileInView={{ opacity: 1, x: 0 }}
-                       viewport={{ once: true }}
-                       transition={{ duration: 0.6, delay: 0.2 }}
-                   >
-                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
-                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                           
-                           <CardHeader className="relative z-10 pb-4">
-                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
-                                   <Activity className="w-8 h-8 text-primary" />
-                               </div>
-                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">StrideIQ</CardTitle>
-                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
-                                   A fitness and wellness app designed to help you track your running, walking, biking, hiking, mediation, intermittent fasting and journaling—all in one place.
-                               </CardDescription>
-                           </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
-                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
-                                    <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer">
-                                        Visit StrideIQ <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
-                                    </a>
-                               </Button>
-                               <SocialEngagement platformName="StrideIQ" />
-                           </div>
-                       </Card>
-                   </motion.div>                   </CarouselItem>
-
-                    <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
-                       initial={{ opacity: 0, x: 30 }}
-                       whileInView={{ opacity: 1, x: 0 }}
-                       viewport={{ once: true }}
-                       transition={{ duration: 0.6, delay: 0.2 }}
-                   >
-                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
-                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                           
-                           <CardHeader className="relative z-10 pb-4">
-                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
-                                   <Stethoscope className="w-8 h-8 text-primary" />
-                               </div>
-                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">iCareOS</CardTitle>
-                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
-                                   An AI-native clinical operating system that automates documentation, analyzes medical images, orchestrates patient intake, and optimizes billing.
-                               </CardDescription>
-                           </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
-                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
-                                    <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer">
-                                        Visit iCareOS <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
-                                    </a>
-                               </Button>
-                               <SocialEngagement platformName="iCareOS" />
-                           </div>
-                       </Card>
-                   </motion.div>                   </CarouselItem>
-
-                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
-                        initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
-                        whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                   >
-                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
-                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                           
-                           <CardHeader className="relative z-10 pb-4">
-                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
-                                   <Users className="w-8 h-8 text-primary" />
-                               </div>
-                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">Famio</CardTitle>
-                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
-                                   An AI-powered social media platform designed for meaningful connections and intelligent content discovery.
-                               </CardDescription>
-                           </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
-                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
-                                    <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer">
-                                        Visit Famio <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
-                                    </a>
-                               </Button>
-                               <SocialEngagement platformName="Famio" />
-                           </div>
-                       </Card>
-                   </motion.div>                   </CarouselItem>
-
-                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
-                        initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
-                        whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                   >
-                       <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
-                           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                           
-                           <CardHeader className="relative z-10 pb-4">
-                               <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
-                                   <Sparkles className="w-8 h-8 text-primary" />
-                               </div>
-                               <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">Evolvable</CardTitle>
-                                <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
-                                    An AI-powered agentic coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.
-                                </CardDescription>
-                           </CardHeader>
-                           <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
-                               <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
-                                    <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer">
-                                        Visit Evolvable <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
-                                    </a>
-                               </Button>
-                               <SocialEngagement platformName="Evolvable" />
-                           </div>
-                       </Card>
-                   </motion.div>                   </CarouselItem>
-
-                    <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full h-full flex" 
-                        initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
-                        whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    {/* iChanceTEK Card */}
+                    <CarouselItem className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 flex">
+                       <motion.div className="w-full flex" 
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
                     >
                         <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             
-                            <CardHeader className="relative z-10 pb-4">
-                                <div className="p-3 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-4 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
-                                    <Sparkles className="w-8 h-8 text-primary" />
+                            <CardHeader className="relative z-10 p-5 pb-3">
+                                <div className="p-2.5 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-3 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                    <Sparkles className="w-6 h-6 text-primary" />
                                 </div>
-                                <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">WorkSpaceIQ</CardTitle>
-                                <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
-                                    Power your thinking with WorkSpaceIQ, our AI Research & Dictation Partner. Dictate, research, and create. Upload any source, ask anything, and listen to an AI podcast of your own content — all in one place.
+                                <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">iChanceTEK</CardTitle>
+                                <CardDescription className="text-xs text-muted-foreground leading-relaxed mt-2 line-clamp-3">
+                                    Your AI Solution Partner for the Agentic Future. AI-native enterprise platforms designed to think, act, and evolve alongside your business.
                                 </CardDescription>
                             </CardHeader>
-                            <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
-                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
-                                     <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer">
-                                         Visit WorkSpaceIQ <ExternalLink className="w-4 h-4 ml-2 opacity-70 group-hover:opacity-100" />
+                            <div className="p-5 pt-0 mt-auto relative z-10 flex flex-col gap-3">
+                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-11 text-sm font-semibold">
+                                     <a href="https://iChanceTEK.com" target="_blank" rel="noopener noreferrer">
+                                         Visit iChanceTEK <ExternalLink className="w-4 h-4 ml-1.5 opacity-70 group-hover:opacity-100" />
                                      </a>
                                 </Button>
-                                <SocialEngagement platformName="WorkSpaceIQ" />
                             </div>
                         </Card>
-                    </motion.div>                   </CarouselItem>
+                    </motion.div>
+                    </CarouselItem>
 
-               
-                   {allVentures.filter(v => !['venture-20', 'venture-18', 'venture-15', 'venture-16', 'venture-13', 'venture-17', 'venture-21', 'venture-1'].includes(v.id) && !v.id.includes('partner')).map((agent, i) => {
-                       const IconData = ventureIcons.find(icon => icon.name === agent.name);
-                       const Icon = IconData ? IconData.icon : Bot;
-                       return (
-                           <CarouselItem key={agent.id} className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">
-                               <motion.div
-                                   initial={{ opacity: 0, scale: 0.95 }}
-                                   whileInView={{ opacity: 1, scale: 1 }}
-                                   viewport={{ once: true }}
-                                   transition={{ duration: 0.6, delay: 0.1 }}
-                                   className="w-full h-full pb-4 flex"
-                               >
-                                   <ProductCard product={agent} Icon={Icon} />
-                               </motion.div>
-                           </CarouselItem>
-                       );
-                   })}
-                 </CarouselContent>
+                    {/* iCareOS Premium Card */}
+                    <CarouselItem className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 flex">
+                       <motion.div className="w-full flex" 
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                    >
+                        <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            <CardHeader className="relative z-10 p-5 pb-3">
+                                <div className="p-2.5 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-3 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                    <Sparkles className="w-6 h-6 text-primary" />
+                                </div>
+                                <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">iCareOS Premium</CardTitle>
+                                <CardDescription className="text-xs text-muted-foreground leading-relaxed mt-2 line-clamp-3">
+                                    Transform Healthcare with Intelligent AI. iCareOS Health revolutionizes medical documentation and workflow management.
+                                </CardDescription>
+                            </CardHeader>
+                            <div className="p-5 pt-0 mt-auto relative z-10 flex flex-col gap-3">
+                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-11 text-sm font-semibold">
+                                     <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer">
+                                         Visit iCareOS Premium <ExternalLink className="w-4 h-4 ml-1.5 opacity-70 group-hover:opacity-100" />
+                                     </a>
+                                </Button>
+                            </div>
+                        </Card>
+                    </motion.div>
+                    </CarouselItem>
+
+                    {/* StrideIQ Card */}
+                    <CarouselItem className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 flex">
+                       <motion.div className="w-full flex" 
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                        <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            <CardHeader className="relative z-10 p-5 pb-3">
+                                <div className="p-2.5 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-3 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                    <Activity className="w-6 h-6 text-primary" />
+                                </div>
+                                <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">StrideIQ</CardTitle>
+                                <CardDescription className="text-xs text-muted-foreground leading-relaxed mt-2 line-clamp-3">
+                                    A fitness and wellness app designed to track running, walking, biking, hiking, meditation, intermittent fasting, and journaling.
+                                </CardDescription>
+                            </CardHeader>
+                            <div className="p-5 pt-0 mt-auto relative z-10 flex flex-col gap-3">
+                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-11 text-sm font-semibold">
+                                     <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer">
+                                         Visit StrideIQ <ExternalLink className="w-4 h-4 ml-1.5 opacity-70 group-hover:opacity-100" />
+                                     </a>
+                                </Button>
+                            </div>
+                        </Card>
+                    </motion.div>
+                    </CarouselItem>
+
+                    {/* iCareOS Card */}
+                    <CarouselItem className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 flex">
+                       <motion.div className="w-full flex" 
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                        <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            <CardHeader className="relative z-10 p-5 pb-3">
+                                <div className="p-2.5 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-3 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                    <Stethoscope className="w-6 h-6 text-primary" />
+                                </div>
+                                <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">iCareOS</CardTitle>
+                                <CardDescription className="text-xs text-muted-foreground leading-relaxed mt-2 line-clamp-3">
+                                    An AI-native clinical operating system that automates documentation, analyzes medical images, orchestrates patient intake, and optimizes billing.
+                                </CardDescription>
+                            </CardHeader>
+                            <div className="p-5 pt-0 mt-auto relative z-10 flex flex-col gap-3">
+                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-11 text-sm font-semibold">
+                                     <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer">
+                                         Visit iCareOS <ExternalLink className="w-4 h-4 ml-1.5 opacity-70 group-hover:opacity-100" />
+                                     </a>
+                                </Button>
+                            </div>
+                        </Card>
+                    </motion.div>
+                    </CarouselItem>
+
+                    {/* Famio Card */}
+                    <CarouselItem className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 flex">
+                       <motion.div className="w-full flex" 
+                         initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
+                         whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
+                         viewport={{ once: true, margin: "-50px" }}
+                         transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            <CardHeader className="relative z-10 p-5 pb-3">
+                                <div className="p-2.5 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-3 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                    <Users className="w-6 h-6 text-primary" />
+                                </div>
+                                <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">Famio</CardTitle>
+                                <CardDescription className="text-xs text-muted-foreground leading-relaxed mt-2 line-clamp-3">
+                                    An AI-powered social media platform designed for meaningful connections and intelligent content discovery.
+                                </CardDescription>
+                            </CardHeader>
+                            <div className="p-5 pt-0 mt-auto relative z-10 flex flex-col gap-3">
+                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-11 text-sm font-semibold">
+                                     <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer">
+                                         Visit Famio <ExternalLink className="w-4 h-4 ml-1.5 opacity-70 group-hover:opacity-100" />
+                                     </a>
+                                </Button>
+                            </div>
+                        </Card>
+                    </motion.div>
+                    </CarouselItem>
+
+                    {/* Evolvable Card */}
+                    <CarouselItem className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 flex">
+                       <motion.div className="w-full flex" 
+                         initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
+                         whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
+                         viewport={{ once: true, margin: "-50px" }}
+                         transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            <CardHeader className="relative z-10 p-5 pb-3">
+                                <div className="p-2.5 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-3 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                    <Sparkles className="w-6 h-6 text-primary" />
+                                </div>
+                                <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">Evolvable</CardTitle>
+                                 <CardDescription className="text-xs text-muted-foreground leading-relaxed mt-2 line-clamp-3">
+                                     An AI-powered agentic coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.
+                                 </CardDescription>
+                            </CardHeader>
+                            <div className="p-5 pt-0 mt-auto relative z-10 flex flex-col gap-3">
+                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-11 text-sm font-semibold">
+                                     <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer">
+                                         Visit Evolvable <ExternalLink className="w-4 h-4 ml-1.5 opacity-70 group-hover:opacity-100" />
+                                     </a>
+                                </Button>
+                            </div>
+                        </Card>
+                    </motion.div>
+                    </CarouselItem>
+
+                    {/* WorkSpaceIQ Card */}
+                    <CarouselItem className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 flex">
+                       <motion.div className="w-full h-full flex" 
+                         initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
+                         whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
+                         viewport={{ once: true, margin: "-50px" }}
+                         transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                     >
+                         <Card className="relative flex flex-col h-full overflow-hidden bg-background/60 border-border/50 hover:border-primary/50 transition-all duration-500 group rounded-2xl shadow-lg hover:shadow-[0_0_40px_-10px_rgba(var(--primary),0.3)] backdrop-blur-xl">
+                             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                             
+                             <CardHeader className="relative z-10 p-5 pb-3">
+                                 <div className="p-2.5 bg-primary/10 w-fit rounded-xl border border-primary/20 mb-3 shadow-[0_0_20px_rgba(var(--primary),0.2)] group-hover:scale-110 transition-transform duration-500">
+                                     <Sparkles className="w-6 h-6 text-primary" />
+                                 </div>
+                                 <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">WorkSpaceIQ</CardTitle>
+                                 <CardDescription className="text-xs text-muted-foreground leading-relaxed mt-2 line-clamp-3">
+                                     AI Research & Dictation Partner. Dictate, research, and create. Upload any source, ask anything, and listen to an AI podcast of your own content.
+                                 </CardDescription>
+                             </CardHeader>
+                             <div className="p-5 pt-0 mt-auto relative z-10 flex flex-col gap-3">
+                                 <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-11 text-sm font-semibold">
+                                      <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer">
+                                          Visit WorkSpaceIQ <ExternalLink className="w-4 h-4 ml-1.5 opacity-70 group-hover:opacity-100" />
+                                      </a>
+                                 </Button>
+                             </div>
+                         </Card>
+                     </motion.div>
+                    </CarouselItem>
+
+                    {/* Additional Ventures */}
+                    {allVentures.filter(v => !['venture-20', 'venture-18', 'venture-15', 'venture-16', 'venture-13', 'venture-17', 'venture-21', 'venture-1', 'venture-ichancetek', 'venture-isynera'].includes(v.id) && !v.id.includes('partner')).map((agent, i) => {
+                        const IconData = ventureIcons.find(icon => icon.name === agent.name);
+                        const Icon = IconData ? IconData.icon : Bot;
+                        return (
+                            <CarouselItem key={agent.id} className="pl-4 md:pl-6 md:basis-1/2 lg:basis-1/3 flex">
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.6, delay: 0.1 }}
+                                    className="w-full h-full flex"
+                                >
+                                    <ProductCard product={agent} Icon={Icon} />
+                                </motion.div>
+                            </CarouselItem>
+                        );
+                    })}
+                  </CarouselContent>
                  <div className="flex justify-center gap-4 mt-8 pb-8">
                      <CarouselPrevious className="static translate-y-0 h-12 w-12 rounded-full border-primary/50 text-primary hover:bg-primary/20" />
                      <CarouselNext className="static translate-y-0 h-12 w-12 rounded-full border-primary/50 text-primary hover:bg-primary/20" />

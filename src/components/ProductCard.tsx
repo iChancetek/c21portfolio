@@ -20,29 +20,28 @@ export default function ProductCard({ product, Icon }: ProductCardProps) {
 
   return (
     <>
-      <Card className="group relative flex flex-col h-full overflow-hidden rounded-xl transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
-        <div className="flex-grow p-6">
-          <div className="mb-4">
-            <Icon className="w-10 h-10 text-primary transition-all duration-300 group-hover:text-accent" />
+      <Card className="group relative flex flex-col h-full overflow-hidden rounded-2xl border border-white/10 bg-background/60 backdrop-blur-xl transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
+        <div className="flex-grow p-5">
+          <div className="mb-3 p-2.5 bg-primary/10 w-fit rounded-xl border border-primary/20 group-hover:scale-105 transition-transform duration-300">
+            <Icon className="w-6 h-6 text-primary transition-all duration-300 group-hover:text-accent" />
           </div>
           <h3 className="text-xl font-bold text-foreground transition-colors duration-300 group-hover:text-primary-gradient">{product.name}</h3>
-          <p className="mt-2 text-sm text-muted-foreground">{product.description}</p>
+          <p className="mt-2 text-xs leading-relaxed text-muted-foreground line-clamp-3">{product.description}</p>
         </div>
-        <div className="p-6 pt-0 mt-auto">
+        <div className="p-5 pt-0 mt-auto">
             <div className={cn("flex w-full gap-2", product.hasDemo ? "flex-col sm:flex-row" : "flex-col")}>
-                <Button className="w-full" onClick={() => setIsModalOpen(true)}>
-                    <Bot className="mr-2 h-4 w-4" />
+                <Button size="sm" className="w-full text-xs h-9 rounded-xl font-semibold" onClick={() => setIsModalOpen(true)}>
+                    <Bot className="mr-1.5 h-3.5 w-3.5" />
                     AI Deep-Dive
                 </Button>
                 {product.hasDemo && (
-                    <Button variant="outline" asChild className="w-full">
+                    <Button size="sm" variant="outline" asChild className="w-full text-xs h-9 rounded-xl font-semibold">
                         <a href={product.href} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="mr-2 h-4 w-4" /> Demo
+                            <ExternalLink className="mr-1.5 h-3.5 w-3.5" /> Demo
                         </a>
                     </Button>
                 )}
             </div>
-            <SocialEngagement platformName={product.name} />
         </div>
       </Card>
       {isModalOpen && (
