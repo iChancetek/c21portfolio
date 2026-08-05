@@ -37,7 +37,7 @@ export default function AgenticWorkflowSection() {
       description:
         'The Supervisor Agent (iSynera) orchestrates 9 specialized AI agentic flows and agents working in concert to power the Chancellor Minus platform. The Supervisor routes tasks dynamically across iSynera Assistant, iChancellor Wellness, iSkylar Voice Therapy, Dynamic Case Study Generator, Tech Expert Analyst, Daily Affirmation Generator, Whisper STT Perception, OpenAI TTS Audio Synthesis, and Healthy Living Planner.',
       details: [
-        'Stateful Supervisor directed execution graphs (LangGraph, Genkit & OpenAI Agents SDK)',
+        'Stateful Supervisor directed execution graphs (LangGraph & OpenAI Agents SDK)',
         'Central Supervisor Agent (iSynera) orchestrating 9 specialized Chancellor Minus AI Agents',
         'Autonomous tool calling for Pinecone Vector DB search and Firestore long-term thread memory',
         'Built-in safety guardrails, state persistence, and fallbacks for reliable performance'
