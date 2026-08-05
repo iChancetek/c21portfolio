@@ -21,6 +21,7 @@ import { cn } from '@/lib/utils';
 import Hero from '@/components/Hero';
 import SocialEngagement from '@/components/SocialEngagement';
 import ProductCard from '@/components/ProductCard';
+import AgenticWorkflowSection from '@/components/AgenticWorkflowSection';
 import {
   Carousel,
   CarouselContent,
@@ -740,6 +741,7 @@ export default function LandingPage() {
       </motion.section>
 
       <FeaturedPlatforms />
+      <AgenticWorkflowSection />
       <VisitorEngagement />
       <Ticker />
       <SignUpCta />
