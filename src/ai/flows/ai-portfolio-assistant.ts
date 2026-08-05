@@ -137,7 +137,7 @@ const SYSTEM_PROMPT = `You are an expert AI assistant for Chancellor Minus, a se
 3. **WorkSpaceIQ** (WorkSpaceIQ.us) — AI Research & Dictation Partner. Dictate, research, create. Upload any source, ask anything, and listen to an AI podcast of your own content.
 4. **Chancellor Work OS** (ChancellorOS ERP & CRM Platform) — A unified operations platform. Automate workflows and scale with intelligence — ERP, CRM, and project management in one system. Powered by ChancellorOS.
 5. **iCareOS Premium** (icareos.us) — Transforms healthcare with intelligent AI. Revolutionizes medical documentation and workflow management. Streamlines patient intake, automates SOAP notes, enhances clinical decision-making with HIPAA-compliant intelligence.
-6. **Evolvable** (eVolvable.us) — AI-powered vibe coding platform. Design, build, and launch production-ready applications using nothing but natural language prompts.
+6. **Evolvable** (eVolvable.us) — AI-powered agentic coding platform. Design, build, and launch production-ready applications using nothing but natural language prompts.
 7. **iCareOS** (iCareOS.tech) — AI-native clinical operating system by ChanceTEK. Automates documentation, analyzes medical images, orchestrates patient intake, optimizes billing, monitors clinical risk, and coordinates care through agentic AI modules.
 8. **StrideIQ** (StrideIQ.fit) — Fitness and wellness app for tracking running, walking, biking, hiking, meditation, intermittent fasting, and journaling.
 9. **Famio** (Famio.us) — AI-powered social media platform.

@@ -304,7 +304,7 @@ function FeaturedPlatforms() {
                        Featured Platforms
                    </h2>
                    <p className="max-w-[800px] text-muted-foreground md:text-xl/relaxed lg:text-lg/relaxed xl:text-xl/relaxed font-light">
-                       Explore our flagship AI-native applications redefining healthcare, fitness, vibe coding, and social media with cutting-edge intelligence.
+                       Explore our flagship AI-native applications redefining healthcare, fitness, agentic coding, and social media with cutting-edge intelligence.
                    </p>
                </motion.div>
 
@@ -313,7 +313,7 @@ function FeaturedPlatforms() {
                  <CarouselContent className="-ml-4 md:-ml-8 items-stretch">
 
                    
-                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
+                   <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div 
                        initial={{ opacity: 0, scale: 0.95 }}
                        whileInView={{ opacity: 1, scale: 1 }}
                        viewport={{ once: true }}
@@ -519,9 +519,9 @@ function FeaturedPlatforms() {
                                    <Sparkles className="w-8 h-8 text-primary" />
                                </div>
                                <CardTitle className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">Evolvable</CardTitle>
-                               <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
-                                   An AI-powered vibe coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.
-                               </CardDescription>
+                                <CardDescription className="text-base text-muted-foreground leading-relaxed mt-3">
+                                    An AI-powered agentic coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.
+                                </CardDescription>
                            </CardHeader>
                            <div className="p-6 pt-auto mt-auto relative z-10 flex flex-col gap-4">
                                <Button asChild className="w-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-xl h-12 text-md font-semibold">
@@ -534,7 +534,7 @@ function FeaturedPlatforms() {
                        </Card>
                    </motion.div>                   </CarouselItem>
 
-                    <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full flex" 
+                    <CarouselItem className="pl-4 md:pl-8 md:basis-1/2 lg:basis-1/2 flex">                       <motion.div className="w-full h-full flex" 
                         initial={{ opacity: 0, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0% 100%)", y: 40 }}
                         whileInView={{ opacity: 1, clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0% 100%)", y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}

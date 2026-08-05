@@ -121,7 +121,7 @@ export const allVentures: Venture[] = [
   {
     id: 'venture-17',
     name: "Evolvable",
-    description: "Evolvable is an AI-powered vibe coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.",
+    description: "Evolvable is an AI-powered agentic coding platform that enables anyone to design, build, and launch production-ready applications using nothing but natural language prompts.",
     href: "https://eVolvable.us/",
     hasDemo: true,
   },
@@ -495,7 +495,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Firebase Studio AI", icon: Code },
       { name: "GitHub Copilot", icon: Github },
       { name: "Code Rabbit", icon: Rabbit },
-      { name: "Vibe Coding", icon: Code },
+      { name: "Agentic Coding", icon: Code },
       { name: "Cursor AI / Replit", icon: Monitor },
       { name: "Genkit / CrewAI", icon: Users },
       { name: "LangChain / LangGraph", icon: GitBranch },
