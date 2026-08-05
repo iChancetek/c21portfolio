@@ -29,24 +29,24 @@ export default function AgenticWorkflowSection() {
     {
       id: 'orchestration',
       badge: 'Step 1: Multi-Agent Collaboration',
-      title: 'Autonomous Multi-Agent Orchestration',
+      title: '9 Specialized AI Agentic Flows & Agents',
       icon: Network,
       color: 'from-blue-500/20 to-cyan-500/20',
       borderColor: 'border-cyan-500/40',
       textColor: 'text-cyan-400',
       description:
-        'Nine domain-specialized AI agents work in concert using LangGraph and MCP (Model Context Protocol). Tasks are routed to specialized agentic nodes (Architect, Data Engineering, HR, FinOps, Clinical) that communicate via stateful directed graphs and consensus loops.',
+        'Nine specialized AI agentic flows and agents work in concert to power the c21portfolio platform. Tasks are routed dynamically across iSynera Assistant, iChancellor Wellness, iSkylar Voice Therapy, Dynamic Case Study Generator, Tech Expert Analyst, Daily Affirmation Generator, Whisper STT Perception, OpenAI TTS Audio Synthesis, and Healthy Living Planner.',
       details: [
-        'Stateful directed execution graphs (LangGraph & OpenAI Agents SDK)',
-        'Domain-specialized AI workforce (ChancellorHR 9 Agents, ModeliQ Fleet, EliteBooks FinOps)',
-        'Model Context Protocol (MCP) for standard agent-to-tool and agent-to-agent interoperability',
-        'Built-in safety guardrails, retry logic, and fallback routines for enterprise reliability'
+        'Stateful directed execution graphs (LangGraph, Genkit & OpenAI Agents SDK)',
+        '9 Specialized c21portfolio AI Agents (iSynera, iChancellor, iSkylar, Case Study, Tech Expert, Whisper, TTS, Affirmations, Wellness)',
+        'Autonomous tool calling for Pinecone Vector DB search and Firestore long-term thread memory',
+        'Built-in safety guardrails, state persistence, and fallbacks for reliable performance'
       ],
       diagram: [
-        { label: 'User Request', icon: Bot, status: 'Trigger' },
-        { label: 'Orchestrator Agent', icon: Network, status: 'Routing' },
-        { label: 'Domain Specialists', icon: BrainCircuit, status: 'Executing' },
-        { label: 'Consensus & Output', icon: ShieldCheck, status: 'Verified' },
+        { label: 'User Query / Voice', icon: Mic, status: 'Trigger' },
+        { label: 'iSynera Orchestrator', icon: Network, status: 'Routing' },
+        { label: '9 Specialized c21 Agents', icon: BrainCircuit, status: 'Executing' },
+        { label: 'Grounded Output / TTS', icon: ShieldCheck, status: 'Verified' },
       ]
     },
     {
@@ -58,11 +58,11 @@ export default function AgenticWorkflowSection() {
       borderColor: 'border-purple-500/40',
       textColor: 'text-purple-400',
       description:
-        'All corporate knowledge, resume details, product specs, and live documentation are converted into 512-dimensional dense vector embeddings via OpenAI text-embedding-3-small and stored in Pinecone vector database index (c21portfolio).',
+        'All portfolio knowledge, resume details, product specs, and live platform data are converted into 512-dimensional dense vector embeddings via OpenAI text-embedding-3-small and stored in Pinecone vector database index (c21portfolio).',
       details: [
         'Real-time sub-100ms similarity search using cosine distance vector math',
         'Automatic document chunking and metadata tagging (products, ventures, experience, skills)',
-        'Multi-cloud cloud persistence (Pinecone + AWS S3 / GCP Cloud SQL)',
+        'Multi-cloud persistence (Pinecone + AWS S3 / GCP Cloud SQL)',
         'ASCII-sanitized vector indexing for cross-platform data safety'
       ],
       diagram: [
@@ -81,16 +81,16 @@ export default function AgenticWorkflowSection() {
       borderColor: 'border-emerald-500/40',
       textColor: 'text-emerald-400',
       description:
-        'When a query is received, agents autonomously call the search_portfolio tool. The RAG pipeline retrieves the top-K relevant factual vector matches from Pinecone and dynamically injects grounded context directly into prompt memory.',
+        'When a query is received, agents autonomously call the search_portfolio and search_user_threads tools. The RAG pipeline retrieves top-K vector matches from Pinecone and long-term thread memory from Firestore to inject grounded context directly into prompt memory.',
       details: [
-        'Tool-calling autonomous agent node (search_portfolio) for dynamic retrieval decisions',
-        'Hybrid search combining keyword filtering and dense vector similarity',
-        'Zero-hallucination guarantee by grounding model responses in retrieved vector snippets',
+        'Tool-calling autonomous agent nodes (search_portfolio, search_user_threads)',
+        'Hybrid search combining keyword filtering, vector similarity, and Firestore thread memory',
+        'Zero-hallucination guarantee by grounding model responses in verified facts',
         'Dynamic synthesis: transforms raw context into concise, natural professional answers'
       ],
       diagram: [
         { label: 'Agent Query', icon: Search, status: 'Tool Call' },
-        { label: 'Vector Query', icon: Database, status: 'Top-K Match' },
+        { label: 'Vector & Thread Query', icon: Database, status: 'Top-K Match' },
         { label: 'Context Injection', icon: Zap, status: 'Prompt Fusion' },
         { label: 'Grounded Answer', icon: Bot, status: 'Synthesized' },
       ]
@@ -142,11 +142,11 @@ export default function AgenticWorkflowSection() {
           </div>
 
           <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-primary-gradient">
-            How Our AI Agents Work Together & Connect to Vector DB
+            How Our 9 AI Agents Work Together & Connect to Vector DB
           </h2>
 
           <p className="max-w-[850px] text-muted-foreground md:text-xl/relaxed lg:text-lg/relaxed xl:text-xl/relaxed font-light">
-            Discover how multi-agent collaboration, Pinecone vector search, dynamic RAG context injection, and voice AI combine into an intelligent enterprise platform.
+            Discover how c21portfolio&apos;s 9 specialized AI agents, Pinecone vector search, dynamic RAG context injection, and voice AI combine into a unified enterprise platform.
           </p>
         </motion.div>
 
@@ -268,17 +268,17 @@ export default function AgenticWorkflowSection() {
           </Card>
         </motion.div>
 
-        {/* Multi-Agent Ecosystem Highlights */}
+        {/* 9 Specialized c21portfolio AI Agents Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mt-12">
           <Card className="bg-black/40 border-white/10 p-6 rounded-2xl backdrop-blur-md hover:border-primary/40 transition-colors">
             <CardHeader className="p-0 mb-3 flex flex-row items-center gap-3">
               <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
                 <Network className="w-6 h-6" />
               </div>
-              <CardTitle className="text-xl font-bold text-white">Multi-Agent Collaboration</CardTitle>
+              <CardTitle className="text-xl font-bold text-white">9 Specialized c21 AI Agents</CardTitle>
             </CardHeader>
             <CardContent className="p-0 text-sm text-slate-400 leading-relaxed">
-              Agents work in directed acyclic graphs (DAGs). The Orchestrator delegates complex goals to domain specialist agents (ChancellorHR, ModeliQ, EliteBooks, iCareOS) that execute concurrently.
+              Nine dedicated AI agents (iSynera Assistant, iChancellor Wellness, iSkylar Therapy, Case Study Generator, Tech Analyst, Whisper STT, TTS Speech, Affirmations, and Nutrition Planner) work in concert.
             </CardContent>
           </Card>
 
@@ -287,10 +287,10 @@ export default function AgenticWorkflowSection() {
               <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400">
                 <Database className="w-6 h-6" />
               </div>
-              <CardTitle className="text-xl font-bold text-white">Vector DB Knowledge Link</CardTitle>
+              <CardTitle className="text-xl font-bold text-white">Pinecone DB & Thread Memory</CardTitle>
             </CardHeader>
             <CardContent className="p-0 text-sm text-slate-400 leading-relaxed">
-              Connected directly to Pinecone Vector Database (<code className="text-primary font-mono">c21portfolio</code> index). Embeddings provide sub-second retrieval of products, agents, resume experience, and tech specs.
+              Connected to Pinecone Vector Database (<code className="text-primary font-mono">c21portfolio</code> index) and Firestore long-term thread memory to recall facts, experience, and visitor discussions.
             </CardContent>
           </Card>
 
@@ -302,7 +302,7 @@ export default function AgenticWorkflowSection() {
               <CardTitle className="text-xl font-bold text-white">Zero Hallucination RAG</CardTitle>
             </CardHeader>
             <CardContent className="p-0 text-sm text-slate-400 leading-relaxed">
-              Factual vector chunks are injected into agent system context prior to response synthesis, guaranteeing accurate, grounded answers for every visitor query.
+              Factual vector chunks and thread history are retrieved and injected into agent context, guaranteeing accurate, grounded responses for every visitor query.
             </CardContent>
           </Card>
         </div>
