@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { aiPortfolioAssistant } from '../ai/flows/ai-portfolio-assistant';
-import { ichancellorFlow } from '../ai/flows/ichancellor-flow';
-import { iskylarSearchFlow } from '../ai/flows/iskylar-search-flow';
+import { iChancellor } from '../ai/flows/ichancellor-flow';
+import { iSkylarSearch } from '../ai/flows/iskylar-search-flow';
 import { generateDeepDive } from '../ai/flows/dynamic-case-study-generator';
 import { getTechInsight } from '../ai/flows/tech-expert-flow';
 import { generateAffirmation } from '../ai/flows/affirmation-generator';
@@ -24,7 +24,7 @@ async function testAllAgents() {
   // 2. iChancellor Wellness Agent
   try {
     console.log("[2/7] Testing iChancellor Wellness Agent (gpt-5.4-mini)...");
-    const res = await ichancellorFlow({ query: 'Mindfulness tip for focus' });
+    const res = await iChancellor({ query: 'Mindfulness tip for focus' });
     console.log("  ✅ SUCCESS:", res.answer.substring(0, 100).replace(/\n/g, ' ') + "...\n");
   } catch (err: any) {
     console.error("  ❌ FAILED:", err.message);
@@ -33,7 +33,7 @@ async function testAllAgents() {
   // 3. iSkylar Voice Therapy Agent
   try {
     console.log("[3/7] Testing iSkylar Voice Therapy Agent (gpt-5.4-mini)...");
-    const res = await iskylarSearchFlow({ query: 'I am feeling overwhelmed today' });
+    const res = await iSkylarSearch({ query: 'I am feeling overwhelmed today' });
     console.log("  ✅ SUCCESS:", res.answer.substring(0, 100).replace(/\n/g, ' ') + "...\n");
   } catch (err: any) {
     console.error("  ❌ FAILED:", err.message);
