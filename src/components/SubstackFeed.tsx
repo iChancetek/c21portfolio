@@ -58,7 +58,7 @@ export default function SubstackFeed() {
         </div>
 
         <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl text-primary-gradient max-w-4xl leading-tight">
-          Explore Chancellor’s Latest Substack Articles & Insights on Technology, AI, Health & Wellness...
+          Explore Chancellor’s latest Substack articles, podcasts, and perspectives spanning Technology, AI, Health & Wellness, and the future of innovation.
         </h2>
 
         <p className="max-w-2xl text-muted-foreground text-base sm:text-lg">
