@@ -24,7 +24,7 @@ async function testAllAgents() {
   // 2. iChancellor Wellness Agent
   try {
     console.log("[2/7] Testing iChancellor Wellness Agent (gpt-5.4-mini)...");
-    const res = await iChancellor({ query: 'Mindfulness tip for focus' });
+    const res = await iChancellor({ query: 'Mindfulness tip for focus', locale: 'en' });
     console.log("  ✅ SUCCESS:", res.answer.substring(0, 100).replace(/\n/g, ' ') + "...\n");
   } catch (err: any) {
     console.error("  ❌ FAILED:", err.message);
@@ -60,7 +60,7 @@ async function testAllAgents() {
   // 6. Daily Affirmation Generator Agent
   try {
     console.log("[6/7] Testing Daily Affirmation Generator Agent (gpt-5.4-mini)...");
-    const res = await generateAffirmation({ category: 'leadership' });
+    const res = await generateAffirmation({ locale: 'en' });
     console.log("  ✅ SUCCESS:", res.affirmation + "\n");
   } catch (err: any) {
     console.error("  ❌ FAILED:", err.message);

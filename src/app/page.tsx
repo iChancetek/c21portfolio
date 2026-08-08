@@ -22,6 +22,7 @@ import Hero from '@/components/Hero';
 import SocialEngagement from '@/components/SocialEngagement';
 import ProductCard from '@/components/ProductCard';
 import AgenticWorkflowSection from '@/components/AgenticWorkflowSection';
+import SubstackFeed from '@/components/SubstackFeed';
 import {
   Carousel,
   CarouselContent,
@@ -748,6 +749,7 @@ export default function LandingPage() {
       </motion.section>
 
       <FeaturedPlatforms />
+      <SubstackFeed />
       <AgenticWorkflowSection />
       <VisitorEngagement />
       <Ticker />
