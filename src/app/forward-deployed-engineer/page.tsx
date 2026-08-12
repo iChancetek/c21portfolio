@@ -115,13 +115,38 @@ const BENEFITS = [
 // ─── Tech Ecosystem Data ─────────────────────────────────────────────
 
 const TECH_CATEGORIES = [
-  { title: 'Closed Flagship LLMs', items: ['OpenAI GPT-5.6 Sol / Cyber', 'Anthropic Claude Fable 5 & Opus 5', 'Google Gemini 3.5 Pro & Flash', 'xAI Grok 4.20 (Harper & Benjamin)'] },
-  { title: 'Open-Weight Frontier Models', items: ['DeepSeek V4 & V4-Flash', 'Moonshot Kimi K3', 'Qwen3.8 Max', 'Meta Muse & Llama 4 Scout', 'NVIDIA Nemotron 3.5 Lightning'] },
-  { title: 'Agentic AI Systems', items: ['LangGraph JS', 'LangChain', 'OpenAI Agents SDK', 'MCP Protocol', 'CrewAI'] },
-  { title: 'Knowledge & RAG', items: ['Pinecone 512D', 'Chroma DB', 'GraphRAG', 'S3 Vector', 'text-embedding-3-small'] },
-  { title: 'Cloud Infrastructure', items: ['Google Cloud (Cloud Run, Vertex AI)', 'AWS (Bedrock, EKS)', 'Azure (AKS, AI Foundry)', 'Firebase'] },
-  { title: 'Engineering & Code', items: ['TypeScript', 'Python FastAPI', 'Next.js 15', 'React', 'PostgreSQL pgvector'] },
-  { title: 'DevOps & MLOps', items: ['Terraform', 'OpenTofu', 'Pulumi', 'Docker & Kubernetes', 'GitHub Actions / ArgoCD', 'MLflow / Vertex AI'] }
+  { 
+    title: 'Closed Flagship LLMs', 
+    items: ['OpenAI GPT-5.6 Sol (Agentic)', 'OpenAI GPT-5.6 Cyber', 'Anthropic Claude Fable 5', 'Claude Opus 5', 'Google Gemini 3.5 Pro', 'Gemini 3.5 Flash', 'xAI Grok 4.20 (Harper & Benjamin)'] 
+  },
+  { 
+    title: 'Open-Weight Frontier Models', 
+    items: ['DeepSeek V4 & V4-Flash', 'Moonshot AI Kimi K3', 'Alibaba Qwen3.8 Max', 'Meta Llama 4 Scout', 'Meta Muse Spark / Glimmer', 'NVIDIA Nemotron 3.5 Lightning'] 
+  },
+  { 
+    title: 'Agentic AI & Orchestration', 
+    items: ['LangGraph (StateGraph)', 'LlamaIndex Workflows', 'Pydantic AI', 'CrewAI Squads', 'Microsoft Agent Framework', 'Google ADK', 'OpenAI Agents SDK', 'Mastra', 'smolagents', 'Agno', 'MCP Protocol'] 
+  },
+  { 
+    title: 'Knowledge & RAG Architectures', 
+    items: ['GraphRAG (Entity & Relationship)', 'Traditional RAG', 'Pinecone 512D Vector DB', 'Chroma DB', 'Amazon S3 Vector', 'PostgreSQL pgvector', 'text-embedding-3-small'] 
+  },
+  { 
+    title: 'Multi-Cloud Infrastructure', 
+    items: ['Google Cloud (Cloud Run, Vertex AI, GKE, Cloud SQL)', 'AWS (Bedrock, EKS, Lambda, S3)', 'Azure (AI Foundry, AKS, Databricks, Cosmos DB)', 'Firebase Auth & Firestore'] 
+  },
+  { 
+    title: 'Engineering & Full-Stack', 
+    items: ['TypeScript', 'Python (FastAPI, Flask, Django)', 'Next.js 15 App Router', 'React 19', 'C# / .NET', 'Node.js', 'PostgreSQL'] 
+  },
+  { 
+    title: 'IaC, DevOps & Automation', 
+    items: ['Terraform', 'OpenTofu', 'Pulumi', 'Ansible', 'Docker & Kubernetes', 'Helm & ArgoCD', 'GitHub Actions', 'Azure DevOps'] 
+  },
+  { 
+    title: 'Security, Guardrails & MLOps', 
+    items: ['Microsoft Entra ID / IAM', 'Key Vault & KMS', 'Zero Trust Security', 'AI Guardrails & Human-in-Loop', 'LangSmith Evaluation', 'MLflow & Vertex AI Pipelines'] 
+  }
 ];
 
 // ─── Main FDE Page Component ─────────────────────────────────────────
