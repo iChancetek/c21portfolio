@@ -461,6 +461,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Helm", icon: Package },
       { name: "Serverless (Lambda, Functions, Cloud Run)", icon: CloudCog },
       { name: "Terraform", icon: Code },
+      { name: "OpenTofu", icon: Code },
       { name: "Pulumi", icon: Code },
       { name: "Istio", icon: Puzzle },
       { name: "Powershell", icon: Code },
@@ -572,7 +573,7 @@ export const resumeData: ResumeData = {
     github: 'https://github.com/iChancetek',
     portfolio: 'https://chancellorminus.com',
   },
-  summary: 'Lead Agentic AI Engineer and Cloud Architect specializing in production-grade AI-native and AI-powered systems across finance, healthcare, manufacturing, education, software, and retail. I also have experience consulting for Pharmaceutical Companies such as Novartis and AlPharma.\n\nExperienced in building multi-agent applications, tool-using AI systems, RAG pipelines, and production-ready LLM backends using Python, LangGraph, MCP, FastAPI, OpenAI, Claude, Gemini, Llama, DeepSeek, GLM-2, Kimi, Groq, Hugging Face, Pinecone, and PostgreSQL.\n\nHighly skilled in agent orchestration, guardrails, human-in-the-loop workflows, evaluation, API development, and real-time execution tracking. Strong engineering background in debugging, system design, and complex technical problem-solving.\n\nI design and build end-to-end AI systems combining:\nAgentic AI workflows (LangChain, LangGraph, OpenAI Agents SDK, CrewAI)\nRAG (Retrieval-Augmented Generation) systems\nNLP, Computer Vision, and multimodal AI systems\nVoice AI pipelines (OpenAI Whisper, STT, TTS)\nMLOps and data engineering pipelines\nDevOps and cloud infrastructure automation\n\nExperienced across full lifecycle engineering: architecture, development, deployment, monitoring, and scaling of cloud-native AI systems across Google Cloud, AWS, Azure, and Microsoft 365 ecosystems.',
+  summary: 'Lead Agentic AI Engineer, Cloud Architect, & FDE specializing in production-grade AI-native and AI-powered systems across finance, healthcare, manufacturing, education, software, and retail. I also have experience consulting for Pharmaceutical Companies such as Novartis and AlPharma.\n\nExperienced in building multi-agent applications, tool-using AI systems, RAG pipelines, and production-ready LLM backends using Python, LangGraph, MCP, FastAPI, OpenAI, Claude, Gemini, Llama, DeepSeek, GLM-2, Kimi, Groq, Hugging Face, Pinecone, and PostgreSQL.\n\nHighly skilled in agent orchestration, guardrails, human-in-the-loop workflows, evaluation, API development, and real-time execution tracking. Strong engineering background in debugging, system design, and complex technical problem-solving.\n\nI design and build end-to-end AI systems combining:\nAgentic AI workflows (LangChain, LangGraph, OpenAI Agents SDK, CrewAI)\nRAG (Retrieval-Augmented Generation) systems\nNLP, Computer Vision, and multimodal AI systems\nVoice AI pipelines (OpenAI Whisper, STT, TTS)\nMLOps and data engineering pipelines\nDevOps and cloud infrastructure automation\n\nExperienced across full lifecycle engineering: architecture, development, deployment, monitoring, and scaling of cloud-native AI systems across Google Cloud, AWS, Azure, and Microsoft 365 ecosystems.',
   coreCompetencies: [
     'AI Systems', 'Agentic AI', 'RAG Architectures', 'LLM Engineering',
     'NLP', 'Computer Vision', 'Multimodal AI', 'Voice AI (Whisper, TTS, STT)',
@@ -586,11 +587,11 @@ export const resumeData: ResumeData = {
     { title: 'Data Science & ML Libraries', skills: 'NumPy, Pandas\nScikit-learn\nMatplotlib, Seaborn\nTensorFlow, PyTorch' },
     { title: 'AI Development Tools', skills: 'Cursor AI\nGoogle AI Studio\nGoogle AntiGravity\nReplit AI workflows' },
     { title: 'Data & MLOps', skills: 'ETL/ELT pipelines, Data Lakehouse\nDatabricks, PySpark, Airflow\nSageMaker, Azure ML, Vertex AI, MLflow' },
-    { title: 'DevOps', skills: 'Kubernetes, Docker\nTerraform, Pulumi\nCI/CD (GitHub Actions, Azure DevOps)' }
+    { title: 'DevOps', skills: 'Kubernetes, Docker\nTerraform, OpenTofu, Pulumi\nCI/CD (GitHub Actions, Azure DevOps)' }
   ],
   experience: [
     {
-      title: 'Lead Agentic AI Engineer | Cloud Architect | Data Engineer',
+      title: 'Lead Agentic AI Engineer, Cloud Architect, & FDE',
       company: 'iSynera',
       date: 'Apr 2022 - Present',
       location: 'Houston, TX (Remote Consultant)',
@@ -600,7 +601,7 @@ export const resumeData: ResumeData = {
         'Full-Stack AI Application Development: Built full-stack AI applications using Python (FastAPI, Flask, Django) for backend AI services. Developed frontend systems using React, Next.js, TypeScript. Built scalable AI APIs for inference, orchestration, and automation workflows. Integrated AI models into production cloud systems and real-time applications.',
         'Data Engineering, ML & Analytics Stack: Applied Python for data science and machine learning development. Built ML pipelines using NumPy, Pandas, Scikit-learn, Matplotlib, Seaborn. Developed deep learning systems using TensorFlow, PyTorch. Designed data processing and feature engineering workflows for AI systems. Integrated ML models into production environments via APIs and cloud services.',
         'Cloud Architecture & Data Systems: Architected multi-cloud systems across Google Cloud, AWS, Azure. Built serverless systems using Cloud Run, Firebase, Cloud SQL. Designed ETL/ELT pipelines using Databricks, PySpark, AWS Glue, Delta Lake. Built streaming systems using Kafka and AWS Kinesis. Implemented MLOps pipelines using SageMaker, Azure ML, Vertex AI, MLflow.',
-        'DevOps & Platform Engineering: Built CI/CD pipelines (GitHub Actions, Azure DevOps) for Kubernetes microservices. Automated infrastructure using Terraform and Pulumi. Containerized deployments using Docker and Kubernetes. Implemented secure systems with secrets management and observability tooling.',
+        'DevOps & Platform Engineering: Built CI/CD pipelines (GitHub Actions, Azure DevOps) for Kubernetes microservices. Automated infrastructure using Terraform, OpenTofu, and Pulumi. Containerized deployments using Docker and Kubernetes. Implemented secure systems with secrets management and observability tooling.',
         'Managed and supported Microsoft Azure cloud infrastructure, including Azure VMs, Azure networking, core cloud services, Azure consumption monitoring, resource optimization, and cost management; administered Microsoft Intune for enterprise endpoint management and device management (Windows, iOS, macOS); configured and supported Microsoft Entra ID enterprise applications, app registrations, SSO integrations, provisioning, hybrid identity, and IAM initiatives; managed enterprise Microsoft 365 environments including Teams, SharePoint, Exchange Online, and Intune; automated workflows using Microsoft Power Automate; integrated Microsoft 365 with cloud and AI systems; participated in cloud transformation, infrastructure upgrades, and modernization initiatives; troubleshot complex Azure, endpoint, networking, and identity-related issues; and collaborated cross-functionally with Infrastructure, Security, Service Management, and vendor teams to support secure, scalable, and modern enterprise cloud environments.',
         'Experience with Google Cloud cloud technologies, including Compute Engine, Google Kubernetes Engine (GKE), Cloud Run, Cloud Functions, Cloud Storage, Cloud SQL, Firestore, Bigtable, VPC networking, Cloud Load Balancing, Cloud Monitoring, Vertex AI, Cloud Build, Artifact Registry, Cloud Identity/IAM, Google Workspace, AppSheet automation, DevOps, AI/ML services, serverless computing, cloud infrastructure, and hybrid cloud operations.',
         'Experience with Amazon Web Services cloud technologies, including EC2, ECS, Elastic Kubernetes Service (EKS), Lambda, S3, RDS, DynamoDB, VPC networking, Elastic Load Balancer (ELB), CloudWatch, CodePipeline, CodeBuild, IAM, AWS Directory Service, Bedrock, SageMaker, managed Active Directory, DevOps, AI/ML services, serverless computing, cloud infrastructure, and hybrid cloud operations.'
@@ -615,7 +616,7 @@ export const resumeData: ResumeData = {
       highlights: [
         'CI/CD pipelines (Jenkins, GitHub Actions, Azure DevOps, GitLab)',
         'Kubernetes (AKS, EKS, GKE)',
-        'Infrastructure as Code (Terraform, Ansible)',
+        'Infrastructure as Code (Terraform, OpenTofu, Pulumi, Ansible)',
         'GitOps (ArgoCD, Helm)',
         'Security (Vault, Key Vault, Secrets Manager, Trivy)',
         'Observability (Prometheus, Grafana, Istio)',
@@ -849,7 +850,7 @@ export const resumeData: ResumeData = {
     },
     {
       course: 'DevOps & Infrastructure',
-      institution: 'Udemy: Azure DevOps, Terraform, Pulumi, Ansible, GCP',
+      institution: 'Udemy: Azure DevOps, Terraform, OpenTofu, Pulumi, Ansible, GCP',
       certificateUrl: '/certificates/DevOps.pdf'
     },
     {
