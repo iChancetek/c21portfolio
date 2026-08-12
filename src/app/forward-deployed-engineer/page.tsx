@@ -32,6 +32,7 @@ import {
   PhoneCall 
 } from 'lucide-react';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 import FdeKnowledgeAssistant from '@/components/fde/FdeKnowledgeAssistant';
 import FdeVoiceExperience from '@/components/fde/FdeVoiceExperience';
 import FdeDataVisualization from '@/components/fde/FdeDataVisualization';

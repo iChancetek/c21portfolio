@@ -16,6 +16,7 @@ import {
   Activity 
 } from 'lucide-react';
 import { textToSpeech } from '@/ai/flows/openai-tts-flow';
+import { cn } from '@/lib/utils';
 
 const EDITORIAL_SUMMARY = `Forward Deployed Engineering for the Agentic AI Era. Chancellor works directly with enterprise organizations from business problem discovery to architecture, working prototypes, production engineering, deployment, and continuous optimization. Chancellor does not simply tell organizations what AI could become. Chancellor helps build it.`;
 
@@ -38,12 +39,12 @@ export default function FdeVoiceExperience() {
     setSpokenText(EDITORIAL_SUMMARY);
 
     try {
-      const res = await textToSpeech({ text: EDITORIAL_SUMMARY, voice: 'nova' });
-      if (res.mediaUri) {
+      const res = await textToSpeech({ text: EDITORIAL_SUMMARY, locale: 'en', voice: 'nova' });
+      if (res.audioDataUri) {
         if (audioRef.current) {
           audioRef.current.pause();
         }
-        const audio = new Audio(res.mediaUri);
+        const audio = new Audio(res.audioDataUri);
         audioRef.current = audio;
 
         audio.onended = () => {
