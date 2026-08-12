@@ -46,7 +46,7 @@ const BLUEPRINTS: Blueprint[] = [
     textColor: 'text-cyan-400',
     architectureComponents: [
       'Google Cloud Run (Auto-Scaling Container Services)',
-      'Vertex AI & Gemini 1.5 Pro Agent Endpoints',
+      'Vertex AI & Gemini 3.5 Pro / GPT-5.6 Sol Agent Endpoints',
       'Cloud SQL PostgreSQL (pgvector Vector Index)',
       'Firebase Authentication & Firestore Long-Term Thread Memory',
       'Cloud Build CI/CD Pipeline & Artifact Registry'
@@ -190,7 +190,7 @@ export const serviceUrl = agentService.uri;`
     textColor: 'text-amber-400',
     architectureComponents: [
       'AWS EKS (Elastic Kubernetes Service for Multi-Agent Pods)',
-      'Amazon Bedrock (Claude 3.5 Sonnet & Llama 3 Endpoints)',
+      'Amazon Bedrock (Claude Fable 5, Grok 4.20 & Llama 4 Scout Endpoints)',
       'Amazon S3 Vector Bucket & Pinecone Vector Store',
       'AWS Lambda & API Gateway (Real-Time Voice & WebSockets)',
       'AWS IAM Roles for Service Accounts (IRSA) & KMS Secrets'
@@ -296,7 +296,7 @@ export const kubeconfig = cluster.kubeconfig;`
     borderColor: 'border-purple-500/40',
     textColor: 'text-purple-400',
     architectureComponents: [
-      'Azure AI Foundry (GPT-4o & DeepSeek AI Models)',
+      'Azure AI Foundry (GPT-5.6 Sol & DeepSeek V4 Models)',
       'Azure Kubernetes Service (AKS for Agent Orchestration)',
       'Azure Databricks PySpark & Delta Lake Vector Search',
       'Azure Cosmos DB (Multi-Region Document & Memory Store)',

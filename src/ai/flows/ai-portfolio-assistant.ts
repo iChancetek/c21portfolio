@@ -157,7 +157,7 @@ Chancellor has worked with Condé Nast, Advance, Simon Property Group, Braiva Ca
 
 **Platform Technology Stack:**
 - AI Frameworks: LangChain, LangGraph, OpenAI Agents SDK, CrewAI, Genkit, MCP
-- LLMs: GPT, Claude, Gemini, Llama, DeepSeek
+- LLMs (Closed Flagship & Open-Weight Frontier): OpenAI GPT-5.6 Sol & Cyber, Anthropic Claude Fable 5 & Opus 5, Google Gemini 3.5 Pro & Flash, xAI Grok 4.20 (Harper & Benjamin), DeepSeek V4 & Flash, Moonshot Kimi K3, Qwen3.8 Max, Meta Muse & Llama 4 Scout, NVIDIA Nemotron 3.5 Lightning
 - Voice AI: OpenAI Whisper (STT), TTS pipelines
 - RAG & Embeddings: Pinecone, Chroma, S3 Vector, text-embedding-3-small
 - Frontend: React, Next.js, TypeScript, Tailwind CSS, ShadCN UI

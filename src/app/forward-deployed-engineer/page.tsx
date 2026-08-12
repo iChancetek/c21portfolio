@@ -115,13 +115,13 @@ const BENEFITS = [
 // ─── Tech Ecosystem Data ─────────────────────────────────────────────
 
 const TECH_CATEGORIES = [
-  { title: 'AI / LLM', items: ['OpenAI GPT-4o', 'Claude 3.5 Sonnet', 'Google Gemini 1.5 Pro', 'Llama 3', 'DeepSeek AI'] },
-  { title: 'Agentic AI', items: ['LangGraph JS', 'LangChain', 'OpenAI Agents SDK', 'MCP Protocol', 'CrewAI'] },
+  { title: 'Closed Flagship LLMs', items: ['OpenAI GPT-5.6 Sol / Cyber', 'Anthropic Claude Fable 5 & Opus 5', 'Google Gemini 3.5 Pro & Flash', 'xAI Grok 4.20 (Harper & Benjamin)'] },
+  { title: 'Open-Weight Frontier Models', items: ['DeepSeek V4 & V4-Flash', 'Moonshot Kimi K3', 'Qwen3.8 Max', 'Meta Muse & Llama 4 Scout', 'NVIDIA Nemotron 3.5 Lightning'] },
+  { title: 'Agentic AI Systems', items: ['LangGraph JS', 'LangChain', 'OpenAI Agents SDK', 'MCP Protocol', 'CrewAI'] },
   { title: 'Knowledge & RAG', items: ['Pinecone 512D', 'Chroma DB', 'GraphRAG', 'S3 Vector', 'text-embedding-3-small'] },
   { title: 'Cloud Infrastructure', items: ['Google Cloud (Cloud Run, Vertex AI)', 'AWS (Bedrock, EKS)', 'Azure (AKS, AI Foundry)', 'Firebase'] },
   { title: 'Engineering & Code', items: ['TypeScript', 'Python FastAPI', 'Next.js 15', 'React', 'PostgreSQL pgvector'] },
-  { title: 'DevOps & Platform', items: ['Terraform', 'OpenTofu', 'Pulumi', 'Docker & Kubernetes', 'GitHub Actions / ArgoCD'] },
-  { title: 'Security & Observability', items: ['Entra ID / IAM', 'Key Vault', 'LangSmith Eval', 'AI Guardrails', 'Zero Trust Security'] }
+  { title: 'DevOps & MLOps', items: ['Terraform', 'OpenTofu', 'Pulumi', 'Docker & Kubernetes', 'GitHub Actions / ArgoCD', 'MLflow / Vertex AI'] }
 ];
 
 // ─── Main FDE Page Component ─────────────────────────────────────────
