@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import LangGraphVisualizer from '@/components/LangGraphVisualizer';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
@@ -294,14 +295,12 @@ export default function AgenticWorkflowSection() {
               </div>
             </div>
 
-            {/* ASCII Live Execution Pipeline */}
+            {/* Interactive LangGraph DAG Execution Visualizer */}
             <div className="mt-6">
               <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-2">
-                <Radio className="w-4 h-4 text-cyan-400 animate-pulse" /> Live Execution Pipeline Flow
+                <Radio className="w-4 h-4 text-cyan-400 animate-pulse" /> Live LangGraph Execution Visualizer
               </h4>
-              <div className="bg-slate-950/80 border border-cyan-500/30 rounded-xl p-4 font-mono text-xs md:text-sm text-cyan-300 overflow-x-auto shadow-inner">
-                User Query / Voice &rarr; Supervisor Agent (StateGraph) &rarr; RAG / Firestore / Voice AI &rarr; 9 Specialized AI Flows &rarr; Verified Output
-              </div>
+              <LangGraphVisualizer />
             </div>
 
             {/* 9 Specialized Agents Grid */}
