@@ -456,6 +456,29 @@ export default function ForwardDeployedEngineerPage() {
             </div>
           </div>
         </Card>
+
+        {/* GraphRAG & Knowledge Graph Topology */}
+        <Card className="bg-slate-950/90 border-cyan-500/30 rounded-3xl p-6 md:p-8 backdrop-blur-2xl shadow-2xl space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-xs font-mono text-cyan-400 uppercase tracking-widest">
+              <Database className="w-3.5 h-3.5 text-cyan-400" />
+              GraphRAG & Enterprise Knowledge Systems
+            </div>
+            <span className="text-[11px] font-mono text-slate-400">Hierarchical Entity & Relationship Indexing</span>
+          </div>
+
+          <h3 className="text-xl md:text-2xl font-bold text-white">
+            Beyond Vector Search: GraphRAG for Multi-Hop Reasoning
+          </h3>
+
+          <p className="text-slate-300 text-xs md:text-sm font-light leading-relaxed max-w-4xl">
+            Traditional RAG retrieves isolated document chunks via semantic similarity. GraphRAG extracts entities, maps multi-hop relationships, builds hierarchical community summaries, and connects structured enterprise databases with unstructured text. This enables complex global queries, relationship traversal, and multi-hop organizational reasoning without missing broader context.
+          </p>
+
+          <div className="bg-black/80 border border-cyan-500/20 rounded-2xl p-4 font-mono text-xs text-cyan-300 overflow-x-auto leading-relaxed shadow-inner">
+            Unstructured Text & Databases &rarr; Entity & Relationship Extractor &rarr; Knowledge Graph Indexing &rarr; Hierarchical Community Detection &rarr; Hybrid Global/Local Retrieval &rarr; Factual Synthesis
+          </div>
+        </Card>
       </section>
 
 

@@ -53,6 +53,11 @@ export const FDE_KNOWLEDGE_BASE: FdeFaqItem[] = [
     category: 'Agentic Frameworks',
     question: 'What agentic orchestration frameworks and SDKs does Chancellor use?',
     answer: 'Chancellor evaluates and selects the optimal agentic orchestration framework based on architectural constraints, state requirements, and target cloud stack:\n\n• Production-Grade Stateful Orchestration: LangGraph (industry standard for cyclic StateGraphs, minimal token overhead, human-in-the-loop interrupts), LlamaIndex Workflows (event-driven, document-centric agent workflows for heavy RAG and semantic indexing), and Pydantic AI (Python-native type-safe agent architectures).\n\n• Multi-Agent Squads & Collaboration: CrewAI (role-based mental model for researcher/writer/reviewer agent squads) and Microsoft Agent Framework (enterprise-grade graph ecosystem unifying AutoGen and Semantic Kernel on Azure).\n\n• Model-Native & Cloud Ecosystem SDKs: OpenAI Agents SDK (optimized delegation SDK for OpenAI Assistants), Google Agent Development Kit / ADK (Vertex AI, Gemini 3.5 & native MCP support), and Mastra (TypeScript serverless applications).\n\n• Code-First Agents: smolagents (Hugging Face minimalist code-first tool-calling) and Agno (lightweight independent tool-wielding agents).'
+  },
+  {
+    category: 'GraphRAG',
+    question: 'What is GraphRAG and how does Chancellor build knowledge graphs?',
+    answer: 'GraphRAG extends traditional vector RAG by constructing hierarchical knowledge graphs from unstructured enterprise documents, relational databases, and multi-agent memory:\n\n• Entity & Relationship Extraction: Automatically identifies enterprise entities, claims, relationships, and concepts.\n\n• Hierarchical Community Detection: Groups connected entities into communities and synthesizes multi-level summaries.\n\n• Hybrid Global & Local Search: Allows agents to answer broad organizational questions ("What are the top risk factors across all projects?") as well as specific entity queries.\n\n• Multi-Hop Reasoning: Enables agents to traverse multi-step relationships across disparate data sources without losing global context.'
   }
 ];
 
