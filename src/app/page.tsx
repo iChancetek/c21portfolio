@@ -22,6 +22,9 @@ import Hero from '@/components/Hero';
 import SocialEngagement from '@/components/SocialEngagement';
 import ProductCard from '@/components/ProductCard';
 import AgenticWorkflowSection from '@/components/AgenticWorkflowSection';
+import IacBlueprintHub from '@/components/IacBlueprintHub';
+import FinOpsSimulator from '@/components/FinOpsSimulator';
+import McpPlayground from '@/components/McpPlayground';
 import SubstackFeed from '@/components/SubstackFeed';
 import {
   Carousel,
@@ -751,6 +754,9 @@ export default function LandingPage() {
       <FeaturedPlatforms />
       <SubstackFeed />
       <AgenticWorkflowSection />
+      <IacBlueprintHub />
+      <FinOpsSimulator />
+      <McpPlayground />
       <VisitorEngagement />
       <Ticker />
       <SignUpCta />

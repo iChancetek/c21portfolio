@@ -413,7 +413,7 @@ export default function IacBlueprintHub() {
   };
 
   return (
-    <section className="relative w-full py-16 pointer-events-auto">
+    <section id="iac-blueprint-hub" className="relative w-full xl:w-[120%] 2xl:w-[140%] max-w-[1400px] mx-auto px-4 py-20 pointer-events-auto z-10">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
         <div className="text-center space-y-4">

@@ -156,6 +156,24 @@ export default function Header() {
                   AI Agents
                 </Link>
               </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/#iac-blueprint-hub" className="cursor-pointer w-full flex items-center gap-2">
+                  <Code className="h-4 w-4 text-cyan-400" />
+                  Cloud IaC Hub
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/#finops-simulator" className="cursor-pointer w-full flex items-center gap-2">
+                  <Activity className="h-4 w-4 text-emerald-400" />
+                  FinOps Simulator
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/#mcp-playground" className="cursor-pointer w-full flex items-center gap-2">
+                  <Bot className="h-4 w-4 text-amber-400" />
+                  MCP Playground
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger className="flex items-center gap-2">
                   <Star className="h-4 w-4" />
