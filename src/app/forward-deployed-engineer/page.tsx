@@ -369,14 +369,91 @@ export default function ForwardDeployedEngineerPage() {
         </div>
 
         {/* Agentic Architecture Flow Visualizer */}
-        <Card className="bg-slate-950/90 border-purple-500/30 rounded-3xl p-6 md:p-8 backdrop-blur-2xl shadow-2xl">
-          <div className="text-xs font-mono text-purple-400 font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+        <Card className="bg-slate-950/90 border-purple-500/30 rounded-3xl p-6 md:p-8 backdrop-blur-2xl shadow-2xl space-y-6">
+          <div className="text-xs font-mono text-purple-400 font-bold uppercase tracking-widest flex items-center gap-2">
             <BrainCircuit className="w-4 h-4 text-purple-400" />
             Agentic AI Execution Topology
           </div>
 
           <div className="bg-black/80 border border-purple-500/20 rounded-2xl p-4 md:p-6 font-mono text-xs md:text-sm text-purple-300 overflow-x-auto leading-relaxed shadow-inner">
             User Query &rarr; AI Orchestrator (StateGraph) &rarr; Agent &rarr; Reasoning / Multi-Step Planning &rarr; MCP Tools &rarr; Enterprise Data (RAG / Firestore) &rarr; APIs &rarr; Other Agents &rarr; Execution &rarr; Verification &rarr; Human Oversight
+          </div>
+
+          {/* Framework Selection Matrix */}
+          <div className="space-y-4 pt-4 border-t border-white/10">
+            <div className="text-xs font-mono text-cyan-400 font-bold uppercase tracking-widest flex items-center gap-2">
+              <Workflow className="w-4 h-4 text-cyan-400" />
+              Agentic Orchestration Framework Selection Matrix
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs font-mono border-collapse">
+                <thead>
+                  <tr className="border-b border-white/10 text-slate-400">
+                    <th className="py-2.5 px-3 font-bold">Framework</th>
+                    <th className="py-2.5 px-3 font-bold">Orchestration Model</th>
+                    <th className="py-2.5 px-3 font-bold">Best For</th>
+                    <th className="py-2.5 px-3 font-bold">Technical Stack</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5 text-slate-300">
+                  <tr className="hover:bg-purple-500/10">
+                    <td className="py-2.5 px-3 font-bold text-purple-300">LangGraph</td>
+                    <td className="py-2.5 px-3">Graph-Based (StateGraph)</td>
+                    <td className="py-2.5 px-3">Complex, strict enterprise logic & human-in-the-loop interrupts</td>
+                    <td className="py-2.5 px-3 text-cyan-400">Python / TypeScript</td>
+                  </tr>
+                  <tr className="hover:bg-purple-500/10">
+                    <td className="py-2.5 px-3 font-bold text-purple-300">LlamaIndex Workflows</td>
+                    <td className="py-2.5 px-3">Event-Driven</td>
+                    <td className="py-2.5 px-3">Enterprise data & heavy semantic RAG pipelines</td>
+                    <td className="py-2.5 px-3 text-cyan-400">Python / TypeScript</td>
+                  </tr>
+                  <tr className="hover:bg-purple-500/10">
+                    <td className="py-2.5 px-3 font-bold text-purple-300">CrewAI</td>
+                    <td className="py-2.5 px-3">Role-Based Squads</td>
+                    <td className="py-2.5 px-3">Rapid multi-agent team workflows (researcher, writer, reviewer)</td>
+                    <td className="py-2.5 px-3 text-cyan-400">Python</td>
+                  </tr>
+                  <tr className="hover:bg-purple-500/10">
+                    <td className="py-2.5 px-3 font-bold text-purple-300">Microsoft Agent Framework</td>
+                    <td className="py-2.5 px-3">Multi-Agent / Graph</td>
+                    <td className="py-2.5 px-3">Enterprise Azure & Microsoft Ecosystem (AutoGen successor)</td>
+                    <td className="py-2.5 px-3 text-cyan-400">Python / .NET / Java</td>
+                  </tr>
+                  <tr className="hover:bg-purple-500/10">
+                    <td className="py-2.5 px-3 font-bold text-purple-300">Google Agent Dev Kit (ADK)</td>
+                    <td className="py-2.5 px-3">Cloud-Native / MCP</td>
+                    <td className="py-2.5 px-3">Vertex AI, Gemini 3.5 & native MCP tool integration</td>
+                    <td className="py-2.5 px-3 text-cyan-400">Python / Go / Java</td>
+                  </tr>
+                  <tr className="hover:bg-purple-500/10">
+                    <td className="py-2.5 px-3 font-bold text-purple-300">OpenAI Agents SDK</td>
+                    <td className="py-2.5 px-3">Delegation SDK</td>
+                    <td className="py-2.5 px-3">OpenAI ecosystem & Assistant API delegation</td>
+                    <td className="py-2.5 px-3 text-cyan-400">Python / TypeScript</td>
+                  </tr>
+                  <tr className="hover:bg-purple-500/10">
+                    <td className="py-2.5 px-3 font-bold text-purple-300">Mastra</td>
+                    <td className="py-2.5 px-3">Application-Based</td>
+                    <td className="py-2.5 px-3">Production TypeScript serverless applications</td>
+                    <td className="py-2.5 px-3 text-cyan-400">TypeScript</td>
+                  </tr>
+                  <tr className="hover:bg-purple-500/10">
+                    <td className="py-2.5 px-3 font-bold text-purple-300">smolagents</td>
+                    <td className="py-2.5 px-3">Code-First</td>
+                    <td className="py-2.5 px-3">Lightweight Hugging Face tool-calling experimentation</td>
+                    <td className="py-2.5 px-3 text-cyan-400">Python</td>
+                  </tr>
+                  <tr className="hover:bg-purple-500/10">
+                    <td className="py-2.5 px-3 font-bold text-purple-300">Agno & Pydantic AI</td>
+                    <td className="py-2.5 px-3">Type-Safe & Fast</td>
+                    <td className="py-2.5 px-3">Structured, type-safe independent tool-wielding agents</td>
+                    <td className="py-2.5 px-3 text-cyan-400">Python</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </Card>
       </section>

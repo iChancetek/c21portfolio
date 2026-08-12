@@ -48,6 +48,11 @@ export const FDE_KNOWLEDGE_BASE: FdeFaqItem[] = [
     category: 'Frontier AI Stack',
     question: 'What AI and LLM models does Chancellor use during an FDE engagement?',
     answer: 'Chancellor deploys both closed flagship models and open-weight frontier systems tailored to client requirements:\n\n• Closed Flagships: OpenAI GPT-5 & GPT-5.6 series (GPT-5.6 Sol for autonomous agentic workflows and GPT-5.6 Cyber), Anthropic Claude 5 / Fable series (Claude Fable 5 and Claude Opus 5 for code generation and reasoning), Google Gemini 3.5 series (Gemini 3.5 Pro for deep problem solving and Gemini 3.5 Flash for high-throughput API tasks), and xAI Grok 4.20 (multi-agent system with Harper and Benjamin sub-agents).\n\n• Open-Weight Frontier Models: DeepSeek V4 & DeepSeek-V4-Flash (cost-efficient reasoning), Moonshot AI Kimi K3 (multi-hour autonomous software engineering), Alibaba Qwen3.8 Max (multilingual benchmark leader), Meta Muse & Llama 4 series (Llama 4 Scout and Muse Spark/Glimmer), and NVIDIA Nemotron 3.5 Lightning (enterprise search, routing, and tool-use).'
+  },
+  {
+    category: 'Agentic Frameworks',
+    question: 'What agentic orchestration frameworks and SDKs does Chancellor use?',
+    answer: 'Chancellor evaluates and selects the optimal agentic orchestration framework based on architectural constraints, state requirements, and target cloud stack:\n\n• Production-Grade Stateful Orchestration: LangGraph (industry standard for cyclic StateGraphs, minimal token overhead, human-in-the-loop interrupts), LlamaIndex Workflows (event-driven, document-centric agent workflows for heavy RAG and semantic indexing), and Pydantic AI (Python-native type-safe agent architectures).\n\n• Multi-Agent Squads & Collaboration: CrewAI (role-based mental model for researcher/writer/reviewer agent squads) and Microsoft Agent Framework (enterprise-grade graph ecosystem unifying AutoGen and Semantic Kernel on Azure).\n\n• Model-Native & Cloud Ecosystem SDKs: OpenAI Agents SDK (optimized delegation SDK for OpenAI Assistants), Google Agent Development Kit / ADK (Vertex AI, Gemini 3.5 & native MCP support), and Mastra (TypeScript serverless applications).\n\n• Code-First Agents: smolagents (Hugging Face minimalist code-first tool-calling) and Agno (lightweight independent tool-wielding agents).'
   }
 ];
 
