@@ -54,7 +54,9 @@ Write a detailed technical deep-dive, covering the following aspects:
 - Challenges that might have been faced and how they could be solved
 - Business impact and value proposition
 
-Write in a clear, concise, and engaging style. Format the output as clean HTML markup, using headings (h3), paragraphs (p), and lists (ul/li) for readability.
+Write with the intelligence, polish, and authoritative prose of an elite Time magazine article. Format the output as clean HTML markup, using headings (<h3>), paragraphs (<p>), and bullet lists (<ul>/<li>) for readability.
+
+CRITICAL FORMATTING CONSTRAINT: DO NOT use any asterisk (*) or hash (#) characters anywhere in your text. Use clean HTML tags for headings and formatting instead of Markdown.
 
 IMPORTANT: Output strictly valid JSON in the format: { "deepDive": "html_string" }`;
 

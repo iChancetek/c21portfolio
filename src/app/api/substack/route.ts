@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server';
+
 export interface SubstackPost {
   title: string;
   link: string;
@@ -6,7 +8,7 @@ export interface SubstackPost {
   audioUrl?: string;
 }
 
-export const FALLBACK_POSTS: SubstackPost[] = [
+const FALLBACK_POSTS: SubstackPost[] = [
   {
     title: "The Rise of the Forward Deployed Engineer",
     link: "https://ichancellor.substack.com/p/the-rise-of-the-forward-deployed",
@@ -37,10 +39,9 @@ export const FALLBACK_POSTS: SubstackPost[] = [
   }
 ];
 
-export async function fetchSubstackPosts(): Promise<SubstackPost[]> {
+export async function GET() {
   try {
-    const url = typeof window !== 'undefined' ? '/api/substack' : 'https://ichancellor.substack.com/feed';
-    const res = await fetch(url, {
+    const res = await fetch("https://ichancellor.substack.com/feed", {
       next: { revalidate: 3600 },
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) PortfolioApp/1.0",
@@ -48,20 +49,14 @@ export async function fetchSubstackPosts(): Promise<SubstackPost[]> {
     });
 
     if (!res.ok) {
-      console.warn(`Substack RSS fetch returned status ${res.status}`);
-      return FALLBACK_POSTS;
-    }
-
-    if (typeof window !== 'undefined') {
-      const data = await res.json();
-      return Array.isArray(data) && data.length > 0 ? data : FALLBACK_POSTS;
+      return NextResponse.json(FALLBACK_POSTS);
     }
 
     const xml = await res.text();
     const items = xml.split("<item>");
     
     if (items.length <= 1) {
-      return FALLBACK_POSTS;
+      return NextResponse.json(FALLBACK_POSTS);
     }
 
     const posts: SubstackPost[] = [];
@@ -69,25 +64,20 @@ export async function fetchSubstackPosts(): Promise<SubstackPost[]> {
     for (let i = 1; i < items.length; i++) {
       const itemChunk = items[i].split("</item>")[0];
 
-      // Extract title
       const titleMatch = itemChunk.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/i);
       const rawTitle = titleMatch ? cleanCdata(titleMatch[1]) : "";
       const title = decodeHtmlEntities(cleanHtml(rawTitle));
 
-      // Extract link
       const linkMatch = itemChunk.match(/<link>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/i);
       const link = linkMatch ? cleanCdata(linkMatch[1]).trim() : "";
 
-      // Extract description
       const descMatch = itemChunk.match(/<description>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/description>/i);
       const rawDesc = descMatch ? cleanCdata(descMatch[1]) : "";
       const description = decodeHtmlEntities(cleanHtml(rawDesc));
 
-      // Extract pubDate
       const dateMatch = itemChunk.match(/<pubDate>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/pubDate>/i);
       const pubDate = dateMatch ? cleanCdata(dateMatch[1]).trim() : "";
 
-      // Extract enclosure audio url
       const enclosureMatch = itemChunk.match(/<enclosure[^>]+url=["']([^"']+)["']/i);
       const audioUrl = enclosureMatch ? enclosureMatch[1] : undefined;
 
@@ -102,10 +92,10 @@ export async function fetchSubstackPosts(): Promise<SubstackPost[]> {
       }
     }
 
-    return posts.length > 0 ? posts : FALLBACK_POSTS;
-  } catch (err) {
-    console.error("Error fetching Substack RSS feed:", err);
-    return FALLBACK_POSTS;
+    return NextResponse.json(posts.length > 0 ? posts : FALLBACK_POSTS);
+  } catch (error) {
+    console.error("Error fetching Substack RSS feed server-side:", error);
+    return NextResponse.json(FALLBACK_POSTS);
   }
 }
 

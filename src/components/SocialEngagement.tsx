@@ -248,21 +248,33 @@ export default function SocialEngagement({ platformName, className }: SocialEnga
     if (!firestore) return;
     const docRef = doc(firestore, 'social_engagements', docId);
     
-    const unsubscribe = onSnapshot(docRef, (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        if (data.comments) setComments(data.comments);
-        if (data.mainRepostCount !== undefined) setMainRepostCount(data.mainRepostCount);
-        if (data.globalReaction !== undefined) setReaction(data.globalReaction);
-      } else {
-        // Initial mock comments if none exist in Firestore
+    const unsubscribe = onSnapshot(
+      docRef,
+      (docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.comments) setComments(data.comments);
+          if (data.mainRepostCount !== undefined) setMainRepostCount(data.mainRepostCount);
+          if (data.globalReaction !== undefined) setReaction(data.globalReaction);
+        } else {
+          // Initial mock comments if none exist in Firestore
+          setComments([
+            { id: '1', name: 'Alex M.', text: 'This looks amazing! Can\'t wait to try it out.', replies: [] },
+            { id: '2', name: 'Sarah J.', text: 'Really impressive integration of agents here.', replies: [] },
+            { id: '3', name: 'David K.', text: 'The interface is incredibly smooth and responsive.', replies: [] }
+          ]);
+        }
+      },
+      (error) => {
+        // Fallback gracefully on permission denial
+        console.warn('Firestore social_engagements listener permission notice:', error.message);
         setComments([
           { id: '1', name: 'Alex M.', text: 'This looks amazing! Can\'t wait to try it out.', replies: [] },
           { id: '2', name: 'Sarah J.', text: 'Really impressive integration of agents here.', replies: [] },
           { id: '3', name: 'David K.', text: 'The interface is incredibly smooth and responsive.', replies: [] }
         ]);
       }
-    });
+    );
 
     const baseCount = platformName 
       ? platformName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 100 

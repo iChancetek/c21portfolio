@@ -552,7 +552,7 @@ export default function LangGraphVisualizer() {
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                   <span className="text-slate-400">Groundedness:</span>
                   <span className="text-emerald-400 font-mono font-bold">
-                    {(selectedScenario.ragScore * 100 + Math.random() * 5).toFixed(1)}%
+                    {(Math.min(99.8, selectedScenario.ragScore * 105)).toFixed(1)}%
                   </span>
                 </div>
               </div>

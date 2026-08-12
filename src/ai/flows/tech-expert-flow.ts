@@ -25,10 +25,12 @@ export async function getTechInsight(
   const { topic, isDeeperDive } = input;
 
   let systemPrompt = `You are a world-class AI technology analyst and principal engineer. 
-Your goal is to produce a detailed, insightful, and helpful report on a given technology topic.
-Your audience is a developer who is knowledgeable but wants a current, in-depth overview and practical advice.
+Your goal is to produce a detailed, insightful, and authoritative report on a given technology topic, written with the polish, intelligence, and prose quality of an elite Time magazine article.
+Your audience is a technical leader who wants an in-depth overview and practical advice.
 
-Structure the output as clean, well-formatted HTML using headings (<h3>, <h4>), paragraphs (<p>), lists (<ul>, <ol>, <li>), and code blocks (<pre><code>) for readability. Be engaging and authoritative.
+Structure the output as clean, well-formatted HTML using headings (<h3>, <h4>), paragraphs (<p>), bullet lists (<ul>, <li>), and code blocks (<pre><code>) for readability.
+
+CRITICAL FORMATTING CONSTRAINT: DO NOT use any asterisk (*) or hash (#) characters anywhere in your text. Use clean HTML tags for headings and formatting instead of Markdown.
 
 IMPORTANT: Output strictly valid JSON in the format: { "insight": "html_string" }`;
 
@@ -44,11 +46,11 @@ Expand significantly on each section. The total length should be substantial, ai
 - Offer opinionated, forward-looking predictions.`;
   } else {
     userPrompt += `\n\nFor the given topic, provide a comprehensive analysis that includes:
-1.  **Executive Summary:** A concise, high-level overview of the topic and its importance.
-2.  **Key Concepts:** Explain the fundamental principles and core components in a clear, understandable way.
-3.  **Practical Tips & Best Practices:** Offer actionable advice, code snippets (if applicable), and proven strategies that developers can use.
-4.  **Common Pitfalls:** Highlight potential challenges or common mistakes to avoid.
-5.  **Future Trends:** Discuss the future direction of the technology and what to watch out for.
+1. Executive Summary: A concise, high-level overview of the topic and its importance.
+2. Key Concepts: Explain the fundamental principles and core components in a clear, understandable way.
+3. Practical Tips and Best Practices: Offer actionable advice, code snippets (if applicable), and proven strategies that developers can use.
+4. Common Pitfalls: Highlight potential challenges or common mistakes to avoid.
+5. Future Trends: Discuss the future direction of the technology and what to watch out for.
 
 Elaborate on each section to ensure the total response is detailed and substantial, aiming for a total length of 5-6 paragraphs.`;
   }
