@@ -60,15 +60,15 @@ interface ExecutionScenario {
 // ─── Graph Data ──────────────────────────────────────────────────────
 
 const NODES: GraphNode[] = [
-  { id: 'user',       label: 'User Query',             sublabel: 'Voice / Text',             icon: Mic,          color: 'slate',   x: 50,  y: 2 },
-  { id: 'supervisor', label: 'Supervisor Agent',        sublabel: 'iSynera StateGraph',       icon: Network,      color: 'cyan',    x: 50,  y: 20 },
-  { id: 'pinecone',   label: 'Pinecone RAG',            sublabel: '512D Vector Index',        icon: Database,     color: 'purple',  x: 15,  y: 42 },
-  { id: 'firestore',  label: 'Firestore Memory',        sublabel: 'Thread Recall',            icon: Search,       color: 'blue',    x: 50,  y: 42 },
-  { id: 'mcp',        label: 'MCP Tool Gateway',        sublabel: 'JSON-RPC Bridge',          icon: Server,       color: 'amber',   x: 85,  y: 42 },
-  { id: 'agents',     label: '9 Specialized Agents',    sublabel: 'Tool Node Execution',      icon: BrainCircuit, color: 'emerald', x: 50,  y: 64 },
-  { id: 'guardrails', label: 'Guardrails & Eval',       sublabel: 'Safety Verification',      icon: ShieldCheck,  color: 'rose',    x: 15,  y: 80 },
-  { id: 'voice',      label: 'Voice AI Engine',         sublabel: 'Whisper STT / TTS',        icon: Radio,        color: 'fuchsia', x: 85,  y: 80 },
-  { id: 'output',     label: 'Grounded Response',       sublabel: 'Verified Output',          icon: Sparkles,     color: 'cyan',    x: 50,  y: 95 },
+  { id: 'user',       label: 'User Query',             sublabel: 'Voice / Text Input',        icon: Mic,          color: 'slate',   x: 50,  y: 6 },
+  { id: 'supervisor', label: 'Supervisor Agent',        sublabel: 'iSynera StateGraph',       icon: Network,      color: 'cyan',    x: 50,  y: 24 },
+  { id: 'pinecone',   label: 'Pinecone RAG',            sublabel: '512D Vector Index',        icon: Database,     color: 'purple',  x: 18,  y: 44 },
+  { id: 'firestore',  label: 'Firestore Memory',        sublabel: 'Thread Recall',            icon: Search,       color: 'blue',    x: 50,  y: 44 },
+  { id: 'mcp',        label: 'MCP Tool Gateway',        sublabel: 'JSON-RPC Bridge',          icon: Server,       color: 'amber',   x: 82,  y: 44 },
+  { id: 'agents',     label: '9 Specialized Agents',    sublabel: 'Tool Node Execution',      icon: BrainCircuit, color: 'emerald', x: 50,  y: 65 },
+  { id: 'guardrails', label: 'Guardrails & Eval',       sublabel: 'Safety Verification',      icon: ShieldCheck,  color: 'rose',    x: 22,  y: 84 },
+  { id: 'voice',      label: 'Voice AI Engine',         sublabel: 'Whisper STT / TTS',        icon: Radio,        color: 'fuchsia', x: 78,  y: 84 },
+  { id: 'output',     label: 'Grounded Response',       sublabel: 'Verified Output',          icon: Sparkles,     color: 'cyan',    x: 50,  y: 98 },
 ];
 
 const EDGES: GraphEdge[] = [
@@ -172,9 +172,9 @@ function EdgeLine({ fromNode, toNode, isActive, beamProgress }: {
   beamProgress: number;  // 0..1 — position of glow dot along edge
 }) {
   const x1 = fromNode.x;
-  const y1 = fromNode.y + 3;
+  const y1 = fromNode.y + 5.5;
   const x2 = toNode.x;
-  const y2 = toNode.y - 1;
+  const y2 = toNode.y - 5.5;
 
   // Curved path via quadratic bezier
   const midY = (y1 + y2) / 2;
@@ -212,9 +212,6 @@ function GraphNodeElement({ node, isActive, isExecuting, onClick }: {
   isExecuting: boolean;
   onClick: () => void;
 }) {
-  const colors = colorMap[node.color] || colorMap.slate;
-  const Icon = node.icon;
-
   return (
     <g
       transform={`translate(${node.x}, ${node.y})`}
@@ -223,49 +220,97 @@ function GraphNodeElement({ node, isActive, isExecuting, onClick }: {
       role="button"
       tabIndex={0}
     >
-      {/* Glow ring on active */}
+      {/* Active glow background */}
       {isActive && (
-        <circle cx="0" cy="2" r="6" fill="none" stroke="rgba(56, 189, 248, 0.3)" strokeWidth="0.4">
-          <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2s" repeatCount="indefinite" />
-        </circle>
+        <rect
+          x="-15"
+          y="-6"
+          width="30"
+          height="12"
+          rx="3"
+          fill="none"
+          stroke="rgba(56, 189, 248, 0.35)"
+          strokeWidth="0.4"
+        >
+          <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2s" repeatCount="indefinite" />
+        </rect>
       )}
 
       {/* Executing pulse */}
       {isExecuting && (
-        <circle cx="0" cy="2" r="4" fill="rgba(56, 189, 248, 0.15)">
-          <animate attributeName="r" values="4;8;4" dur="1s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.4;0;0.4" dur="1s" repeatCount="indefinite" />
-        </circle>
+        <rect
+          x="-15.5"
+          y="-6.5"
+          width="31"
+          height="13"
+          rx="3.5"
+          fill="rgba(56, 189, 248, 0.15)"
+          stroke="rgba(56, 189, 248, 0.6)"
+          strokeWidth="0.5"
+        >
+          <animate attributeName="opacity" values="0.8;0.1;0.8" dur="1s" repeatCount="indefinite" />
+        </rect>
       )}
 
-      {/* Node background */}
+      {/* Main Node Background Card */}
       <rect
-        x="-10"
-        y="-3.5"
-        width="20"
-        height="10"
-        rx="2"
-        fill={isActive ? 'rgba(15, 23, 42, 0.9)' : 'rgba(15, 23, 42, 0.6)'}
-        stroke={isActive ? 'rgba(56, 189, 248, 0.6)' : 'rgba(148, 163, 184, 0.15)'}
-        strokeWidth={isActive ? 0.5 : 0.3}
+        x="-14"
+        y="-5.5"
+        width="28"
+        height="11"
+        rx="2.5"
+        fill={isActive ? 'rgba(15, 23, 42, 0.95)' : 'rgba(15, 23, 42, 0.75)'}
+        stroke={isActive ? 'rgba(56, 189, 248, 0.7)' : 'rgba(148, 163, 184, 0.2)'}
+        strokeWidth={isActive ? 0.6 : 0.35}
         className="transition-all duration-300"
       />
 
-      {/* Icon circle */}
-      <circle cx="-5.5" cy="2" r="2.5" fill={isActive ? 'rgba(56, 189, 248, 0.2)' : 'rgba(148, 163, 184, 0.1)'} />
+      {/* Left Icon Badge */}
+      <rect
+        x="-12.5"
+        y="-4"
+        width="8"
+        height="8"
+        rx="2"
+        fill={isActive ? 'rgba(56, 189, 248, 0.25)' : 'rgba(148, 163, 184, 0.12)'}
+        stroke={isActive ? 'rgba(56, 189, 248, 0.4)' : 'rgba(148, 163, 184, 0.15)'}
+        strokeWidth="0.3"
+      />
 
-      {/* Labels */}
-      <text x="-1.5" y="1" fontSize="1.6" fontWeight="700" fill={isActive ? '#38bdf8' : '#e2e8f0'} textAnchor="start" className="select-none">
+      {/* Icon Symbol */}
+      <text
+        x="-8.5"
+        y="1.2"
+        fontSize="3.5"
+        textAnchor="middle"
+        fill={isActive ? '#38bdf8' : '#94a3b8'}
+        className="select-none font-bold"
+      >
+        ◆
+      </text>
+
+      {/* Node Title & Sublabel */}
+      <text
+        x="-3"
+        y="-1"
+        fontSize="1.3"
+        fontWeight="700"
+        fill={isActive ? '#38bdf8' : '#f8fafc'}
+        textAnchor="start"
+        className="select-none"
+      >
         {node.label}
       </text>
-      <text x="-1.5" y="3.8" fontSize="1.1" fill="#94a3b8" textAnchor="start" className="select-none">
+      <text
+        x="-3"
+        y="2.4"
+        fontSize="1.0"
+        fontWeight="500"
+        fill="#94a3b8"
+        textAnchor="start"
+        className="select-none"
+      >
         {node.sublabel}
-      </text>
-
-      {/* Icon placeholder marker */}
-      <text x="-5.5" y="3" fontSize="2.5" textAnchor="middle" fill={isActive ? '#38bdf8' : '#94a3b8'} className="select-none">
-        ◆
       </text>
     </g>
   );
@@ -447,7 +492,7 @@ export default function LangGraphVisualizer() {
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[300px] h-[200px] bg-cyan-500/5 blur-[80px] rounded-full pointer-events-none" />
         <div className="absolute bottom-1/4 left-1/4 w-[200px] h-[200px] bg-purple-500/5 blur-[80px] rounded-full pointer-events-none" />
 
-        <svg viewBox="0 0 100 100" className="w-full h-auto min-h-[380px] md:min-h-[420px]" preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 100 108" className="w-full h-auto min-h-[400px] md:min-h-[460px]" preserveAspectRatio="xMidYMid meet">
           {/* Edges */}
           {EDGES.map((edge) => {
             const fromNode = nodeMap.get(edge.from);

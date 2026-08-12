@@ -9,6 +9,9 @@ import { CheckCircle, Bot, Zap, Users, ShieldCheck, Workflow, BrainCircuit, Exte
 import Link from 'next/link';
 import ProductCard from "@/components/ProductCard";
 import FloatingAIAssistant from "@/components/FloatingAIAssistant";
+import IacBlueprintHub from "@/components/IacBlueprintHub";
+import FinOpsSimulator from "@/components/FinOpsSimulator";
+import McpPlayground from "@/components/McpPlayground";
 import Image from "next/image";
 import { motion } from 'framer-motion';
 
@@ -268,6 +271,20 @@ export default function AIAgentsPage() {
             </div>
         </div>
       </section>
+
+      {/* Enterprise Engineering Upgrades: IaC, FinOps & MCP */}
+      <section className="w-full">
+        <IacBlueprintHub />
+      </section>
+
+      <section className="w-full">
+        <FinOpsSimulator />
+      </section>
+
+      <section className="w-full">
+        <McpPlayground />
+      </section>
+
       <FloatingAIAssistant />
     </div>
   );
