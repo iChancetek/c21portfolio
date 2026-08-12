@@ -23,7 +23,7 @@ import { cn } from '@/lib/utils';
 const PRESET_QUESTIONS = [
   'What is Forward Deployed Engineering?',
   'How does an FDE engagement work?',
-  'What is the difference between advising and engineering?',
+  'What frontier AI models and LLMs does Chancellor deploy?',
   'What is Agentic AI and how does it act?',
   'What cloud technologies does Chancellor architect?',
   'What types of platforms can Chancellor build?'

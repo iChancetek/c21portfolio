@@ -43,6 +43,11 @@ export const FDE_KNOWLEDGE_BASE: FdeFaqItem[] = [
     category: 'Traditional vs FDE',
     question: 'What is the main difference between traditional consulting and FDE?',
     answer: 'Traditional consulting delivers strategy, roadmaps, assessments, and presentations. Forward Deployed Engineering delivers working production software. Chancellor connects strategic business understanding directly with hands-on technical execution, building intelligent solutions custom-tailored to the organization.'
+  },
+  {
+    category: 'Frontier AI Stack',
+    question: 'What AI and LLM models does Chancellor use during an FDE engagement?',
+    answer: 'Chancellor deploys both closed flagship models and open-weight frontier systems tailored to client requirements:\n\n• Closed Flagships: OpenAI GPT-5 & GPT-5.6 series (GPT-5.6 Sol for autonomous agentic workflows and GPT-5.6 Cyber), Anthropic Claude 5 / Fable series (Claude Fable 5 and Claude Opus 5 for code generation and reasoning), Google Gemini 3.5 series (Gemini 3.5 Pro for deep problem solving and Gemini 3.5 Flash for high-throughput API tasks), and xAI Grok 4.20 (multi-agent system with Harper and Benjamin sub-agents).\n\n• Open-Weight Frontier Models: DeepSeek V4 & DeepSeek-V4-Flash (cost-efficient reasoning), Moonshot AI Kimi K3 (multi-hour autonomous software engineering), Alibaba Qwen3.8 Max (multilingual benchmark leader), Meta Muse & Llama 4 series (Llama 4 Scout and Muse Spark/Glimmer), and NVIDIA Nemotron 3.5 Lightning (enterprise search, routing, and tool-use).'
   }
 ];
 
