@@ -175,11 +175,23 @@ export default function AIAssistant() {
     const searchInput = input;
     setInput('');
 
-    const { answer } = await handleSearch(searchInput);
-    const assistantMessage: Message = { role: 'assistant', content: answer || t('noProductsFound', { searchQuery: searchInput }) };
-    
-    setMessages((prev) => [...prev, assistantMessage]);
-    setIsLoading(false);
+    try {
+      const result = await handleSearch(searchInput);
+      const assistantMessage: Message = { 
+        role: 'assistant', 
+        content: result?.answer || t('noProductsFound', { searchQuery: searchInput }) 
+      };
+      setMessages((prev) => [...prev, assistantMessage]);
+    } catch (err) {
+      console.error("AI Assistant search error:", err);
+      const fallbackMessage: Message = {
+        role: 'assistant',
+        content: "I encountered a brief connection issue. Please feel free to ask again or browse the projects directly!"
+      };
+      setMessages((prev) => [...prev, fallbackMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const getAudioIcon = (messageKey: string) => {

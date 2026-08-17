@@ -648,12 +648,26 @@ export default function LandingPage() {
     setSearchQuery(currentQuery);
     
     startSearchTransition(async () => {
-      const result = await handleSearch(currentQuery);
-      if (result.navPath) {
-          router.push(result.navPath);
-      } else {
-          setProducts(result.products);
-          setAnswer(result.answer);
+      try {
+        const result = await handleSearch(currentQuery);
+        if (result?.navPath) {
+            router.push(result.navPath);
+        } else {
+            setProducts(result?.products || []);
+            setAnswer(result?.answer || '');
+        }
+      } catch (err) {
+        console.error("Search action failed, using local search fallback:", err);
+        const lower = currentQuery.toLowerCase();
+        const fallbackMatches = allVentures.filter(
+          v => v.name.toLowerCase().includes(lower) || v.description.toLowerCase().includes(lower)
+        );
+        setProducts(fallbackMatches);
+        setAnswer(
+          fallbackMatches.length > 0
+            ? `Showing matching projects for "${currentQuery}".`
+            : undefined
+        );
       }
     });
   };
@@ -704,7 +718,7 @@ export default function LandingPage() {
           </Button>
         </motion.form>
       </motion.div>
-      <div className="w-full mt-16">
+      <div className="w-full mt-16 pointer-events-auto">
         <SearchResults products={products} searchQuery={searchQuery} isSearching={isSearching} answer={answer} />
       </div>
 

@@ -240,12 +240,18 @@ export async function handleSearch(query: string): Promise<{
         
         console.log('Calling AI assistant with context length:', context.length);
         
-        // Call AI assistant
-        const finalAnswer = await aiPortfolioAssistant({ query, context });
+        // Call AI assistant with timeout protection
+        const timeoutPromise = new Promise<{ answer: string }>((_, reject) =>
+            setTimeout(() => reject(new Error('AI Assistant response timeout')), 14000)
+        );
+        const finalAnswer = await Promise.race([
+            aiPortfolioAssistant({ query, context }),
+            timeoutPromise
+        ]);
         
         return { 
           products: Array.from(relevantProducts), 
-          answer: finalAnswer.answer 
+          answer: finalAnswer?.answer || "Here are the matching ventures from Chancellor's portfolio." 
         };
         
     } catch (error) {

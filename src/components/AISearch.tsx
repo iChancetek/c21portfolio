@@ -15,20 +15,20 @@ interface AISearchProps {
 export default function AISearch({ onSearch, initialQuery = '', isSearching }: AISearchProps) {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
 
-  const performSearch = (formData: FormData) => {
-    const query = formData.get('query') as string;
-    onSearch(query);
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSearch(searchQuery.trim());
   };
 
   return (
-    <form action={performSearch} className="w-full flex gap-2 items-center">
+    <form onSubmit={handleFormSubmit} className="w-full flex gap-2 items-center">
       <Input
         type="text"
         name="query"
         placeholder="e.g., 'Healthcare automation' or 'list all'"
         className="flex-grow bg-black/20 backdrop-blur-sm border-white/10 h-12 text-base"
+        value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        defaultValue={initialQuery}
       />
       <Button type="submit" size="lg" disabled={isSearching}>
         {isSearching ? (

@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star, Bot, FileText, ChevronDown, Activity, Stethoscope, Users, Sparkles, CreditCard, Cpu } from 'lucide-react';
+import { Code, Menu, User, LogOut, Briefcase, LayoutDashboard, Shield, Heart, Settings as SettingsIcon, Star, Bot, FileText, ChevronDown, ChevronUp, ChevronRight, Activity, Stethoscope, Users, Sparkles, CreditCard, Cpu } from 'lucide-react';
 import { Button } from './ui/button';
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
@@ -30,6 +30,7 @@ import { useLocale } from '@/hooks/useLocale';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isFeaturedPlatformsOpen, setIsFeaturedPlatformsOpen] = useState(false);
   const { user, isUserLoading } = useUser();
   const { isAdmin } = useAdmin();
   const auth = useAuth();
@@ -337,80 +338,165 @@ export default function Header() {
                 <span className="sr-only">Open Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
-              <SheetHeader>
+            <SheetContent side="right" className="w-[88vw] sm:max-w-sm p-0 flex flex-col max-h-[100dvh] h-[100dvh] bg-background/95 backdrop-blur-xl border-l border-border/40">
+              <SheetHeader className="p-6 pb-2 border-b border-border/20 text-left">
                 <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-              </SheetHeader>
-              <div className="p-4">
-                <Link href="/" className="mb-8 flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
-                  <img src="/logo-wide.png" alt="Chancellor Minus Logo" className="h-14 w-auto rounded-md" />
+                <Link href="/" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
+                  <img src="/logo-wide.png" alt="Chancellor Minus Logo" className="h-12 w-auto rounded-md" />
                 </Link>
-                <nav className="flex flex-col gap-6 text-lg">
-                    <div className="flex flex-col gap-4">
-                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Production</span>
-                      <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
+              </SheetHeader>
+              <div className="flex-1 overflow-y-auto px-6 py-6 pb-24 space-y-6 overscroll-contain">
+                <nav className="flex flex-col gap-6 text-base">
+                    {/* Production Section */}
+                    <div className="flex flex-col gap-3">
+                      <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                        <Briefcase className="h-3.5 w-3.5" /> Production
+                      </span>
+                      <div className="flex flex-col gap-3 pl-3 border-l-2 border-primary/20">
                         <NavLink href="/products" isProjectLink>{t('products')}</NavLink>
-                        <NavLink href="/ai-agents" isProjectLink>AI Agents</NavLink>
-                        <div className="flex flex-col gap-4 mt-2">
-                          <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Featured Platforms</span>
-                          <a href="https://chancellorhr.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            <Users className="h-4 w-4 text-primary" /> ChancellorHR
-                          </a>
-                          <a href="https://EliteBooks.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            <CreditCard className="h-4 w-4 text-primary" /> EliteBooks
-                          </a>
-                          <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            <LayoutDashboard className="h-4 w-4 text-primary" /> Chancellor
-                          </a>
-                          <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            <Sparkles className="h-4 w-4 text-primary" /> iCareOS Premium
-                          </a>
-                          <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            <Activity className="h-4 w-4 text-primary" /> StrideIQ
-                          </a>
-                          <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            <Stethoscope className="h-4 w-4 text-primary" /> iCareOS
-                          </a>
-                          <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            <Users className="h-4 w-4 text-primary" /> Famio
-                          </a>
-                          <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            <Sparkles className="h-4 w-4 text-primary" /> Evolvable
-                          </a>
-                          <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            <Sparkles className="h-4 w-4 text-primary" /> WorkSpaceIQ
-                          </a>
+                        <NavLink href="/forward-deployed-engineer" isProjectLink>
+                          <span className="text-cyan-400 font-bold flex items-center gap-1.5">
+                            <Cpu className="h-4 w-4" /> Forward Deployed Engineer
+                          </span>
+                        </NavLink>
+                        <NavLink href="/ai-agents" isProjectLink>
+                          <span className="flex items-center gap-1.5">
+                            <Bot className="h-4 w-4" /> AI Agents
+                          </span>
+                        </NavLink>
+                        <NavLink href="/#iac-blueprint-hub" isProjectLink>
+                          <span className="text-cyan-400 flex items-center gap-1.5">
+                            <Code className="h-4 w-4" /> Cloud IaC Hub
+                          </span>
+                        </NavLink>
+                        <NavLink href="/#finops-simulator" isProjectLink>
+                          <span className="text-emerald-400 flex items-center gap-1.5">
+                            <Activity className="h-4 w-4" /> FinOps Simulator
+                          </span>
+                        </NavLink>
+                        <NavLink href="/#mcp-playground" isProjectLink>
+                          <span className="text-amber-400 flex items-center gap-1.5">
+                            <Bot className="h-4 w-4" /> MCP Playground
+                          </span>
+                        </NavLink>
+
+                        {/* Collapsible Featured Platforms */}
+                        <div className="mt-1">
+                          <button
+                            type="button"
+                            onClick={() => setIsFeaturedPlatformsOpen(!isFeaturedPlatformsOpen)}
+                            className="flex items-center justify-between w-full py-1.5 text-xs font-bold text-primary hover:text-primary/80 uppercase tracking-wider transition-colors"
+                          >
+                            <span className="flex items-center gap-1.5">
+                              <Star className="h-3.5 w-3.5" /> Featured Platforms (9)
+                            </span>
+                            {isFeaturedPlatformsOpen ? (
+                              <ChevronUp className="h-3.5 w-3.5" />
+                            ) : (
+                              <ChevronDown className="h-3.5 w-3.5" />
+                            )}
+                          </button>
+
+                          {isFeaturedPlatformsOpen && (
+                            <div className="flex flex-col gap-2.5 mt-2 pl-2 border-l border-primary/30">
+                              <a href="https://chancellorhr.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                <Users className="h-3.5 w-3.5 text-primary" /> ChancellorHR
+                              </a>
+                              <a href="https://EliteBooks.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-bold text-primary hover:text-primary/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                <CreditCard className="h-3.5 w-3.5 text-primary" /> EliteBooks
+                              </a>
+                              <a href="https://chancellor--ichancellor.us-east4.hosted.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                <LayoutDashboard className="h-3.5 w-3.5 text-primary" /> Chancellor
+                              </a>
+                              <a href="https://icareos.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                <Sparkles className="h-3.5 w-3.5 text-primary" /> iCareOS Premium
+                              </a>
+                              <a href="https://StrideIQ.fit/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                <Activity className="h-3.5 w-3.5 text-primary" /> StrideIQ
+                              </a>
+                              <a href="https://iCareOS.tech/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                <Stethoscope className="h-3.5 w-3.5 text-primary" /> iCareOS
+                              </a>
+                              <a href="https://Famio.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                <Users className="h-3.5 w-3.5 text-primary" /> Famio
+                              </a>
+                              <a href="https://eVolvable.us/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                <Sparkles className="h-3.5 w-3.5 text-primary" /> Evolvable
+                              </a>
+                              <a href="https://WorkSpaceIQ.us" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                <Sparkles className="h-3.5 w-3.5 text-primary" /> WorkSpaceIQ
+                              </a>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-4">
-                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">{t('skills')}</span>
-                      <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
+
+                    {/* Skills & Experience Section */}
+                    <div className="flex flex-col gap-3">
+                      <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                        <Code className="h-3.5 w-3.5" /> {t('skills')}
+                      </span>
+                      <div className="flex flex-col gap-3 pl-3 border-l-2 border-primary/20">
                         <NavLink href="/products#skills" isProjectLink>{t('skills')}</NavLink>
-                        <NavLink href="/resume" isProjectLink>Resume</NavLink>
-                        <NavLink href="/cv" isProjectLink>CV</NavLink>
+                        <NavLink href="/resume" isProjectLink>
+                          <span className="flex items-center gap-1.5">
+                            <FileText className="h-4 w-4" /> Resume
+                          </span>
+                        </NavLink>
+                        <NavLink href="/cv" isProjectLink>
+                          <span className="flex items-center gap-1.5">
+                            <FileText className="h-4 w-4" /> CV
+                          </span>
+                        </NavLink>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-4">
-                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">{t('healthyLiving')}</span>
-                      <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
-                        <NavLink href="/healthy-living" isProjectLink>{t('healthyLiving')}</NavLink>
-                        <NavLink href="/affirmations" isProjectLink>{t('affirmations')}</NavLink>
-                        <NavLink href="/dashboard" isProjectLink>{t('techInsight')}</NavLink>
+
+                    {/* Healthy Living & Affirmations Section */}
+                    <div className="flex flex-col gap-3">
+                      <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                        <Heart className="h-3.5 w-3.5" /> {t('healthyLiving')}
+                      </span>
+                      <div className="flex flex-col gap-3 pl-3 border-l-2 border-primary/20">
+                        <NavLink href="/healthy-living" isProjectLink>
+                          <span className="flex items-center gap-1.5">
+                            <Heart className="h-4 w-4 text-pink-400" /> {t('healthyLiving')}
+                          </span>
+                        </NavLink>
+                        <NavLink href="/affirmations" isProjectLink>
+                          <span className="flex items-center gap-1.5 text-primary font-bold">
+                            <Sparkles className="h-4 w-4 text-amber-400" /> {t('affirmations')}
+                          </span>
+                        </NavLink>
+                        <NavLink href="/dashboard" isProjectLink>
+                          <span className="flex items-center gap-1.5">
+                            <LayoutDashboard className="h-4 w-4" /> {t('techInsight')}
+                          </span>
+                        </NavLink>
                       </div>
                     </div>
-                    <div className="flex flex-col gap-4">
-                      <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">About</span>
-                      <div className="flex flex-col gap-4 pl-4 border-l-2 border-primary/20">
+
+                    {/* About Section */}
+                    <div className="flex flex-col gap-3">
+                      <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                        <User className="h-3.5 w-3.5" /> About
+                      </span>
+                      <div className="flex flex-col gap-3 pl-3 border-l-2 border-primary/20">
                         <NavLink href="/about" isProjectLink>About Me</NavLink>
                         <NavLink href="/products#contact" isProjectLink>{t('contact')}</NavLink>
                       </div>
                     </div>
+
                     {isAdmin && (
-                        <NavLink href="/admin" isProjectLink>Admin</NavLink>
-                     )}
+                      <NavLink href="/admin" isProjectLink>
+                        <span className="flex items-center gap-1.5 text-amber-400">
+                          <Shield className="h-4 w-4" /> Admin
+                        </span>
+                      </NavLink>
+                    )}
                 </nav>
-                <div className="mt-8">
+
+                <div className="pt-4 border-t border-border/20">
                   <MobileAuthButtons />
                 </div>
               </div>

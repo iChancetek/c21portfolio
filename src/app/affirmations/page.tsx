@@ -76,9 +76,15 @@ export default function AffirmationsPage() {
     
     // Don't auto-play greeting speech unless it's the first visit in a session.
     if (isGreeting) {
-      const hasBeenGreeted = sessionStorage.getItem('affirmationGreeted');
-      if (hasBeenGreeted) return;
-      sessionStorage.setItem('affirmationGreeted', 'true');
+      try {
+        if (typeof window !== 'undefined' && window.sessionStorage) {
+          const hasBeenGreeted = sessionStorage.getItem('affirmationGreeted');
+          if (hasBeenGreeted) return;
+          sessionStorage.setItem('affirmationGreeted', 'true');
+        }
+      } catch (e) {
+        // Safe fallback for restricted storage environments
+      }
     }
 
     setAudioState('loading');
@@ -94,7 +100,7 @@ export default function AffirmationsPage() {
   useEffect(() => {
     const getGreeting = () => {
         const hour = new Date().getHours();
-        let timeOfDay;
+        let timeOfDay: string;
         if (hour >= 5 && hour < 12) {
             timeOfDay = 'morning';
         } else if (hour >= 12 && hour < 18) {
@@ -108,19 +114,16 @@ export default function AffirmationsPage() {
         const fullGreeting = `${greetingText} ${t('affirmationPrompt')}`;
         
         setGreeting(fullGreeting);
-        
-        // Speak the greeting
-        handleSpeak(fullGreeting, true);
     };
 
-    if(user) {
+    if (user) {
        getGreeting();
     } else {
        setGreeting(t('affirmationsDescription'));
        setAffirmation(t('affirmationsInitialText'));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, locale, t, handleSpeak]);
+  }, [user, locale, t]);
 
 
   const setAffirmation = useCallback((text: string) => {
@@ -150,7 +153,7 @@ export default function AffirmationsPage() {
         const history = pastInteractions?.map(i => ({ 
             affirmation: i.affirmation, 
             interaction: i.interaction, 
-            timestamp: i.timestamp.toDate().toISOString() 
+            timestamp: i.timestamp?.toDate ? i.timestamp.toDate().toISOString() : (typeof i.timestamp === 'string' ? i.timestamp : new Date().toISOString()) 
         })) || [];
         const result = await generateAffirmation({ locale, history });
         setAffirmation(result.affirmation);
